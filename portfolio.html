@@ -4,107 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>COI — Portfólio de Projetos</title>
-<style>
-  :root {
-    --azul-escuro: #1B3A6B; --azul-medio: #2E5FA3; --azul-claro: #DCE6F1;
-    --cinza-bg: #F4F6FA; --verde: #2E7D32; --amarelo: #F9A825;
-    --vermelho: #C62828; --laranja: #E65100; --roxo: #4A148C;
-    --branco: #FFFFFF; --texto: #1A1A2E; --borda: #D0D7E8;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Segoe UI',Arial,sans-serif; background:var(--cinza-bg); color:var(--texto); }
-
-  header {
-    background: linear-gradient(135deg,var(--azul-escuro) 0%,var(--azul-medio) 100%);
-    color:#fff; padding:18px 32px; display:flex; align-items:center;
-    justify-content:space-between; box-shadow:0 3px 12px rgba(0,0,0,.25);
-  }
-  .logo-box { width:52px;height:52px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900; }
-  .header-title h1 { font-size:1.45rem;font-weight:700; }
-  .header-title p { font-size:.78rem;opacity:.75;margin-top:2px; }
-  .logo-area { display:flex;align-items:center;gap:14px; }
-  .header-meta { text-align:right;font-size:.78rem;opacity:.75; }
-  .header-meta strong { display:block;font-size:.92rem;opacity:1; }
-
-  nav { background:var(--azul-escuro);display:flex;gap:2px;padding:0 24px;border-bottom:3px solid var(--azul-medio); }
-  nav a { color:rgba(255,255,255,.7);text-decoration:none;padding:10px 18px;font-size:.82rem;font-weight:500;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s; }
-  nav a:hover, nav a.active { color:#fff;border-bottom-color:#FFC107; }
-
-  main { max-width:1400px;margin:0 auto;padding:28px 24px; }
-  .section-title { font-size:1.05rem;font-weight:700;color:var(--azul-escuro);border-left:4px solid var(--azul-medio);padding-left:12px;margin:28px 0 16px; }
-
-  /* TABS */
-  .tabs { display:flex;gap:0;background:var(--branco);border-radius:12px 12px 0 0;box-shadow:0 2px 8px rgba(0,0,0,.07);overflow:hidden;flex-wrap:wrap; }
-  .tab-btn {
-    padding:12px 20px;font-size:.82rem;font-weight:600;cursor:pointer;
-    background:transparent;border:none;color:#555;border-bottom:3px solid transparent;
-    transition:all .2s;white-space:nowrap;
-  }
-  .tab-btn:hover { background:#F0F4FF;color:var(--azul-medio); }
-  .tab-btn.active { color:var(--azul-escuro);border-bottom-color:var(--azul-medio);background:#F8FAFF; }
-  .tab-content { background:var(--branco);border-radius:0 0 12px 12px;box-shadow:0 2px 8px rgba(0,0,0,.07);padding:22px;display:none; }
-  .tab-content.active { display:block; }
-
-  /* FILTERS */
-  .filters { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center; }
-  .filter-input {
-    padding:7px 12px;border:1px solid var(--borda);border-radius:8px;
-    font-size:.8rem;outline:none;background:#fff;
-  }
-  .filter-input:focus { border-color:var(--azul-medio); }
-  .btn-add {
-    padding:7px 16px;background:var(--azul-medio);color:#fff;border:none;
-    border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;margin-left:auto;
-  }
-  .btn-add:hover { background:var(--azul-escuro); }
-
-  /* TABLE */
-  .table-wrap { overflow-x:auto; }
-  table { width:100%;border-collapse:collapse;font-size:.81rem; }
-  th { background:var(--azul-escuro);color:#fff;padding:10px 12px;text-align:left;font-size:.77rem;font-weight:600;white-space:nowrap; }
-  td { padding:9px 12px;border-bottom:1px solid #EEF1F8;vertical-align:middle; }
-  tr:hover td { background:#F0F4FF; }
-  tr:last-child td { border-bottom:none; }
-  .badge { display:inline-block;padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:600; }
-  .badge-verde { background:#E8F5E9;color:#2E7D32; }
-  .badge-amarelo { background:#FFF8E1;color:#F9A825; }
-  .badge-vermelho { background:#FFEBEE;color:#C62828; }
-  .badge-azul { background:#E3F2FD;color:#1565C0; }
-  .badge-cinza { background:#ECEFF1;color:#455A64; }
-  .badge-roxo { background:#F3E5F5;color:#6A1B9A; }
-  .badge-laranja { background:#FFF3E0;color:#E65100; }
-
-  .progress-bar { background:#EEF1F8;border-radius:10px;height:7px;overflow:hidden;min-width:70px; }
-  .progress-fill { height:100%;border-radius:10px; }
-
-  /* FICHA LINK */
-  .proj-link { color:var(--azul-medio);font-weight:700;text-decoration:none; }
-  .proj-link:hover { text-decoration:underline; }
-
-  /* EMPTY STATE */
-  .empty-state { text-align:center;padding:40px;color:#888;font-size:.85rem; }
-  .empty-state .icon { font-size:2.5rem;margin-bottom:12px;display:block; }
-
-  /* FORM MODAL */
-  .modal-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center; }
-  .modal-overlay.open { display:flex; }
-  .modal { background:#fff;border-radius:16px;padding:28px;width:90%;max-width:700px;max-height:85vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.25); }
-  .modal h2 { font-size:1.05rem;color:var(--azul-escuro);margin-bottom:20px;font-weight:700; }
-  .form-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
-  .form-group { display:flex;flex-direction:column;gap:5px; }
-  .form-group.full { grid-column:1/-1; }
-  .form-group label { font-size:.75rem;font-weight:600;color:#444; }
-  .form-group input, .form-group select, .form-group textarea {
-    padding:8px 10px;border:1px solid #DDD;border-radius:7px;font-size:.82rem;outline:none;
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--azul-medio); }
-  .modal-actions { display:flex;gap:10px;justify-content:flex-end;margin-top:18px; }
-  .btn-cancel { padding:8px 18px;border:1px solid #DDD;border-radius:8px;font-size:.82rem;cursor:pointer;background:#fff; }
-  .btn-save { padding:8px 18px;background:var(--azul-medio);color:#fff;border:none;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer; }
-  .btn-save:hover { background:var(--azul-escuro); }
-
-  footer { text-align:center;font-size:.73rem;color:#888;padding:20px;border-top:1px solid #DDD;margin-top:24px; }
-</style>
+<link rel="stylesheet" href="assets/style.css">
+<script src="dados/projetos.js"></script>
 </head>
 <body>
 
@@ -122,43 +23,35 @@
   </div>
 </header>
 
-<nav>
+<nav id="nav-principal">
   <a href="index.html">Dashboard</a>
   <a href="portfolio.html" class="active">Portfólio</a>
-  <a href="projetos/ficha_COI001.html">COI-001 AURA</a>
-  <a href="projetos/ficha_COI002.html">COI-002 Calçadas</a>
-  <a href="projetos/ficha_COI003.html">COI-003 e-GDF</a>
-  <a href="projetos/ficha_COI004.html">COI-004 IA Telefonia</a>
-  <a href="projetos/ficha_COI005.html">COI-005 AIOps</a>
-  <a href="projetos/ficha_COI006.html">COI-006 WhatsApp</a>
-  <a href="projetos/ficha_COI007.html">COI-007 CITSmartX</a>
-  <a href="projetos/ficha_COI008.html">COI-008 Automação IA</a>
 </nav>
 
 <main>
   <div class="section-title">Portfólio de Projetos Estratégicos do COI</div>
 
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('projetos')">📁 Projetos</button>
-    <button class="tab-btn" onclick="switchTab('demandas')">📋 Demandas</button>
-    <button class="tab-btn" onclick="switchTab('melhorias')">🔧 Melhorias</button>
-    <button class="tab-btn" onclick="switchTab('riscos')">⚠️ Riscos</button>
-    <button class="tab-btn" onclick="switchTab('indicadores')">📊 Indicadores</button>
-    <button class="tab-btn" onclick="switchTab('cronograma')">📅 Cronograma</button>
-    <button class="tab-btn" onclick="switchTab('pendencias')">🔔 Pendências</button>
-    <button class="tab-btn" onclick="switchTab('decisoes')">⚖️ Decisões</button>
-    <button class="tab-btn" onclick="switchTab('entregas')">🚀 Próximas Entregas</button>
+  <div class="tabs" id="tabs-bar">
+    <button class="tab-btn active" data-tab="projetos">📁 Projetos</button>
+    <button class="tab-btn" data-tab="demandas">📋 Demandas</button>
+    <button class="tab-btn" data-tab="melhorias">🔧 Melhorias</button>
+    <button class="tab-btn" data-tab="riscos">⚠️ Riscos</button>
+    <button class="tab-btn" data-tab="indicadores">📊 Indicadores</button>
+    <button class="tab-btn" data-tab="cronograma">📅 Cronograma</button>
+    <button class="tab-btn" data-tab="pendencias">🔔 Pendências</button>
+    <button class="tab-btn" data-tab="decisoes">⚖️ Decisões</button>
+    <button class="tab-btn" data-tab="entregas">🚀 Próximas Entregas</button>
   </div>
 
   <!-- ABA PROJETOS -->
   <div class="tab-content active" id="tab-projetos">
     <div class="filters">
-      <input class="filter-input" placeholder="🔍 Buscar projeto..." oninput="filtrarTabela('tb-projetos',this.value)">
-      <select class="filter-input" onchange="filtrarPorColuna('tb-projetos',3,this.value)">
+      <input class="filter-input" id="busca-proj" placeholder="🔍 Buscar projeto..." oninput="filtrarTabela('tb-projetos', this.value)">
+      <select class="filter-input" id="filtro-prior" onchange="aplicarFiltros()">
         <option value="">Todas as prioridades</option>
         <option>P0</option><option>P1</option><option>P2</option><option>P3</option>
       </select>
-      <select class="filter-input" onchange="filtrarPorColuna('tb-projetos',4,this.value)">
+      <select class="filter-input" id="filtro-status" onchange="aplicarFiltros()">
         <option value="">Todos os status</option>
         <option>Planejamento</option><option>Em andamento</option>
         <option>Homologação</option><option>Produção</option>
@@ -189,9 +82,7 @@
         <th>ID</th><th>Título</th><th>Tipo</th><th>Projeto</th><th>Prioridade</th>
         <th>Status</th><th>Solicitante</th><th>Responsável COI</th><th>Prazo</th><th>Impacto</th>
       </tr></thead>
-      <tbody>
-        <tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span>Nenhuma demanda cadastrada. Utilize a base Excel <code>coi_base_dados.xlsx</code> (aba Demandas) para inserir registros.</div></td></tr>
-      </tbody></table>
+      <tbody><tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span>Nenhuma demanda cadastrada. Registre na aba Demandas da base Excel.</div></td></tr></tbody></table>
     </div>
   </div>
 
@@ -206,41 +97,28 @@
         <th>ID</th><th>Descrição</th><th>Projeto</th><th>Área</th><th>Prioridade</th>
         <th>Status</th><th>Responsável</th><th>Prazo</th><th>Ganho Esperado</th>
       </tr></thead>
-      <tbody>
-        <tr><td colspan="9"><div class="empty-state"><span class="icon">🔧</span>Nenhuma melhoria cadastrada. Utilize a aba <strong>Melhorias</strong> da base Excel.</div></td></tr>
-      </tbody></table>
+      <tbody><tr><td colspan="9"><div class="empty-state"><span class="icon">🔧</span>Nenhuma melhoria cadastrada.</div></td></tr></tbody></table>
     </div>
   </div>
 
   <!-- ABA RISCOS -->
   <div class="tab-content" id="tab-riscos">
     <div class="filters">
-      <input class="filter-input" placeholder="🔍 Buscar risco...">
+      <input class="filter-input" id="busca-risco" placeholder="🔍 Buscar risco..." oninput="filtrarTabela('tb-riscos', this.value)">
       <select class="filter-input">
         <option value="">Todos os níveis</option>
         <option>Crítico</option><option>Alto</option><option>Médio</option><option>Baixo</option>
       </select>
-      <button class="btn-add">+ Novo Risco</button>
+      <button class="btn-add" onclick="document.getElementById('modal-risco').classList.add('open')">+ Novo Risco</button>
     </div>
     <div class="table-wrap">
-      <table><thead><tr>
-        <th>ID</th><th>Projeto</th><th>Descrição</th><th>Probabilidade</th><th>Impacto</th>
-        <th>Nível</th><th>Status</th><th>Plano de Mitigação</th><th>Responsável</th><th>Prazo</th>
-      </tr></thead>
-      <tbody>
-        <tr>
-          <td>R-001</td><td>COI-004</td><td>Atraso na integração NLU com CITSmartX por falta de API estável</td>
-          <td><span class="badge badge-vermelho">Alta</span></td><td><span class="badge badge-vermelho">Alto</span></td>
-          <td><span class="badge badge-vermelho">Crítico</span></td><td><span class="badge badge-amarelo">Mitigando</span></td>
-          <td>Mapear endpoints alternativos e acionar fornecedor</td><td>—</td><td>—</td>
-        </tr>
-        <tr>
-          <td>R-002</td><td>COI-006</td><td>Aprovação da Meta para WhatsApp Oficial com prazo indefinido</td>
-          <td><span class="badge badge-amarelo">Média</span></td><td><span class="badge badge-vermelho">Alto</span></td>
-          <td><span class="badge badge-vermelho">Alto</span></td><td><span class="badge badge-amarelo">Mitigando</span></td>
-          <td>Contato direto com Gupshup para aceleração do processo junto à Meta</td><td>—</td><td>—</td>
-        </tr>
-      </tbody></table>
+      <table id="tb-riscos">
+        <thead><tr>
+          <th>ID</th><th>Projeto</th><th>Descrição</th><th>Probabilidade</th><th>Impacto</th>
+          <th>Nível</th><th>Status</th><th>Plano de Mitigação</th><th>Responsável</th>
+        </tr></thead>
+        <tbody id="tbody-riscos"></tbody>
+      </table>
     </div>
   </div>
 
@@ -255,9 +133,7 @@
         <th>ID</th><th>Indicador</th><th>Projeto</th><th>Unidade</th><th>Meta</th>
         <th>Realizado</th><th>Variação</th><th>Período</th><th>Tendência</th><th>Semáforo</th>
       </tr></thead>
-      <tbody>
-        <tr><td colspan="10"><div class="empty-state"><span class="icon">📊</span>Indicadores serão populados a partir da aba <strong>Indicadores</strong> da base Excel.</div></td></tr>
-      </tbody></table>
+      <tbody><tr><td colspan="10"><div class="empty-state"><span class="icon">📊</span>Indicadores serão inseridos via base Excel (aba Indicadores).</div></td></tr></tbody></table>
     </div>
   </div>
 
@@ -270,11 +146,9 @@
     <div class="table-wrap">
       <table><thead><tr>
         <th>ID</th><th>Projeto</th><th>Marco / Entrega</th><th>Responsável</th>
-        <th>Data Prevista</th><th>Data Real</th><th>Status</th><th>% Conc.</th><th>Observações</th>
+        <th>Data Prevista</th><th>Data Real</th><th>Status</th><th>% Conc.</th>
       </tr></thead>
-      <tbody>
-        <tr><td colspan="9"><div class="empty-state"><span class="icon">📅</span>Marcos serão populados a partir da aba <strong>Cronograma</strong> da base Excel.</div></td></tr>
-      </tbody></table>
+      <tbody><tr><td colspan="8"><div class="empty-state"><span class="icon">📅</span>Marcos serão inseridos via base Excel (aba Cronograma).</div></td></tr></tbody></table>
     </div>
   </div>
 
@@ -289,9 +163,7 @@
         <th>ID</th><th>Projeto</th><th>Descrição</th><th>Tipo</th><th>Responsável</th>
         <th>Prazo</th><th>Status</th><th>Impacto se não resolvida</th>
       </tr></thead>
-      <tbody>
-        <tr><td colspan="8"><div class="empty-state"><span class="icon">🔔</span>Nenhuma pendência cadastrada. Utilize a aba <strong>Pendências</strong> da base Excel.</div></td></tr>
-      </tbody></table>
+      <tbody><tr><td colspan="8"><div class="empty-state"><span class="icon">🔔</span>Nenhuma pendência cadastrada.</div></td></tr></tbody></table>
     </div>
   </div>
 
@@ -306,9 +178,7 @@
         <th>ID</th><th>Projeto</th><th>Decisão Tomada</th><th>Data</th>
         <th>Responsável</th><th>Participantes</th><th>Impacto</th><th>Fonte</th>
       </tr></thead>
-      <tbody>
-        <tr><td colspan="8"><div class="empty-state"><span class="icon">⚖️</span>Nenhuma decisão registrada. Utilize a aba <strong>Decisões</strong> da base Excel.</div></td></tr>
-      </tbody></table>
+      <tbody><tr><td colspan="8"><div class="empty-state"><span class="icon">⚖️</span>Nenhuma decisão registrada.</div></td></tr></tbody></table>
     </div>
   </div>
 
@@ -323,160 +193,374 @@
         <th>ID</th><th>Projeto</th><th>Entrega / Marco</th><th>Responsável</th>
         <th>Prazo Previsto</th><th>Prioridade</th><th>Status</th><th>Risco de Atraso</th>
       </tr></thead>
-      <tbody>
-        <tr><td colspan="8"><div class="empty-state"><span class="icon">🚀</span>Próximas entregas serão populadas a partir da aba <strong>Próximas Entregas</strong> da base Excel.</div></td></tr>
-      </tbody></table>
+      <tbody><tr><td colspan="8"><div class="empty-state"><span class="icon">🚀</span>Próximas entregas serão inseridas via base Excel.</div></td></tr></tbody></table>
     </div>
   </div>
 </main>
 
 <!-- MODAL NOVO PROJETO -->
-<div class="modal-overlay" id="modal-projeto">
+<div class="modal-overlay" id="modal-projeto" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
   <div class="modal">
-    <h2>➕ Cadastrar Novo Projeto</h2>
+    <h2 id="modal-titulo">➕ Cadastrar Novo Projeto</h2>
     <div class="form-grid">
-      <div class="form-group"><label>ID do Projeto *</label><input type="text" placeholder="COI-009" id="f-id"></div>
-      <div class="form-group"><label>Classificação *</label>
+      <div class="form-group"><label for="f-id">ID do Projeto *</label><input type="text" id="f-id" placeholder="COI-009"></div>
+      <div class="form-group"><label for="f-class">Classificação *</label>
         <select id="f-class">
           <option>Estratégico</option><option>Operacional</option><option>Melhoria</option>
           <option>Incidente Relevante</option><option>Automação</option><option>Integração</option>
         </select>
       </div>
-      <div class="form-group full"><label>Nome do Projeto *</label><input type="text" placeholder="Nome oficial do projeto" id="f-nome"></div>
-      <div class="form-group full"><label>Objetivo</label><textarea rows="2" placeholder="Descreva o objetivo estratégico" id="f-objetivo"></textarea></div>
-      <div class="form-group"><label>Prioridade *</label>
-        <select id="f-prior"><option>P0</option><option>P1</option><option>P2</option><option>P3</option></select>
+      <div class="form-group full"><label for="f-nome">Nome do Projeto *</label><input type="text" id="f-nome" placeholder="Nome oficial do projeto"></div>
+      <div class="form-group full"><label for="f-objetivo">Objetivo</label><textarea id="f-objetivo" rows="2" placeholder="Descreva o objetivo estratégico"></textarea></div>
+      <div class="form-group"><label for="f-prior">Prioridade *</label>
+        <select id="f-prior"><option>P0</option><option>P1</option><option selected>P2</option><option>P3</option></select>
       </div>
-      <div class="form-group"><label>Status *</label>
+      <div class="form-group"><label for="f-status">Status *</label>
         <select id="f-status">
-          <option>Planejamento</option><option>Em andamento</option>
+          <option selected>Planejamento</option><option>Em andamento</option>
           <option>Homologação</option><option>Produção</option><option>Concluído</option><option>Suspenso</option>
         </select>
       </div>
-      <div class="form-group"><label>Fase Atual</label>
+      <div class="form-group"><label for="f-fase">Fase Atual</label>
         <select id="f-fase">
-          <option>Concepção</option><option>Planejamento</option><option>Execução</option>
+          <option>Concepção</option><option selected>Planejamento</option><option>Execução</option>
           <option>Homologação</option><option>Produção</option><option>Encerramento</option>
         </select>
       </div>
-      <div class="form-group"><label>% Conclusão</label><input type="number" min="0" max="100" placeholder="0" id="f-perc"></div>
-      <div class="form-group"><label>Patrocinador</label><input type="text" id="f-patr"></div>
-      <div class="form-group"><label>Responsável COI</label><input type="text" id="f-resp"></div>
-      <div class="form-group"><label>Cliente / Órgão</label><input type="text" id="f-orgao"></div>
-      <div class="form-group"><label>Sistema / Plataforma</label><input type="text" id="f-plat"></div>
-      <div class="form-group"><label>Data Início</label><input type="date" id="f-inicio"></div>
-      <div class="form-group"><label>Prazo Previsto</label><input type="date" id="f-prazo"></div>
-      <div class="form-group full"><label>Dependências</label><input type="text" placeholder="Projetos ou sistemas dependentes" id="f-dep"></div>
-      <div class="form-group full"><label>Benefício Esperado</label><textarea rows="2" id="f-benef"></textarea></div>
-      <div class="form-group"><label>Impacto Contratual</label>
+      <div class="form-group"><label for="f-perc">% Conclusão</label><input type="number" id="f-perc" min="0" max="100" value="0"></div>
+      <div class="form-group"><label for="f-patr">Patrocinador</label><input type="text" id="f-patr"></div>
+      <div class="form-group"><label for="f-resp">Responsável COI</label><input type="text" id="f-resp"></div>
+      <div class="form-group"><label for="f-orgao">Cliente / Órgão</label><input type="text" id="f-orgao"></div>
+      <div class="form-group"><label for="f-plat">Sistema / Plataforma</label><input type="text" id="f-plat"></div>
+      <div class="form-group"><label for="f-inicio">Data Início</label><input type="date" id="f-inicio"></div>
+      <div class="form-group"><label for="f-prazo">Prazo Previsto</label><input type="date" id="f-prazo"></div>
+      <div class="form-group full"><label for="f-dep">Dependências</label><input type="text" id="f-dep"></div>
+      <div class="form-group full"><label for="f-benef">Benefício Esperado</label><textarea id="f-benef" rows="2"></textarea></div>
+      <div class="form-group"><label for="f-contrato">Impacto Contratual</label>
         <select id="f-contrato"><option>Não</option><option>Sim</option></select>
       </div>
-      <div class="form-group"><label>Fonte da Informação</label>
+      <div class="form-group"><label for="f-fonte">Fonte da Informação</label>
         <select id="f-fonte">
           <option>Reunião</option><option>E-mail</option><option>Evidência Técnica</option>
           <option>Relatório</option><option>Painel</option><option>Solicitação Direta</option>
         </select>
       </div>
-      <div class="form-group full"><label>Observações Executivas</label><textarea rows="2" id="f-obs"></textarea></div>
+      <div class="form-group full"><label for="f-obs">Observações Executivas</label><textarea id="f-obs" rows="2"></textarea></div>
     </div>
     <div class="modal-actions">
-      <button class="btn-cancel" onclick="document.getElementById('modal-projeto').classList.remove('open')">Cancelar</button>
+      <button class="btn-cancel" onclick="fecharModal('modal-projeto')">Cancelar</button>
       <button class="btn-save" onclick="salvarProjeto()">Salvar Projeto</button>
     </div>
   </div>
 </div>
 
-<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.0 · Junho 2026</footer>
+<!-- MODAL NOVO RISCO -->
+<div class="modal-overlay" id="modal-risco" role="dialog" aria-modal="true" aria-labelledby="modal-risco-titulo">
+  <div class="modal">
+    <h2 id="modal-risco-titulo">⚠️ Cadastrar Novo Risco</h2>
+    <div class="form-grid">
+      <div class="form-group full"><label for="r-desc">Descrição do Risco *</label><textarea id="r-desc" rows="2" placeholder="Descreva o risco identificado"></textarea></div>
+      <div class="form-group"><label for="r-proj">Projeto Vinculado</label>
+        <select id="r-proj"></select>
+      </div>
+      <div class="form-group"><label for="r-prob">Probabilidade</label>
+        <select id="r-prob"><option>Alta</option><option selected>Média</option><option>Baixa</option></select>
+      </div>
+      <div class="form-group"><label for="r-imp">Impacto</label>
+        <select id="r-imp"><option>Alto</option><option selected>Médio</option><option>Baixo</option></select>
+      </div>
+      <div class="form-group"><label for="r-status">Status</label>
+        <select id="r-status"><option>Identificado</option><option>Mitigando</option><option>Aceito</option><option>Encerrado</option></select>
+      </div>
+      <div class="form-group full"><label for="r-mit">Plano de Mitigação</label><textarea id="r-mit" rows="2" placeholder="Descreva as ações de mitigação"></textarea></div>
+      <div class="form-group"><label for="r-resp">Responsável</label><input type="text" id="r-resp"></div>
+      <div class="form-group"><label for="r-prazo">Prazo de Mitigação</label><input type="date" id="r-prazo"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="fecharModal('modal-risco')">Cancelar</button>
+      <button class="btn-save" onclick="salvarRisco()">Salvar Risco</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.1</footer>
 
 <script>
+// ─── Helpers ────────────────────────────────────────────────────────
+function txt(val) { return String(val || '—'); }
+function priorBadge(p) { return p==='P0'?'badge-vermelho':p==='P1'?'badge-amarelo':'badge-azul'; }
+function statusBadge(s) {
+  return {'Em andamento':'badge-azul','Homologação':'badge-amarelo','Produção':'badge-verde',
+    'Concluído':'badge-verde','Planejamento':'badge-cinza','Suspenso':'badge-cinza'}[s]||'badge-cinza';
+}
+function percColor(n) { return n>=70?'#2E7D32':n>=40?'#F9A825':'#C62828'; }
+function idSlug(id) { return id.replace(/-/g,''); }
+function nivelRisco(prob, imp) {
+  if (prob==='Alta'  && imp==='Alto')  return {txt:'Crítico', cls:'badge-vermelho'};
+  if (prob==='Alta'  || imp==='Alto')  return {txt:'Alto',    cls:'badge-vermelho'};
+  if (prob==='Média' || imp==='Médio') return {txt:'Médio',   cls:'badge-amarelo'};
+  return {txt:'Baixo', cls:'badge-verde'};
+}
+
+function showToast(msg, erro=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (erro ? ' erro' : '');
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function fecharModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ─── Data ────────────────────────────────────────────────────────────
 document.getElementById('data-atual').textContent =
   new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-const PROJETOS = [
-  {id:'COI-001',nome:'Sistema de Disparo de Campanhas AURA',class:'Estratégico',prior:'P1',status:'Em andamento',fase:'Execução',plat:'AURA / Gupshup / WhatsApp / CITSmartX',perc:35,sem:'🟡',resp:'—',prazo:'—'},
-  {id:'COI-002',nome:'Painel Inteligente Portal do Cidadão – Gestão de Calçadas',class:'Estratégico',prior:'P1',status:'Em andamento',fase:'Execução',plat:'Portal do Cidadão / AIOps / Dashboard Web',perc:40,sem:'🟡',resp:'—',prazo:'—'},
-  {id:'COI-003',nome:'Evolução Aplicativo e-GDF',class:'Estratégico',prior:'P1',status:'Em andamento',fase:'Execução',plat:'Aplicativo e-GDF / Serviços Digitais',perc:50,sem:'🟢',resp:'—',prazo:'—'},
-  {id:'COI-004',nome:'IA para Telefonia e NLU',class:'Estratégico',prior:'P0',status:'Em andamento',fase:'Execução',plat:'Telefonia / URA / IA / NLU / CITSmartX',perc:30,sem:'🔴',resp:'—',prazo:'—'},
-  {id:'COI-005',nome:'Monitoramento AIOps',class:'Operacional',prior:'P1',status:'Em andamento',fase:'Execução',plat:'AIOps / Grafana / Prometheus / Monitoramento Web',perc:55,sem:'🟢',resp:'—',prazo:'—'},
-  {id:'COI-006',nome:'WhatsApp Oficial / Gupshup',class:'Estratégico',prior:'P0',status:'Homologação',fase:'Homologação',plat:'WhatsApp Oficial / Gupshup / Meta',perc:75,sem:'🟡',resp:'—',prazo:'—'},
-  {id:'COI-007',nome:'Integrações CITSmartX',class:'Integração',prior:'P1',status:'Em andamento',fase:'Execução',plat:'CITSmartX / APIs / Integrações',perc:45,sem:'🟢',resp:'—',prazo:'—'},
-  {id:'COI-008',nome:'Projetos de Automação e IA',class:'Automação',prior:'P2',status:'Planejamento',fase:'Planejamento',plat:'Automação / IA / RPA / Agentes Inteligentes',perc:10,sem:'🟢',resp:'—',prazo:'—'},
-];
+// ─── Nav dinâmica ────────────────────────────────────────────────────
+const nav = document.getElementById('nav-principal');
+COI_DATA.projetos.forEach(p => {
+  const a = document.createElement('a');
+  a.href = `projetos/ficha_${idSlug(p.id)}.html`;
+  a.textContent = p.id;
+  a.title = p.nome;
+  nav.appendChild(a);
+});
 
-function renderProjetos(data) {
-  const tb = document.getElementById('tbody-projetos');
-  tb.innerHTML = '';
-  data.forEach(p => {
-    const pc = p.prior==='P0'?'badge-vermelho':p.prior==='P1'?'badge-amarelo':'badge-azul';
-    const sc = p.status==='Em andamento'?'badge-azul':p.status==='Homologação'?'badge-amarelo':p.status==='Planejamento'?'badge-cinza':p.status==='Concluído'?'badge-verde':'badge-cinza';
-    const fc = p.perc>=70?'#2E7D32':p.perc>=40?'#F9A825':'#C62828';
-    const idSlug = p.id.replace('-','');
-    tb.innerHTML += `<tr>
-      <td><strong>${p.id}</strong></td>
-      <td style="max-width:220px;">${p.nome}</td>
-      <td><span class="badge badge-cinza" style="font-size:.68rem">${p.class}</span></td>
-      <td><span class="badge ${pc}">${p.prior}</span></td>
-      <td><span class="badge ${sc}">${p.status}</span></td>
-      <td>${p.fase}</td>
-      <td style="font-size:.75rem;max-width:160px;">${p.plat}</td>
-      <td>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="progress-bar"><div class="progress-fill" style="width:${p.perc}%;background:${fc}"></div></div>
-          <span style="font-size:.76rem;font-weight:700;color:${fc}">${p.perc}%</span>
-        </div>
-      </td>
-      <td style="font-size:1.1rem">${p.sem}</td>
-      <td>${p.resp}</td>
-      <td>${p.prazo}</td>
-      <td><a class="proj-link" href="projetos/ficha_${idSlug}.html">Ver ficha</a></td>
-    </tr>`;
+// ─── Tabs ────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    // Salva tab ativa
+    localStorage.setItem('coi_portfolio_tab', btn.dataset.tab);
   });
+});
+// Restaura tab salva
+const savedTab = localStorage.getItem('coi_portfolio_tab');
+if (savedTab) {
+  const btn = document.querySelector(`[data-tab="${savedTab}"]`);
+  if (btn) btn.click();
 }
 
-renderProjetos(PROJETOS);
-
-function switchTab(id) {
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', b.textContent.toLowerCase().includes(id.substring(0,4).toLowerCase()) || (id==='entregas' && b.textContent.includes('Entregas'))));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b => {
-    const map = {projetos:'Projetos',demandas:'Demandas',melhorias:'Melhorias',riscos:'Riscos',indicadores:'Indicadores',cronograma:'Cronograma',pendencias:'Pendências',decisoes:'Decisões',entregas:'Entregas'};
-    b.classList.toggle('active', b.textContent.includes(map[id]));
-  });
-}
-
+// ─── Filtros ─────────────────────────────────────────────────────────
 function filtrarTabela(tbId, q) {
-  const tb = document.getElementById(tbId);
-  Array.from(tb.tBodies[0].rows).forEach(r => {
+  document.querySelectorAll(`#${tbId} tbody tr`).forEach(r => {
     r.style.display = r.textContent.toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
   });
 }
-
-function filtrarPorColuna(tbId, col, val) {
-  const tb = document.getElementById(tbId);
-  Array.from(tb.tBodies[0].rows).forEach(r => {
-    r.style.display = (!val || r.cells[col]?.textContent.trim() === val) ? '' : 'none';
+function aplicarFiltros() {
+  const prior  = document.getElementById('filtro-prior').value;
+  const status = document.getElementById('filtro-status').value;
+  const busca  = document.getElementById('busca-proj').value.toLowerCase();
+  document.querySelectorAll('#tb-projetos tbody tr').forEach(r => {
+    const txt = r.textContent.toLowerCase();
+    const ok = (!busca || txt.includes(busca))
+            && (!prior  || r.dataset.prior  === prior)
+            && (!status || r.dataset.status === status);
+    r.style.display = ok ? '' : 'none';
   });
 }
 
+// ─── Renderizar tabela de projetos ───────────────────────────────────
+function renderProjetos(lista) {
+  const tb = document.getElementById('tbody-projetos');
+  tb.innerHTML = '';
+  lista.forEach(p => {
+    const fc = percColor(p.percentual);
+    const tr = document.createElement('tr');
+    tr.dataset.prior  = p.prioridade;
+    tr.dataset.status = p.status;
+
+    function td(content, isHTML=false) {
+      const el = document.createElement('td');
+      if (isHTML) el.innerHTML = content; else el.textContent = content;
+      return el;
+    }
+
+    const linkTd = document.createElement('td');
+    const link   = document.createElement('a');
+    link.href = `projetos/ficha_${idSlug(p.id)}.html`;
+    link.className = 'proj-link';
+    link.textContent = p.id;
+    linkTd.appendChild(link);
+
+    const nomeTd = document.createElement('td');
+    nomeTd.style.maxWidth = '220px';
+    nomeTd.textContent = p.nome;
+
+    const clBadge = document.createElement('span');
+    clBadge.className = 'badge badge-cinza';
+    clBadge.style.fontSize = '.68rem';
+    clBadge.textContent = p.classificacao;
+    const clTd = document.createElement('td');
+    clTd.appendChild(clBadge);
+
+    const prBadge = document.createElement('span');
+    prBadge.className = `badge ${priorBadge(p.prioridade)}`;
+    prBadge.textContent = p.prioridade;
+    const prTd = document.createElement('td');
+    prTd.appendChild(prBadge);
+
+    const stBadge = document.createElement('span');
+    stBadge.className = `badge ${statusBadge(p.status)}`;
+    stBadge.textContent = p.status;
+    const stTd = document.createElement('td');
+    stTd.appendChild(stBadge);
+
+    const percTd = document.createElement('td');
+    const bar = document.createElement('div');
+    bar.style.cssText = 'display:flex;align-items:center;gap:6px;';
+    bar.innerHTML = `<div class="progress-bar"><div class="progress-fill" style="width:${p.percentual}%;background:${fc}"></div></div>
+      <span style="font-size:.76rem;font-weight:700;color:${fc}">${p.percentual}%</span>`;
+    percTd.appendChild(bar);
+
+    const semTd = document.createElement('td');
+    semTd.style.fontSize = '1.1rem';
+    semTd.textContent = p.semaforo;
+
+    const respTd = document.createElement('td');
+    respTd.textContent = p.responsavel || '—';
+
+    const prazoTd = document.createElement('td');
+    prazoTd.textContent = p.prazoPrevisto || '—';
+
+    const fichaLink = document.createElement('a');
+    fichaLink.href = `projetos/ficha_${idSlug(p.id)}.html`;
+    fichaLink.className = 'proj-link';
+    fichaLink.textContent = 'Ver ficha';
+    const fichaTd = document.createElement('td');
+    fichaTd.appendChild(fichaLink);
+
+    tr.append(linkTd, nomeTd, clTd, prTd, stTd, percTd, semTd, respTd, prazoTd, fichaTd);
+    tb.appendChild(tr);
+  });
+}
+renderProjetos(COI_DATA.projetos);
+
+// ─── Renderizar riscos (localStorage) ───────────────────────────────
+function renderRiscos() {
+  const tb = document.getElementById('tbody-riscos');
+  const riscos = coiCarregarSecaoFicha('PORTFOLIO', 'riscos');
+  tb.innerHTML = '';
+  if (riscos.length === 0) {
+    tb.innerHTML = '<tr><td colspan="9"><div class="empty-state"><span class="icon">⚠️</span>Nenhum risco cadastrado.</div></td></tr>';
+    return;
+  }
+  riscos.forEach((r, i) => {
+    const nivel = nivelRisco(r.prob, r.imp);
+    const tr = document.createElement('tr');
+
+    const tdDesc  = document.createElement('td'); tdDesc.textContent  = r.desc;
+    const tdProj  = document.createElement('td'); tdProj.textContent  = r.projeto || '—';
+    const tdProb  = document.createElement('td'); tdProb.textContent  = r.prob;
+    const tdImp   = document.createElement('td'); tdImp.textContent   = r.imp;
+    const tdNivel = document.createElement('td');
+    const spanN   = document.createElement('span');
+    spanN.className = `badge ${nivel.cls}`;
+    spanN.textContent = nivel.txt;
+    tdNivel.appendChild(spanN);
+    const tdStatus = document.createElement('td');
+    const spanSt   = document.createElement('span');
+    spanSt.className = 'badge badge-amarelo';
+    spanSt.textContent = r.status || 'Identificado';
+    tdStatus.appendChild(spanSt);
+    const tdMit  = document.createElement('td'); tdMit.textContent  = r.mit || '—';
+    const tdResp = document.createElement('td'); tdResp.textContent = r.resp || '—';
+    const tdId   = document.createElement('td'); tdId.textContent   = `R-${String(i+1).padStart(3,'0')}`;
+
+    tr.append(tdId, tdProj, tdDesc, tdProb, tdImp, tdNivel, tdStatus, tdMit, tdResp);
+    tb.appendChild(tr);
+  });
+}
+renderRiscos();
+
+// ─── Popular select de projetos no modal de risco ────────────────────
+const selProj = document.getElementById('r-proj');
+COI_DATA.projetos.forEach(p => {
+  const opt = document.createElement('option');
+  opt.value = p.id;
+  opt.textContent = p.id + ' — ' + p.nome.substring(0,40);
+  selProj.appendChild(opt);
+});
+
+// ─── Salvar novo projeto ─────────────────────────────────────────────
 function salvarProjeto() {
-  const id = document.getElementById('f-id').value.trim();
+  const id   = document.getElementById('f-id').value.trim();
   const nome = document.getElementById('f-nome').value.trim();
-  if (!id || !nome) { alert('ID e Nome são obrigatórios.'); return; }
-  PROJETOS.push({
-    id, nome,
-    class: document.getElementById('f-class').value,
-    prior: document.getElementById('f-prior').value,
-    status: document.getElementById('f-status').value,
-    fase: document.getElementById('f-fase').value,
-    plat: document.getElementById('f-plat').value || '—',
-    perc: parseInt(document.getElementById('f-perc').value)||0,
-    sem: '🟡', resp: document.getElementById('f-resp').value||'—',
-    prazo: document.getElementById('f-prazo').value||'—'
-  });
-  renderProjetos(PROJETOS);
-  document.getElementById('modal-projeto').classList.remove('open');
+  if (!id || !nome) { showToast('ID e Nome são obrigatórios.', true); return; }
+  if (COI_DATA.projetos.find(p => p.id === id)) {
+    showToast(`ID ${id} já existe no portfólio.`, true); return;
+  }
+
+  const novo = {
+    id,
+    nome,
+    classificacao:   document.getElementById('f-class').value,
+    prioridade:      document.getElementById('f-prior').value,
+    status:          document.getElementById('f-status').value,
+    fase:            document.getElementById('f-fase').value,
+    percentual:      parseInt(document.getElementById('f-perc').value) || 0,
+    semaforo:        '🟡',
+    patrocinador:    document.getElementById('f-patr').value,
+    responsavel:     document.getElementById('f-resp').value,
+    orgao:           document.getElementById('f-orgao').value,
+    plataforma:      document.getElementById('f-plat').value,
+    dataInicio:      document.getElementById('f-inicio').value,
+    prazoPrevisto:   document.getElementById('f-prazo').value,
+    dependencias:    document.getElementById('f-dep').value,
+    beneficio:       document.getElementById('f-benef').value,
+    impactoContratual: document.getElementById('f-contrato').value,
+    fonteInformacao: document.getElementById('f-fonte').value,
+    observacoesExecutivas: document.getElementById('f-obs').value,
+    atualizadoEm:    new Date().toLocaleDateString('pt-BR')
+  };
+
+  COI_DATA.projetos.push(novo);
+  coiSalvarProjeto(novo);
+  renderProjetos(COI_DATA.projetos);
+  fecharModal('modal-projeto');
+  showToast(`Projeto ${id} cadastrado com sucesso.`);
 }
+
+// ─── Salvar novo risco ───────────────────────────────────────────────
+function salvarRisco() {
+  const desc = document.getElementById('r-desc').value.trim();
+  if (!desc) { showToast('Descrição do risco é obrigatória.', true); return; }
+
+  const risco = {
+    desc,
+    projeto: document.getElementById('r-proj').value,
+    prob:    document.getElementById('r-prob').value,
+    imp:     document.getElementById('r-imp').value,
+    status:  document.getElementById('r-status').value,
+    mit:     document.getElementById('r-mit').value,
+    resp:    document.getElementById('r-resp').value,
+    prazo:   document.getElementById('r-prazo').value
+  };
+
+  const riscos = coiCarregarSecaoFicha('PORTFOLIO', 'riscos');
+  riscos.push(risco);
+  coiSalvarSecaoFicha('PORTFOLIO', 'riscos', riscos);
+  renderRiscos();
+  fecharModal('modal-risco');
+  showToast('Risco cadastrado com sucesso.');
+}
+
+// ─── Fechar modal clicando no overlay ────────────────────────────────
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+// ─── Fechar modal com ESC ─────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+});
 </script>
 </body>
 </html>

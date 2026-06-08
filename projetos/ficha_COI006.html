@@ -4,134 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>COI — COI-006: WhatsApp Oficial / Gupshup</title>
-<style>
-  :root {
-    --azul-escuro:#1B3A6B;--azul-medio:#2E5FA3;--azul-claro:#DCE6F1;
-    --cinza-bg:#F4F6FA;--verde:#2E7D32;--amarelo:#F9A825;
-    --vermelho:#C62828;--laranja:#E65100;--roxo:#4A148C;
-    --branco:#FFFFFF;--texto:#1A1A2E;--borda:#D0D7E8;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--cinza-bg);color:var(--texto);}
-  header{background:linear-gradient(135deg,var(--azul-escuro) 0%,var(--azul-medio) 100%);color:#fff;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 3px 12px rgba(0,0,0,.25);}
-  .logo-box{width:48px;height:48px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;}
-  .logo-area{display:flex;align-items:center;gap:12px;}
-  .header-title h1{font-size:1.1rem;font-weight:700;}
-  .header-title p{font-size:.74rem;opacity:.75;margin-top:2px;}
-  .header-meta{text-align:right;font-size:.74rem;opacity:.75;}
-  .header-meta strong{display:block;font-size:.85rem;opacity:1;}
-  nav{background:var(--azul-escuro);display:flex;gap:2px;padding:0 20px;border-bottom:3px solid var(--azul-medio);flex-wrap:wrap;}
-  nav a{color:rgba(255,255,255,.7);text-decoration:none;padding:9px 14px;font-size:.78rem;font-weight:500;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s;}
-  nav a:hover,nav a.active{color:#fff;border-bottom-color:#FFC107;}
-  main{max-width:1200px;margin:0 auto;padding:24px 20px;}
-
-  /* HERO */
-  .hero{background:var(--branco);border-radius:14px;padding:24px 28px;box-shadow:0 2px 10px rgba(0,0,0,.08);margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
-  .hero-left h2{font-size:1.3rem;font-weight:800;color:var(--azul-escuro);margin-bottom:6px;}
-  .hero-left .hero-id{font-size:.8rem;color:#777;margin-bottom:12px;}
-  .hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-  .badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.74rem;font-weight:600;}
-  .badge-verde{background:#E8F5E9;color:#2E7D32;}
-  .badge-amarelo{background:#FFF8E1;color:#F9A825;}
-  .badge-vermelho{background:#FFEBEE;color:#C62828;}
-  .badge-azul{background:#E3F2FD;color:#1565C0;}
-  .badge-cinza{background:#ECEFF1;color:#455A64;}
-  .hero-plat{font-size:.78rem;color:#555;}
-  .hero-plat strong{color:var(--azul-escuro);}
-  .hero-right{text-align:center;min-width:140px;}
-  .perc-circle{width:110px;height:110px;border-radius:50%;background:conic-gradient(#F9A825 270deg,#EEF1F8 0deg);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;position:relative;}
-  .perc-inner{width:82px;height:82px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .perc-val{font-size:1.5rem;font-weight:800;color:#F9A825;}
-  .perc-label{font-size:.62rem;color:#777;font-weight:500;}
-  .semaforo-hero{font-size:2.2rem;margin-bottom:4px;}
-  .semaforo-label{font-size:.72rem;color:#777;}
-
-  /* GRID */
-  .section-title{font-size:.95rem;font-weight:700;color:var(--azul-escuro);border-left:4px solid var(--azul-medio);padding-left:10px;margin:24px 0 14px;}
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-  .block{background:var(--branco);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.07);}
-  .block h3{font-size:.85rem;font-weight:700;color:var(--azul-escuro);margin-bottom:14px;border-bottom:1px solid #EEF1F8;padding-bottom:8px;}
-  .field{display:flex;gap:8px;margin-bottom:10px;align-items:flex-start;}
-  .field-label{font-size:.74rem;font-weight:600;color:#555;min-width:130px;flex-shrink:0;}
-  .field-val{font-size:.78rem;color:var(--texto);}
-  .field-val.edit{background:#F8FAFF;border:1px solid #D0D7E8;border-radius:6px;padding:4px 8px;width:100%;outline:none;font-size:.78rem;}
-  .field-val.edit:focus{border-color:var(--azul-medio);}
-
-  /* TABLE */
-  .table-wrap{overflow-x:auto;}
-  table{width:100%;border-collapse:collapse;font-size:.79rem;}
-  th{background:var(--azul-escuro);color:#fff;padding:9px 12px;text-align:left;font-size:.75rem;font-weight:600;}
-  td{padding:8px 12px;border-bottom:1px solid #EEF1F8;vertical-align:middle;}
-  tr:hover td{background:#F8FAFF;}
-  tr:last-child td{border-bottom:none;}
-
-  /* PROGRESS */
-  .progress-bar{background:#EEF1F8;border-radius:10px;height:8px;overflow:hidden;margin-top:6px;}
-  .progress-fill{height:100%;border-radius:10px;background:#F9A825;}
-
-  /* EMPTY */
-  .empty{color:#999;font-size:.8rem;font-style:italic;padding:12px 0;}
-
-  /* EDIT MODE */
-  .btn-edit{padding:6px 14px;background:var(--azul-medio);color:#fff;border:none;border-radius:8px;font-size:.78rem;cursor:pointer;font-weight:600;}
-  .btn-edit:hover{background:var(--azul-escuro);}
-  .edit-bar{background:var(--azul-claro);border-radius:10px;padding:10px 16px;margin-bottom:16px;display:none;align-items:center;gap:12px;font-size:.8rem;color:var(--azul-escuro);font-weight:600;}
-  .edit-bar.show{display:flex;}
-  .btn-save{padding:6px 14px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:.78rem;cursor:pointer;font-weight:600;}
-
-  footer{text-align:center;font-size:.71rem;color:#888;padding:18px;border-top:1px solid #DDD;margin-top:20px;}
-</style>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../dados/projetos.js"></script>
 </head>
 <body>
+
 <header>
   <div class="logo-area">
     <div class="logo-box">COI</div>
     <div class="header-title">
-      <h1>COI-006 — WhatsApp Oficial / Gupshup</h1>
+      <h1 id="hdr-titulo">Ficha do Projeto</h1>
       <p>Ficha Individual do Projeto · Centro de Operações Integradas</p>
     </div>
   </div>
   <div class="header-meta"><strong id="data-atual"></strong>Governo do Distrito Federal</div>
 </header>
-<nav>
+
+<nav id="nav-principal">
   <a href="../index.html">Dashboard</a>
   <a href="../portfolio.html">Portfólio</a>
-  <a href="ficha_COI001.html">AURA</a>
-  <a href="ficha_COI002.html">Calçadas</a>
-  <a href="ficha_COI003.html">e-GDF</a>
-  <a href="ficha_COI004.html">IA Telefonia</a>
-  <a href="ficha_COI005.html">AIOps</a>
-  <a href="ficha_COI006.html">WhatsApp</a>
-  <a href="ficha_COI007.html">CITSmartX</a>
-  <a href="ficha_COI008.html">Automação IA</a>
 </nav>
+
 <main>
 
   <!-- HERO -->
-  <div class="hero">
+  <div class="hero" id="hero-bloco">
     <div class="hero-left">
-      <div class="hero-id">COI-006 · Atualizado em <span id="data-upd">—</span></div>
-      <h2>WhatsApp Oficial / Gupshup</h2>
-      <div class="hero-badges">
-        <span class="badge badge-vermelho">P0</span>
-        <span class="badge badge-amarelo">Homologação</span>
-        <span class="badge badge-cinza">Estratégico</span>
-        <span class="badge badge-azul">Homologação</span>
-      </div>
-      <div class="hero-plat"><strong>Plataforma:</strong> WhatsApp Oficial / Gupshup / Meta</div>
+      <div class="hero-id" id="hero-id-line"></div>
+      <h2 id="hero-nome">—</h2>
+      <div class="hero-badges" id="hero-badges"></div>
+      <div class="hero-plat" id="hero-plat"></div>
       <div style="margin-top:12px;">
         <div style="font-size:.74rem;color:#777;margin-bottom:4px;">Evolução do Projeto</div>
-        <div class="progress-bar" style="height:10px;"><div class="progress-fill" style="width:75%"></div></div>
-        <div style="font-size:.72rem;color:#777;margin-top:4px;">75% concluído</div>
+        <div class="progress-bar" style="height:10px;"><div class="progress-fill" id="hero-bar" style="width:0%"></div></div>
+        <div style="font-size:.72rem;color:#777;margin-top:4px;" id="hero-perc-txt"></div>
       </div>
     </div>
     <div class="hero-right">
-      <div class="semaforo-hero">🟡</div>
+      <div class="semaforo-hero" id="hero-sem">—</div>
       <div class="semaforo-label">Semáforo do Projeto</div>
-      <div class="perc-circle" style="margin-top:12px;">
+      <div class="perc-circle" id="hero-circle" style="margin-top:12px;">
         <div class="perc-inner">
-          <div class="perc-val">75%</div>
+          <div class="perc-val" id="hero-perc-val">—</div>
           <div class="perc-label">Conclusão</div>
         </div>
       </div>
@@ -140,7 +54,8 @@
 
   <div class="edit-bar" id="edit-bar">
     ✏️ Modo Edição Ativo — Preencha os campos e clique em Salvar
-    <button class="btn-save" onclick="desativarEdicao()">💾 Sair do Modo Edição</button>
+    <button class="btn-save" onclick="salvarEdicao()">💾 Salvar Alterações</button>
+    <button class="btn-cancel" onclick="cancelarEdicao()">✕ Cancelar</button>
   </div>
 
   <!-- BLOCO 1: IDENTIFICAÇÃO -->
@@ -148,19 +63,19 @@
   <div class="grid-2">
     <div class="block">
       <h3>Dados Gerais</h3>
-      <div class="field"><div class="field-label">Objetivo:</div><div class="field-val">Implantar o canal oficial de WhatsApp do GDF via plataforma Gupshup/Meta, habilitando comunicação oficial e automatizada com o cidadão.</div></div>
-      <div class="field"><div class="field-label">Classificação:</div><div class="field-val">Estratégico</div></div>
-      <div class="field"><div class="field-label">Patrocinador:</div><div class="field-val edit-field" data-field="patrocinador">—</div></div>
-      <div class="field"><div class="field-label">Cliente / Órgão:</div><div class="field-val edit-field" data-field="orgao">—</div></div>
-      <div class="field"><div class="field-label">Responsável COI:</div><div class="field-val edit-field" data-field="resp">—</div></div>
+      <div class="field"><div class="field-label">Objetivo:</div><div class="field-val" id="f-beneficio">—</div></div>
+      <div class="field"><div class="field-label">Classificação:</div><div class="field-val" id="f-class">—</div></div>
+      <div class="field"><div class="field-label">Patrocinador:</div><div class="field-val" id="f-patr" contenteditable="false"></div></div>
+      <div class="field"><div class="field-label">Cliente / Órgão:</div><div class="field-val" id="f-orgao" contenteditable="false"></div></div>
+      <div class="field"><div class="field-label">Responsável COI:</div><div class="field-val" id="f-resp" contenteditable="false"></div></div>
     </div>
     <div class="block">
       <h3>Informações de Gestão</h3>
-      <div class="field"><div class="field-label">Benefício Esperado:</div><div class="field-val">Canal oficial de comunicação digital de alta abrangência com o cidadão, reduzindo custos e aumentando alcance.</div></div>
-      <div class="field"><div class="field-label">Impacto Contratual:</div><div class="field-val">Sim</div></div>
-      <div class="field"><div class="field-label">Dependências:</div><div class="field-val">Meta (aprovação), Gupshup (plataforma), CITSmartX</div></div>
-      <div class="field"><div class="field-label">Fonte da Informação:</div><div class="field-val edit-field" data-field="fonte">—</div></div>
-      <div class="field"><div class="field-label">Obs. Executivas:</div><div class="field-val edit-field" data-field="obs-exec">—</div></div>
+      <div class="field"><div class="field-label">Dependências:</div><div class="field-val" id="f-dep">—</div></div>
+      <div class="field"><div class="field-label">Impacto Contratual:</div><div class="field-val" id="f-contrato">—</div></div>
+      <div class="field"><div class="field-label">Fonte da Informação:</div><div class="field-val" id="f-fonte" contenteditable="false"></div></div>
+      <div class="field"><div class="field-label">Obs. Executivas:</div><div class="field-val" id="f-obs" contenteditable="false"></div></div>
+      <button class="btn-edit" style="margin-top:10px;" id="btn-editar" onclick="ativarEdicao()">✏️ Editar Dados</button>
     </div>
   </div>
 
@@ -169,82 +84,82 @@
   <div class="grid-3">
     <div class="block" style="text-align:center;">
       <h3>Data de Início</h3>
-      <div style="font-size:1.6rem;font-weight:800;color:var(--azul-medio);margin:8px 0;" class="edit-field" data-field="dt-inicio">—</div>
+      <div style="font-size:1.5rem;font-weight:800;color:var(--azul-medio);margin:8px 0;" id="f-inicio">—</div>
       <div style="font-size:.72rem;color:#777;">Início formal do projeto</div>
     </div>
     <div class="block" style="text-align:center;">
       <h3>Prazo Previsto</h3>
-      <div style="font-size:1.6rem;font-weight:800;color:#F9A825;margin:8px 0;" class="edit-field" data-field="dt-prazo">—</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#F9A825;margin:8px 0;" id="f-prazo">—</div>
       <div style="font-size:.72rem;color:#777;">Data de entrega prevista</div>
     </div>
     <div class="block" style="text-align:center;">
       <h3>Última Atualização</h3>
-      <div style="font-size:1.6rem;font-weight:800;color:#777;margin:8px 0;" id="ultima-atualizacao">—</div>
+      <div style="font-size:1.5rem;font-weight:800;color:#777;margin:8px 0;" id="f-upd">—</div>
       <div style="font-size:.72rem;color:#777;">Data da última revisão</div>
     </div>
   </div>
 
-  <!-- BLOCO 3: ATIVIDADES REALIZADAS -->
+  <!-- BLOCO 3: ATIVIDADES -->
   <div class="section-title">3. Atividades Realizadas</div>
   <div class="block">
     <h3>Entregas Concluídas</h3>
-    <table id="tb-atividades">
-      <thead><tr><th>Data</th><th>Descrição da Atividade</th><th>Responsável</th><th>Evidência</th></tr></thead>
-      <tbody>
-        <tr><td colspan="4"><div class="empty">Nenhuma atividade registrada. Clique em "+ Adicionar" para incluir entregas realizadas.</div></td></tr>
-      </tbody>
-    </table>
-    <button class="btn-edit" style="margin-top:12px;" onclick="adicionarAtividade()">+ Adicionar Atividade</button>
+    <div class="table-wrap">
+      <table id="tb-atividades">
+        <thead><tr><th>Data</th><th>Descrição da Atividade</th><th>Responsável</th><th>Evidência</th></tr></thead>
+        <tbody id="tbody-atividades"></tbody>
+      </table>
+    </div>
+    <button class="btn-edit" style="margin-top:12px;" onclick="abrirModal('modal-atividade')">+ Adicionar Atividade</button>
   </div>
 
   <!-- BLOCO 4: PRÓXIMOS PASSOS -->
   <div class="section-title">4. Próximos Passos</div>
   <div class="block">
     <h3>Marcos Futuros</h3>
-    <table id="tb-passos">
-      <thead><tr><th>Marco / Entrega</th><th>Responsável</th><th>Data Prevista</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td colspan="4"><div class="empty">Nenhum marco cadastrado. Clique em "+ Adicionar" para incluir próximos passos.</div></td></tr>
-      </tbody>
-    </table>
-    <button class="btn-edit" style="margin-top:12px;" onclick="adicionarPasso()">+ Adicionar Marco</button>
+    <div class="table-wrap">
+      <table id="tb-passos">
+        <thead><tr><th>Marco / Entrega</th><th>Responsável</th><th>Data Prevista</th><th>Status</th></tr></thead>
+        <tbody id="tbody-passos"></tbody>
+      </table>
+    </div>
+    <button class="btn-edit" style="margin-top:12px;" onclick="abrirModal('modal-passo')">+ Adicionar Marco</button>
   </div>
 
-  <!-- BLOCO 5: DEMANDAS VINCULADAS -->
-  <div class="section-title">5. Demandas Vinculadas</div>
-  <div class="block">
-    <h3>Demandas e Melhorias do Projeto</h3>
-    <table>
-      <thead><tr><th>ID</th><th>Título</th><th>Tipo</th><th>Prioridade</th><th>Status</th><th>Responsável</th></tr></thead>
-      <tbody>
-        <tr><td colspan="6"><div class="empty">Nenhuma demanda vinculada. Registre na aba Demandas do portfólio.</div></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- BLOCO 6: RISCOS -->
-  <div class="section-title">6. Riscos do Projeto</div>
+  <!-- BLOCO 5: RISCOS -->
+  <div class="section-title">5. Riscos do Projeto</div>
   <div class="block">
     <h3>Matriz de Riscos</h3>
-    <table id="tb-riscos">
-      <thead><tr><th>Descrição do Risco</th><th>Probabilidade</th><th>Impacto</th><th>Nível</th><th>Status</th><th>Plano de Mitigação</th><th>Responsável</th></tr></thead>
-      <tbody>
-        <tr><td colspan="7"><div class="empty">Nenhum risco cadastrado. Clique em "+ Adicionar" para registrar riscos.</div></td></tr>
-      </tbody>
-    </table>
-    <button class="btn-edit" style="margin-top:12px;" onclick="adicionarRisco()">+ Adicionar Risco</button>
+    <div class="table-wrap">
+      <table id="tb-riscos">
+        <thead><tr><th>Descrição do Risco</th><th>Probabilidade</th><th>Impacto</th><th>Nível</th><th>Status</th><th>Plano de Mitigação</th><th>Responsável</th></tr></thead>
+        <tbody id="tbody-riscos"></tbody>
+      </table>
+    </div>
+    <button class="btn-edit" style="margin-top:12px;" onclick="abrirModal('modal-risco')">+ Adicionar Risco</button>
+  </div>
+
+  <!-- BLOCO 6: DEMANDAS -->
+  <div class="section-title">6. Demandas Vinculadas</div>
+  <div class="block">
+    <h3>Demandas e Melhorias do Projeto</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>Título</th><th>Tipo</th><th>Prioridade</th><th>Status</th><th>Responsável</th></tr></thead>
+        <tbody><tr><td colspan="6"><div class="empty-state"><span class="icon">📋</span>Nenhuma demanda vinculada. Registre na aba Demandas do portfólio.</div></td></tr></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- BLOCO 7: INDICADORES -->
   <div class="section-title">7. Indicadores do Projeto (KPIs)</div>
   <div class="block">
     <h3>Meta x Realizado</h3>
-    <table>
-      <thead><tr><th>Indicador</th><th>Unidade</th><th>Meta</th><th>Realizado</th><th>Variação</th><th>Tendência</th><th>Semáforo</th></tr></thead>
-      <tbody>
-        <tr><td colspan="7"><div class="empty">Nenhum indicador cadastrado. Registre na aba Indicadores do portfólio.</div></td></tr>
-      </tbody>
-    </table>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Indicador</th><th>Unidade</th><th>Meta</th><th>Realizado</th><th>Variação</th><th>Tendência</th><th>Semáforo</th></tr></thead>
+        <tbody><tr><td colspan="7"><div class="empty-state"><span class="icon">📊</span>Indicadores serão inseridos via base Excel (aba Indicadores).</div></td></tr></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- BLOCO 8: PENDÊNCIAS E DECISÕES -->
@@ -252,84 +167,396 @@
   <div class="grid-2">
     <div class="block">
       <h3>Pendências em Aberto</h3>
-      <table>
-        <thead><tr><th>Descrição</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td colspan="4"><div class="empty">Nenhuma pendência registrada.</div></td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table><thead><tr><th>Descrição</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead>
+        <tbody id="tbody-pendencias"></tbody></table>
+      </div>
+      <button class="btn-edit" style="margin-top:12px;" onclick="abrirModal('modal-pendencia')">+ Adicionar Pendência</button>
     </div>
     <div class="block">
       <h3>Decisões Registradas</h3>
-      <table>
-        <thead><tr><th>Decisão</th><th>Data</th><th>Responsável</th><th>Impacto</th></tr></thead>
-        <tbody>
-          <tr><td colspan="4"><div class="empty">Nenhuma decisão registrada.</div></td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table><thead><tr><th>Decisão</th><th>Data</th><th>Responsável</th><th>Impacto</th></tr></thead>
+        <tbody><tr><td colspan="4"><div class="empty-state"><span class="icon">⚖️</span>Nenhuma decisão registrada.</div></td></tr></tbody></table>
+      </div>
     </div>
-  </div>
-
-  <!-- BLOCO 9: OBSERVAÇÕES EXECUTIVAS -->
-  <div class="section-title">9. Observações Executivas</div>
-  <div class="block">
-    <h3>Campo Livre — Gestão e Diretoria</h3>
-    <div id="obs-executivas" style="font-size:.82rem;color:#555;min-height:60px;padding:8px;background:#F8FAFF;border-radius:8px;border:1px solid #EEF1F8;">
-      Nenhuma observação registrada para este ciclo. Utilize este campo para alertas, contextos estratégicos ou informações relevantes para a diretoria.
-    </div>
-    <button class="btn-edit" style="margin-top:10px;" onclick="editarObs()">✏️ Editar Observações</button>
   </div>
 
 </main>
-<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Ficha COI-006 · Painel Mestre v1.0</footer>
+
+<!-- MODAL ATIVIDADE -->
+<div class="modal-overlay" id="modal-atividade" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h2>➕ Registrar Atividade Realizada</h2>
+    <div class="form-grid">
+      <div class="form-group full"><label>Descrição da Atividade *</label><textarea id="atv-desc" rows="2" placeholder="Descreva a atividade concluída"></textarea></div>
+      <div class="form-group"><label>Responsável</label><input type="text" id="atv-resp"></div>
+      <div class="form-group"><label>Data</label><input type="date" id="atv-data"></div>
+      <div class="form-group full"><label>Evidência / Link</label><input type="text" id="atv-evid" placeholder="URL ou descrição da evidência"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="fecharModal('modal-atividade')">Cancelar</button>
+      <button class="btn-save" onclick="salvarAtividade()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PASSO -->
+<div class="modal-overlay" id="modal-passo" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h2>📅 Adicionar Marco / Próximo Passo</h2>
+    <div class="form-grid">
+      <div class="form-group full"><label>Marco / Entrega *</label><input type="text" id="pas-desc" placeholder="Descreva o próximo marco"></div>
+      <div class="form-group"><label>Responsável</label><input type="text" id="pas-resp"></div>
+      <div class="form-group"><label>Data Prevista</label><input type="date" id="pas-data"></div>
+      <div class="form-group"><label>Status</label>
+        <select id="pas-status"><option>Pendente</option><option>Em andamento</option><option>Concluído</option><option>Atrasado</option></select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="fecharModal('modal-passo')">Cancelar</button>
+      <button class="btn-save" onclick="salvarPasso()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RISCO -->
+<div class="modal-overlay" id="modal-risco" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h2>⚠️ Registrar Risco</h2>
+    <div class="form-grid">
+      <div class="form-group full"><label>Descrição do Risco *</label><textarea id="rsc-desc" rows="2" placeholder="Descreva o risco identificado"></textarea></div>
+      <div class="form-group"><label>Probabilidade</label>
+        <select id="rsc-prob"><option>Alta</option><option selected>Média</option><option>Baixa</option></select>
+      </div>
+      <div class="form-group"><label>Impacto</label>
+        <select id="rsc-imp"><option>Alto</option><option selected>Médio</option><option>Baixo</option></select>
+      </div>
+      <div class="form-group"><label>Status</label>
+        <select id="rsc-status"><option>Identificado</option><option>Mitigando</option><option>Aceito</option><option>Encerrado</option></select>
+      </div>
+      <div class="form-group full"><label>Plano de Mitigação</label><textarea id="rsc-mit" rows="2"></textarea></div>
+      <div class="form-group"><label>Responsável</label><input type="text" id="rsc-resp"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="fecharModal('modal-risco')">Cancelar</button>
+      <button class="btn-save" onclick="salvarRisco()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PENDÊNCIA -->
+<div class="modal-overlay" id="modal-pendencia" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h2>🔔 Registrar Pendência</h2>
+    <div class="form-grid">
+      <div class="form-group full"><label>Descrição *</label><textarea id="pend-desc" rows="2"></textarea></div>
+      <div class="form-group"><label>Responsável</label><input type="text" id="pend-resp"></div>
+      <div class="form-group"><label>Prazo</label><input type="date" id="pend-prazo"></div>
+      <div class="form-group"><label>Status</label>
+        <select id="pend-status"><option>Aberta</option><option>Em andamento</option><option>Resolvida</option></select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="fecharModal('modal-pendencia')">Cancelar</button>
+      <button class="btn-save" onclick="salvarPendencia()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Ficha COI-006 · Painel Mestre v1.1</footer>
 
 <script>
+const FICHA_ID = "COI-006";
+
+// ─── Helpers ──────────────────────────────────────────────────────────
+function showToast(msg, erro=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (erro ? ' erro' : '');
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function abrirModal(id) { document.getElementById(id).classList.add('open'); }
+function fecharModal(id) { document.getElementById(id).classList.remove('open'); }
+function percColor(n) { return n>=70?'#2E7D32':n>=40?'#F9A825':'#C62828'; }
+function nivelRisco(prob, imp) {
+  if (prob==='Alta'  && imp==='Alto')  return {txt:'Crítico', cls:'badge-vermelho'};
+  if (prob==='Alta'  || imp==='Alto')  return {txt:'Alto',    cls:'badge-vermelho'};
+  if (prob==='Média' || imp==='Médio') return {txt:'Médio',   cls:'badge-amarelo'};
+  return {txt:'Baixo', cls:'badge-verde'};
+}
+function statusBadgeCls(s) {
+  return {'Pendente':'badge-cinza','Em andamento':'badge-azul','Concluído':'badge-verde','Atrasado':'badge-vermelho','Aberta':'badge-amarelo','Resolvida':'badge-verde'}[s]||'badge-cinza';
+}
+function emptyRow(cols, msg) {
+  const tr = document.createElement('tr');
+  const td = document.createElement('td');
+  td.colSpan = cols;
+  td.innerHTML = `<div class="empty-state"><span class="icon">📭</span>${msg}</div>`;
+  tr.appendChild(td);
+  return tr;
+}
+
+// ─── Data do projeto ──────────────────────────────────────────────────
 document.getElementById('data-atual').textContent =
   new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-document.getElementById('ultima-atualizacao').textContent =
-  new Date().toLocaleDateString('pt-BR');
-document.getElementById('data-upd').textContent =
-  new Date().toLocaleDateString('pt-BR');
 
-function adicionarAtividade() {
-  const d = prompt('Descrição da atividade:'); if(!d) return;
-  const r = prompt('Responsável:') || '—';
-  const dt = prompt('Data (DD/MM/AAAA):') || new Date().toLocaleDateString('pt-BR');
-  const tb = document.getElementById('tb-atividades').tBodies[0];
-  if(tb.rows[0]?.cells[0]?.colSpan > 1) tb.innerHTML='';
-  tb.innerHTML += `<tr><td>${dt}</td><td>${d}</td><td>${r}</td><td>—</td></tr>`;
+const projeto = COI_DATA.projetos.find(p => p.id === FICHA_ID);
+if (!projeto) {
+  document.body.innerHTML += '<div style="padding:40px;text-align:center;color:red;">Projeto não encontrado: ' + FICHA_ID + '</div>';
 }
 
-function adicionarPasso() {
-  const d = prompt('Marco / Entrega:'); if(!d) return;
-  const r = prompt('Responsável:') || '—';
-  const dt = prompt('Data prevista:') || '—';
-  const tb = document.getElementById('tb-passos').tBodies[0];
-  if(tb.rows[0]?.cells[0]?.colSpan > 1) tb.innerHTML='';
-  tb.innerHTML += `<tr><td>${d}</td><td>${r}</td><td>${dt}</td><td><span class="badge badge-azul">Pendente</span></td></tr>`;
+// ─── Nav dinâmica ──────────────────────────────────────────────────────
+const nav = document.getElementById('nav-principal');
+COI_DATA.projetos.forEach(p => {
+  const a = document.createElement('a');
+  a.href = 'ficha_' + p.id.replace(/-/g,'') + '.html';
+  a.textContent = p.id;
+  a.title = p.nome;
+  if (p.id === FICHA_ID) a.classList.add('active');
+  nav.appendChild(a);
+});
+
+// ─── Renderizar HERO ──────────────────────────────────────────────────
+function renderHero(p) {
+  document.getElementById('hdr-titulo').textContent = p.id + ' — ' + p.nome;
+  document.title = 'COI — ' + p.id + ': ' + p.nome;
+  document.getElementById('hero-id-line').textContent = p.id + ' · Atualizado em ' + (p.atualizadoEm || new Date().toLocaleDateString('pt-BR'));
+  document.getElementById('hero-nome').textContent = p.nome;
+  const hplat = document.getElementById('hero-plat');
+  hplat.innerHTML = '';
+  const _strong = document.createElement('strong');
+  _strong.textContent = 'Plataforma: ';
+  hplat.appendChild(_strong);
+  hplat.appendChild(document.createTextNode(p.plataforma || '—'));
+  document.getElementById('hero-sem').textContent = p.semaforo || '—';
+  const fc = percColor(p.percentual);
+  document.getElementById('hero-bar').style.width = p.percentual + '%';
+  document.getElementById('hero-bar').style.background = fc;
+  document.getElementById('hero-perc-txt').textContent = p.percentual + '% concluído';
+  document.getElementById('hero-perc-val').textContent = p.percentual + '%';
+  document.getElementById('hero-perc-val').style.color = fc;
+  const circle = document.getElementById('hero-circle');
+  circle.style.background = `conic-gradient(${fc} ${Math.round(p.percentual*3.6)}deg, #EEF1F8 0deg)`;
+  const badges = document.getElementById('hero-badges');
+  badges.innerHTML = '';
+  [
+    [p.prioridade, p.prioridade==='P0'||p.prioridade==='P1'?'badge-vermelho':'badge-amarelo'],
+    [p.status, 'badge-azul'],
+    [p.classificacao, 'badge-cinza'],
+    [p.fase, 'badge-azul']
+  ].forEach(([txt, cls]) => {
+    if (!txt) return;
+    const s = document.createElement('span');
+    s.className = 'badge ' + cls;
+    s.textContent = txt;
+    badges.appendChild(s);
+  });
+}
+if (projeto) renderHero(projeto);
+
+// ─── Renderizar campos texto ───────────────────────────────────────────
+function renderCampos(p) {
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val || '—';
+  };
+  set('f-beneficio', p.beneficio);
+  set('f-class', p.classificacao);
+  set('f-patr', p.patrocinador);
+  set('f-orgao', p.orgao);
+  set('f-resp', p.responsavel);
+  set('f-dep', p.dependencias);
+  set('f-contrato', p.impactoContratual);
+  set('f-fonte', p.fonteInformacao);
+  set('f-obs', p.observacoesExecutivas);
+  set('f-inicio', p.dataInicio || '—');
+  set('f-prazo', p.prazoPrevisto || '—');
+  set('f-upd', p.atualizadoEm || new Date().toLocaleDateString('pt-BR'));
+}
+if (projeto) renderCampos(projeto);
+
+// ─── Modo edição ───────────────────────────────────────────────────────
+const EDIT_FIELDS = ['f-patr','f-orgao','f-resp','f-fonte','f-obs'];
+let dadosEdicao = {};
+
+function ativarEdicao() {
+  EDIT_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.setAttribute('contenteditable','true');
+      el.classList.add('edit');
+      dadosEdicao[id] = el.textContent.trim();
+    }
+  });
+  document.getElementById('edit-bar').classList.add('show');
+  document.getElementById('btn-editar').style.display = 'none';
 }
 
-function adicionarRisco() {
-  const d = prompt('Descrição do risco:'); if(!d) return;
-  const prob = prompt('Probabilidade (Alta/Média/Baixa):') || 'Média';
-  const imp = prompt('Impacto (Alto/Médio/Baixo):') || 'Médio';
-  const mit = prompt('Plano de mitigação:') || '—';
-  const nivel = (prob==='Alta'&&imp==='Alto')?'Crítico':(prob==='Alta'||imp==='Alto')?'Alto':'Médio';
-  const nb = nivel==='Crítico'||nivel==='Alto'?'badge-vermelho':'badge-amarelo';
-  const tb = document.getElementById('tb-riscos').tBodies[0];
-  if(tb.rows[0]?.cells[0]?.colSpan > 1) tb.innerHTML='';
-  tb.innerHTML += `<tr><td>${d}</td><td>${prob}</td><td>${imp}</td><td><span class="badge ${nb}">${nivel}</span></td><td><span class="badge badge-amarelo">Identificado</span></td><td>${mit}</td><td>—</td></tr>`;
-}
-
-function editarObs() {
-  const el = document.getElementById('obs-executivas');
-  const txt = prompt('Observações executivas:', el.textContent.trim());
-  if(txt !== null) el.textContent = txt || '—';
-}
-
-function desativarEdicao() {
+function cancelarEdicao() {
+  EDIT_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = dadosEdicao[id] || '—';
+      el.setAttribute('contenteditable','false');
+      el.classList.remove('edit');
+    }
+  });
   document.getElementById('edit-bar').classList.remove('show');
+  document.getElementById('btn-editar').style.display = '';
 }
+
+function salvarEdicao() {
+  const p = COI_DATA.projetos.find(p => p.id === FICHA_ID);
+  if (!p) return;
+  const map = { 'f-patr':'patrocinador','f-orgao':'orgao','f-resp':'responsavel','f-fonte':'fonteInformacao','f-obs':'observacoesExecutivas' };
+  EDIT_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const val = el.textContent.trim();
+      if (val !== '—') p[map[id]] = val;
+      el.setAttribute('contenteditable','false');
+      el.classList.remove('edit');
+    }
+  });
+  p.atualizadoEm = new Date().toLocaleDateString('pt-BR');
+  coiSalvarProjeto(p);
+  document.getElementById('edit-bar').classList.remove('show');
+  document.getElementById('btn-editar').style.display = '';
+  renderHero(p);
+  set_f_upd(p.atualizadoEm);
+  showToast('Dados salvos com sucesso.');
+}
+function set_f_upd(v) { const el = document.getElementById('f-upd'); if(el) el.textContent = v; }
+
+// ─── Tabelas (localStorage) ────────────────────────────────────────────
+function renderTabela(tbodyId, dados, colunas, vazio) {
+  const tb = document.getElementById(tbodyId);
+  tb.innerHTML = '';
+  if (!dados.length) {
+    tb.appendChild(emptyRow(colunas, vazio));
+    return;
+  }
+  dados.forEach((row, i) => {
+    const tr = document.createElement('tr');
+    row._cells.forEach(c => {
+      const td = document.createElement('td');
+      if (c.badge) {
+        const sp = document.createElement('span');
+        sp.className = 'badge ' + c.badge;
+        sp.textContent = c.val;
+        td.appendChild(sp);
+      } else td.textContent = c.val || '—';
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+}
+
+// ATIVIDADES
+function carregarAtividades() {
+  const dados = coiCarregarSecaoFicha(FICHA_ID, 'atividades');
+  renderTabela('tbody-atividades', dados.map(a => ({_cells:[
+    {val:a.data}, {val:a.desc}, {val:a.resp}, {val:a.evid||'—'}
+  ]})), 4, 'Nenhuma atividade registrada. Clique em "+ Adicionar" para incluir entregas.');
+}
+function salvarAtividade() {
+  const desc = document.getElementById('atv-desc').value.trim();
+  if (!desc) { showToast('Descrição obrigatória.', true); return; }
+  const dados = coiCarregarSecaoFicha(FICHA_ID, 'atividades');
+  dados.push({ desc, resp: document.getElementById('atv-resp').value, data: document.getElementById('atv-data').value || new Date().toLocaleDateString('pt-BR'), evid: document.getElementById('atv-evid').value });
+  coiSalvarSecaoFicha(FICHA_ID, 'atividades', dados);
+  carregarAtividades();
+  fecharModal('modal-atividade');
+  document.getElementById('atv-desc').value=''; document.getElementById('atv-resp').value='';
+  document.getElementById('atv-data').value=''; document.getElementById('atv-evid').value='';
+  showToast('Atividade registrada.');
+}
+
+// PASSOS
+function carregarPassos() {
+  const dados = coiCarregarSecaoFicha(FICHA_ID, 'passos');
+  renderTabela('tbody-passos', dados.map(p => ({_cells:[
+    {val:p.desc}, {val:p.resp}, {val:p.data},
+    {val:p.status, badge:statusBadgeCls(p.status)}
+  ]})), 4, 'Nenhum marco cadastrado. Clique em "+ Adicionar".');
+}
+function salvarPasso() {
+  const desc = document.getElementById('pas-desc').value.trim();
+  if (!desc) { showToast('Descrição obrigatória.', true); return; }
+  const dados = coiCarregarSecaoFicha(FICHA_ID, 'passos');
+  dados.push({ desc, resp: document.getElementById('pas-resp').value, data: document.getElementById('pas-data').value, status: document.getElementById('pas-status').value });
+  coiSalvarSecaoFicha(FICHA_ID, 'passos', dados);
+  carregarPassos();
+  fecharModal('modal-passo');
+  document.getElementById('pas-desc').value=''; document.getElementById('pas-resp').value='';
+  document.getElementById('pas-data').value='';
+  showToast('Marco adicionado.');
+}
+
+// RISCOS
+function carregarRiscos() {
+  const dados = coiCarregarSecaoFicha(FICHA_ID, 'riscos');
+  renderTabela('tbody-riscos', dados.map(r => {
+    const n = nivelRisco(r.prob, r.imp);
+    return {_cells:[
+      {val:r.desc}, {val:r.prob}, {val:r.imp},
+      {val:n.txt, badge:n.cls},
+      {val:r.status, badge:'badge-amarelo'},
+      {val:r.mit}, {val:r.resp}
+    ]};
+  }), 7, 'Nenhum risco cadastrado. Clique em "+ Adicionar".');
+}
+function salvarRisco() {
+  const desc = document.getElementById('rsc-desc').value.trim();
+  if (!desc) { showToast('Descrição obrigatória.', true); return; }
+  const dados = coiCarregarSecaoFicha(FICHA_ID, 'riscos');
+  dados.push({ desc, prob: document.getElementById('rsc-prob').value, imp: document.getElementById('rsc-imp').value, status: document.getElementById('rsc-status').value, mit: document.getElementById('rsc-mit').value, resp: document.getElementById('rsc-resp').value });
+  coiSalvarSecaoFicha(FICHA_ID, 'riscos', dados);
+  carregarRiscos();
+  fecharModal('modal-risco');
+  document.getElementById('rsc-desc').value=''; document.getElementById('rsc-mit').value='';
+  showToast('Risco registrado.');
+}
+
+// PENDÊNCIAS
+function carregarPendencias() {
+  const dados = coiCarregarSecaoFicha(FICHA_ID, 'pendencias');
+  renderTabela('tbody-pendencias', dados.map(p => ({_cells:[
+    {val:p.desc}, {val:p.resp}, {val:p.prazo},
+    {val:p.status, badge:statusBadgeCls(p.status)}
+  ]})), 4, 'Nenhuma pendência registrada.');
+}
+function salvarPendencia() {
+  const desc = document.getElementById('pend-desc').value.trim();
+  if (!desc) { showToast('Descrição obrigatória.', true); return; }
+  const dados = coiCarregarSecaoFicha(FICHA_ID, 'pendencias');
+  dados.push({ desc, resp: document.getElementById('pend-resp').value, prazo: document.getElementById('pend-prazo').value, status: document.getElementById('pend-status').value });
+  coiSalvarSecaoFicha(FICHA_ID, 'pendencias', dados);
+  carregarPendencias();
+  fecharModal('modal-pendencia');
+  document.getElementById('pend-desc').value=''; document.getElementById('pend-resp').value='';
+  document.getElementById('pend-prazo').value='';
+  showToast('Pendência registrada.');
+}
+
+// ─── Init ────────────────────────────────────────────────────────────
+carregarAtividades();
+carregarPassos();
+carregarRiscos();
+carregarPendencias();
+
+// ─── Fechar modal via overlay ou ESC ─────────────────────────────────
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target===o) o.classList.remove('open'); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+});
 </script>
 </body>
 </html>
