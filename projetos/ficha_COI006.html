@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COI — COI-006: WhatsApp Oficial / Gupshup</title>
+<style>
+  :root {
+    --azul-escuro:#1B3A6B;--azul-medio:#2E5FA3;--azul-claro:#DCE6F1;
+    --cinza-bg:#F4F6FA;--verde:#2E7D32;--amarelo:#F9A825;
+    --vermelho:#C62828;--laranja:#E65100;--roxo:#4A148C;
+    --branco:#FFFFFF;--texto:#1A1A2E;--borda:#D0D7E8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--cinza-bg);color:var(--texto);}
+  header{background:linear-gradient(135deg,var(--azul-escuro) 0%,var(--azul-medio) 100%);color:#fff;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 3px 12px rgba(0,0,0,.25);}
+  .logo-box{width:48px;height:48px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;}
+  .logo-area{display:flex;align-items:center;gap:12px;}
+  .header-title h1{font-size:1.1rem;font-weight:700;}
+  .header-title p{font-size:.74rem;opacity:.75;margin-top:2px;}
+  .header-meta{text-align:right;font-size:.74rem;opacity:.75;}
+  .header-meta strong{display:block;font-size:.85rem;opacity:1;}
+  nav{background:var(--azul-escuro);display:flex;gap:2px;padding:0 20px;border-bottom:3px solid var(--azul-medio);flex-wrap:wrap;}
+  nav a{color:rgba(255,255,255,.7);text-decoration:none;padding:9px 14px;font-size:.78rem;font-weight:500;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s;}
+  nav a:hover,nav a.active{color:#fff;border-bottom-color:#FFC107;}
+  main{max-width:1200px;margin:0 auto;padding:24px 20px;}
+
+  /* HERO */
+  .hero{background:var(--branco);border-radius:14px;padding:24px 28px;box-shadow:0 2px 10px rgba(0,0,0,.08);margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .hero-left h2{font-size:1.3rem;font-weight:800;color:var(--azul-escuro);margin-bottom:6px;}
+  .hero-left .hero-id{font-size:.8rem;color:#777;margin-bottom:12px;}
+  .hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.74rem;font-weight:600;}
+  .badge-verde{background:#E8F5E9;color:#2E7D32;}
+  .badge-amarelo{background:#FFF8E1;color:#F9A825;}
+  .badge-vermelho{background:#FFEBEE;color:#C62828;}
+  .badge-azul{background:#E3F2FD;color:#1565C0;}
+  .badge-cinza{background:#ECEFF1;color:#455A64;}
+  .hero-plat{font-size:.78rem;color:#555;}
+  .hero-plat strong{color:var(--azul-escuro);}
+  .hero-right{text-align:center;min-width:140px;}
+  .perc-circle{width:110px;height:110px;border-radius:50%;background:conic-gradient(#F9A825 270deg,#EEF1F8 0deg);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;position:relative;}
+  .perc-inner{width:82px;height:82px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .perc-val{font-size:1.5rem;font-weight:800;color:#F9A825;}
+  .perc-label{font-size:.62rem;color:#777;font-weight:500;}
+  .semaforo-hero{font-size:2.2rem;margin-bottom:4px;}
+  .semaforo-label{font-size:.72rem;color:#777;}
+
+  /* GRID */
+  .section-title{font-size:.95rem;font-weight:700;color:var(--azul-escuro);border-left:4px solid var(--azul-medio);padding-left:10px;margin:24px 0 14px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .block{background:var(--branco);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+  .block h3{font-size:.85rem;font-weight:700;color:var(--azul-escuro);margin-bottom:14px;border-bottom:1px solid #EEF1F8;padding-bottom:8px;}
+  .field{display:flex;gap:8px;margin-bottom:10px;align-items:flex-start;}
+  .field-label{font-size:.74rem;font-weight:600;color:#555;min-width:130px;flex-shrink:0;}
+  .field-val{font-size:.78rem;color:var(--texto);}
+  .field-val.edit{background:#F8FAFF;border:1px solid #D0D7E8;border-radius:6px;padding:4px 8px;width:100%;outline:none;font-size:.78rem;}
+  .field-val.edit:focus{border-color:var(--azul-medio);}
+
+  /* TABLE */
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:.79rem;}
+  th{background:var(--azul-escuro);color:#fff;padding:9px 12px;text-align:left;font-size:.75rem;font-weight:600;}
+  td{padding:8px 12px;border-bottom:1px solid #EEF1F8;vertical-align:middle;}
+  tr:hover td{background:#F8FAFF;}
+  tr:last-child td{border-bottom:none;}
+
+  /* PROGRESS */
+  .progress-bar{background:#EEF1F8;border-radius:10px;height:8px;overflow:hidden;margin-top:6px;}
+  .progress-fill{height:100%;border-radius:10px;background:#F9A825;}
+
+  /* EMPTY */
+  .empty{color:#999;font-size:.8rem;font-style:italic;padding:12px 0;}
+
+  /* EDIT MODE */
+  .btn-edit{padding:6px 14px;background:var(--azul-medio);color:#fff;border:none;border-radius:8px;font-size:.78rem;cursor:pointer;font-weight:600;}
+  .btn-edit:hover{background:var(--azul-escuro);}
+  .edit-bar{background:var(--azul-claro);border-radius:10px;padding:10px 16px;margin-bottom:16px;display:none;align-items:center;gap:12px;font-size:.8rem;color:var(--azul-escuro);font-weight:600;}
+  .edit-bar.show{display:flex;}
+  .btn-save{padding:6px 14px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:.78rem;cursor:pointer;font-weight:600;}
+
+  footer{text-align:center;font-size:.71rem;color:#888;padding:18px;border-top:1px solid #DDD;margin-top:20px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo-area">
+    <div class="logo-box">COI</div>
+    <div class="header-title">
+      <h1>COI-006 — WhatsApp Oficial / Gupshup</h1>
+      <p>Ficha Individual do Projeto · Centro de Operações Integradas</p>
+    </div>
+  </div>
+  <div class="header-meta"><strong id="data-atual"></strong>Governo do Distrito Federal</div>
+</header>
+<nav>
+  <a href="../index.html">Dashboard</a>
+  <a href="../portfolio.html">Portfólio</a>
+  <a href="ficha_COI001.html">AURA</a>
+  <a href="ficha_COI002.html">Calçadas</a>
+  <a href="ficha_COI003.html">e-GDF</a>
+  <a href="ficha_COI004.html">IA Telefonia</a>
+  <a href="ficha_COI005.html">AIOps</a>
+  <a href="ficha_COI006.html">WhatsApp</a>
+  <a href="ficha_COI007.html">CITSmartX</a>
+  <a href="ficha_COI008.html">Automação IA</a>
+</nav>
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-id">COI-006 · Atualizado em <span id="data-upd">—</span></div>
+      <h2>WhatsApp Oficial / Gupshup</h2>
+      <div class="hero-badges">
+        <span class="badge badge-vermelho">P0</span>
+        <span class="badge badge-amarelo">Homologação</span>
+        <span class="badge badge-cinza">Estratégico</span>
+        <span class="badge badge-azul">Homologação</span>
+      </div>
+      <div class="hero-plat"><strong>Plataforma:</strong> WhatsApp Oficial / Gupshup / Meta</div>
+      <div style="margin-top:12px;">
+        <div style="font-size:.74rem;color:#777;margin-bottom:4px;">Evolução do Projeto</div>
+        <div class="progress-bar" style="height:10px;"><div class="progress-fill" style="width:75%"></div></div>
+        <div style="font-size:.72rem;color:#777;margin-top:4px;">75% concluído</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="semaforo-hero">🟡</div>
+      <div class="semaforo-label">Semáforo do Projeto</div>
+      <div class="perc-circle" style="margin-top:12px;">
+        <div class="perc-inner">
+          <div class="perc-val">75%</div>
+          <div class="perc-label">Conclusão</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="edit-bar" id="edit-bar">
+    ✏️ Modo Edição Ativo — Preencha os campos e clique em Salvar
+    <button class="btn-save" onclick="desativarEdicao()">💾 Sair do Modo Edição</button>
+  </div>
+
+  <!-- BLOCO 1: IDENTIFICAÇÃO -->
+  <div class="section-title">1. Identificação do Projeto</div>
+  <div class="grid-2">
+    <div class="block">
+      <h3>Dados Gerais</h3>
+      <div class="field"><div class="field-label">Objetivo:</div><div class="field-val">Implantar o canal oficial de WhatsApp do GDF via plataforma Gupshup/Meta, habilitando comunicação oficial e automatizada com o cidadão.</div></div>
+      <div class="field"><div class="field-label">Classificação:</div><div class="field-val">Estratégico</div></div>
+      <div class="field"><div class="field-label">Patrocinador:</div><div class="field-val edit-field" data-field="patrocinador">—</div></div>
+      <div class="field"><div class="field-label">Cliente / Órgão:</div><div class="field-val edit-field" data-field="orgao">—</div></div>
+      <div class="field"><div class="field-label">Responsável COI:</div><div class="field-val edit-field" data-field="resp">—</div></div>
+    </div>
+    <div class="block">
+      <h3>Informações de Gestão</h3>
+      <div class="field"><div class="field-label">Benefício Esperado:</div><div class="field-val">Canal oficial de comunicação digital de alta abrangência com o cidadão, reduzindo custos e aumentando alcance.</div></div>
+      <div class="field"><div class="field-label">Impacto Contratual:</div><div class="field-val">Sim</div></div>
+      <div class="field"><div class="field-label">Dependências:</div><div class="field-val">Meta (aprovação), Gupshup (plataforma), CITSmartX</div></div>
+      <div class="field"><div class="field-label">Fonte da Informação:</div><div class="field-val edit-field" data-field="fonte">—</div></div>
+      <div class="field"><div class="field-label">Obs. Executivas:</div><div class="field-val edit-field" data-field="obs-exec">—</div></div>
+    </div>
+  </div>
+
+  <!-- BLOCO 2: CRONOGRAMA -->
+  <div class="section-title">2. Cronograma e Progresso</div>
+  <div class="grid-3">
+    <div class="block" style="text-align:center;">
+      <h3>Data de Início</h3>
+      <div style="font-size:1.6rem;font-weight:800;color:var(--azul-medio);margin:8px 0;" class="edit-field" data-field="dt-inicio">—</div>
+      <div style="font-size:.72rem;color:#777;">Início formal do projeto</div>
+    </div>
+    <div class="block" style="text-align:center;">
+      <h3>Prazo Previsto</h3>
+      <div style="font-size:1.6rem;font-weight:800;color:#F9A825;margin:8px 0;" class="edit-field" data-field="dt-prazo">—</div>
+      <div style="font-size:.72rem;color:#777;">Data de entrega prevista</div>
+    </div>
+    <div class="block" style="text-align:center;">
+      <h3>Última Atualização</h3>
+      <div style="font-size:1.6rem;font-weight:800;color:#777;margin:8px 0;" id="ultima-atualizacao">—</div>
+      <div style="font-size:.72rem;color:#777;">Data da última revisão</div>
+    </div>
+  </div>
+
+  <!-- BLOCO 3: ATIVIDADES REALIZADAS -->
+  <div class="section-title">3. Atividades Realizadas</div>
+  <div class="block">
+    <h3>Entregas Concluídas</h3>
+    <table id="tb-atividades">
+      <thead><tr><th>Data</th><th>Descrição da Atividade</th><th>Responsável</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td colspan="4"><div class="empty">Nenhuma atividade registrada. Clique em "+ Adicionar" para incluir entregas realizadas.</div></td></tr>
+      </tbody>
+    </table>
+    <button class="btn-edit" style="margin-top:12px;" onclick="adicionarAtividade()">+ Adicionar Atividade</button>
+  </div>
+
+  <!-- BLOCO 4: PRÓXIMOS PASSOS -->
+  <div class="section-title">4. Próximos Passos</div>
+  <div class="block">
+    <h3>Marcos Futuros</h3>
+    <table id="tb-passos">
+      <thead><tr><th>Marco / Entrega</th><th>Responsável</th><th>Data Prevista</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td colspan="4"><div class="empty">Nenhum marco cadastrado. Clique em "+ Adicionar" para incluir próximos passos.</div></td></tr>
+      </tbody>
+    </table>
+    <button class="btn-edit" style="margin-top:12px;" onclick="adicionarPasso()">+ Adicionar Marco</button>
+  </div>
+
+  <!-- BLOCO 5: DEMANDAS VINCULADAS -->
+  <div class="section-title">5. Demandas Vinculadas</div>
+  <div class="block">
+    <h3>Demandas e Melhorias do Projeto</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Título</th><th>Tipo</th><th>Prioridade</th><th>Status</th><th>Responsável</th></tr></thead>
+      <tbody>
+        <tr><td colspan="6"><div class="empty">Nenhuma demanda vinculada. Registre na aba Demandas do portfólio.</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BLOCO 6: RISCOS -->
+  <div class="section-title">6. Riscos do Projeto</div>
+  <div class="block">
+    <h3>Matriz de Riscos</h3>
+    <table id="tb-riscos">
+      <thead><tr><th>Descrição do Risco</th><th>Probabilidade</th><th>Impacto</th><th>Nível</th><th>Status</th><th>Plano de Mitigação</th><th>Responsável</th></tr></thead>
+      <tbody>
+        <tr><td colspan="7"><div class="empty">Nenhum risco cadastrado. Clique em "+ Adicionar" para registrar riscos.</div></td></tr>
+      </tbody>
+    </table>
+    <button class="btn-edit" style="margin-top:12px;" onclick="adicionarRisco()">+ Adicionar Risco</button>
+  </div>
+
+  <!-- BLOCO 7: INDICADORES -->
+  <div class="section-title">7. Indicadores do Projeto (KPIs)</div>
+  <div class="block">
+    <h3>Meta x Realizado</h3>
+    <table>
+      <thead><tr><th>Indicador</th><th>Unidade</th><th>Meta</th><th>Realizado</th><th>Variação</th><th>Tendência</th><th>Semáforo</th></tr></thead>
+      <tbody>
+        <tr><td colspan="7"><div class="empty">Nenhum indicador cadastrado. Registre na aba Indicadores do portfólio.</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BLOCO 8: PENDÊNCIAS E DECISÕES -->
+  <div class="section-title">8. Pendências e Decisões</div>
+  <div class="grid-2">
+    <div class="block">
+      <h3>Pendências em Aberto</h3>
+      <table>
+        <thead><tr><th>Descrição</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4"><div class="empty">Nenhuma pendência registrada.</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="block">
+      <h3>Decisões Registradas</h3>
+      <table>
+        <thead><tr><th>Decisão</th><th>Data</th><th>Responsável</th><th>Impacto</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4"><div class="empty">Nenhuma decisão registrada.</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BLOCO 9: OBSERVAÇÕES EXECUTIVAS -->
+  <div class="section-title">9. Observações Executivas</div>
+  <div class="block">
+    <h3>Campo Livre — Gestão e Diretoria</h3>
+    <div id="obs-executivas" style="font-size:.82rem;color:#555;min-height:60px;padding:8px;background:#F8FAFF;border-radius:8px;border:1px solid #EEF1F8;">
+      Nenhuma observação registrada para este ciclo. Utilize este campo para alertas, contextos estratégicos ou informações relevantes para a diretoria.
+    </div>
+    <button class="btn-edit" style="margin-top:10px;" onclick="editarObs()">✏️ Editar Observações</button>
+  </div>
+
+</main>
+<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Ficha COI-006 · Painel Mestre v1.0</footer>
+
+<script>
+document.getElementById('data-atual').textContent =
+  new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('ultima-atualizacao').textContent =
+  new Date().toLocaleDateString('pt-BR');
+document.getElementById('data-upd').textContent =
+  new Date().toLocaleDateString('pt-BR');
+
+function adicionarAtividade() {
+  const d = prompt('Descrição da atividade:'); if(!d) return;
+  const r = prompt('Responsável:') || '—';
+  const dt = prompt('Data (DD/MM/AAAA):') || new Date().toLocaleDateString('pt-BR');
+  const tb = document.getElementById('tb-atividades').tBodies[0];
+  if(tb.rows[0]?.cells[0]?.colSpan > 1) tb.innerHTML='';
+  tb.innerHTML += `<tr><td>${dt}</td><td>${d}</td><td>${r}</td><td>—</td></tr>`;
+}
+
+function adicionarPasso() {
+  const d = prompt('Marco / Entrega:'); if(!d) return;
+  const r = prompt('Responsável:') || '—';
+  const dt = prompt('Data prevista:') || '—';
+  const tb = document.getElementById('tb-passos').tBodies[0];
+  if(tb.rows[0]?.cells[0]?.colSpan > 1) tb.innerHTML='';
+  tb.innerHTML += `<tr><td>${d}</td><td>${r}</td><td>${dt}</td><td><span class="badge badge-azul">Pendente</span></td></tr>`;
+}
+
+function adicionarRisco() {
+  const d = prompt('Descrição do risco:'); if(!d) return;
+  const prob = prompt('Probabilidade (Alta/Média/Baixa):') || 'Média';
+  const imp = prompt('Impacto (Alto/Médio/Baixo):') || 'Médio';
+  const mit = prompt('Plano de mitigação:') || '—';
+  const nivel = (prob==='Alta'&&imp==='Alto')?'Crítico':(prob==='Alta'||imp==='Alto')?'Alto':'Médio';
+  const nb = nivel==='Crítico'||nivel==='Alto'?'badge-vermelho':'badge-amarelo';
+  const tb = document.getElementById('tb-riscos').tBodies[0];
+  if(tb.rows[0]?.cells[0]?.colSpan > 1) tb.innerHTML='';
+  tb.innerHTML += `<tr><td>${d}</td><td>${prob}</td><td>${imp}</td><td><span class="badge ${nb}">${nivel}</span></td><td><span class="badge badge-amarelo">Identificado</span></td><td>${mit}</td><td>—</td></tr>`;
+}
+
+function editarObs() {
+  const el = document.getElementById('obs-executivas');
+  const txt = prompt('Observações executivas:', el.textContent.trim());
+  if(txt !== null) el.textContent = txt || '—';
+}
+
+function desativarEdicao() {
+  document.getElementById('edit-bar').classList.remove('show');
+}
+</script>
+</body>
+</html>

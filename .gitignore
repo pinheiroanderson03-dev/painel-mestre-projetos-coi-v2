@@ -1,0 +1,89 @@
+# ─── Office / LibreOffice ────────────────────────────────────────────
+# Arquivos de lock de planilhas abertas
+.~lock.*#
+~$*.xlsx
+~$*.xls
+~$*.docx
+~$*.pptx
+
+# Temporários do Office
+*.tmp
+*.bak
+
+# ─── Sistema Operacional ─────────────────────────────────────────────
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+
+# ─── Editores e IDEs ─────────────────────────────────────────────────
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains
+.idea/
+*.iml
+
+# Vim / Emacs
+*.swp
+*.swo
+.#*
+\#*\#
+
+# ─── Node.js (se vier a ser usado) ───────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+dist/
+.cache/
+
+# ─── Python (scripts auxiliares) ─────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+venv/
+env/
+.env
+*.log
+
+# ─── Arquivos de saída e temporários de build ─────────────────────────
+*.min.js
+*.min.css
+*.map
+
+# ─── Dados sensíveis ─────────────────────────────────────────────────
+*.env
+.env.local
+.env.*.local
+secrets.*
+credentials.*
+
+# ─── Arquivos de backup gerados pelo painel ───────────────────────────
+backups/
+*.backup
+
+# ─── Sandbox e ambiente de desenvolvimento ───────────────────────────
+outputs/
+gerar_*.py

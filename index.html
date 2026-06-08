@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COI — Dashboard Executivo</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --azul-escuro: #1B3A6B;
+    --azul-medio: #2E5FA3;
+    --azul-claro: #DCE6F1;
+    --cinza-bg: #F4F6FA;
+    --verde: #2E7D32;
+    --amarelo: #F9A825;
+    --vermelho: #C62828;
+    --laranja: #E65100;
+    --roxo: #4A148C;
+    --branco: #FFFFFF;
+    --texto: #1A1A2E;
+    --borda: #D0D7E8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--cinza-bg); color: var(--texto); }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-medio) 100%);
+    color: #fff; padding: 18px 32px; display: flex; align-items: center;
+    justify-content: space-between; box-shadow: 0 3px 12px rgba(0,0,0,.25);
+  }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-box {
+    width: 52px; height: 52px; background: rgba(255,255,255,.15);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 900; letter-spacing: -1px;
+  }
+  .header-title h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: .3px; }
+  .header-title p { font-size: .78rem; opacity: .75; margin-top: 2px; }
+  .header-meta { text-align: right; font-size: .78rem; opacity: .75; }
+  .header-meta strong { display: block; font-size: .92rem; opacity: 1; }
+
+  /* NAV */
+  nav {
+    background: var(--azul-escuro); display: flex; gap: 2px; padding: 0 24px;
+    border-bottom: 3px solid var(--azul-medio);
+  }
+  nav a {
+    color: rgba(255,255,255,.7); text-decoration: none; padding: 10px 18px;
+    font-size: .82rem; font-weight: 500; border-bottom: 3px solid transparent;
+    margin-bottom: -3px; transition: all .2s;
+  }
+  nav a:hover, nav a.active { color: #fff; border-bottom-color: #FFC107; }
+
+  /* MAIN */
+  main { max-width: 1400px; margin: 0 auto; padding: 28px 24px; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 1.05rem; font-weight: 700; color: var(--azul-escuro);
+    border-left: 4px solid var(--azul-medio); padding-left: 12px;
+    margin: 28px 0 16px;
+  }
+
+  /* CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 14px; margin-bottom: 8px;
+  }
+  .card {
+    background: var(--branco); border-radius: 12px;
+    padding: 18px 16px 14px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    border-top: 4px solid var(--azul-medio); position: relative; overflow: hidden;
+    transition: transform .18s, box-shadow .18s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+  .card-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .card-value { font-size: 2.1rem; font-weight: 800; line-height: 1; }
+  .card-label { font-size: .73rem; color: #555; margin-top: 5px; font-weight: 500; text-transform: uppercase; letter-spacing: .4px; }
+  .card-sub { font-size: .7rem; color: #888; margin-top: 3px; }
+  .card.azul { border-top-color: var(--azul-medio); }
+  .card.azul .card-value { color: var(--azul-medio); }
+  .card.verde { border-top-color: var(--verde); }
+  .card.verde .card-value { color: var(--verde); }
+  .card.amarelo { border-top-color: var(--amarelo); }
+  .card.amarelo .card-value { color: var(--amarelo); }
+  .card.vermelho { border-top-color: var(--vermelho); }
+  .card.vermelho .card-value { color: var(--vermelho); }
+  .card.laranja { border-top-color: var(--laranja); }
+  .card.laranja .card-value { color: var(--laranja); }
+  .card.roxo { border-top-color: var(--roxo); }
+  .card.roxo .card-value { color: var(--roxo); }
+
+  /* CHARTS */
+  .charts-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .chart-card {
+    background: var(--branco); border-radius: 12px; padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  }
+  .chart-card h3 { font-size: .88rem; color: var(--azul-escuro); font-weight: 700; margin-bottom: 14px; }
+  .chart-wrap { position: relative; height: 200px; }
+
+  /* TABLE */
+  .table-card {
+    background: var(--branco); border-radius: 12px; padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07); margin-bottom: 20px; overflow-x: auto;
+  }
+  .table-card h3 { font-size: .92rem; color: var(--azul-escuro); font-weight: 700; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th {
+    background: var(--azul-escuro); color: #fff; padding: 9px 12px;
+    text-align: left; font-weight: 600; font-size: .78rem; white-space: nowrap;
+  }
+  td { padding: 9px 12px; border-bottom: 1px solid #EEF1F8; vertical-align: middle; }
+  tr:hover td { background: #F0F4FF; }
+  tr:last-child td { border-bottom: none; }
+  .badge {
+    display: inline-block; padding: 3px 9px; border-radius: 20px;
+    font-size: .7rem; font-weight: 600;
+  }
+  .badge-verde { background: #E8F5E9; color: #2E7D32; }
+  .badge-amarelo { background: #FFF8E1; color: #F9A825; }
+  .badge-vermelho { background: #FFEBEE; color: #C62828; }
+  .badge-azul { background: #E3F2FD; color: #1565C0; }
+  .badge-cinza { background: #ECEFF1; color: #455A64; }
+
+  .progress-bar { background: #EEF1F8; border-radius: 10px; height: 7px; overflow: hidden; min-width: 80px; }
+  .progress-fill { height: 100%; border-radius: 10px; transition: width .4s; }
+
+  .semaforo { font-size: 1.1rem; }
+
+  /* ALERTAS */
+  .alertas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .alerta-card {
+    background: var(--branco); border-radius: 12px; padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07); border-left: 5px solid var(--vermelho);
+  }
+  .alerta-card.atencao { border-left-color: var(--amarelo); }
+  .alerta-card.info { border-left-color: var(--azul-medio); }
+  .alerta-card h3 { font-size: .85rem; font-weight: 700; color: var(--azul-escuro); margin-bottom: 10px; }
+  .alerta-item { font-size: .8rem; color: #444; padding: 6px 0; border-bottom: 1px solid #F0F0F0; display: flex; align-items: flex-start; gap: 8px; }
+  .alerta-item:last-child { border-bottom: none; }
+  .alerta-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .dot-vermelho { background: var(--vermelho); }
+  .dot-amarelo { background: var(--amarelo); }
+  .dot-azul { background: var(--azul-medio); }
+  .dot-verde { background: var(--verde); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; font-size: .73rem; color: #888;
+    padding: 20px; border-top: 1px solid #DDD; margin-top: 10px;
+  }
+
+  /* VISAO EXECUTIVA BANNER */
+  .ve-banner {
+    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio));
+    border-radius: 14px; padding: 22px 28px; color: #fff; margin-bottom: 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 4px 16px rgba(27,58,107,.3);
+  }
+  .ve-banner h2 { font-size: 1.2rem; font-weight: 700; }
+  .ve-banner p { font-size: .82rem; opacity: .8; margin-top: 4px; max-width: 600px; }
+  .ve-badge {
+    background: rgba(255,255,255,.15); border-radius: 20px;
+    padding: 6px 16px; font-size: .8rem; font-weight: 600; white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <div class="logo-box">COI</div>
+    <div class="header-title">
+      <h1>Centro de Operações Integradas</h1>
+      <p>Painel Mestre de Acompanhamento de Projetos — Dashboard Executivo</p>
+    </div>
+  </div>
+  <div class="header-meta">
+    <strong id="data-atual"></strong>
+    Governo do Distrito Federal
+  </div>
+</header>
+
+<nav>
+  <a href="index.html" class="active">Dashboard</a>
+  <a href="portfolio.html">Portfólio</a>
+  <a href="projetos/ficha_COI001.html">COI-001 AURA</a>
+  <a href="projetos/ficha_COI002.html">COI-002 Calçadas</a>
+  <a href="projetos/ficha_COI003.html">COI-003 e-GDF</a>
+  <a href="projetos/ficha_COI004.html">COI-004 IA Telefonia</a>
+  <a href="projetos/ficha_COI005.html">COI-005 AIOps</a>
+  <a href="projetos/ficha_COI006.html">COI-006 WhatsApp</a>
+  <a href="projetos/ficha_COI007.html">COI-007 CITSmartX</a>
+  <a href="projetos/ficha_COI008.html">COI-008 Automação IA</a>
+</nav>
+
+<main>
+
+  <!-- VISÃO EXECUTIVA DO COI -->
+  <div class="ve-banner">
+    <div>
+      <h2>🏛️ Visão Executiva do COI</h2>
+      <p>Acompanhamento centralizado de todos os projetos, demandas, riscos e indicadores estratégicos do Centro de Operações Integradas do Governo do Distrito Federal.</p>
+    </div>
+    <div class="ve-badge">Ciclo: Junho 2026</div>
+  </div>
+
+  <!-- CARDS PRINCIPAIS -->
+  <div class="section-title">Indicadores Gerais do Portfólio</div>
+  <div class="cards-grid">
+    <div class="card azul">
+      <div class="card-icon">📁</div>
+      <div class="card-value" id="c-total">8</div>
+      <div class="card-label">Projetos Estratégicos</div>
+      <div class="card-sub">no portfólio COI</div>
+    </div>
+    <div class="card azul">
+      <div class="card-icon">⚙️</div>
+      <div class="card-value" id="c-andamento">6</div>
+      <div class="card-label">Projetos em Andamento</div>
+      <div class="card-sub">em execução ativa</div>
+    </div>
+    <div class="card amarelo">
+      <div class="card-icon">⚠️</div>
+      <div class="card-value" id="c-atencao">2</div>
+      <div class="card-label">Projetos em Atenção</div>
+      <div class="card-sub">semáforo amarelo</div>
+    </div>
+    <div class="card vermelho">
+      <div class="card-icon">🚨</div>
+      <div class="card-value" id="c-criticos">1</div>
+      <div class="card-label">Projetos Críticos</div>
+      <div class="card-sub">semáforo vermelho</div>
+    </div>
+    <div class="card verde">
+      <div class="card-icon">✅</div>
+      <div class="card-value" id="c-concluidos">0</div>
+      <div class="card-label">Projetos Concluídos</div>
+      <div class="card-sub">no ciclo atual</div>
+    </div>
+    <div class="card laranja">
+      <div class="card-icon">📋</div>
+      <div class="card-value" id="c-demandas">0</div>
+      <div class="card-label">Demandas em Aberto</div>
+      <div class="card-sub">aguardando resolução</div>
+    </div>
+    <div class="card vermelho">
+      <div class="card-icon">⛔</div>
+      <div class="card-value" id="c-riscos">2</div>
+      <div class="card-label">Riscos Altos</div>
+      <div class="card-sub">nível alto ou crítico</div>
+    </div>
+    <div class="card roxo">
+      <div class="card-icon">🔔</div>
+      <div class="card-value" id="c-decisoes">0</div>
+      <div class="card-label">Decisões Pendentes</div>
+      <div class="card-sub">aguardando deliberação</div>
+    </div>
+    <div class="card verde">
+      <div class="card-icon">📅</div>
+      <div class="card-value" id="c-entregas">1</div>
+      <div class="card-label">Entregas da Semana</div>
+      <div class="card-sub">marcos nos próximos 7 dias</div>
+    </div>
+    <div class="card azul">
+      <div class="card-icon">📈</div>
+      <div class="card-value" id="c-evolucao">42%</div>
+      <div class="card-label">Evolução Média</div>
+      <div class="card-sub">% médio do portfólio</div>
+    </div>
+  </div>
+
+  <!-- GRÁFICOS -->
+  <div class="section-title">Distribuição do Portfólio</div>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>Projetos por Status</h3>
+      <div class="chart-wrap"><canvas id="chartStatus"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Projetos por Prioridade</h3>
+      <div class="chart-wrap"><canvas id="chartPrioridade"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Projetos por Classificação</h3>
+      <div class="chart-wrap"><canvas id="chartClassificacao"></canvas></div>
+    </div>
+  </div>
+
+  <!-- EVOLUÇÃO POR PROJETO -->
+  <div class="section-title">Evolução por Projeto (% de Conclusão)</div>
+  <div class="chart-card" style="margin-bottom:20px;">
+    <div style="position:relative;height:240px;"><canvas id="chartEvolucao"></canvas></div>
+  </div>
+
+  <!-- TABELA DE PORTFÓLIO RESUMIDA -->
+  <div class="section-title">Visão Geral do Portfólio</div>
+  <div class="table-card">
+    <table id="tabela-portfolio">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Projeto</th>
+          <th>Classificação</th>
+          <th>Prioridade</th>
+          <th>Status</th>
+          <th>% Conclusão</th>
+          <th>Semáforo</th>
+          <th>Responsável</th>
+          <th>Prazo</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-portfolio"></tbody>
+    </table>
+  </div>
+
+  <!-- ALERTAS E PRÓXIMAS ENTREGAS -->
+  <div class="section-title">Alertas Executivos e Próximas Entregas</div>
+  <div class="alertas-grid">
+    <div class="alerta-card">
+      <h3>🚨 Alertas Críticos</h3>
+      <div class="alerta-item"><div class="alerta-dot dot-vermelho"></div><span><strong>COI-004 IA Telefonia (P0):</strong> Projeto crítico em execução. Verificar cronograma e dependências com CITSmartX.</span></div>
+      <div class="alerta-item"><div class="alerta-dot dot-vermelho"></div><span><strong>COI-006 WhatsApp Oficial (P0):</strong> Em homologação. Risco de impacto contratual. Acompanhar aprovação junto à Meta/Gupshup.</span></div>
+    </div>
+    <div class="alerta-card atencao">
+      <h3>⚠️ Projetos em Atenção</h3>
+      <div class="alerta-item"><div class="alerta-dot dot-amarelo"></div><span><strong>COI-001 AURA:</strong> Verificar integração com Gupshup e status dos disparos de campanha.</span></div>
+      <div class="alerta-item"><div class="alerta-dot dot-amarelo"></div><span><strong>COI-002 Calçadas/Portal:</strong> Acompanhar desenvolvimento do dashboard AIOps vinculado.</span></div>
+    </div>
+    <div class="alerta-card info">
+      <h3>📅 Próximas Entregas (30 dias)</h3>
+      <div class="alerta-item"><div class="alerta-dot dot-azul"></div><span>Aguardando cadastro das entregas previstas para o ciclo. Utilizar aba "Cronograma" da base de dados.</span></div>
+    </div>
+    <div class="alerta-card info" style="border-left-color:var(--verde)">
+      <h3>✅ Projetos no Prazo</h3>
+      <div class="alerta-item"><div class="alerta-dot dot-verde"></div><span><strong>COI-003 e-GDF:</strong> Evolução dentro do esperado.</span></div>
+      <div class="alerta-item"><div class="alerta-dot dot-verde"></div><span><strong>COI-005 AIOps:</strong> Monitoramento ativo sem alertas.</span></div>
+      <div class="alerta-item"><div class="alerta-dot dot-verde"></div><span><strong>COI-007 CITSmartX:</strong> Integrações em andamento conforme plano.</span></div>
+      <div class="alerta-item"><div class="alerta-dot dot-verde"></div><span><strong>COI-008 Automação IA:</strong> Em fase de planejamento.</span></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.0 · Junho 2026
+</footer>
+
+<script>
+// Data atual
+const now = new Date();
+document.getElementById('data-atual').textContent =
+  now.toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+// Dados dos projetos
+const projetos = [
+  {id:'COI-001', nome:'Sistema de Disparo de Campanhas AURA', class:'Estratégico', prior:'P1', status:'Em andamento', perc:35, semaforo:'🟡', resp:'—', prazo:'—'},
+  {id:'COI-002', nome:'Painel Inteligente Portal do Cidadão – Gestão de Calçadas', class:'Estratégico', prior:'P1', status:'Em andamento', perc:40, semaforo:'🟡', resp:'—', prazo:'—'},
+  {id:'COI-003', nome:'Evolução Aplicativo e-GDF', class:'Estratégico', prior:'P1', status:'Em andamento', perc:50, semaforo:'🟢', resp:'—', prazo:'—'},
+  {id:'COI-004', nome:'IA para Telefonia e NLU', class:'Estratégico', prior:'P0', status:'Em andamento', perc:30, semaforo:'🔴', resp:'—', prazo:'—'},
+  {id:'COI-005', nome:'Monitoramento AIOps', class:'Operacional', prior:'P1', status:'Em andamento', perc:55, semaforo:'🟢', resp:'—', prazo:'—'},
+  {id:'COI-006', nome:'WhatsApp Oficial / Gupshup', class:'Estratégico', prior:'P0', status:'Homologação', perc:75, semaforo:'🟡', resp:'—', prazo:'—'},
+  {id:'COI-007', nome:'Integrações CITSmartX', class:'Integração', prior:'P1', status:'Em andamento', perc:45, semaforo:'🟢', resp:'—', prazo:'—'},
+  {id:'COI-008', nome:'Projetos de Automação e IA', class:'Automação', prior:'P2', status:'Planejamento', perc:10, semaforo:'🟢', resp:'—', prazo:'—'},
+];
+
+// Tabela
+const tbody = document.getElementById('tbody-portfolio');
+projetos.forEach(p => {
+  const pColor = p.prior === 'P0' ? 'badge-vermelho' : p.prior === 'P1' ? 'badge-amarelo' : 'badge-azul';
+  const sColor = p.status === 'Em andamento' ? 'badge-azul' : p.status === 'Homologação' ? 'badge-amarelo' : p.status === 'Planejamento' ? 'badge-cinza' : 'badge-verde';
+  const fillColor = p.perc >= 70 ? '#2E7D32' : p.perc >= 40 ? '#F9A825' : '#C62828';
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><a href="projetos/ficha_${p.id.replace('-','')}.html" style="color:var(--azul-medio);font-weight:700;text-decoration:none;">${p.id}</a></td>
+    <td style="max-width:260px;">${p.nome}</td>
+    <td><span class="badge badge-cinza">${p.class}</span></td>
+    <td><span class="badge ${pColor}">${p.prior}</span></td>
+    <td><span class="badge ${sColor}">${p.status}</span></td>
+    <td>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="progress-bar"><div class="progress-fill" style="width:${p.perc}%;background:${fillColor}"></div></div>
+        <span style="font-size:.78rem;font-weight:600;color:${fillColor}">${p.perc}%</span>
+      </div>
+    </td>
+    <td class="semaforo">${p.semaforo}</td>
+    <td>${p.resp}</td>
+    <td>${p.prazo}</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// Chart Status
+new Chart(document.getElementById('chartStatus'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Em andamento','Homologação','Planejamento'],
+    datasets:[{data:[6,1,1], backgroundColor:['#2E5FA3','#F9A825','#90A4AE'], borderWidth:2, borderColor:'#fff'}]
+  },
+  options: { plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}, cutout:'65%' }
+});
+
+// Chart Prioridade
+new Chart(document.getElementById('chartPrioridade'), {
+  type: 'bar',
+  data: {
+    labels: ['P0','P1','P2','P3'],
+    datasets:[{label:'Projetos', data:[2,4,1,0], backgroundColor:['#C62828','#F9A825','#2E5FA3','#90A4AE'], borderRadius:6}]
+  },
+  options: { plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true, ticks:{stepSize:1}}} }
+});
+
+// Chart Classificação
+new Chart(document.getElementById('chartClassificacao'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Estratégico','Operacional','Integração','Automação'],
+    datasets:[{data:[4,1,1,1], backgroundColor:['#1B3A6B','#2E7D32','#4A148C','#E65100'], borderWidth:2, borderColor:'#fff'}]
+  },
+  options: { plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}, cutout:'60%' }
+});
+
+// Chart Evolução
+new Chart(document.getElementById('chartEvolucao'), {
+  type: 'bar',
+  data: {
+    labels: projetos.map(p => p.id),
+    datasets:[{
+      label:'% Conclusão',
+      data: projetos.map(p => p.perc),
+      backgroundColor: projetos.map(p => p.perc >= 70 ? '#2E7D32' : p.perc >= 40 ? '#F9A825' : '#C62828'),
+      borderRadius: 6
+    }]
+  },
+  options: {
+    indexAxis:'y',
+    plugins:{legend:{display:false}},
+    scales:{x:{beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}}}
+  }
+});
+</script>
+</body>
+</html>

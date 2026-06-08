@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COI — Portfólio de Projetos</title>
+<style>
+  :root {
+    --azul-escuro: #1B3A6B; --azul-medio: #2E5FA3; --azul-claro: #DCE6F1;
+    --cinza-bg: #F4F6FA; --verde: #2E7D32; --amarelo: #F9A825;
+    --vermelho: #C62828; --laranja: #E65100; --roxo: #4A148C;
+    --branco: #FFFFFF; --texto: #1A1A2E; --borda: #D0D7E8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:var(--cinza-bg); color:var(--texto); }
+
+  header {
+    background: linear-gradient(135deg,var(--azul-escuro) 0%,var(--azul-medio) 100%);
+    color:#fff; padding:18px 32px; display:flex; align-items:center;
+    justify-content:space-between; box-shadow:0 3px 12px rgba(0,0,0,.25);
+  }
+  .logo-box { width:52px;height:52px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900; }
+  .header-title h1 { font-size:1.45rem;font-weight:700; }
+  .header-title p { font-size:.78rem;opacity:.75;margin-top:2px; }
+  .logo-area { display:flex;align-items:center;gap:14px; }
+  .header-meta { text-align:right;font-size:.78rem;opacity:.75; }
+  .header-meta strong { display:block;font-size:.92rem;opacity:1; }
+
+  nav { background:var(--azul-escuro);display:flex;gap:2px;padding:0 24px;border-bottom:3px solid var(--azul-medio); }
+  nav a { color:rgba(255,255,255,.7);text-decoration:none;padding:10px 18px;font-size:.82rem;font-weight:500;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s; }
+  nav a:hover, nav a.active { color:#fff;border-bottom-color:#FFC107; }
+
+  main { max-width:1400px;margin:0 auto;padding:28px 24px; }
+  .section-title { font-size:1.05rem;font-weight:700;color:var(--azul-escuro);border-left:4px solid var(--azul-medio);padding-left:12px;margin:28px 0 16px; }
+
+  /* TABS */
+  .tabs { display:flex;gap:0;background:var(--branco);border-radius:12px 12px 0 0;box-shadow:0 2px 8px rgba(0,0,0,.07);overflow:hidden;flex-wrap:wrap; }
+  .tab-btn {
+    padding:12px 20px;font-size:.82rem;font-weight:600;cursor:pointer;
+    background:transparent;border:none;color:#555;border-bottom:3px solid transparent;
+    transition:all .2s;white-space:nowrap;
+  }
+  .tab-btn:hover { background:#F0F4FF;color:var(--azul-medio); }
+  .tab-btn.active { color:var(--azul-escuro);border-bottom-color:var(--azul-medio);background:#F8FAFF; }
+  .tab-content { background:var(--branco);border-radius:0 0 12px 12px;box-shadow:0 2px 8px rgba(0,0,0,.07);padding:22px;display:none; }
+  .tab-content.active { display:block; }
+
+  /* FILTERS */
+  .filters { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center; }
+  .filter-input {
+    padding:7px 12px;border:1px solid var(--borda);border-radius:8px;
+    font-size:.8rem;outline:none;background:#fff;
+  }
+  .filter-input:focus { border-color:var(--azul-medio); }
+  .btn-add {
+    padding:7px 16px;background:var(--azul-medio);color:#fff;border:none;
+    border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;margin-left:auto;
+  }
+  .btn-add:hover { background:var(--azul-escuro); }
+
+  /* TABLE */
+  .table-wrap { overflow-x:auto; }
+  table { width:100%;border-collapse:collapse;font-size:.81rem; }
+  th { background:var(--azul-escuro);color:#fff;padding:10px 12px;text-align:left;font-size:.77rem;font-weight:600;white-space:nowrap; }
+  td { padding:9px 12px;border-bottom:1px solid #EEF1F8;vertical-align:middle; }
+  tr:hover td { background:#F0F4FF; }
+  tr:last-child td { border-bottom:none; }
+  .badge { display:inline-block;padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:600; }
+  .badge-verde { background:#E8F5E9;color:#2E7D32; }
+  .badge-amarelo { background:#FFF8E1;color:#F9A825; }
+  .badge-vermelho { background:#FFEBEE;color:#C62828; }
+  .badge-azul { background:#E3F2FD;color:#1565C0; }
+  .badge-cinza { background:#ECEFF1;color:#455A64; }
+  .badge-roxo { background:#F3E5F5;color:#6A1B9A; }
+  .badge-laranja { background:#FFF3E0;color:#E65100; }
+
+  .progress-bar { background:#EEF1F8;border-radius:10px;height:7px;overflow:hidden;min-width:70px; }
+  .progress-fill { height:100%;border-radius:10px; }
+
+  /* FICHA LINK */
+  .proj-link { color:var(--azul-medio);font-weight:700;text-decoration:none; }
+  .proj-link:hover { text-decoration:underline; }
+
+  /* EMPTY STATE */
+  .empty-state { text-align:center;padding:40px;color:#888;font-size:.85rem; }
+  .empty-state .icon { font-size:2.5rem;margin-bottom:12px;display:block; }
+
+  /* FORM MODAL */
+  .modal-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:#fff;border-radius:16px;padding:28px;width:90%;max-width:700px;max-height:85vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.25); }
+  .modal h2 { font-size:1.05rem;color:var(--azul-escuro);margin-bottom:20px;font-weight:700; }
+  .form-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+  .form-group { display:flex;flex-direction:column;gap:5px; }
+  .form-group.full { grid-column:1/-1; }
+  .form-group label { font-size:.75rem;font-weight:600;color:#444; }
+  .form-group input, .form-group select, .form-group textarea {
+    padding:8px 10px;border:1px solid #DDD;border-radius:7px;font-size:.82rem;outline:none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--azul-medio); }
+  .modal-actions { display:flex;gap:10px;justify-content:flex-end;margin-top:18px; }
+  .btn-cancel { padding:8px 18px;border:1px solid #DDD;border-radius:8px;font-size:.82rem;cursor:pointer;background:#fff; }
+  .btn-save { padding:8px 18px;background:var(--azul-medio);color:#fff;border:none;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer; }
+  .btn-save:hover { background:var(--azul-escuro); }
+
+  footer { text-align:center;font-size:.73rem;color:#888;padding:20px;border-top:1px solid #DDD;margin-top:24px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <div class="logo-box">COI</div>
+    <div class="header-title">
+      <h1>Centro de Operações Integradas</h1>
+      <p>Portfólio de Projetos Estratégicos — Visão Completa</p>
+    </div>
+  </div>
+  <div class="header-meta">
+    <strong id="data-atual"></strong>
+    Governo do Distrito Federal
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Dashboard</a>
+  <a href="portfolio.html" class="active">Portfólio</a>
+  <a href="projetos/ficha_COI001.html">COI-001 AURA</a>
+  <a href="projetos/ficha_COI002.html">COI-002 Calçadas</a>
+  <a href="projetos/ficha_COI003.html">COI-003 e-GDF</a>
+  <a href="projetos/ficha_COI004.html">COI-004 IA Telefonia</a>
+  <a href="projetos/ficha_COI005.html">COI-005 AIOps</a>
+  <a href="projetos/ficha_COI006.html">COI-006 WhatsApp</a>
+  <a href="projetos/ficha_COI007.html">COI-007 CITSmartX</a>
+  <a href="projetos/ficha_COI008.html">COI-008 Automação IA</a>
+</nav>
+
+<main>
+  <div class="section-title">Portfólio de Projetos Estratégicos do COI</div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('projetos')">📁 Projetos</button>
+    <button class="tab-btn" onclick="switchTab('demandas')">📋 Demandas</button>
+    <button class="tab-btn" onclick="switchTab('melhorias')">🔧 Melhorias</button>
+    <button class="tab-btn" onclick="switchTab('riscos')">⚠️ Riscos</button>
+    <button class="tab-btn" onclick="switchTab('indicadores')">📊 Indicadores</button>
+    <button class="tab-btn" onclick="switchTab('cronograma')">📅 Cronograma</button>
+    <button class="tab-btn" onclick="switchTab('pendencias')">🔔 Pendências</button>
+    <button class="tab-btn" onclick="switchTab('decisoes')">⚖️ Decisões</button>
+    <button class="tab-btn" onclick="switchTab('entregas')">🚀 Próximas Entregas</button>
+  </div>
+
+  <!-- ABA PROJETOS -->
+  <div class="tab-content active" id="tab-projetos">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar projeto..." oninput="filtrarTabela('tb-projetos',this.value)">
+      <select class="filter-input" onchange="filtrarPorColuna('tb-projetos',3,this.value)">
+        <option value="">Todas as prioridades</option>
+        <option>P0</option><option>P1</option><option>P2</option><option>P3</option>
+      </select>
+      <select class="filter-input" onchange="filtrarPorColuna('tb-projetos',4,this.value)">
+        <option value="">Todos os status</option>
+        <option>Planejamento</option><option>Em andamento</option>
+        <option>Homologação</option><option>Produção</option>
+        <option>Concluído</option><option>Suspenso</option>
+      </select>
+      <button class="btn-add" onclick="document.getElementById('modal-projeto').classList.add('open')">+ Novo Projeto</button>
+    </div>
+    <div class="table-wrap">
+      <table id="tb-projetos">
+        <thead><tr>
+          <th>ID</th><th>Nome do Projeto</th><th>Classificação</th><th>Prior.</th>
+          <th>Status</th><th>Fase</th><th>Plataforma</th><th>% Conc.</th>
+          <th>Semáforo</th><th>Responsável</th><th>Prazo</th><th>Ficha</th>
+        </tr></thead>
+        <tbody id="tbody-projetos"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ABA DEMANDAS -->
+  <div class="tab-content" id="tab-demandas">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar demanda...">
+      <button class="btn-add">+ Nova Demanda</button>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>ID</th><th>Título</th><th>Tipo</th><th>Projeto</th><th>Prioridade</th>
+        <th>Status</th><th>Solicitante</th><th>Responsável COI</th><th>Prazo</th><th>Impacto</th>
+      </tr></thead>
+      <tbody>
+        <tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span>Nenhuma demanda cadastrada. Utilize a base Excel <code>coi_base_dados.xlsx</code> (aba Demandas) para inserir registros.</div></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- ABA MELHORIAS -->
+  <div class="tab-content" id="tab-melhorias">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar melhoria...">
+      <button class="btn-add">+ Nova Melhoria</button>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>ID</th><th>Descrição</th><th>Projeto</th><th>Área</th><th>Prioridade</th>
+        <th>Status</th><th>Responsável</th><th>Prazo</th><th>Ganho Esperado</th>
+      </tr></thead>
+      <tbody>
+        <tr><td colspan="9"><div class="empty-state"><span class="icon">🔧</span>Nenhuma melhoria cadastrada. Utilize a aba <strong>Melhorias</strong> da base Excel.</div></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- ABA RISCOS -->
+  <div class="tab-content" id="tab-riscos">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar risco...">
+      <select class="filter-input">
+        <option value="">Todos os níveis</option>
+        <option>Crítico</option><option>Alto</option><option>Médio</option><option>Baixo</option>
+      </select>
+      <button class="btn-add">+ Novo Risco</button>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>ID</th><th>Projeto</th><th>Descrição</th><th>Probabilidade</th><th>Impacto</th>
+        <th>Nível</th><th>Status</th><th>Plano de Mitigação</th><th>Responsável</th><th>Prazo</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td>R-001</td><td>COI-004</td><td>Atraso na integração NLU com CITSmartX por falta de API estável</td>
+          <td><span class="badge badge-vermelho">Alta</span></td><td><span class="badge badge-vermelho">Alto</span></td>
+          <td><span class="badge badge-vermelho">Crítico</span></td><td><span class="badge badge-amarelo">Mitigando</span></td>
+          <td>Mapear endpoints alternativos e acionar fornecedor</td><td>—</td><td>—</td>
+        </tr>
+        <tr>
+          <td>R-002</td><td>COI-006</td><td>Aprovação da Meta para WhatsApp Oficial com prazo indefinido</td>
+          <td><span class="badge badge-amarelo">Média</span></td><td><span class="badge badge-vermelho">Alto</span></td>
+          <td><span class="badge badge-vermelho">Alto</span></td><td><span class="badge badge-amarelo">Mitigando</span></td>
+          <td>Contato direto com Gupshup para aceleração do processo junto à Meta</td><td>—</td><td>—</td>
+        </tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- ABA INDICADORES -->
+  <div class="tab-content" id="tab-indicadores">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar indicador...">
+      <button class="btn-add">+ Novo Indicador</button>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>ID</th><th>Indicador</th><th>Projeto</th><th>Unidade</th><th>Meta</th>
+        <th>Realizado</th><th>Variação</th><th>Período</th><th>Tendência</th><th>Semáforo</th>
+      </tr></thead>
+      <tbody>
+        <tr><td colspan="10"><div class="empty-state"><span class="icon">📊</span>Indicadores serão populados a partir da aba <strong>Indicadores</strong> da base Excel.</div></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- ABA CRONOGRAMA -->
+  <div class="tab-content" id="tab-cronograma">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar marco...">
+      <button class="btn-add">+ Novo Marco</button>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>ID</th><th>Projeto</th><th>Marco / Entrega</th><th>Responsável</th>
+        <th>Data Prevista</th><th>Data Real</th><th>Status</th><th>% Conc.</th><th>Observações</th>
+      </tr></thead>
+      <tbody>
+        <tr><td colspan="9"><div class="empty-state"><span class="icon">📅</span>Marcos serão populados a partir da aba <strong>Cronograma</strong> da base Excel.</div></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- ABA PENDÊNCIAS -->
+  <div class="tab-content" id="tab-pendencias">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar pendência...">
+      <button class="btn-add">+ Nova Pendência</button>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>ID</th><th>Projeto</th><th>Descrição</th><th>Tipo</th><th>Responsável</th>
+        <th>Prazo</th><th>Status</th><th>Impacto se não resolvida</th>
+      </tr></thead>
+      <tbody>
+        <tr><td colspan="8"><div class="empty-state"><span class="icon">🔔</span>Nenhuma pendência cadastrada. Utilize a aba <strong>Pendências</strong> da base Excel.</div></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- ABA DECISÕES -->
+  <div class="tab-content" id="tab-decisoes">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar decisão...">
+      <button class="btn-add">+ Nova Decisão</button>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>ID</th><th>Projeto</th><th>Decisão Tomada</th><th>Data</th>
+        <th>Responsável</th><th>Participantes</th><th>Impacto</th><th>Fonte</th>
+      </tr></thead>
+      <tbody>
+        <tr><td colspan="8"><div class="empty-state"><span class="icon">⚖️</span>Nenhuma decisão registrada. Utilize a aba <strong>Decisões</strong> da base Excel.</div></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- ABA PRÓXIMAS ENTREGAS -->
+  <div class="tab-content" id="tab-entregas">
+    <div class="filters">
+      <input class="filter-input" placeholder="🔍 Buscar entrega...">
+      <button class="btn-add">+ Nova Entrega</button>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>ID</th><th>Projeto</th><th>Entrega / Marco</th><th>Responsável</th>
+        <th>Prazo Previsto</th><th>Prioridade</th><th>Status</th><th>Risco de Atraso</th>
+      </tr></thead>
+      <tbody>
+        <tr><td colspan="8"><div class="empty-state"><span class="icon">🚀</span>Próximas entregas serão populadas a partir da aba <strong>Próximas Entregas</strong> da base Excel.</div></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</main>
+
+<!-- MODAL NOVO PROJETO -->
+<div class="modal-overlay" id="modal-projeto">
+  <div class="modal">
+    <h2>➕ Cadastrar Novo Projeto</h2>
+    <div class="form-grid">
+      <div class="form-group"><label>ID do Projeto *</label><input type="text" placeholder="COI-009" id="f-id"></div>
+      <div class="form-group"><label>Classificação *</label>
+        <select id="f-class">
+          <option>Estratégico</option><option>Operacional</option><option>Melhoria</option>
+          <option>Incidente Relevante</option><option>Automação</option><option>Integração</option>
+        </select>
+      </div>
+      <div class="form-group full"><label>Nome do Projeto *</label><input type="text" placeholder="Nome oficial do projeto" id="f-nome"></div>
+      <div class="form-group full"><label>Objetivo</label><textarea rows="2" placeholder="Descreva o objetivo estratégico" id="f-objetivo"></textarea></div>
+      <div class="form-group"><label>Prioridade *</label>
+        <select id="f-prior"><option>P0</option><option>P1</option><option>P2</option><option>P3</option></select>
+      </div>
+      <div class="form-group"><label>Status *</label>
+        <select id="f-status">
+          <option>Planejamento</option><option>Em andamento</option>
+          <option>Homologação</option><option>Produção</option><option>Concluído</option><option>Suspenso</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Fase Atual</label>
+        <select id="f-fase">
+          <option>Concepção</option><option>Planejamento</option><option>Execução</option>
+          <option>Homologação</option><option>Produção</option><option>Encerramento</option>
+        </select>
+      </div>
+      <div class="form-group"><label>% Conclusão</label><input type="number" min="0" max="100" placeholder="0" id="f-perc"></div>
+      <div class="form-group"><label>Patrocinador</label><input type="text" id="f-patr"></div>
+      <div class="form-group"><label>Responsável COI</label><input type="text" id="f-resp"></div>
+      <div class="form-group"><label>Cliente / Órgão</label><input type="text" id="f-orgao"></div>
+      <div class="form-group"><label>Sistema / Plataforma</label><input type="text" id="f-plat"></div>
+      <div class="form-group"><label>Data Início</label><input type="date" id="f-inicio"></div>
+      <div class="form-group"><label>Prazo Previsto</label><input type="date" id="f-prazo"></div>
+      <div class="form-group full"><label>Dependências</label><input type="text" placeholder="Projetos ou sistemas dependentes" id="f-dep"></div>
+      <div class="form-group full"><label>Benefício Esperado</label><textarea rows="2" id="f-benef"></textarea></div>
+      <div class="form-group"><label>Impacto Contratual</label>
+        <select id="f-contrato"><option>Não</option><option>Sim</option></select>
+      </div>
+      <div class="form-group"><label>Fonte da Informação</label>
+        <select id="f-fonte">
+          <option>Reunião</option><option>E-mail</option><option>Evidência Técnica</option>
+          <option>Relatório</option><option>Painel</option><option>Solicitação Direta</option>
+        </select>
+      </div>
+      <div class="form-group full"><label>Observações Executivas</label><textarea rows="2" id="f-obs"></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="document.getElementById('modal-projeto').classList.remove('open')">Cancelar</button>
+      <button class="btn-save" onclick="salvarProjeto()">Salvar Projeto</button>
+    </div>
+  </div>
+</div>
+
+<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.0 · Junho 2026</footer>
+
+<script>
+document.getElementById('data-atual').textContent =
+  new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+const PROJETOS = [
+  {id:'COI-001',nome:'Sistema de Disparo de Campanhas AURA',class:'Estratégico',prior:'P1',status:'Em andamento',fase:'Execução',plat:'AURA / Gupshup / WhatsApp / CITSmartX',perc:35,sem:'🟡',resp:'—',prazo:'—'},
+  {id:'COI-002',nome:'Painel Inteligente Portal do Cidadão – Gestão de Calçadas',class:'Estratégico',prior:'P1',status:'Em andamento',fase:'Execução',plat:'Portal do Cidadão / AIOps / Dashboard Web',perc:40,sem:'🟡',resp:'—',prazo:'—'},
+  {id:'COI-003',nome:'Evolução Aplicativo e-GDF',class:'Estratégico',prior:'P1',status:'Em andamento',fase:'Execução',plat:'Aplicativo e-GDF / Serviços Digitais',perc:50,sem:'🟢',resp:'—',prazo:'—'},
+  {id:'COI-004',nome:'IA para Telefonia e NLU',class:'Estratégico',prior:'P0',status:'Em andamento',fase:'Execução',plat:'Telefonia / URA / IA / NLU / CITSmartX',perc:30,sem:'🔴',resp:'—',prazo:'—'},
+  {id:'COI-005',nome:'Monitoramento AIOps',class:'Operacional',prior:'P1',status:'Em andamento',fase:'Execução',plat:'AIOps / Grafana / Prometheus / Monitoramento Web',perc:55,sem:'🟢',resp:'—',prazo:'—'},
+  {id:'COI-006',nome:'WhatsApp Oficial / Gupshup',class:'Estratégico',prior:'P0',status:'Homologação',fase:'Homologação',plat:'WhatsApp Oficial / Gupshup / Meta',perc:75,sem:'🟡',resp:'—',prazo:'—'},
+  {id:'COI-007',nome:'Integrações CITSmartX',class:'Integração',prior:'P1',status:'Em andamento',fase:'Execução',plat:'CITSmartX / APIs / Integrações',perc:45,sem:'🟢',resp:'—',prazo:'—'},
+  {id:'COI-008',nome:'Projetos de Automação e IA',class:'Automação',prior:'P2',status:'Planejamento',fase:'Planejamento',plat:'Automação / IA / RPA / Agentes Inteligentes',perc:10,sem:'🟢',resp:'—',prazo:'—'},
+];
+
+function renderProjetos(data) {
+  const tb = document.getElementById('tbody-projetos');
+  tb.innerHTML = '';
+  data.forEach(p => {
+    const pc = p.prior==='P0'?'badge-vermelho':p.prior==='P1'?'badge-amarelo':'badge-azul';
+    const sc = p.status==='Em andamento'?'badge-azul':p.status==='Homologação'?'badge-amarelo':p.status==='Planejamento'?'badge-cinza':p.status==='Concluído'?'badge-verde':'badge-cinza';
+    const fc = p.perc>=70?'#2E7D32':p.perc>=40?'#F9A825':'#C62828';
+    const idSlug = p.id.replace('-','');
+    tb.innerHTML += `<tr>
+      <td><strong>${p.id}</strong></td>
+      <td style="max-width:220px;">${p.nome}</td>
+      <td><span class="badge badge-cinza" style="font-size:.68rem">${p.class}</span></td>
+      <td><span class="badge ${pc}">${p.prior}</span></td>
+      <td><span class="badge ${sc}">${p.status}</span></td>
+      <td>${p.fase}</td>
+      <td style="font-size:.75rem;max-width:160px;">${p.plat}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="progress-bar"><div class="progress-fill" style="width:${p.perc}%;background:${fc}"></div></div>
+          <span style="font-size:.76rem;font-weight:700;color:${fc}">${p.perc}%</span>
+        </div>
+      </td>
+      <td style="font-size:1.1rem">${p.sem}</td>
+      <td>${p.resp}</td>
+      <td>${p.prazo}</td>
+      <td><a class="proj-link" href="projetos/ficha_${idSlug}.html">Ver ficha</a></td>
+    </tr>`;
+  });
+}
+
+renderProjetos(PROJETOS);
+
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', b.textContent.toLowerCase().includes(id.substring(0,4).toLowerCase()) || (id==='entregas' && b.textContent.includes('Entregas'))));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    const map = {projetos:'Projetos',demandas:'Demandas',melhorias:'Melhorias',riscos:'Riscos',indicadores:'Indicadores',cronograma:'Cronograma',pendencias:'Pendências',decisoes:'Decisões',entregas:'Entregas'};
+    b.classList.toggle('active', b.textContent.includes(map[id]));
+  });
+}
+
+function filtrarTabela(tbId, q) {
+  const tb = document.getElementById(tbId);
+  Array.from(tb.tBodies[0].rows).forEach(r => {
+    r.style.display = r.textContent.toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+
+function filtrarPorColuna(tbId, col, val) {
+  const tb = document.getElementById(tbId);
+  Array.from(tb.tBodies[0].rows).forEach(r => {
+    r.style.display = (!val || r.cells[col]?.textContent.trim() === val) ? '' : 'none';
+  });
+}
+
+function salvarProjeto() {
+  const id = document.getElementById('f-id').value.trim();
+  const nome = document.getElementById('f-nome').value.trim();
+  if (!id || !nome) { alert('ID e Nome são obrigatórios.'); return; }
+  PROJETOS.push({
+    id, nome,
+    class: document.getElementById('f-class').value,
+    prior: document.getElementById('f-prior').value,
+    status: document.getElementById('f-status').value,
+    fase: document.getElementById('f-fase').value,
+    plat: document.getElementById('f-plat').value || '—',
+    perc: parseInt(document.getElementById('f-perc').value)||0,
+    sem: '🟡', resp: document.getElementById('f-resp').value||'—',
+    prazo: document.getElementById('f-prazo').value||'—'
+  });
+  renderProjetos(PROJETOS);
+  document.getElementById('modal-projeto').classList.remove('open');
+}
+</script>
+</body>
+</html>
