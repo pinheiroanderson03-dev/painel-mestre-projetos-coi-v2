@@ -189,7 +189,7 @@ document.getElementById('footer-ciclo').textContent = ciclo;
 const nav = document.getElementById('nav-principal');
 COI_DATA.projetos.forEach(p => {
   const a = document.createElement('a');
-  a.href = `projetos/ficha_${idSlug(p.id)}.html`;
+  a.href = `projetos/ficha.html#${p.id}`;
   a.textContent = `${p.id}`;
   a.title = p.nome;
   nav.appendChild(a);
@@ -223,7 +223,7 @@ ps.forEach(p => {
 
   const tdId = document.createElement('td');
   const link = document.createElement('a');
-  link.href = `projetos/ficha_${idSlug(p.id)}.html`;
+  link.href = `projetos/ficha.html#${p.id}`;
   link.className = 'proj-link';
   link.textContent = p.id;
   tdId.appendChild(link);
@@ -398,3 +398,4 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
+                                                                                                                                    

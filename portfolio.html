@@ -322,7 +322,7 @@ document.getElementById('data-atual').textContent =
 const nav = document.getElementById('nav-principal');
 COI_DATA.projetos.forEach(p => {
   const a = document.createElement('a');
-  a.href = `projetos/ficha_${idSlug(p.id)}.html`;
+  a.href = `projetos/ficha.html#${p.id}`;
   a.textContent = p.id;
   a.title = p.nome;
   nav.appendChild(a);
@@ -377,7 +377,7 @@ function renderProjetos(lista) {
 
     const linkTd = document.createElement('td');
     const link   = document.createElement('a');
-    link.href = `projetos/ficha_${idSlug(p.id)}.html`;
+    link.href = `projetos/ficha.html#${p.id}`;
     link.className = 'proj-link';
     link.textContent = p.id;
     linkTd.appendChild(link);
@@ -423,7 +423,7 @@ function renderProjetos(lista) {
     prazoTd.textContent = p.prazoPrevisto || '—';
 
     const fichaLink = document.createElement('a');
-    fichaLink.href = `projetos/ficha_${idSlug(p.id)}.html`;
+    fichaLink.href = `projetos/ficha.html#${p.id}`;
     fichaLink.className = 'proj-link';
     fichaLink.textContent = 'Ver ficha';
     const fichaTd = document.createElement('td');
@@ -558,3 +558,4 @@ document.addEventListener('keydown', e => {
 </script>
 </body>
 </html>
+                                                                                                                                                             
