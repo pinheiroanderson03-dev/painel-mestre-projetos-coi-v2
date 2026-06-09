@@ -9,6 +9,8 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ### O que melhorou
 
+**Dashboard funciona sem internet:** os gráficos do painel principal agora carregam de um arquivo local (`assets/js/chart.umd.min.js`), sem precisar de conexão com a internet. Caso o arquivo local não seja encontrado, o painel busca automaticamente a versão online como reserva. Ambientes com restrição de rede no GDF não são mais afetados.
+
 **Armazenamento mais seguro:** se o navegador atingir o limite de armazenamento local (~5MB), o painel agora exibe um aviso claro em vez de falhar silenciosamente. A mensagem orienta o usuário a exportar os dados antes de continuar.
 
 **Diagnóstico de links inválidos:** acessos a fichas com ID inexistente passam a ser registrados automaticamente. Isso permite identificar rapidamente links quebrados sem depender de relatos manuais dos usuários. Os registros ficam visíveis no DevTools do navegador.

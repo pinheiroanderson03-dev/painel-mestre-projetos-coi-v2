@@ -4,6 +4,26 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.3 — Fase 3: Polimento e Robustez (2026-06-09)
+
+### Débitos técnicos (itens 1–6)
+- `index.html`, `portfolio.html` — dead code `idSlug()` removido
+- `projetos/ficha.html` — helper `clearEl()` adicionado; 4 ocorrências de `innerHTML = ''` substituídas
+- `dados/projetos.js` — `QuotaExceededError` e `NS_ERROR_DOM_QUOTA_REACHED` tratados em `coiSalvarProjeto` e `coiSalvarSecaoFicha`; retorno `{ok:false, quota:true}` para chamadores
+- `projetos/ficha.html` — 4 verificações de quota (r1–r4) com toast de aviso ao usuário
+- `projetos/ficha.html` — log diagnóstico `coi_hash_invalidos` (max 50 entradas) em hashes inválidos
+
+### Chart.js local/offline (item 7)
+- `assets/js/chart.umd.min.js` — Chart.js 4.4.1 incluído localmente (204KB, v4.4.1)
+- `index.html` — carregamento local como primário; CDN `cdnjs.cloudflare.com` como fallback automático via `document.write` se arquivo local não encontrado
+- Painel funciona agora 100% offline; CDN só é consultado se `assets/js/chart.umd.min.js` estiver ausente
+
+### Documentação
+- `ROADMAP_COI.md` criado — visão v1.0→v2.0, fases, critérios de qualidade, débitos técnicos
+- `RELEASE_NOTES.md` criado — notas por versão para usuário final
+
+---
+
 ## v1.2 — Fase 2: Hash Routing (2026-06-09)
 
 **Objetivo:** Resolver R1 — novos projetos cadastrados via portfólio dependiam de arquivos HTML físicos inexistentes.

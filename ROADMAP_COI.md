@@ -37,9 +37,10 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 - [x] Log diagnóstico de hashes inválidos — `ficha.html`
 - [x] `ROADMAP_COI.md` (este arquivo)
 - [x] `RELEASE_NOTES.md`
+- [x] Chart.js 4.4.1 local em `assets/js/chart.umd.min.js` — painel 100% offline
+- [x] `index.html` atualizado: local primário + fallback automático para CDN
 
-**Pendente (baixo risco, aprovação necessária):**
-- [ ] Chart.js local/offline: download de `chart.umd.min.js` para `assets/js/`
+**Pendente (aprovação necessária):**
 - [ ] Refatoração do `hashchange`: re-render sem reload completo da página
 
 ---
@@ -76,7 +77,7 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 |---|---|---|
 | Sem innerHTML com dados externos | 0 ocorrências | ✅ |
 | Fonte única de verdade | `dados/projetos.js` | ✅ |
-| Funcional offline (sem CDN) | Chart.js local | ⏳ Fase 3 |
+| Funcional offline (sem CDN) | Chart.js local | ✅ |
 | Novos projetos sem arquivos físicos | Hash routing | ✅ |
 | Feedback de erros ao usuário | Toast + tela de erro | ✅ |
 | Diagnóstico de falhas | Log localStorage | ✅ |
@@ -89,7 +90,7 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 | ID | Descrição | Prioridade | Fase |
 |---|---|---|---|
-| DT-01 | Chart.js via CDN — dependência de rede para gráficos | P2 | 3 |
+| ~~DT-01~~ | ~~Chart.js via CDN — dependência de rede para gráficos~~ | ~~P2~~ | ✅ Resolvido v1.3 |
 | DT-02 | `hashchange` com `location.reload()` — recarrega DOM inteiro | P3 | 3 |
 | DT-03 | `ficha_COI001–008.html` são redirects, não removidos | P3 | 4 |
 | DT-04 | Sem paginação em tabelas de atividades/riscos extensas | P3 | 4 |
@@ -97,4 +98,4 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-*Última atualização: 2026-06-09 · Versão: v1.3*
+*Última atualização: 2026-06-09 · Versão: v1.3 (Chart.js local)*
