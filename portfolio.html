@@ -375,12 +375,6 @@ function renderProjetos(lista) {
     tr.dataset.prior  = p.prioridade;
     tr.dataset.status = p.status;
 
-    function td(content, isHTML=false) {
-      const el = document.createElement('td');
-      if (isHTML) el.innerHTML = content; else el.textContent = content;
-      return el;
-    }
-
     const linkTd = document.createElement('td');
     const link   = document.createElement('a');
     link.href = `projetos/ficha_${idSlug(p.id)}.html`;
@@ -503,7 +497,7 @@ function salvarProjeto() {
     prioridade:      document.getElementById('f-prior').value,
     status:          document.getElementById('f-status').value,
     fase:            document.getElementById('f-fase').value,
-    percentual:      parseInt(document.getElementById('f-perc').value) || 0,
+    percentual:      Math.min(100, Math.max(0, parseInt(document.getElementById('f-perc').value) || 0)),
     semaforo:        '🟡',
     patrocinador:    document.getElementById('f-patr').value,
     responsavel:     document.getElementById('f-resp').value,

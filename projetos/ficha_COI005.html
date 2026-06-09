@@ -296,7 +296,14 @@ function emptyRow(cols, msg) {
   const tr = document.createElement('tr');
   const td = document.createElement('td');
   td.colSpan = cols;
-  td.innerHTML = `<div class="empty-state"><span class="icon">📭</span>${msg}</div>`;
+  const div = document.createElement('div');
+  div.className = 'empty-state';
+  const icon = document.createElement('span');
+  icon.className = 'icon';
+  icon.textContent = '📭';
+  div.appendChild(icon);
+  div.appendChild(document.createTextNode(' ' + msg));
+  td.appendChild(div);
   tr.appendChild(td);
   return tr;
 }
@@ -345,7 +352,7 @@ function renderHero(p) {
   const badges = document.getElementById('hero-badges');
   badges.innerHTML = '';
   [
-    [p.prioridade, p.prioridade==='P0'||p.prioridade==='P1'?'badge-vermelho':'badge-amarelo'],
+    [p.prioridade, p.prioridade==='P0'?'badge-vermelho':p.prioridade==='P1'?'badge-amarelo':'badge-azul'],
     [p.status, 'badge-azul'],
     [p.classificacao, 'badge-cinza'],
     [p.fase, 'badge-azul']
