@@ -294,6 +294,7 @@ function showToast(msg, erro=false) {
 function abrirModal(id) { document.getElementById(id).classList.add('open'); }
 function fecharModal(id) { document.getElementById(id).classList.remove('open'); }
 function percColor(n) { return n>=70?'#2E7D32':n>=40?'#F9A825':'#C62828'; }
+function clearEl(el) { while (el.firstChild) el.removeChild(el.firstChild); }
 function nivelRisco(prob, imp) {
   if (prob==='Alta'  && imp==='Alto')  return {txt:'Crítico', cls:'badge-vermelho'};
   if (prob==='Alta'  || imp==='Alto')  return {txt:'Alto',    cls:'badge-vermelho'};
@@ -330,7 +331,7 @@ const projeto = COI_DATA.projetos.find(p => p.id === FICHA_ID);
 if (!projeto) {
   // Projeto não encontrado: exibe tela de erro sem innerHTML inseguro
   const main = document.getElementById('main-content');
-  main.innerHTML = '';
+  clearEl(main);
   const bloco = document.createElement('div');
   bloco.className = 'block';
   bloco.style.cssText = 'text-align:center;padding:60px 20px;';
@@ -361,6 +362,16 @@ if (!projeto) {
 
   document.getElementById('hdr-titulo').textContent = 'Projeto não encontrado';
   document.title = 'COI — Projeto não encontrado';
+
+  // ─── Log diagnóstico de hashes inválidos ────────────────────────
+  // Consultável via DevTools > Application > localStorage > coi_hash_invalidos
+  try {
+    const log = JSON.parse(localStorage.getItem('coi_hash_invalidos') || '[]');
+    log.push({ hash: FICHA_ID, ts: new Date().toISOString() });
+    if (log.length > 50) log.splice(0, log.length - 50);
+    localStorage.setItem('coi_hash_invalidos', JSON.stringify(log));
+  } catch (_) { /* silencioso se localStorage indisponível */ }
+  console.warn('COI: hash inválido registrado —', FICHA_ID);
 }
 
 // ─── Nav dinâmica ─────────────────────────────────────────────────────
@@ -385,7 +396,7 @@ function renderHero(p) {
     p.id + ' · Atualizado em ' + (p.atualizadoEm || new Date().toLocaleDateString('pt-BR'));
   document.getElementById('hero-nome').textContent = p.nome;
   const hplat = document.getElementById('hero-plat');
-  hplat.innerHTML = '';
+  clearEl(hplat);
   const strong = document.createElement('strong');
   strong.textContent = 'Plataforma: ';
   hplat.appendChild(strong);
@@ -401,7 +412,7 @@ function renderHero(p) {
   circle.style.background =
     `conic-gradient(${fc} ${Math.round(p.percentual*3.6)}deg, #EEF1F8 0deg)`;
   const badges = document.getElementById('hero-badges');
-  badges.innerHTML = '';
+  clearEl(badges);
   [
     [p.prioridade, p.prioridade==='P0'?'badge-vermelho':p.prioridade==='P1'?'badge-amarelo':'badge-azul'],
     [p.status,     'badge-azul'],
@@ -497,7 +508,7 @@ function salvarEdicao() {
 // ─── Tabelas (localStorage) ───────────────────────────────────────────
 function renderTabela(tbodyId, dados, colunas, vazio) {
   const tb = document.getElementById(tbodyId);
-  tb.innerHTML = '';
+  clearEl(tb);
   if (!dados.length) { tb.appendChild(emptyRow(colunas, vazio)); return; }
   dados.forEach(row => {
     const tr = document.createElement('tr');
@@ -531,7 +542,8 @@ function salvarAtividade() {
     data: document.getElementById('atv-data').value || new Date().toLocaleDateString('pt-BR'),
     evid: document.getElementById('atv-evid').value
   });
-  coiSalvarSecaoFicha(FICHA_ID, 'atividades', dados);
+  const r1 = coiSalvarSecaoFicha(FICHA_ID, 'atividades', dados);
+  if (r1 && r1.quota) { showToast('⚠️ Armazenamento local cheio. Exporte os dados antes de continuar.', true); return; }
   carregarAtividades();
   fecharModal('modal-atividade');
   ['atv-desc','atv-resp','atv-data','atv-evid'].forEach(id => document.getElementById(id).value='');
@@ -555,7 +567,8 @@ function salvarPasso() {
     data: document.getElementById('pas-data').value,
     status: document.getElementById('pas-status').value
   });
-  coiSalvarSecaoFicha(FICHA_ID, 'passos', dados);
+  const r2 = coiSalvarSecaoFicha(FICHA_ID, 'passos', dados);
+  if (r2 && r2.quota) { showToast('⚠️ Armazenamento local cheio. Exporte os dados antes de continuar.', true); return; }
   carregarPassos();
   fecharModal('modal-passo');
   ['pas-desc','pas-resp','pas-data'].forEach(id => document.getElementById(id).value='');
@@ -586,7 +599,8 @@ function salvarRisco() {
     mit:  document.getElementById('rsc-mit').value,
     resp: document.getElementById('rsc-resp').value
   });
-  coiSalvarSecaoFicha(FICHA_ID, 'riscos', dados);
+  const r3 = coiSalvarSecaoFicha(FICHA_ID, 'riscos', dados);
+  if (r3 && r3.quota) { showToast('⚠️ Armazenamento local cheio. Exporte os dados antes de continuar.', true); return; }
   carregarRiscos();
   fecharModal('modal-risco');
   ['rsc-desc','rsc-mit'].forEach(id => document.getElementById(id).value='');
@@ -610,7 +624,8 @@ function salvarPendencia() {
     prazo: document.getElementById('pend-prazo').value,
     status: document.getElementById('pend-status').value
   });
-  coiSalvarSecaoFicha(FICHA_ID, 'pendencias', dados);
+  const r4 = coiSalvarSecaoFicha(FICHA_ID, 'pendencias', dados);
+  if (r4 && r4.quota) { showToast('⚠️ Armazenamento local cheio. Exporte os dados antes de continuar.', true); return; }
   carregarPendencias();
   fecharModal('modal-pendencia');
   ['pend-desc','pend-resp','pend-prazo'].forEach(id => document.getElementById(id).value='');

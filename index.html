@@ -175,8 +175,6 @@ function statusBadge(s) {
   }[s] || 'badge-cinza';
 }
 function percColor(n) { return n>=70?'#2E7D32':n>=40?'#F9A825':'#C62828'; }
-function idSlug(id) { return id.replace(/-/g,''); }
-
 // ─── Data e ciclo ────────────────────────────────────────────────────
 const now = new Date();
 document.getElementById('data-atual').textContent =

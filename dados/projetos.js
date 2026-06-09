@@ -237,7 +237,11 @@ function coiSalvarProjeto(projeto) {
     localStorage.setItem("coi_projetos_overrides", JSON.stringify(overrides));
     return true;
   } catch (e) {
-    console.error("COI: erro ao salvar:", e);
+    if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+      console.error("COI: localStorage cheio ao salvar projeto.", e);
+      return { ok: false, quota: true };
+    }
+    console.error("COI: erro ao salvar projeto:", e);
     return false;
   }
 }
@@ -254,6 +258,10 @@ function coiSalvarSecaoFicha(projetoId, secao, dados) {
     localStorage.setItem(key, JSON.stringify(dados));
     return true;
   } catch (e) {
+    if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+      console.error("COI: localStorage cheio ao salvar seção:", secao, e);
+      return { ok: false, quota: true };
+    }
     console.error("COI: erro ao salvar seção:", e);
     return false;
   }

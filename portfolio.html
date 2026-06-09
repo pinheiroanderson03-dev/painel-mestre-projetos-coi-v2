@@ -297,7 +297,6 @@ function statusBadge(s) {
     'Concluído':'badge-verde','Planejamento':'badge-cinza','Suspenso':'badge-cinza'}[s]||'badge-cinza';
 }
 function percColor(n) { return n>=70?'#2E7D32':n>=40?'#F9A825':'#C62828'; }
-function idSlug(id) { return id.replace(/-/g,''); }
 function nivelRisco(prob, imp) {
   if (prob==='Alta'  && imp==='Alto')  return {txt:'Crítico', cls:'badge-vermelho'};
   if (prob==='Alta'  || imp==='Alto')  return {txt:'Alto',    cls:'badge-vermelho'};
