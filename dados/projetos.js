@@ -279,6 +279,7 @@ function coiCarregarSecaoFicha(projetoId, secao) {
     const saved = localStorage.getItem(key);
     return saved ? JSON.parse(saved) : [];
   } catch (e) {
+    console.warn("COI: erro ao carregar seção:", e);
     return [];
   }
 }
