@@ -4,6 +4,56 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4 — Fase 4A: Execução Mensal e Gestão Executiva (2026-06-10)
+
+### Novos campos por projeto — `dados/projetos.js`
+Commit: `03a54e6 fase-4a: adicionar campos executivos aos projetos`
+
+- 11 novos campos adicionados a cada um dos 8 projetos: `frente`, `contrato`, `gerenteContrato`, `competencia`, `tipoItem`, `planoExcelencia`, `beneficioEsperado`, `beneficioRealizado`, `evidencia`, `riscosCriticos`, `decisoesPendentes`
+- Novo bloco `meta.execucaoMensal` com: `competencia`, `resumo`, `totalAtividades`, `totalDemandas`, `totalMelhorias`, `pendenciasCriticas`, `principaisGanhos[]`, `proximasEntregas[]`, `planoExcelencia[]`
+- `meta.versao` atualizado para `"1.4"`; `meta.atualizadoEm` para `"2026-06-10"`
+- Frentes atribuídas: `CENTRAL DF` (COI-001, 002, 003, 005, 006), `Central de Atendimento` (COI-004, 007), `COI` (COI-008)
+
+### Estilos da seção "Execução Mensal" — `assets/style.css`
+Commit: `c727e2c fase-4a: adicionar estilos da secao execucao mensal`
+Namespace `.em-*` (72 linhas, sem colisão com classes existentes):
+
+- Classes de layout: `.em-section`, `.em-header`, `.em-competencia-badge`, `.em-resumo`, `.em-mini-cards`, `.em-mini-card` (variantes: `.vermelho`, `.amarelo`, `.verde`, `.roxo`), `.em-ganhos`, `.em-tables-grid`, `.em-table-card`
+- Badges de status: `.badge-pe-pendente/andamento/concluido/atrasado/bloqueado`, `.badge-prazo-ok/atencao/atrasado`
+- Responsivo: breakpoints `≤900px` e `≤640px`
+
+### Dashboard — cards preenchidos e seção de Execução Mensal — `index.html`
+Commit: `e8b8ce0 fase-4a: adicionar execucao mensal e cards executivos no dashboard`
+
+- 4 cards antes vazios agora preenchidos com lógica derivada dos dados:
+  - `c-demandas`: `projetos.filter(p => p.tipoItem === 'Demanda' && p.status !== 'Concluído').length`
+  - `c-riscos`: soma de `riscosCriticos` de todos os projetos
+  - `c-decisoes`: soma de `decisoesPendentes` de todos os projetos
+  - `c-entregas`: contagem de `proximasEntregas` com `data` válida na janela `[hoje, hoje+7]`
+- Nova seção "Execução Mensal e Plano de Excelência" via `buildExecucaoMensal()`: competência badge, resumo executivo, 4 mini-cards, principais ganhos, tabelas de próximas entregas e plano de excelência — 100% XSS-safe
+
+### Portfólio — filtros e agrupamento por frente — `portfolio.html`
+Commit: `d747819 fase-4a: adicionar filtros e agrupamento por frente no portfolio`
+
+- 3 novos filtros: frente (select com 4 opções), contrato (input), gerente do contrato (input)
+- `aplicarFiltros()` reescrito com array-filter — compatível com agrupamento visual
+- `renderProjetos()` reescrito com `FRENTE_ORDER = {CENTRAL DF:1, Central de Atendimento:2, MDS:3, COI:4}`
+- Cabeçalhos de grupo `<tr class="frente-header">` inseridos automaticamente na mudança de frente
+- Coluna "Frente" adicionada (tabela passa a 13 colunas); fix de `faseTd`/`platTd` que não eram renderizados apesar de existirem no `<thead>`
+- Empty-state exibido quando filtros não retornam projetos
+
+### Ficha individual — campos da Fase 4A — `projetos/ficha.html`
+Commit: `5352e83 fase-4a: adicionar campos executivos na ficha do projeto`
+
+- Bloco 1 expandido: +2 campos em "Dados Gerais" (Frente, Tipo) e +3 em "Informações de Gestão" (Nº Contrato, Gerente do Contrato, Competência)
+- Novo Bloco 9 "Execução Mensal e Gestão Executiva":
+  - Indicadores: Riscos Críticos (badge vermelho/verde), Decisões Pendentes (badge amarelo/verde), Plano de Excelência (badge azul/cinza)
+  - Benefícios e Evidências: Benefício Esperado, Benefício Realizado, Evidência
+- `renderCampos()` atualizado para popular todos os novos campos; fallback `'—'` em campos vazios
+- Modo de edição dos novos campos não expandido nesta fase — previsto para Fase 4B
+
+---
+
 ## v1.3 — Fase 3: Polimento e Robustez (2026-06-09)
 
 ### Débitos técnicos (itens 1–6)

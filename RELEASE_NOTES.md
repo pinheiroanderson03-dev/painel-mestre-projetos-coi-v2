@@ -4,6 +4,27 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4 — Execução Mensal e Gestão Executiva
+**Data:** 2026-06-10
+
+### O que melhorou
+
+**Portfólio com agrupamento por frente:** os projetos no portfólio agora são organizados visualmente por frente de atuação (CENTRAL DF, Central de Atendimento, MDS, COI). Novos filtros permitem localizar projetos por frente, número de contrato ou gerente do contrato — além dos filtros de prioridade, status e busca por nome que já existiam.
+
+**Cards do dashboard preenchidos:** os 4 cards de acompanhamento rápido (Demandas Ativas, Riscos Críticos, Decisões Pendentes, Entregas da Semana) agora exibem valores calculados automaticamente a partir dos dados reais dos projetos. Antes exibiam zero.
+
+**Nova seção no dashboard — Execução Mensal e Plano de Excelência:** o painel principal passou a consolidar a competência em vigência, resumo executivo do mês, totais de atividades e melhorias, principais ganhos, próximas entregas com prazo e plano de excelência do COI.
+
+**Fichas individuais com dados executivos completos:** cada ficha de projeto agora exibe frente, tipo do item, número e gerente do contrato, competência de referência. Uma nova seção — Execução Mensal e Gestão Executiva — mostra indicadores como riscos críticos, decisões pendentes e status do plano de excelência, além de benefícios esperados, realizados e evidências.
+
+**Campos preparados para preenchimento:** todos os novos campos têm valor padrão `—` quando não preenchidos. O preenchimento desses campos será habilitado no modo de edição da próxima versão (Fase 4B).
+
+### O que não muda
+
+Todas as funcionalidades existentes continuam iguais: cadastro de projetos, atividades, riscos, marcos, pendências, modo de edição dos campos originais e funcionamento offline.
+
+---
+
 ## v1.3 — Polimento e Robustez
 **Data:** 2026-06-09
 

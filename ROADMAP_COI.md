@@ -28,34 +28,35 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 - Suporte a novos projetos sem criação de arquivos físicos
 - Redirects de compatibilidade para fichas antigas
 
-### 🔄 v1.3 — Fase 3: Polimento e Robustez (em andamento)
+### ✅ v1.3 — Fase 3: Polimento e Robustez (concluída)
 
-**Concluído nesta fase:**
 - [x] Remoção de dead code `idSlug()` — `index.html`, `portfolio.html`
 - [x] Substituição de `innerHTML = ''` por `clearEl()` — `ficha.html`
 - [x] Tratamento de `QuotaExceededError` no localStorage — `dados/projetos.js`, `ficha.html`
 - [x] Log diagnóstico de hashes inválidos — `ficha.html`
-- [x] `ROADMAP_COI.md` (este arquivo)
-- [x] `RELEASE_NOTES.md`
+- [x] `ROADMAP_COI.md` e `RELEASE_NOTES.md` criados
 - [x] Chart.js 4.4.1 local em `assets/js/chart.umd.min.js` — painel 100% offline
 - [x] `index.html` atualizado: local primário + fallback automático para CDN
+- [~] Refatoração do `hashchange` — **adiado para Fase 5** (impacto baixo, complexidade média)
 
-**Pendente (aprovação necessária):**
-- [ ] Refatoração do `hashchange`: re-render sem reload completo da página
+### ✅ v1.4 — Fase 4A: Execução Mensal e Gestão Executiva (concluída — 2026-06-10)
 
----
+- [x] `dados/projetos.js` — 11 novos campos por projeto + bloco `meta.execucaoMensal`
+- [x] `assets/style.css` — namespace `.em-*` para seção de Execução Mensal (72 linhas, sem colisão)
+- [x] `index.html` — 4 cards preenchidos com lógica derivada dos dados; nova seção "Execução Mensal e Plano de Excelência"
+- [x] `portfolio.html` — 3 novos filtros (frente, contrato, gerente); agrupamento visual por frente; coluna Frente na tabela; fix de colunas Fase/Plataforma
+- [x] `projetos/ficha.html` — Bloco 1 expandido com campos de Fase 4A; Bloco 9 "Execução Mensal e Gestão Executiva"
 
-## v1.4 — Fase 4: Funcionalidades Avançadas (planejada)
+### 🔄 v1.5 — Fase 4B: Edição de Fichas e Exportação (planejada)
 
 | Funcionalidade | Descrição | Complexidade | Valor |
 |---|---|---|---|
+| Edição dos novos campos | Expandir modo de edição da ficha para cobrir os 11 campos da Fase 4A | Média | Alto |
 | Exportação PDF | Gerar PDF da ficha individual via `window.print()` + CSS `@media print` | Média | Alto |
-| Exportação XLSX | Exportar dados de atividades/riscos/pendências para Excel via SheetJS | Alta | Alto |
-| Filtros avançados | Filtro por status, prioridade, classificação e responsável no portfólio | Média | Médio |
-| Histórico de mudanças | Registrar linha do tempo de edições por projeto no localStorage | Alta | Médio |
-| Dashboard de resumo | Card de KPIs consolidados no topo do portfólio (total, % médio, alertas) | Baixa | Alto |
-| Modo escuro | Toggle dark/light mode via CSS custom properties | Baixa | Baixo |
-| Pesquisa global | Campo de busca no topo do portfólio filtrando por nome, ID, responsável | Baixa | Alto |
+| Exportação XLSX | Exportar atividades, riscos e pendências para Excel via SheetJS | Alta | Alto |
+| Histórico de mudanças | Linha do tempo de edições por projeto no localStorage | Alta | Médio |
+| Linha do Tempo Executiva | Página `linha-do-tempo.html` com visão cronológica dos marcos | Alta | Alto |
+| Relatório Mensal PDF | Página `relatorio-mensal.html` com consolidação mensal exportável | Alta | Alto |
 
 ---
 
@@ -98,4 +99,4 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-*Última atualização: 2026-06-09 · Versão: v1.3 (Chart.js local)*
+*Última atualização: 2026-06-10 · Versão: v1.4 (Fase 4A — Execução Mensal e Gestão Executiva)*
