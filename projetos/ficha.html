@@ -65,6 +65,8 @@
       <h3>Dados Gerais</h3>
       <div class="field"><div class="field-label">Objetivo:</div><div class="field-val" id="f-beneficio">—</div></div>
       <div class="field"><div class="field-label">Classificação:</div><div class="field-val" id="f-class">—</div></div>
+      <div class="field"><div class="field-label">Frente:</div><div class="field-val" id="f-frente">—</div></div>
+      <div class="field"><div class="field-label">Tipo:</div><div class="field-val" id="f-tipo">—</div></div>
       <div class="field"><div class="field-label">Patrocinador:</div><div class="field-val" id="f-patr" contenteditable="false"></div></div>
       <div class="field"><div class="field-label">Cliente / Órgão:</div><div class="field-val" id="f-orgao" contenteditable="false"></div></div>
       <div class="field"><div class="field-label">Responsável COI:</div><div class="field-val" id="f-resp" contenteditable="false"></div></div>
@@ -73,6 +75,9 @@
       <h3>Informações de Gestão</h3>
       <div class="field"><div class="field-label">Dependências:</div><div class="field-val" id="f-dep">—</div></div>
       <div class="field"><div class="field-label">Impacto Contratual:</div><div class="field-val" id="f-contrato">—</div></div>
+      <div class="field"><div class="field-label">Nº Contrato:</div><div class="field-val" id="f-contrato-num">—</div></div>
+      <div class="field"><div class="field-label">Gerente do Contrato:</div><div class="field-val" id="f-gerente-contrato">—</div></div>
+      <div class="field"><div class="field-label">Competência:</div><div class="field-val" id="f-competencia">—</div></div>
       <div class="field"><div class="field-label">Fonte da Informação:</div><div class="field-val" id="f-fonte" contenteditable="false"></div></div>
       <div class="field"><div class="field-label">Obs. Executivas:</div><div class="field-val" id="f-obs" contenteditable="false"></div></div>
       <button class="btn-edit" style="margin-top:10px;" id="btn-editar" onclick="ativarEdicao()">✏️ Editar Dados</button>
@@ -182,6 +187,42 @@
     </div>
   </div>
 
+
+  <!-- BLOCO 9: EXECUÇÃO MENSAL / GESTÃO EXECUTIVA -->
+  <div class="section-title">9. Execução Mensal e Gestão Executiva</div>
+  <div class="grid-2">
+    <div class="block">
+      <h3>Indicadores Executivos</h3>
+      <div class="field">
+        <div class="field-label">Riscos Críticos:</div>
+        <div class="field-val" id="f-riscos-criticos">—</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Decisões Pendentes:</div>
+        <div class="field-val" id="f-decisoes-pend">—</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Plano de Excelência:</div>
+        <div class="field-val" id="f-plano-exc">—</div>
+      </div>
+    </div>
+    <div class="block">
+      <h3>Benefícios e Evidências</h3>
+      <div class="field">
+        <div class="field-label">Benefício Esperado:</div>
+        <div class="field-val" id="f-benef-esp">—</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Benefício Realizado:</div>
+        <div class="field-val" id="f-benef-real">—</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Evidência:</div>
+        <div class="field-val" id="f-evidencia">—</div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- MODAL ATIVIDADE -->
@@ -267,7 +308,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer id="rodape">COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.2</footer>
+<footer id="rodape">COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4</footer>
 
 <script>
 // ─── ID do projeto via hash da URL ────────────────────────────────────
@@ -391,7 +432,7 @@ function renderHero(p) {
   document.getElementById('hdr-titulo').textContent = p.id + ' — ' + p.nome;
   document.title = 'COI — ' + p.id + ': ' + p.nome;
   document.getElementById('rodape').textContent =
-    'COI — Centro de Operações Integradas · Governo do Distrito Federal · Ficha ' + p.id + ' · Painel Mestre v1.2';
+    'COI — Centro de Operações Integradas · Governo do Distrito Federal · Ficha ' + p.id + ' · Painel Mestre v1.4';
   document.getElementById('hero-id-line').textContent =
     p.id + ' · Atualizado em ' + (p.atualizadoEm || new Date().toLocaleDateString('pt-BR'));
   document.getElementById('hero-nome').textContent = p.nome;
@@ -429,10 +470,11 @@ function renderHero(p) {
 
 // ─── Renderizar campos texto ──────────────────────────────────────────
 function renderCampos(p) {
-  const set = (id, val) => {
+  const set = function(id, val) {
     const el = document.getElementById(id);
     if (el) el.textContent = val || '—';
   };
+  // Campos existentes
   set('f-beneficio', p.beneficio);
   set('f-class',     p.classificacao);
   set('f-patr',      p.patrocinador);
@@ -445,6 +487,51 @@ function renderCampos(p) {
   set('f-inicio',    p.dataInicio    || '—');
   set('f-prazo',     p.prazoPrevisto || '—');
   set('f-upd',       p.atualizadoEm  || new Date().toLocaleDateString('pt-BR'));
+
+  // ── Fase 4A: campos de identificação ──────────────────────────────
+  set('f-frente',          p.frente          || '—');
+  set('f-tipo',            p.tipoItem        || '—');
+  set('f-contrato-num',    p.contrato        || '—');
+  set('f-gerente-contrato',p.gerenteContrato || '—');
+  set('f-competencia',     p.competencia     || '—');
+
+  // ── Fase 4A: indicadores executivos ───────────────────────────────
+  // Riscos críticos — badge vermelho se > 0
+  var elRiscos = document.getElementById('f-riscos-criticos');
+  if (elRiscos) {
+    var nRiscos = p.riscosCriticos || 0;
+    clearEl(elRiscos);
+    var spRiscos = document.createElement('span');
+    spRiscos.className = 'badge ' + (nRiscos > 0 ? 'badge-vermelho' : 'badge-verde');
+    spRiscos.textContent = nRiscos > 0 ? nRiscos + ' risco(s) crítico(s)' : 'Nenhum';
+    elRiscos.appendChild(spRiscos);
+  }
+
+  // Decisões pendentes — badge amarelo se > 0
+  var elDecisoes = document.getElementById('f-decisoes-pend');
+  if (elDecisoes) {
+    var nDecisoes = p.decisoesPendentes || 0;
+    clearEl(elDecisoes);
+    var spDec = document.createElement('span');
+    spDec.className = 'badge ' + (nDecisoes > 0 ? 'badge-amarelo' : 'badge-verde');
+    spDec.textContent = nDecisoes > 0 ? nDecisoes + ' pendente(s)' : 'Nenhuma';
+    elDecisoes.appendChild(spDec);
+  }
+
+  // Plano de excelência — boolean → badge
+  var elPlano = document.getElementById('f-plano-exc');
+  if (elPlano) {
+    clearEl(elPlano);
+    var spPlano = document.createElement('span');
+    spPlano.className = 'badge ' + (p.planoExcelencia ? 'badge-azul' : 'badge-cinza');
+    spPlano.textContent = p.planoExcelencia ? 'Ativo' : 'Não iniciado';
+    elPlano.appendChild(spPlano);
+  }
+
+  // ── Fase 4A: benefícios e evidências ──────────────────────────────
+  set('f-benef-esp',  p.beneficioEsperado  || '—');
+  set('f-benef-real', p.beneficioRealizado || '—');
+  set('f-evidencia',  p.evidencia          || '—');
 }
 
 if (projeto) { renderHero(projeto); renderCampos(projeto); }
