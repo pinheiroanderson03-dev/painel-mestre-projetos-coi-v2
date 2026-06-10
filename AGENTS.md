@@ -13,8 +13,10 @@ Antes de qualquer fase ou alteração, consultar:
 |---|---|
 | `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Estado atual, repositório, tags, scripts, regras rápidas |
 | `docs/CHECKLIST_EXECUCAO_AGENTES.md` | Checklist passo a passo para execução segura |
+| `docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md` | Como usar o ChatGPT como apoio analítico e operacional |
+| `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` | Perfis de agentes ChatGPT por domínio (governança, Git, demandas, relatórios, etc.) |
 
-Esses dois documentos são o ponto de entrada operacional. Este arquivo (`AGENTS.md`) contém as regras detalhadas e os papéis dos agentes.
+Esses documentos são o ponto de entrada operacional. Este arquivo (`AGENTS.md`) contém as regras detalhadas e os papéis dos agentes internos do projeto.
 
 ---
 

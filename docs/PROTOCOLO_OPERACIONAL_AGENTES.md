@@ -19,6 +19,15 @@ Toda nova fase deve começar com a leitura dos seguintes documentos:
 
 Esses documentos evitam repetição de contexto, confusão entre ambientes e erros de escopo.
 
+### Apoio via ChatGPT (Fase 4D.4)
+
+O ChatGPT pode ser usado como parceiro analítico e operacional antes, durante e após as fases. Ele não executa alterações no projeto — analisa retornos, valida raciocínios, elabora relatórios e sugere prompts para o Claude.
+
+Documentos de referência:
+
+- `docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md` — como iniciar conversa, informar contexto, pedir análise de terminal, criar prompts para o Claude e validar antes de commit/push.
+- `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` — perfis especializados: governança, Git/PowerShell, demandas, relatórios executivos, contratos/riscos, AIOps e expansão comercial.
+
 ---
 
 ## Fluxo Padrão de Execução
