@@ -50,12 +50,19 @@ const COI_DATA = {
       {
         competencia: "Maio/2026",
         rotulo: "Maio/2026",
-        resumo: "",
+        resumo: "Em maio/2026, o COI concentrou esforços na estruturação do Painel Mestre de Acompanhamento de Projetos, estabelecendo a fonte única de verdade dos projetos estratégicos. Foram mapeadas as frentes CENTRAL DF, Central de Atendimento e COI, organizando os 8 projetos da carteira com critérios de prioridade, classificação e semáforo executivo. Avançou-se no monitoramento AIOps, nas tratativas do ambiente AURA/Gupshup para disparo de campanhas e no acompanhamento dos indicadores operacionais da Central de Atendimento. O período marcou a consolidação da governança de dados e a preparação da visão executiva mensal.",
         totalAtividades: 0,
         totalDemandas: 0,
         totalMelhorias: 0,
         pendenciasCriticas: 0,
-        principaisGanhos: [],
+        principaisGanhos: [
+          "Estruturação do Painel Mestre COI com fonte única de verdade em dados/projetos.js",
+          "Mapeamento e organização das frentes CENTRAL DF, Central de Atendimento e COI",
+          "Classificação e priorização dos 8 projetos estratégicos da carteira COI",
+          "Avanço no monitoramento AIOps com visão de disponibilidade e incidentes",
+          "Retomada das tratativas do ambiente AURA/Gupshup para campanhas via WhatsApp",
+          "Definição da governança de dados e estrutura de histórico mensal"
+        ],
         proximasEntregas: [
           { data: "", entrega: "", projeto: "", responsavel: "", status: "No prazo" }
         ],
