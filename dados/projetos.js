@@ -41,7 +41,45 @@ const COI_DATA = {
       planoExcelencia: [
         { acao: "", responsavel: "", prazo: "", status: "Pendente", evidencia: "" }
       ]
-    }
+    },
+
+    // ── Fase 4A.1 — Histórico mensal indexado por competência ─────────
+    // Mais antigo primeiro. O seletor exibirá o último item por padrão.
+    // execucaoMensal acima é preservado como fallback caso este array não exista.
+    execucoesMensais: [
+      {
+        competencia: "Maio/2026",
+        rotulo: "Maio/2026",
+        resumo: "",
+        totalAtividades: 0,
+        totalDemandas: 0,
+        totalMelhorias: 0,
+        pendenciasCriticas: 0,
+        principaisGanhos: [],
+        proximasEntregas: [
+          { data: "", entrega: "", projeto: "", responsavel: "", status: "No prazo" }
+        ],
+        planoExcelencia: [
+          { acao: "", responsavel: "", prazo: "", status: "Pendente", evidencia: "" }
+        ]
+      },
+      {
+        competencia: "Junho/2026",
+        rotulo: "Junho/2026",
+        resumo: "",
+        totalAtividades: 0,
+        totalDemandas: 0,
+        totalMelhorias: 0,
+        pendenciasCriticas: 0,
+        principaisGanhos: [],
+        proximasEntregas: [
+          { data: "", entrega: "", projeto: "", responsavel: "", status: "No prazo" }
+        ],
+        planoExcelencia: [
+          { acao: "", responsavel: "", prazo: "", status: "Pendente", evidencia: "" }
+        ]
+      }
+    ]
   },
 
   projetos: [
