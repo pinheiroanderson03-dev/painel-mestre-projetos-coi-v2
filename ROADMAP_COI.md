@@ -47,7 +47,22 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 - [x] `portfolio.html` — 3 novos filtros (frente, contrato, gerente); agrupamento visual por frente; coluna Frente na tabela; fix de colunas Fase/Plataforma
 - [x] `projetos/ficha.html` — Bloco 1 expandido com campos de Fase 4A; Bloco 9 "Execução Mensal e Gestão Executiva"
 
-### 🔄 v1.5 — Fase 4B: Edição de Fichas e Exportação (planejada)
+### 🔄 v1.4.1 — Fase 4A.1: Histórico Mensal e Filtro por Competência (planejada)
+
+**Objetivo:** Permitir selecionar a competência/mês na seção "Execução Mensal e Plano de Excelência", com histórico de múltiplas competências.
+
+| Funcionalidade | Descrição | Arquivos |
+|---|---|---|
+| `meta.execucoesMensais[]` | Array de competências com estrutura completa; `meta.execucaoMensal` preservado como fallback | `dados/projetos.js` |
+| Seletor de competência | `<select>` embutido na seção, usando separação `em-controls` / `em-content` | `index.html` |
+| Re-render isolado | Troca de mês atualiza somente a seção mensal — status, gráficos e tabela de portfólio não são afetados | `index.html` |
+| Fallback robusto | Se `execucoesMensais` não existir, usa `execucaoMensal`; se nenhum existir, exibe estado vazio | `index.html` |
+
+Competências iniciais: Maio/2026 e Junho/2026.
+
+### 🔄 v1.5 — Fase 4B: Edição de Fichas e Exportação de Dados (planejada)
+
+**Objetivo:** Expandir o modo de edição das fichas e permitir exportação de dados dos projetos.
 
 | Funcionalidade | Descrição | Complexidade | Valor |
 |---|---|---|---|
@@ -57,6 +72,20 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 | Histórico de mudanças | Linha do tempo de edições por projeto no localStorage | Alta | Médio |
 | Linha do Tempo Executiva | Página `linha-do-tempo.html` com visão cronológica dos marcos | Alta | Alto |
 | Relatório Mensal PDF | Página `relatorio-mensal.html` com consolidação mensal exportável | Alta | Alto |
+
+### 🔄 v1.6 — Fase 4C: Edição Orientada pelo GitHub e Governança de Dados (planejada)
+
+**Objetivo:** Facilitar a gestão e edição dos dados do painel diretamente pelo GitHub, sem dependência de alteração manual complexa no código.
+
+> Esta fase não tem implementação técnica iniciada. É um planejamento de governança de dados.
+
+| Diretriz | Descrição |
+|---|---|
+| Estrutura de dados editável | Avaliar separação em `dados/projetos.json` + `dados/execucoes-mensais.json`, ou manter `dados/projetos.js` com estrutura mais simples e documentada |
+| Edição pelo GitHub | Permitir que o gestor edite dados pelo GitHub Web Editor ou `github.dev` sem necessidade de ambiente local |
+| Documentação de edição | Guia claro: onde alterar projeto, onde alterar mês, onde alterar entregas, onde alterar plano de excelência, como validar antes de salvar |
+| `admin.html` local (futuro) | Interface local que permita preencher campos e exportar JSON pronto para colar no GitHub — sem token exposto |
+| Gravação automática | Qualquer gravação no GitHub deve ser avaliada com segurança — preferencialmente via GitHub Actions, Pull Request ou fluxo controlado. **Sem token de API exposto no frontend público.** |
 
 ---
 
@@ -99,4 +128,4 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-*Última atualização: 2026-06-10 · Versão: v1.4 (Fase 4A — Execução Mensal e Gestão Executiva)*
+*Última atualização: 2026-06-10 · Versão: v1.4 · Próxima: v1.4.1 (Fase 4A.1 — Histórico Mensal) · Planejadas: Fase 4B, 4C*
