@@ -10,9 +10,24 @@ Este documento define o fluxo prático de execução para cada tipo de tarefa no
 
 ---
 
+## Consulta Obrigatória ao Iniciar uma Fase
+
+Toda nova fase deve começar com a leitura dos seguintes documentos:
+
+1. `docs/MEMORIA_OPERACIONAL_PROJETO.md` — estado atual do projeto, repositório, tags estáveis, scripts disponíveis e regras rápidas.
+2. `docs/CHECKLIST_EXECUCAO_AGENTES.md` — checklist passo a passo para execução segura, do início ao push.
+
+Esses documentos evitam repetição de contexto, confusão entre ambientes e erros de escopo.
+
+---
+
 ## Fluxo Padrão de Execução
 
 ```
+0. CONSULTAR MEMORIA
+   └─ Ler docs/MEMORIA_OPERACIONAL_PROJETO.md
+   └─ Abrir docs/CHECKLIST_EXECUCAO_AGENTES.md
+
 1. RECEBER TAREFA
    └─ Identificar modo: Rápido / Seguro / Crítico
 
