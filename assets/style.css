@@ -329,11 +329,82 @@ tr:last-child td { border-bottom: none; }
 /* ─── FOOTER ───────────────────────────────────────────────────────── */
 footer { text-align: center; font-size: .73rem; color: #888; padding: 20px; border-top: 1px solid #DDD; margin-top: 10px; }
 
+/* ─── EXECUÇÃO MENSAL E PLANO DE EXCELÊNCIA (Fase 4A) ─────────────── */
+.em-section { margin-top: 32px; }
+
+.em-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px; margin-bottom: 18px;
+}
+.em-competencia-badge {
+  background: var(--azul-medio); color: #fff;
+  padding: 4px 14px; border-radius: 20px;
+  font-size: .75rem; font-weight: 700; white-space: nowrap;
+}
+
+/* Resumo executivo */
+.em-resumo {
+  background: var(--branco); border-radius: var(--radius-md);
+  padding: 18px 22px; box-shadow: var(--sombra-sm);
+  border-left: 4px solid var(--azul-medio);
+  font-size: .85rem; color: #333; line-height: 1.7;
+  margin-bottom: 20px;
+}
+.em-resumo-placeholder { color: #aaa; font-style: italic; }
+
+/* Mini-cards mensais */
+.em-mini-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px; margin-bottom: 20px;
+}
+.em-mini-card {
+  background: var(--branco); border-radius: var(--radius-md);
+  padding: 16px 14px 12px; box-shadow: var(--sombra-sm);
+  border-top: 3px solid var(--azul-medio);
+}
+.em-mini-card.vermelho { border-top-color: var(--vermelho); }
+.em-mini-card.vermelho .em-mini-value { color: var(--vermelho); }
+.em-mini-card.amarelo  { border-top-color: var(--amarelo); }
+.em-mini-card.amarelo  .em-mini-value { color: var(--amarelo); }
+.em-mini-card.verde    { border-top-color: var(--verde); }
+.em-mini-card.verde    .em-mini-value { color: var(--verde); }
+.em-mini-card.roxo     { border-top-color: var(--roxo); }
+.em-mini-card.roxo     .em-mini-value { color: var(--roxo); }
+.em-mini-value { font-size: 1.8rem; font-weight: 800; line-height: 1; color: var(--azul-medio); }
+.em-mini-label { font-size: .68rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: .4px; font-weight: 600; }
+
+/* Principais ganhos */
+.em-ganhos    { background: var(--branco); border-radius: var(--radius-md); padding: 18px 22px; box-shadow: var(--sombra-sm); margin-bottom: 20px; }
+.em-ganhos h3 { font-size: .88rem; font-weight: 700; color: var(--azul-escuro); margin-bottom: 12px; }
+.em-ganho-item { display: flex; align-items: flex-start; gap: 10px; font-size: .82rem; color: #333; padding: 7px 0; border-bottom: 1px solid #F0F4FF; }
+.em-ganho-item:last-child { border-bottom: none; }
+.em-ganho-dot  { width: 8px; height: 8px; border-radius: 50%; background: var(--verde); margin-top: 5px; flex-shrink: 0; }
+
+/* Tabelas mensais — Próximas Entregas + Plano de Excelência */
+.em-tables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.em-table-card  { background: var(--branco); border-radius: var(--radius-md); padding: 18px 20px; box-shadow: var(--sombra-sm); overflow-x: auto; }
+.em-table-card h3 { font-size: .88rem; font-weight: 700; color: var(--azul-escuro); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.em-count-badge { background: var(--azul-claro); color: var(--azul-escuro); border-radius: 12px; padding: 2px 8px; font-size: .68rem; font-weight: 700; }
+
+/* Status badges — Plano de Excelência */
+.badge-pe-pendente  { background: #FFF8E1; color: #F57F17; }
+.badge-pe-andamento { background: #E3F2FD; color: #1565C0; }
+.badge-pe-concluido { background: #E8F5E9; color: #2E7D32; }
+.badge-pe-atrasado  { background: #FFEBEE; color: #B71C1C; }
+.badge-pe-bloqueado { background: #F3E5F5; color: #6A1B9A; }
+
+/* Status badges — Próximas Entregas */
+.badge-prazo-ok       { background: #E8F5E9; color: #2E7D32; }
+.badge-prazo-atencao  { background: #FFF8E1; color: #F57F17; }
+.badge-prazo-atrasado { background: #FFEBEE; color: #B71C1C; }
+
 /* ─── RESPONSIVO ───────────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .charts-grid { grid-template-columns: 1fr 1fr; }
-  .grid-3      { grid-template-columns: 1fr 1fr; }
-  header       { flex-wrap: wrap; gap: 10px; }
+  .charts-grid    { grid-template-columns: 1fr 1fr; }
+  .grid-3         { grid-template-columns: 1fr 1fr; }
+  header          { flex-wrap: wrap; gap: 10px; }
+  .em-tables-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   header            { padding: 14px 16px; }
@@ -346,4 +417,6 @@ footer { text-align: center; font-size: .73rem; color: #888; padding: 20px; bord
   .form-grid        { grid-template-columns: 1fr; }
   nav a             { padding: 8px 10px; font-size: .74rem; }
   .ve-banner        { flex-direction: column; gap: 10px; }
+  .em-mini-cards    { grid-template-columns: repeat(2, 1fr); }
+  .em-tables-grid   { grid-template-columns: 1fr; }
 }
