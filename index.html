@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>COI — Dashboard Executivo</title>
 <link rel="stylesheet" href="assets/style.css">
+<style>
+/* Fase 4A.1 — seletor de competência (em-controls) */
+.em-select {
+  font: inherit; font-size: .85rem;
+  padding: 5px 10px; border: 1px solid var(--border);
+  border-radius: 6px; background: var(--bg-card);
+  color: var(--text-main); cursor: pointer; min-width: 160px;
+}
+#em-controls { margin-bottom: 4px; }
+</style>
 <!-- Chart.js: carrega local primeiro (offline); CDN apenas se arquivo local não encontrado -->
 <script src="assets/js/chart.umd.min.js"></script>
 <script>
@@ -160,8 +170,11 @@ if (typeof Chart === 'undefined') {
   </div>
 
   <!-- EXECUÇÃO MENSAL E PLANO DE EXCELÊNCIA -->
-  <div class="section-title">Execução Mensal e Plano de Excelência</div>
-  <div class="em-section" id="em-section"></div>
+  <div class="section-title" id="em-section-title">Execução Mensal e Plano de Excelência</div>
+  <div class="em-section" id="em-section">
+    <div id="em-controls"></div>
+    <div id="em-content"></div>
+  </div>
 
   <!-- ALERTAS EXECUTIVOS (dinâmicos) -->
   <div class="section-title">Alertas Executivos</div>
@@ -185,6 +198,7 @@ function statusBadge(s) {
   }[s] || 'badge-cinza';
 }
 function percColor(n) { return n>=70?'#2E7D32':n>=40?'#F9A825':'#C62828'; }
+function clearEl(el) { while (el.firstChild) el.removeChild(el.firstChild); }
 // ─── Data e ciclo ────────────────────────────────────────────────────
 const now = new Date();
 document.getElementById('data-atual').textContent =
@@ -293,11 +307,53 @@ ps.forEach(p => {
 });
 
 // ─── Execução Mensal e Plano de Excelência ───────────────────────────
+// Fase 4A.1: seletor de competência com fallback para execucaoMensal
 function buildExecucaoMensal() {
-  var container = document.getElementById('em-section');
-  if (!container) return;
-  var emData = (COI_DATA.meta && COI_DATA.meta.execucaoMensal) ? COI_DATA.meta.execucaoMensal : {};
+  var emControls = document.getElementById('em-controls');
+  var emContent  = document.getElementById('em-content');
+  if (!emContent) return;
 
+  // Resolução: execucoesMensais[] → execucaoMensal → {}
+  var lista = (COI_DATA.meta && Array.isArray(COI_DATA.meta.execucoesMensais)
+    && COI_DATA.meta.execucoesMensais.length > 0)
+    ? COI_DATA.meta.execucoesMensais : null;
+
+  var emData = lista
+    ? lista[lista.length - 1]
+    : ((COI_DATA.meta && COI_DATA.meta.execucaoMensal) ? COI_DATA.meta.execucaoMensal : {});
+
+  // Seletor: somente quando há mais de 1 competência e em-controls ainda não foi preenchido
+  if (emControls && lista && lista.length > 1 && !emControls.hasChildNodes()) {
+    var wrap = document.createElement('div');
+    wrap.className = 'em-header';
+    var lbl = document.createElement('label');
+    lbl.setAttribute('for', 'em-select-competencia');
+    lbl.textContent = 'Competência:';
+    var sel = document.createElement('select');
+    sel.id = 'em-select-competencia';
+    sel.className = 'em-select';
+    lista.forEach(function(item) {
+      var opt = document.createElement('option');
+      opt.value = item.competencia;
+      opt.textContent = item.rotulo || item.competencia;
+      sel.appendChild(opt);
+    });
+    sel.value = emData.competencia;
+    sel.addEventListener('change', function() {
+      var chosen = lista.find(function(x){ return x.competencia === sel.value; }) || emData;
+      clearEl(emContent);
+      renderEmConteudo(emContent, chosen);
+    });
+    wrap.append(lbl, sel);
+    emControls.appendChild(wrap);
+  }
+
+  // Renderiza conteúdo inicial (Junho/2026 — último item da lista)
+  clearEl(emContent);
+  renderEmConteudo(emContent, emData);
+}
+
+function renderEmConteudo(container, emData) {
   // Badge de competência
   if (emData.competencia) {
     var badge = document.createElement('span');
@@ -310,7 +366,7 @@ function buildExecucaoMensal() {
   var resumoDiv = document.createElement('div');
   resumoDiv.className = emData.resumo ? 'em-resumo' : 'em-resumo em-resumo-placeholder';
   resumoDiv.textContent = emData.resumo
-    || 'Resumo executivo do mês não preenchido. Edite meta.execucaoMensal.resumo em dados/projetos.js.';
+    || 'Resumo executivo do mês não preenchido. Edite meta.execucoesMensais em dados/projetos.js.';
   container.appendChild(resumoDiv);
 
   // Mini-cards mensais
