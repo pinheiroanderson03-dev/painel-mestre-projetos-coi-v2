@@ -4,6 +4,29 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 4A.1: Histórico Mensal e Filtro por Competência (2026-06-10)
+
+### Histórico mensal indexado — `dados/projetos.js`
+Commits: `c83031a` · `5f00783` · `065c3ac` · `8eaef98`
+
+- Novo array `meta.execucoesMensais[]` com 2 competências iniciais: Maio/2026 e Junho/2026
+- Estrutura por item: `competencia`, `rotulo`, `resumo`, `totalAtividades`, `totalDemandas`, `totalMelhorias`, `pendenciasCriticas`, `principaisGanhos[]`, `proximasEntregas[]`, `planoExcelencia[]`
+- `meta.execucaoMensal` preservado intacto como fallback
+- Maio/2026 preenchido com dados reais do painel anterior (`acompanhamento-mensal-v1.html`, `dados_painel_aura.json`): 9 atividades, 5 demandas, 8 principais ganhos, 6 próximos passos registrados
+- Junho/2026 mantido com estrutura pronta para preenchimento
+
+### Seletor de competência — `index.html`
+Commit: `c451426`
+
+- Seção `em-section` dividida em `em-controls` (persistente, contém o seletor) e `em-content` (re-renderizável)
+- `<select>` exibido automaticamente quando `execucoesMensais.length > 1`; oculto quando há apenas uma competência
+- Troca de competência atualiza somente `em-content` — cards, gráficos, tabela e alertas executivos não são afetados
+- Nova função `renderEmConteudo(container, emData)` encapsula a renderização; `buildExecucaoMensal()` preservado como ponto de entrada
+- Fallback robusto: `execucoesMensais[]` → `execucaoMensal` → `{}`; padrão = último item da lista (Junho/2026)
+- Helper `clearEl()` adicionado ao bloco de helpers; estilo `.em-select` adicionado em `<style>` inline no `<head>`
+
+---
+
 ## v1.4 — Fase 4A: Execução Mensal e Gestão Executiva (2026-06-10)
 
 ### Novos campos por projeto — `dados/projetos.js`

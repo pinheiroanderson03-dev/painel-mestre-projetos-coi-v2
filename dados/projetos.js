@@ -41,7 +41,59 @@ const COI_DATA = {
       planoExcelencia: [
         { acao: "", responsavel: "", prazo: "", status: "Pendente", evidencia: "" }
       ]
-    }
+    },
+
+    // ── Fase 4A.1 — Histórico mensal indexado por competência ─────────
+    // Mais antigo primeiro. O seletor exibirá o último item por padrão.
+    // execucaoMensal acima é preservado como fallback caso este array não exista.
+    execucoesMensais: [
+      {
+        competencia: "Maio/2026",
+        rotulo: "Maio/2026",
+        resumo: "Em Maio/2026, o COI consolidou entregas relevantes nas frentes Central DF, MDS e Central de Atendimento, com destaque para a apresentação do Sistema Formulário de Ouvidoria, validações da Migração WhatsApp para AURA, fortalecimento do monitoramento AIOps do ambiente AURA 156, conclusão da Campanha Ativa de Resgate Qualifica DF, recarga emergencial da plataforma Gupshup e publicação do Painel COI no GitHub Pages integrado ao Google Sites. O período também marcou a organização da visão por contrato e a preparação dos próximos passos executivos para Junho/2026.",
+        totalAtividades: 9,
+        totalDemandas: 5,
+        totalMelhorias: 0,
+        pendenciasCriticas: 0,
+        principaisGanhos: [
+          "Sistema Formulário de Ouvidoria (MDS) apresentado em 29/05/2026 com demonstração de ambiente, formulário e funcionalidades",
+          "Migração WhatsApp para AURA: ambiente de homologação validado e testes funcionais concluídos",
+          "Incidente Nuvidio validado e reclassificado para acompanhamento controlado",
+          "Painel COI publicado no GitHub Pages e integrado ao Google Sites com visão por contrato (Central DF, MDS e Central de Atendimento)",
+          "Conclusão da Campanha Ativa de Resgate Qualifica DF com envio de relatório consolidado (14 a 18/05/2026)",
+          "Ajustes e evolução do monitoramento AIOps do ambiente AURA 156 (07 a 27/05/2026)",
+          "Recarga emergencial Gupshup executada — Ticket nº 511151 registrado em 27/05/2026",
+          "Início do Painel Inteligente Portal do Cidadão – Gestão de Calçadas com levantamento funcional e estruturação do dashboard"
+        ],
+        proximasEntregas: [
+          { data: "2026-06-03", entrega: "Ajuste da pesquisa de satisfação da Migração WhatsApp para AURA", projeto: "WhatsApp Oficial / Gupshup", responsavel: "", status: "No prazo" },
+          { data: "2026-06-04", entrega: "Reunião de ajuste do transbordo URA → WhatsApp", projeto: "IA para Telefonia e NLU", responsavel: "", status: "No prazo" },
+          { data: "", entrega: "Continuidade da publicação do Sistema Formulário de Ouvidoria no CITSmartX MDS", projeto: "Integrações CITSmartX", responsavel: "", status: "No prazo" },
+          { data: "", entrega: "Documentação do produto para análise e ajustes", projeto: "MDS - Formulário de Ouvidoria", responsavel: "", status: "No prazo" },
+          { data: "", entrega: "Análise de viabilidade econômica e financeira do produto", projeto: "MDS - Formulário de Ouvidoria", responsavel: "", status: "No prazo" },
+          { data: "", entrega: "Definição de janela de virada para produção da Migração WhatsApp para AURA", projeto: "WhatsApp Oficial / Gupshup", responsavel: "", status: "No prazo" }
+        ],
+        planoExcelencia: [
+          { acao: "", responsavel: "", prazo: "", status: "Pendente", evidencia: "" }
+        ]
+      },
+      {
+        competencia: "Junho/2026",
+        rotulo: "Junho/2026",
+        resumo: "",
+        totalAtividades: 0,
+        totalDemandas: 0,
+        totalMelhorias: 0,
+        pendenciasCriticas: 0,
+        principaisGanhos: [],
+        proximasEntregas: [
+          { data: "", entrega: "", projeto: "", responsavel: "", status: "No prazo" }
+        ],
+        planoExcelencia: [
+          { acao: "", responsavel: "", prazo: "", status: "Pendente", evidencia: "" }
+        ]
+      }
+    ]
   },
 
   projetos: [
