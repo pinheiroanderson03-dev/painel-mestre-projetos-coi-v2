@@ -217,4 +217,37 @@ publicacao-<nome>                  →   publicacao-demandas-central-df (NÃO TO
 
 ---
 
-*Última atualização: 2026-06-10 · Fase: 4D.1 — Governança Operacional*
+---
+
+## Scripts de Validação (Fase 4D.2)
+
+Os scripts abaixo ficam na pasta `scripts/` e devem ser executados a partir da raiz do projeto no PowerShell. Nenhum script realiza alterações — apenas leitura e validação.
+
+| Script | Quando usar | Comando |
+|---|---|---|
+| `status-seguro.ps1` | Ver branch, status e commits de forma rápida | `.\scripts\status-seguro.ps1` |
+| `validar-docs.ps1` | Conferir governança antes de commit de documentação | `.\scripts\validar-docs.ps1` |
+| `validar-dados.ps1` | Após qualquer alteração em `dados/projetos.js` | `.\scripts\validar-dados.ps1` |
+| `validar-projeto.ps1` | Validação geral antes de qualquer commit ou push | `.\scripts\validar-projeto.ps1` |
+
+**Ordem recomendada antes de um commit:**
+
+```powershell
+.\scripts\validar-projeto.ps1
+```
+
+Se houver alteração em `dados/projetos.js`:
+
+```powershell
+.\scripts\validar-dados.ps1
+```
+
+Se houver alteração em documentação:
+
+```powershell
+.\scripts\validar-docs.ps1
+```
+
+---
+
+*Última atualização: 2026-06-10 · Fase: 4D.2 — Scripts de Validação*
