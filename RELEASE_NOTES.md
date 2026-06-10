@@ -4,6 +4,25 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Histórico Mensal e Filtro por Competência
+**Data:** 2026-06-10
+
+### O que melhorou
+
+**Seletor de competência na seção "Execução Mensal e Plano de Excelência":** o painel agora exibe um seletor que permite navegar entre competências mensais sem recarregar a página. Apenas a seção mensal é atualizada — cards, gráficos, tabela de portfólio e alertas executivos permanecem inalterados.
+
+**Histórico mensal estruturado:** os dados do painel passam a suportar múltiplas competências por meio do array `meta.execucoesMensais[]`. Maio/2026 foi preenchido com os dados reais extraídos do painel anterior, incluindo 9 atividades, 5 demandas concluídas, 8 principais ganhos e 6 próximos passos registrados no fechamento do mês.
+
+**Dados reais de Maio/2026:** os ganhos registrados incluem a apresentação do Sistema Formulário de Ouvidoria (MDS), validação da Migração WhatsApp para AURA, publicação do Painel COI no GitHub Pages integrado ao Google Sites, conclusão da Campanha Ativa de Resgate Qualifica DF, evolução do monitoramento AIOps e recarga emergencial da plataforma Gupshup.
+
+**Compatibilidade retroativa:** caso o array `meta.execucoesMensais` não exista ou esteja vazio, o painel utiliza automaticamente `meta.execucaoMensal` como fallback — garantindo que versões anteriores não sejam afetadas.
+
+### O que não muda
+
+Todas as funcionalidades da v1.4 continuam iguais: seletor por frente e contrato no portfólio, cards executivos preenchidos, seção de Execução Mensal, fichas individuais com Bloco 9 e funcionamento offline.
+
+---
+
 ## v1.4 — Execução Mensal e Gestão Executiva
 **Data:** 2026-06-10
 

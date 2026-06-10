@@ -47,18 +47,18 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 - [x] `portfolio.html` — 3 novos filtros (frente, contrato, gerente); agrupamento visual por frente; coluna Frente na tabela; fix de colunas Fase/Plataforma
 - [x] `projetos/ficha.html` — Bloco 1 expandido com campos de Fase 4A; Bloco 9 "Execução Mensal e Gestão Executiva"
 
-### 🔄 v1.4.1 — Fase 4A.1: Histórico Mensal e Filtro por Competência (planejada)
+### ✅ v1.4.1 — Fase 4A.1: Histórico Mensal e Filtro por Competência (concluída — 2026-06-10)
 
 **Objetivo:** Permitir selecionar a competência/mês na seção "Execução Mensal e Plano de Excelência", com histórico de múltiplas competências.
 
-| Funcionalidade | Descrição | Arquivos |
-|---|---|---|
-| `meta.execucoesMensais[]` | Array de competências com estrutura completa; `meta.execucaoMensal` preservado como fallback | `dados/projetos.js` |
-| Seletor de competência | `<select>` embutido na seção, usando separação `em-controls` / `em-content` | `index.html` |
-| Re-render isolado | Troca de mês atualiza somente a seção mensal — status, gráficos e tabela de portfólio não são afetados | `index.html` |
-| Fallback robusto | Se `execucoesMensais` não existir, usa `execucaoMensal`; se nenhum existir, exibe estado vazio | `index.html` |
-
-Competências iniciais: Maio/2026 e Junho/2026.
+| Funcionalidade | Descrição | Arquivos | Commits |
+|---|---|---|---|
+| `meta.execucoesMensais[]` | Array com Maio/2026 e Junho/2026; `meta.execucaoMensal` preservado como fallback | `dados/projetos.js` | `5f00783` · `065c3ac` · `8eaef98` |
+| Seletor de competência | `<select>` em `em-controls`, oculto quando há apenas uma competência | `index.html` | `c451426` |
+| Re-render isolado | Troca de mês atualiza somente `em-content` — cards, gráficos, portfólio e alertas inalterados | `index.html` | `c451426` |
+| Fallback robusto | `execucoesMensais[]` → `execucaoMensal` → `{}`; padrão = último item (Junho/2026) | `index.html` | `c451426` |
+| Dados reais Maio/2026 | 9 atividades, 5 demandas, 8 principais ganhos e 6 próximos passos extraídos do painel anterior | `dados/projetos.js` | `8eaef98` |
+| Documentação v1.4.1 | ROADMAP, CHANGELOG e RELEASE_NOTES | `ROADMAP_COI.md` · `CHANGELOG.md` · `RELEASE_NOTES.md` | `c83031a` |
 
 ### 🔄 v1.5 — Fase 4B: Edição de Fichas e Exportação de Dados (planejada)
 
@@ -128,4 +128,4 @@ Competências iniciais: Maio/2026 e Junho/2026.
 
 ---
 
-*Última atualização: 2026-06-10 · Versão: v1.4 · Próxima: v1.4.1 (Fase 4A.1 — Histórico Mensal) · Planejadas: Fase 4B, 4C*
+*Última atualização: 2026-06-10 · Versão: v1.4.1 · Próxima: v1.5 (Fase 4B — Edição e Exportação) · Planejadas: Fase 4C (Edição pelo GitHub)*
