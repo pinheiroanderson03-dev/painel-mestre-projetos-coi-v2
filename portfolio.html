@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>COI — Portfólio de Projetos</title>
 <link rel="stylesheet" href="assets/style.css">
+<style>
+.frente-header td {
+  background: var(--azul-escuro, #1B3A6B);
+  color: #fff; font-size: .78rem; font-weight: 700;
+  padding: 7px 14px; letter-spacing: .6px; text-transform: uppercase;
+}
+</style>
 <script src="dados/projetos.js"></script>
 </head>
 <body>
@@ -46,7 +53,7 @@
   <!-- ABA PROJETOS -->
   <div class="tab-content active" id="tab-projetos">
     <div class="filters">
-      <input class="filter-input" id="busca-proj" placeholder="🔍 Buscar projeto..." oninput="filtrarTabela('tb-projetos', this.value)">
+      <input class="filter-input" id="busca-proj" placeholder="🔍 Buscar projeto..." oninput="aplicarFiltros()">
       <select class="filter-input" id="filtro-prior" onchange="aplicarFiltros()">
         <option value="">Todas as prioridades</option>
         <option>P0</option><option>P1</option><option>P2</option><option>P3</option>
@@ -57,12 +64,21 @@
         <option>Homologação</option><option>Produção</option>
         <option>Concluído</option><option>Suspenso</option>
       </select>
+      <select class="filter-input" id="filtro-frente" onchange="aplicarFiltros()">
+        <option value="">Todas as frentes</option>
+        <option>CENTRAL DF</option>
+        <option>Central de Atendimento</option>
+        <option>MDS</option>
+        <option>COI</option>
+      </select>
+      <input class="filter-input" id="filtro-contrato" placeholder="🔍 Contrato..." oninput="aplicarFiltros()" style="width:140px">
+      <input class="filter-input" id="filtro-gerente" placeholder="🔍 Gerente contrato..." oninput="aplicarFiltros()" style="width:160px">
       <button class="btn-add" onclick="document.getElementById('modal-projeto').classList.add('open')">+ Novo Projeto</button>
     </div>
     <div class="table-wrap">
       <table id="tb-projetos">
         <thead><tr>
-          <th>ID</th><th>Nome do Projeto</th><th>Classificação</th><th>Prior.</th>
+          <th>ID</th><th>Nome do Projeto</th><th>Frente</th><th>Classificação</th><th>Prior.</th>
           <th>Status</th><th>Fase</th><th>Plataforma</th><th>% Conc.</th>
           <th>Semáforo</th><th>Responsável</th><th>Prazo</th><th>Ficha</th>
         </tr></thead>
@@ -286,7 +302,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.1</footer>
+<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4</footer>
 
 <script>
 // ─── Helpers ────────────────────────────────────────────────────────
@@ -352,83 +368,154 @@ function filtrarTabela(tbId, q) {
   });
 }
 function aplicarFiltros() {
-  const prior  = document.getElementById('filtro-prior').value;
-  const status = document.getElementById('filtro-status').value;
-  const busca  = document.getElementById('busca-proj').value.toLowerCase();
-  document.querySelectorAll('#tb-projetos tbody tr').forEach(r => {
-    const txt = r.textContent.toLowerCase();
-    const ok = (!busca || txt.includes(busca))
-            && (!prior  || r.dataset.prior  === prior)
-            && (!status || r.dataset.status === status);
-    r.style.display = ok ? '' : 'none';
+  var prior    = document.getElementById('filtro-prior').value;
+  var status   = document.getElementById('filtro-status').value;
+  var frente   = document.getElementById('filtro-frente').value;
+  var contrato = document.getElementById('filtro-contrato').value.toLowerCase().trim();
+  var gerente  = document.getElementById('filtro-gerente').value.toLowerCase().trim();
+  var busca    = document.getElementById('busca-proj').value.toLowerCase().trim();
+  var filtrados = COI_DATA.projetos.filter(function(p) {
+    return (!prior    || p.prioridade === prior)
+        && (!status   || p.status === status)
+        && (!frente   || (p.frente || '') === frente)
+        && (!contrato || (p.contrato || '').toLowerCase().includes(contrato))
+        && (!gerente  || (p.gerenteContrato || '').toLowerCase().includes(gerente))
+        && (!busca    || (p.id + ' ' + p.nome + ' ' + (p.responsavel || '')).toLowerCase().includes(busca));
   });
+  renderProjetos(filtrados);
 }
 
-// ─── Renderizar tabela de projetos ───────────────────────────────────
+// ─── Renderizar tabela de projetos (com agrupamento por frente) ───────
+var FRENTE_ORDER = {'CENTRAL DF':1,'Central de Atendimento':2,'MDS':3,'COI':4};
+var NCOLS_PROJ   = 13;
+
 function renderProjetos(lista) {
-  const tb = document.getElementById('tbody-projetos');
+  var tb = document.getElementById('tbody-projetos');
   tb.innerHTML = '';
-  lista.forEach(p => {
-    const fc = percColor(p.percentual);
-    const tr = document.createElement('tr');
+
+  var sorted = lista.slice().sort(function(a, b) {
+    var oa = FRENTE_ORDER[a.frente] || 99;
+    var ob = FRENTE_ORDER[b.frente] || 99;
+    return oa !== ob ? oa - ob : (a.id < b.id ? -1 : 1);
+  });
+
+  if (sorted.length === 0) {
+    var eRow = document.createElement('tr');
+    var eTd  = document.createElement('td');
+    eTd.colSpan = NCOLS_PROJ;
+    var eDiv = document.createElement('div');
+    eDiv.className = 'empty-state';
+    var eIcon = document.createElement('span');
+    eIcon.className = 'icon'; eIcon.textContent = '📭';
+    eDiv.appendChild(eIcon);
+    eDiv.appendChild(document.createTextNode('Nenhum projeto encontrado com os filtros aplicados.'));
+    eTd.appendChild(eDiv); eRow.appendChild(eTd); tb.appendChild(eRow);
+    return;
+  }
+
+  var currentFrente = null;
+  sorted.forEach(function(p) {
+    var fc       = percColor(p.percentual);
+    var frenteVal = p.frente || '—';
+
+    // Cabeçalho de grupo por frente
+    if (frenteVal !== currentFrente) {
+      currentFrente = frenteVal;
+      var hRow = document.createElement('tr');
+      hRow.className = 'frente-header';
+      var hTd = document.createElement('td');
+      hTd.colSpan = NCOLS_PROJ;
+      hTd.textContent = '▸ ' + frenteVal;
+      hRow.appendChild(hTd);
+      tb.appendChild(hRow);
+    }
+
+    var tr = document.createElement('tr');
     tr.dataset.prior  = p.prioridade;
     tr.dataset.status = p.status;
+    tr.dataset.frente = p.frente || '';
 
-    const linkTd = document.createElement('td');
-    const link   = document.createElement('a');
-    link.href = `projetos/ficha.html#${p.id}`;
-    link.className = 'proj-link';
-    link.textContent = p.id;
+    // ID
+    var linkTd = document.createElement('td');
+    var link = document.createElement('a');
+    link.href = 'projetos/ficha.html#' + p.id;
+    link.className = 'proj-link'; link.textContent = p.id;
     linkTd.appendChild(link);
 
-    const nomeTd = document.createElement('td');
-    nomeTd.style.maxWidth = '220px';
+    // Nome
+    var nomeTd = document.createElement('td');
+    nomeTd.style.maxWidth = '200px';
     nomeTd.textContent = p.nome;
 
-    const clBadge = document.createElement('span');
+    // Frente (nova coluna)
+    var frenteTd = document.createElement('td');
+    var fBadge = document.createElement('span');
+    fBadge.className = 'badge badge-azul';
+    fBadge.style.fontSize = '.65rem';
+    fBadge.textContent = p.frente || '—';
+    frenteTd.appendChild(fBadge);
+
+    // Classificação
+    var clBadge = document.createElement('span');
     clBadge.className = 'badge badge-cinza';
     clBadge.style.fontSize = '.68rem';
     clBadge.textContent = p.classificacao;
-    const clTd = document.createElement('td');
+    var clTd = document.createElement('td');
     clTd.appendChild(clBadge);
 
-    const prBadge = document.createElement('span');
-    prBadge.className = `badge ${priorBadge(p.prioridade)}`;
+    // Prioridade
+    var prBadge = document.createElement('span');
+    prBadge.className = 'badge ' + priorBadge(p.prioridade);
     prBadge.textContent = p.prioridade;
-    const prTd = document.createElement('td');
+    var prTd = document.createElement('td');
     prTd.appendChild(prBadge);
 
-    const stBadge = document.createElement('span');
-    stBadge.className = `badge ${statusBadge(p.status)}`;
+    // Status
+    var stBadge = document.createElement('span');
+    stBadge.className = 'badge ' + statusBadge(p.status);
     stBadge.textContent = p.status;
-    const stTd = document.createElement('td');
+    var stTd = document.createElement('td');
     stTd.appendChild(stBadge);
 
-    const percTd = document.createElement('td');
-    const bar = document.createElement('div');
+    // Fase (corrige ausência pré-existente)
+    var faseTd = document.createElement('td');
+    faseTd.textContent = p.fase || '—';
+
+    // Plataforma (corrige ausência pré-existente)
+    var platTd = document.createElement('td');
+    platTd.style.maxWidth = '150px';
+    platTd.textContent = p.plataforma || '—';
+
+    // % Conclusão
+    var percTd = document.createElement('td');
+    var bar = document.createElement('div');
     bar.style.cssText = 'display:flex;align-items:center;gap:6px;';
-    bar.innerHTML = `<div class="progress-bar"><div class="progress-fill" style="width:${p.percentual}%;background:${fc}"></div></div>
-      <span style="font-size:.76rem;font-weight:700;color:${fc}">${p.percentual}%</span>`;
+    bar.innerHTML = '<div class="progress-bar"><div class="progress-fill" style="width:' + p.percentual + '%;background:' + fc + '"></div></div>'
+      + '<span style="font-size:.76rem;font-weight:700;color:' + fc + '">' + p.percentual + '%</span>';
     percTd.appendChild(bar);
 
-    const semTd = document.createElement('td');
+    // Semáforo
+    var semTd = document.createElement('td');
     semTd.style.fontSize = '1.1rem';
     semTd.textContent = p.semaforo;
 
-    const respTd = document.createElement('td');
+    // Responsável
+    var respTd = document.createElement('td');
     respTd.textContent = p.responsavel || '—';
 
-    const prazoTd = document.createElement('td');
+    // Prazo
+    var prazoTd = document.createElement('td');
     prazoTd.textContent = p.prazoPrevisto || '—';
 
-    const fichaLink = document.createElement('a');
-    fichaLink.href = `projetos/ficha.html#${p.id}`;
+    // Ficha
+    var fichaLink = document.createElement('a');
+    fichaLink.href = 'projetos/ficha.html#' + p.id;
     fichaLink.className = 'proj-link';
     fichaLink.textContent = 'Ver ficha';
-    const fichaTd = document.createElement('td');
+    var fichaTd = document.createElement('td');
     fichaTd.appendChild(fichaLink);
 
-    tr.append(linkTd, nomeTd, clTd, prTd, stTd, percTd, semTd, respTd, prazoTd, fichaTd);
+    tr.append(linkTd, nomeTd, frenteTd, clTd, prTd, stTd, faseTd, platTd, percTd, semTd, respTd, prazoTd, fichaTd);
     tb.appendChild(tr);
   });
 }
