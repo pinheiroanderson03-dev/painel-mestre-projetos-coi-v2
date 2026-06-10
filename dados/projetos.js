@@ -8,15 +8,40 @@
  * - Ao adicionar novo projeto: copie um objeto existente, atualize o ID e campos.
  * - Semáforo: '🟢' = no prazo | '🟡' = atenção | '🔴' = crítico
  * - Para persistência de edições feitas no painel, os dados são salvos em localStorage.
+ *
+ * FASE 4A — Novos campos por projeto:
+ *   frente, contrato, gerenteContrato, competencia, tipoItem,
+ *   planoExcelencia, beneficioEsperado, beneficioRealizado,
+ *   evidencia, riscosCriticos, decisoesPendentes
+ *
+ * Novo bloco meta.execucaoMensal:
+ *   competencia, resumo, totalAtividades, totalDemandas, totalMelhorias,
+ *   pendenciasCriticas, principaisGanhos[], proximasEntregas[], planoExcelencia[]
  */
 
 const COI_DATA = {
 
   meta: {
-    versao: "1.0",
+    versao: "1.4",
     ciclo: "Junho 2026",
     responsavel: "PMO Digital COI",
-    atualizadoEm: "2026-06-08"
+    atualizadoEm: "2026-06-10",
+
+    execucaoMensal: {
+      competencia: "Junho/2026",
+      resumo: "",
+      totalAtividades: 0,
+      totalDemandas: 0,
+      totalMelhorias: 0,
+      pendenciasCriticas: 0,
+      principaisGanhos: [],
+      proximasEntregas: [
+        { data: "", entrega: "", projeto: "", responsavel: "", status: "No prazo" }
+      ],
+      planoExcelencia: [
+        { acao: "", responsavel: "", prazo: "", status: "Pendente", evidencia: "" }
+      ]
+    }
   },
 
   projetos: [
@@ -40,7 +65,19 @@ const COI_DATA = {
       impactoContratual: "Sim",
       fonteInformacao: "",
       observacoesExecutivas: "",
-      atualizadoEm: ""
+      atualizadoEm: "",
+      // --- Fase 4A ---
+      frente: "CENTRAL DF",
+      contrato: "",
+      gerenteContrato: "",
+      competencia: "Junho/2026",
+      tipoItem: "Projeto",
+      planoExcelencia: false,
+      beneficioEsperado: "",
+      beneficioRealizado: "",
+      evidencia: "",
+      riscosCriticos: 0,
+      decisoesPendentes: 0
     },
     {
       id: "COI-002",
@@ -62,7 +99,19 @@ const COI_DATA = {
       impactoContratual: "Não",
       fonteInformacao: "",
       observacoesExecutivas: "",
-      atualizadoEm: ""
+      atualizadoEm: "",
+      // --- Fase 4A ---
+      frente: "CENTRAL DF",
+      contrato: "",
+      gerenteContrato: "",
+      competencia: "Junho/2026",
+      tipoItem: "Projeto",
+      planoExcelencia: false,
+      beneficioEsperado: "",
+      beneficioRealizado: "",
+      evidencia: "",
+      riscosCriticos: 0,
+      decisoesPendentes: 0
     },
     {
       id: "COI-003",
@@ -84,7 +133,19 @@ const COI_DATA = {
       impactoContratual: "Não",
       fonteInformacao: "",
       observacoesExecutivas: "",
-      atualizadoEm: ""
+      atualizadoEm: "",
+      // --- Fase 4A ---
+      frente: "CENTRAL DF",
+      contrato: "",
+      gerenteContrato: "",
+      competencia: "Junho/2026",
+      tipoItem: "Projeto",
+      planoExcelencia: false,
+      beneficioEsperado: "",
+      beneficioRealizado: "",
+      evidencia: "",
+      riscosCriticos: 0,
+      decisoesPendentes: 0
     },
     {
       id: "COI-004",
@@ -106,7 +167,19 @@ const COI_DATA = {
       impactoContratual: "Sim",
       fonteInformacao: "",
       observacoesExecutivas: "",
-      atualizadoEm: ""
+      atualizadoEm: "",
+      // --- Fase 4A ---
+      frente: "Central de Atendimento",
+      contrato: "",
+      gerenteContrato: "",
+      competencia: "Junho/2026",
+      tipoItem: "Projeto",
+      planoExcelencia: false,
+      beneficioEsperado: "",
+      beneficioRealizado: "",
+      evidencia: "",
+      riscosCriticos: 0,
+      decisoesPendentes: 0
     },
     {
       id: "COI-005",
@@ -128,7 +201,19 @@ const COI_DATA = {
       impactoContratual: "Não",
       fonteInformacao: "",
       observacoesExecutivas: "",
-      atualizadoEm: ""
+      atualizadoEm: "",
+      // --- Fase 4A ---
+      frente: "CENTRAL DF",
+      contrato: "",
+      gerenteContrato: "",
+      competencia: "Junho/2026",
+      tipoItem: "Projeto",
+      planoExcelencia: false,
+      beneficioEsperado: "",
+      beneficioRealizado: "",
+      evidencia: "",
+      riscosCriticos: 0,
+      decisoesPendentes: 0
     },
     {
       id: "COI-006",
@@ -150,7 +235,19 @@ const COI_DATA = {
       impactoContratual: "Sim",
       fonteInformacao: "",
       observacoesExecutivas: "",
-      atualizadoEm: ""
+      atualizadoEm: "",
+      // --- Fase 4A ---
+      frente: "CENTRAL DF",
+      contrato: "",
+      gerenteContrato: "",
+      competencia: "Junho/2026",
+      tipoItem: "Projeto",
+      planoExcelencia: false,
+      beneficioEsperado: "",
+      beneficioRealizado: "",
+      evidencia: "",
+      riscosCriticos: 0,
+      decisoesPendentes: 0
     },
     {
       id: "COI-007",
@@ -172,7 +269,19 @@ const COI_DATA = {
       impactoContratual: "Não",
       fonteInformacao: "",
       observacoesExecutivas: "",
-      atualizadoEm: ""
+      atualizadoEm: "",
+      // --- Fase 4A ---
+      frente: "Central de Atendimento",
+      contrato: "",
+      gerenteContrato: "",
+      competencia: "Junho/2026",
+      tipoItem: "Projeto",
+      planoExcelencia: false,
+      beneficioEsperado: "",
+      beneficioRealizado: "",
+      evidencia: "",
+      riscosCriticos: 0,
+      decisoesPendentes: 0
     },
     {
       id: "COI-008",
@@ -194,7 +303,19 @@ const COI_DATA = {
       impactoContratual: "Não",
       fonteInformacao: "",
       observacoesExecutivas: "",
-      atualizadoEm: ""
+      atualizadoEm: "",
+      // --- Fase 4A ---
+      frente: "COI",
+      contrato: "",
+      gerenteContrato: "",
+      competencia: "Junho/2026",
+      tipoItem: "Projeto",
+      planoExcelencia: false,
+      beneficioEsperado: "",
+      beneficioRealizado: "",
+      evidencia: "",
+      riscosCriticos: 0,
+      decisoesPendentes: 0
     }
   ]
 };
