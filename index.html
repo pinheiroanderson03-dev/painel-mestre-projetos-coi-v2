@@ -159,6 +159,10 @@ if (typeof Chart === 'undefined') {
     </table>
   </div>
 
+  <!-- EXECUÇÃO MENSAL E PLANO DE EXCELÊNCIA -->
+  <div class="section-title">Execução Mensal e Plano de Excelência</div>
+  <div class="em-section" id="em-section"></div>
+
   <!-- ALERTAS EXECUTIVOS (dinâmicos) -->
   <div class="section-title">Alertas Executivos</div>
   <div class="alertas-grid" id="alertas-grid"></div>
@@ -166,7 +170,7 @@ if (typeof Chart === 'undefined') {
 </main>
 
 <footer>
-  COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.1 · <span id="footer-ciclo"></span>
+  COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4 · <span id="footer-ciclo"></span>
 </footer>
 
 <script>
@@ -213,10 +217,24 @@ document.getElementById('c-andamento').textContent= andamento;
 document.getElementById('c-atencao').textContent  = atencao;
 document.getElementById('c-criticos').textContent = criticos;
 document.getElementById('c-concluidos').textContent = concluidos;
-document.getElementById('c-demandas').textContent = '—';
-document.getElementById('c-riscos').textContent   = '—';
-document.getElementById('c-decisoes').textContent = '—';
-document.getElementById('c-entregas').textContent = '—';
+const em = (COI_DATA.meta && COI_DATA.meta.execucaoMensal) ? COI_DATA.meta.execucaoMensal : {};
+const totalRiscos   = ps.reduce(function(acc,p){ return acc + (p.riscosCriticos   || 0); }, 0);
+const totalDecisoes = ps.reduce(function(acc,p){ return acc + (p.decisoesPendentes || 0); }, 0);
+// Demandas: conta projetos com tipoItem === 'Demanda' e status != 'Concluído'
+const nDemandas     = ps.filter(function(p){ return p.tipoItem === 'Demanda' && p.status !== 'Concluído'; }).length;
+// Entregas da semana: janela [hoje, hoje+7] com data válida
+const _hoje   = new Date(); _hoje.setHours(0, 0, 0, 0);
+const _em7    = new Date(_hoje.getTime()); _em7.setDate(_em7.getDate() + 7); _em7.setHours(23, 59, 59, 999);
+const nEntregas = Array.isArray(em.proximasEntregas)
+  ? em.proximasEntregas.filter(function(e) {
+      if (!e.data) return false;
+      var d = new Date(e.data);
+      return !isNaN(d.getTime()) && d >= _hoje && d <= _em7;
+    }).length : 0;
+document.getElementById('c-demandas').textContent = nDemandas;
+document.getElementById('c-riscos').textContent   = totalRiscos;
+document.getElementById('c-decisoes').textContent = totalDecisoes;
+document.getElementById('c-entregas').textContent = nEntregas;
 document.getElementById('c-evolucao').textContent = evolMedia + '%';
 
 // ─── Tabela de portfólio ─────────────────────────────────────────────
@@ -273,6 +291,169 @@ ps.forEach(p => {
   tr.append(tdId, tdNome, tdClass, tdPrior, tdStatus, tdPerc, tdSem, tdResp, tdPrazo);
   tbody.appendChild(tr);
 });
+
+// ─── Execução Mensal e Plano de Excelência ───────────────────────────
+function buildExecucaoMensal() {
+  var container = document.getElementById('em-section');
+  if (!container) return;
+  var emData = (COI_DATA.meta && COI_DATA.meta.execucaoMensal) ? COI_DATA.meta.execucaoMensal : {};
+
+  // Badge de competência
+  if (emData.competencia) {
+    var badge = document.createElement('span');
+    badge.className = 'em-competencia-badge';
+    badge.textContent = emData.competencia;
+    container.appendChild(badge);
+  }
+
+  // Resumo executivo
+  var resumoDiv = document.createElement('div');
+  resumoDiv.className = emData.resumo ? 'em-resumo' : 'em-resumo em-resumo-placeholder';
+  resumoDiv.textContent = emData.resumo
+    || 'Resumo executivo do mês não preenchido. Edite meta.execucaoMensal.resumo em dados/projetos.js.';
+  container.appendChild(resumoDiv);
+
+  // Mini-cards mensais
+  var miniGrid = document.createElement('div');
+  miniGrid.className = 'em-mini-cards';
+  [
+    { label: 'Atividades',          value: emData.totalAtividades    || 0, cls: '' },
+    { label: 'Demandas',            value: emData.totalDemandas      || 0, cls: 'amarelo' },
+    { label: 'Melhorias',           value: emData.totalMelhorias     || 0, cls: 'verde' },
+    { label: 'Pendências Críticas', value: emData.pendenciasCriticas || 0,
+      cls: (emData.pendenciasCriticas || 0) > 0 ? 'vermelho' : '' }
+  ].forEach(function(mc) {
+    var card = document.createElement('div');
+    card.className = 'em-mini-card' + (mc.cls ? ' ' + mc.cls : '');
+    var val = document.createElement('div');
+    val.className = 'em-mini-value';
+    val.textContent = mc.value;
+    var lbl = document.createElement('div');
+    lbl.className = 'em-mini-label';
+    lbl.textContent = mc.label;
+    card.append(val, lbl);
+    miniGrid.appendChild(card);
+  });
+  container.appendChild(miniGrid);
+
+  // Principais ganhos
+  var ganhos = Array.isArray(emData.principaisGanhos)
+    ? emData.principaisGanhos.filter(function(g){ return g; }) : [];
+  if (ganhos.length > 0) {
+    var gDiv = document.createElement('div');
+    gDiv.className = 'em-ganhos';
+    var gH3 = document.createElement('h3');
+    gH3.textContent = '🏆 Principais Ganhos do Mês';
+    gDiv.appendChild(gH3);
+    ganhos.forEach(function(g) {
+      var item = document.createElement('div');
+      item.className = 'em-ganho-item';
+      var dot = document.createElement('div');
+      dot.className = 'em-ganho-dot';
+      var txt = document.createElement('span');
+      txt.textContent = g;
+      item.append(dot, txt);
+      gDiv.appendChild(item);
+    });
+    container.appendChild(gDiv);
+  }
+
+  // Grid de tabelas
+  var tGrid = document.createElement('div');
+  tGrid.className = 'em-tables-grid';
+
+  // — Próximas Entregas —
+  var entregas = Array.isArray(emData.proximasEntregas)
+    ? emData.proximasEntregas.filter(function(e){ return e.entrega; }) : [];
+  var cEnt = document.createElement('div');
+  cEnt.className = 'em-table-card';
+  var h3Ent = document.createElement('h3');
+  h3Ent.appendChild(document.createTextNode('📅 Próximas Entregas '));
+  var cntEnt = document.createElement('span');
+  cntEnt.className = 'em-count-badge';
+  cntEnt.textContent = entregas.length;
+  h3Ent.appendChild(cntEnt);
+  cEnt.appendChild(h3Ent);
+  if (entregas.length === 0) {
+    var empEnt = document.createElement('div');
+    empEnt.className = 'empty';
+    empEnt.textContent = 'Nenhuma entrega prevista para o período.';
+    cEnt.appendChild(empEnt);
+  } else {
+    var tblEnt = document.createElement('table');
+    var thdEnt = document.createElement('thead');
+    var hrEnt  = document.createElement('tr');
+    ['Data','Entrega','Projeto','Responsável','Status'].forEach(function(col){
+      var th = document.createElement('th'); th.textContent = col; hrEnt.appendChild(th);
+    });
+    thdEnt.appendChild(hrEnt); tblEnt.appendChild(thdEnt);
+    var tbdEnt = document.createElement('tbody');
+    entregas.forEach(function(e) {
+      var tr = document.createElement('tr');
+      [e.data||'—', e.entrega||'—', e.projeto||'—', e.responsavel||'—'].forEach(function(v){
+        var td = document.createElement('td'); td.textContent = v; tr.appendChild(td);
+      });
+      var tdS = document.createElement('td');
+      var s = e.status || 'No prazo';
+      var bg = document.createElement('span');
+      bg.className = 'badge ' + (s==='No prazo' ? 'badge-prazo-ok'
+        : s==='Em atenção' ? 'badge-prazo-atencao' : 'badge-prazo-atrasado');
+      bg.textContent = s; tdS.appendChild(bg); tr.appendChild(tdS);
+      tbdEnt.appendChild(tr);
+    });
+    tblEnt.appendChild(tbdEnt); cEnt.appendChild(tblEnt);
+  }
+  tGrid.appendChild(cEnt);
+
+  // — Plano de Excelência —
+  var peItems = Array.isArray(emData.planoExcelencia)
+    ? emData.planoExcelencia.filter(function(p){ return p.acao; }) : [];
+  var cPE = document.createElement('div');
+  cPE.className = 'em-table-card';
+  var h3PE = document.createElement('h3');
+  h3PE.appendChild(document.createTextNode('⭐ Plano de Excelência '));
+  var cntPE = document.createElement('span');
+  cntPE.className = 'em-count-badge';
+  cntPE.textContent = peItems.length;
+  h3PE.appendChild(cntPE);
+  cPE.appendChild(h3PE);
+  if (peItems.length === 0) {
+    var empPE = document.createElement('div');
+    empPE.className = 'empty';
+    empPE.textContent = 'Nenhuma ação de excelência cadastrada para o período.';
+    cPE.appendChild(empPE);
+  } else {
+    var tblPE = document.createElement('table');
+    var thdPE = document.createElement('thead');
+    var hrPE  = document.createElement('tr');
+    ['Ação','Responsável','Prazo','Status'].forEach(function(col){
+      var th = document.createElement('th'); th.textContent = col; hrPE.appendChild(th);
+    });
+    thdPE.appendChild(hrPE); tblPE.appendChild(thdPE);
+    var tbdPE = document.createElement('tbody');
+    var peMap = {
+      'Pendente':'badge-pe-pendente', 'Em andamento':'badge-pe-andamento',
+      'Concluído':'badge-pe-concluido', 'Atrasado':'badge-pe-atrasado',
+      'Bloqueado':'badge-pe-bloqueado'
+    };
+    peItems.forEach(function(item) {
+      var tr = document.createElement('tr');
+      [item.acao||'—', item.responsavel||'—', item.prazo||'—'].forEach(function(v){
+        var td = document.createElement('td'); td.textContent = v; tr.appendChild(td);
+      });
+      var tdS = document.createElement('td');
+      var s = item.status || 'Pendente';
+      var bg = document.createElement('span');
+      bg.className = 'badge ' + (peMap[s] || 'badge-pe-pendente');
+      bg.textContent = s; tdS.appendChild(bg); tr.appendChild(tdS);
+      tbdPE.appendChild(tr);
+    });
+    tblPE.appendChild(tbdPE); cPE.appendChild(tblPE);
+  }
+  tGrid.appendChild(cPE);
+  container.appendChild(tGrid);
+}
+buildExecucaoMensal();
 
 // ─── Alertas dinâmicos ───────────────────────────────────────────────
 function buildAlertas() {
