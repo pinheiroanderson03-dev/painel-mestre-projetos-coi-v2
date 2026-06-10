@@ -5,6 +5,19 @@ Painel Mestre de Acompanhamento de Projetos
 
 ---
 
+## Leitura Obrigatória Antes de Iniciar
+
+Antes de qualquer fase ou alteração, consultar:
+
+| Documento | Finalidade |
+|---|---|
+| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Estado atual, repositório, tags, scripts, regras rápidas |
+| `docs/CHECKLIST_EXECUCAO_AGENTES.md` | Checklist passo a passo para execução segura |
+
+Esses dois documentos são o ponto de entrada operacional. Este arquivo (`AGENTS.md`) contém as regras detalhadas e os papéis dos agentes.
+
+---
+
 ## Propósito
 
 Este arquivo define o comportamento esperado, os papéis e as regras obrigatórias para todos os agentes que atuam no projeto. Todo agente deve ler e aplicar este documento antes de qualquer ação técnica ou documental.
