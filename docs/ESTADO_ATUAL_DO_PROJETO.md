@@ -8,7 +8,7 @@ Centro de Operacoes Integradas · Governo do Distrito Federal
 
 ---
 
-Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.5 — Plano de Rollback Seguro
+Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 5A.1 — Preparacao da Evolucao Funcional
 
 ---
 
@@ -18,7 +18,7 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.5 — Plano d
 |---|---|
 | Versao atual | v1.4.1 |
 | Branch principal | main |
-| Ultima tag estavel | v1.4.1-consolidacao-memoria |
+| Ultima tag estavel | v1.4.1-rollback-seguro |
 | Branch protegida (nunca tocar) | publicacao-demandas-central-df |
 
 ---
@@ -35,7 +35,8 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.5 — Plano d
 | Fase 4D.4 | v1.4.1 | Base de interacao assistida no ChatGPT (docs/) |
 | Fase 4D.4.1 | v1.4.1 | Consolidacao da memoria operacional do projeto |
 | Fase 4D.4.2 | v1.4.1 | Delegacao operacional controlada ao Claude — Concluida |
-| Fase 4D.5 | v1.4.1 | Plano de rollback seguro e matriz de contingencia — EM EXECUCAO |
+| Fase 4D.5 | v1.4.1 | Plano de rollback seguro e matriz de contingencia — Concluida |
+| Fase 5A.1 | v1.4.1 | Preparacao da evolucao funcional — meta.versao corrigido, documentacao alinhada — Concluida |
 
 ---
 
@@ -50,8 +51,8 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.5 — Plano d
 
 ## Proxima Acao Prevista
 
-Fase 4D.5 — Em execucao (branch: fase-4d5-plano-rollback-seguro).
-Proxima fase planejada: Fase 4B — Edicao de Fichas e Exportacao de Dados (aguardando autorizacao).
+Fase 5A.1 — Concluida (branch: fase-5a-1-preparacao-evolucao-funcional).
+Proxima fase planejada: Fase 5A.2 — Evolucao Funcional do Painel (escopo a definir com Anderson).
 
 ---
 
@@ -59,7 +60,7 @@ Proxima fase planejada: Fase 4B — Edicao de Fichas e Exportacao de Dados (agua
 
 | Arquivo | Estado |
 |---|---|
-| `dados/projetos.js` | meta.versao "1.4"; execucoesMensais[] com Maio/2026 (dados reais) e Junho/2026 (estrutura pronta) |
+| `dados/projetos.js` | meta.versao "1.4.1" (corrigido na Fase 5A.1); execucoesMensais[] com Maio/2026 (dados reais) e Junho/2026 (estrutura pronta) |
 | `index.html` | Seletor de competencia funcional; fallback robusto em cadeia |
 | `assets/style.css` | Namespace .em-* completo (72 linhas, sem colisao) |
 | `scripts/status-seguro.ps1` | Validacao de branch e status — ASCII puro |
@@ -82,7 +83,9 @@ Proxima fase planejada: Fase 4B — Edicao de Fichas e Exportacao de Dados (agua
 | v1.4.1-governanca-agentes | 4D.1 | Governanca operacional dos agentes |
 | v1.4.1-scripts-validacao | 4D.2 | Scripts de validacao PowerShell |
 | v1.4.1-base-interacao-chatgpt | 4D.4 | Base de interacao assistida no ChatGPT |
-| v1.4.1-consolidacao-memoria | 4D.4.1 | Consolidacao da memoria operacional (pendente push) |
+| v1.4.1-consolidacao-memoria | 4D.4.1 | Consolidacao da memoria operacional |
+| v1.4.1-delegacao-operacional | 4D.4.2 | Delegacao operacional controlada ao Claude |
+| v1.4.1-rollback-seguro | 4D.5 | Plano de rollback seguro e matriz de contingencia |
 
 ---
 
@@ -94,4 +97,4 @@ Proxima fase planejada: Fase 4B — Edicao de Fichas e Exportacao de Dados (agua
 
 ---
 
-*Ultima atualizacao: 2026-06-11 - Fase 4D.5 - Plano de Rollback Seguro*
+*Ultima atualizacao: 2026-06-11 - Fase 5A.1 - Preparacao da Evolucao Funcional*

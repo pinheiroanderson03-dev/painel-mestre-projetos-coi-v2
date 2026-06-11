@@ -4,6 +4,16 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 5A.1: Preparação da Evolução Funcional do Painel (2026-06-11)
+
+### Preparação técnica e documental — `dados/projetos.js`, `docs/`, `CHANGELOG.md`, `ROADMAP_COI.md`
+
+- Atualizado `dados/projetos.js` — `meta.versao` corrigido de `"1.4"` para `"1.4.1"` (campo puramente informacional; 0 referências em HTML/CSS; sem impacto funcional confirmado via inspeção)
+- Atualizado `docs/ESTADO_ATUAL_DO_PROJETO.md` — Fase 5A.1 registrada como concluída; última tag segura: `v1.4.1-rollback-seguro`; próxima fase: 5A.2 — Evolução Funcional do Painel
+- Atualizado `docs/MEMORIA_OPERACIONAL_PROJETO.md` — Fase 5A.1 adicionada como concluída; ciclo 5A iniciado
+
+---
+
 ## v1.4.1 — Fase 4D.5: Plano de Rollback Seguro (2026-06-11)
 
 ### Governança de contingência — `docs/`, `AGENTS.md`

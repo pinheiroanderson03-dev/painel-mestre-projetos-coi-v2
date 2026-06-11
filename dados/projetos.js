@@ -22,7 +22,7 @@
 const COI_DATA = {
 
   meta: {
-    versao: "1.4",
+    versao: "1.4.1",
     ciclo: "Junho 2026",
     responsavel: "PMO Digital COI",
     atualizadoEm: "2026-06-10",
