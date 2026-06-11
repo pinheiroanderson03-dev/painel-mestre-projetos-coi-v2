@@ -11,7 +11,8 @@ Antes de qualquer fase ou alteração, consultar:
 
 | Documento | Finalidade |
 |---|---|
-| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Estado atual, repositório, tags, scripts, regras rápidas |
+| `docs/ESTADO_ATUAL_DO_PROJETO.md` | **Ler primeiro.** Versão, branch, tag atual, fases concluídas, próxima ação |
+| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Regras rápidas, scripts, estrutura de arquivos |
 | `docs/CHECKLIST_EXECUCAO_AGENTES.md` | Checklist passo a passo para execução segura |
 | `docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md` | Como usar o ChatGPT como apoio analítico e operacional |
 | `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` | Perfis de agentes ChatGPT por domínio (governança, Git, demandas, relatórios, etc.) |
@@ -203,4 +204,4 @@ git log --oneline -10
 
 ---
 
-*Última atualização: 2026-06-10 · Versão: v1.4.1 · Fase: 4D.1 — Governança Operacional*
+*Última atualização: 2026-06-11 · Versão: v1.4.1 · Fase: 4D.4.1 — Consolidação da Memória Operacional*

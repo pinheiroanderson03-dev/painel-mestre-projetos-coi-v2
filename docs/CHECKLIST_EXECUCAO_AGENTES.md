@@ -7,7 +7,8 @@ Para detalhes de cada item, consultar AGENTS.md e PROTOCOLO_OPERACIONAL_AGENTES.
 
 ## 1. Antes de Iniciar
 
-- [ ] Consultar `docs/MEMORIA_OPERACIONAL_PROJETO.md` — estado atual, tags, regras rapidas
+- [ ] Consultar `docs/ESTADO_ATUAL_DO_PROJETO.md` — versao, branch, tag, fases concluidas, proxima acao
+- [ ] Consultar `docs/MEMORIA_OPERACIONAL_PROJETO.md` — regras rapidas, scripts, estrutura de arquivos
 - [ ] Confirmar branch atual com `.\scripts\status-seguro.ps1`
 - [ ] Confirmar que NAO esta na branch `publicacao-demandas-central-df`
 - [ ] Confirmar escopo da fase: objetivo, entregaveis, restricoes
@@ -59,13 +60,14 @@ Escolher o script adequado e rodar:
 
 ## 5. Ao Finalizar uma Fase
 
+- [ ] Atualizar `docs/ESTADO_ATUAL_DO_PROJETO.md` — fase concluida, tag, proxima acao (obrigatorio antes do commit)
 - [ ] Atualizar `CHANGELOG.md` com commits e descricoes tecnicas
 - [ ] Atualizar `RELEASE_NOTES.md` com linguagem para usuario final
 - [ ] Atualizar `ROADMAP_COI.md` marcando fase como concluida
-- [ ] Atualizar `docs/MEMORIA_OPERACIONAL_PROJETO.md` com novo estado
+- [ ] Atualizar `docs/MEMORIA_OPERACIONAL_PROJETO.md` com novo estado na tabela
 - [ ] Registrar aprendizados em `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md`
 - [ ] Sugerir tag estavel ao Anderson
 
 ---
 
-*Ultima atualizacao: 2026-06-10 - Fase 4D.3 - Memoria Operacional*
+*Ultima atualizacao: 2026-06-11 - Fase 4D.4.1 - Consolidacao da Memoria Operacional*

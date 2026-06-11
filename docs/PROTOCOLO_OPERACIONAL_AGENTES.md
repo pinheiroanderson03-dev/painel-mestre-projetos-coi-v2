@@ -14,8 +14,9 @@ Este documento define o fluxo prático de execução para cada tipo de tarefa no
 
 Toda nova fase deve começar com a leitura dos seguintes documentos:
 
-1. `docs/MEMORIA_OPERACIONAL_PROJETO.md` — estado atual do projeto, repositório, tags estáveis, scripts disponíveis e regras rápidas.
-2. `docs/CHECKLIST_EXECUCAO_AGENTES.md` — checklist passo a passo para execução segura, do início ao push.
+1. `docs/ESTADO_ATUAL_DO_PROJETO.md` — versão, branch, tag atual, fases concluídas e próxima ação prevista.
+2. `docs/MEMORIA_OPERACIONAL_PROJETO.md` — regras rápidas, scripts disponíveis e estrutura de arquivos.
+3. `docs/CHECKLIST_EXECUCAO_AGENTES.md` — checklist passo a passo para execução segura, do início ao push.
 
 Esses documentos evitam repetição de contexto, confusão entre ambientes e erros de escopo.
 
@@ -33,8 +34,9 @@ Documentos de referência:
 ## Fluxo Padrão de Execução
 
 ```
-0. CONSULTAR MEMORIA
-   └─ Ler docs/MEMORIA_OPERACIONAL_PROJETO.md
+0. CONSULTAR ESTADO E MEMORIA
+   └─ Ler docs/ESTADO_ATUAL_DO_PROJETO.md     (versao, branch, tag, fases)
+   └─ Ler docs/MEMORIA_OPERACIONAL_PROJETO.md (regras, scripts, estrutura)
    └─ Abrir docs/CHECKLIST_EXECUCAO_AGENTES.md
 
 1. RECEBER TAREFA
@@ -274,4 +276,4 @@ Se houver alteração em documentação:
 
 ---
 
-*Última atualização: 2026-06-10 · Fase: 4D.2 — Scripts de Validação*
+*Última atualização: 2026-06-11 · Fase: 4D.4.1 — Consolidação da Memória Operacional*

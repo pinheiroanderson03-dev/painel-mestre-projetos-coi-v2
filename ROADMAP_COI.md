@@ -47,6 +47,22 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 - [x] `portfolio.html` — 3 novos filtros (frente, contrato, gerente); agrupamento visual por frente; coluna Frente na tabela; fix de colunas Fase/Plataforma
 - [x] `projetos/ficha.html` — Bloco 1 expandido com campos de Fase 4A; Bloco 9 "Execução Mensal e Gestão Executiva"
 
+### ✅ v1.4.1 — Fases 4D: Governança Operacional dos Agentes (concluídas — 2026-06-10/11)
+
+**Objetivo:** Estabelecer a infraestrutura de governança operacional do projeto — regras, papéis, scripts de validação, memória operacional e base de interação assistida com ChatGPT.
+
+| Fase | Data | Entrega |
+|---|---|---|
+| Fase 4D.1 | 2026-06-10 | `AGENTS.md`, `docs/PROTOCOLO_OPERACIONAL_AGENTES.md`, `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md` |
+| Fase 4D.2 | 2026-06-10 | 4 scripts PowerShell em ASCII puro (`scripts/*.ps1`) |
+| Fase 4D.3 | 2026-06-10 | `docs/MEMORIA_OPERACIONAL_PROJETO.md`, `docs/CHECKLIST_EXECUCAO_AGENTES.md` |
+| Fase 4D.4 | 2026-06-10 | `docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md`, `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` |
+| Fase 4D.4.1 | 2026-06-11 | `docs/ESTADO_ATUAL_DO_PROJETO.md`; consolidação e sincronização de toda documentação operacional |
+
+**Tag estável:** `v1.4.1-base-interacao-chatgpt`
+
+---
+
 ### ✅ v1.4.1 — Fase 4A.1: Histórico Mensal e Filtro por Competência (concluída — 2026-06-10)
 
 **Objetivo:** Permitir selecionar a competência/mês na seção "Execução Mensal e Plano de Excelência", com histórico de múltiplas competências.
@@ -128,4 +144,4 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-*Última atualização: 2026-06-10 · Versão: v1.4.1 · Próxima: v1.5 (Fase 4B — Edição e Exportação) · Planejadas: Fase 4C (Edição pelo GitHub)*
+*Última atualização: 2026-06-11 · Versão: v1.4.1 · Próxima: v1.5 (Fase 4B — Edição e Exportação) · Planejadas: Fase 4C (Edição pelo GitHub)*

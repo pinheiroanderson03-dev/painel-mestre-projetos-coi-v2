@@ -4,6 +4,50 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 4D.4.1: Consolidação da Memória Operacional (2026-06-11)
+
+### Governança e documentação — `docs/`, `AGENTS.md`, `CHANGELOG.md`, `ROADMAP_COI.md`
+
+- Criado `docs/ESTADO_ATUAL_DO_PROJETO.md` — documento de estado pontual do projeto (versão, branch, tag, fases, próxima ação, arquivos críticos); ponto de entrada único para novas sessões
+- Atualizado `docs/MEMORIA_OPERACIONAL_PROJETO.md` — Fase 4D.3 corrigida para "Concluída"; Fase 4D.4 e Fase 4D.4.1 adicionadas; tag `v1.4.1-base-interacao-chatgpt` registrada; coluna "Fase" adicionada à tabela de tags; `docs/ESTADO_ATUAL_DO_PROJETO.md` incluído na estrutura de arquivos; nota de redirecionamento para o novo documento de estado
+- Atualizado `docs/CHECKLIST_EXECUCAO_AGENTES.md` — seção 1 ("Antes de Iniciar") inclui consulta a `ESTADO_ATUAL_DO_PROJETO.md` como primeiro item; seção 5 ("Ao Finalizar") inclui atualização do documento de estado como etapa obrigatória antes do commit; rodapé corrigido para Fase 4D.4.1
+- Atualizado `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` — seção "Consulta Obrigatória" inclui `ESTADO_ATUAL_DO_PROJETO.md` como primeira leitura (item 1); passo 0 do fluxo reescrito com separação entre estado pontual e memória estrutural; rodapé corrigido para Fase 4D.4.1
+- Atualizado `AGENTS.md` — `docs/ESTADO_ATUAL_DO_PROJETO.md` adicionado como primeira linha da tabela "Leitura Obrigatória" com marcação "Ler primeiro"; rodapé corrigido para Fase 4D.4.1
+- Registrado `E-006A` em `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md` — encoding ASCII obrigatório em scripts PowerShell (Fase 4D.2)
+
+---
+
+## v1.4.1 — Fases 4D: Governança Operacional dos Agentes (2026-06-10)
+
+### Fase 4D.1 — Governança Operacional dos Agentes
+
+- Criado `AGENTS.md` — regras obrigatórias (10 regras), papéis dos agentes (10 papéis), modos de execução (Rápido, Seguro, Crítico)
+- Criado `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` — fluxo padrão de execução (passos 0–7), protocolos específicos P1–P8 por tipo de tarefa
+- Criado `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md` — erros E-001 a E-005 e aprendizados A-001 a A-004 das fases anteriores
+
+### Fase 4D.2 — Scripts de Validação PowerShell
+
+- Criados 4 scripts em `scripts/`: `status-seguro.ps1`, `validar-docs.ps1`, `validar-dados.ps1`, `validar-projeto.ps1`
+- Scripts reescritos em ASCII puro após erro de encoding (E-006A) — caracteres acentuados causavam "cadeia de caracteres sem terminador"
+- Filtro LF/CRLF adicionado em `validar-projeto.ps1` — avisos do Windows não incrementam contagem de erros
+- Regex com `.` como wildcard para termos acentuados em `Select-String` — evita falso negativo em validações de documentação
+
+### Fase 4D.3 — Memória Operacional e Checklist
+
+- Criado `docs/MEMORIA_OPERACIONAL_PROJETO.md` — identificação do projeto, estado atual, tags estáveis, scripts de validação, regras rápidas, estrutura de arquivos
+- Criado `docs/CHECKLIST_EXECUCAO_AGENTES.md` — 5 seções: antes de iniciar, durante a execução, antes do commit, antes do push, ao finalizar uma fase
+- Atualizado `AGENTS.md` — tabela "Leitura Obrigatória" adicionada; referência à Fase 4D.3
+- Atualizado `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` — passo 0 "CONSULTAR MEMORIA" adicionado ao fluxo; tabela de scripts adicionada
+
+### Fase 4D.4 — Base de Interação Assistida no ChatGPT
+
+- Criado `docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md` — bloco de contexto inicial, modelos de mensagem por tipo de pedido (fase, PowerShell, prompt para Claude, validação pré-commit/push/merge/tag), exemplos práticos
+- Criado `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` — 7 agentes especializados: Governança, PowerShell/Git, Demandas, Relatórios Executivos, Contratos/Riscos, AIOps, Expansão Comercial
+- Atualizado `AGENTS.md` — referências a `BASE_INTERACAO_ASSISTIDA_CHATGPT.md` e `AGENTES_ESPECIALIZADOS_CHATGPT.md`
+- Atualizado `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` — seção "Apoio via ChatGPT (Fase 4D.4)" adicionada
+
+---
+
 ## v1.4.1 — Fase 4A.1: Histórico Mensal e Filtro por Competência (2026-06-10)
 
 ### Histórico mensal indexado — `dados/projetos.js`

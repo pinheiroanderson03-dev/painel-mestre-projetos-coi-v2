@@ -69,6 +69,18 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+### E-006A — Encoding não-ASCII em scripts PowerShell causa falha de parsing
+
+**Fase:** v1.4.1 / Fase 4D.2 — Scripts de Validação
+**Quando ocorreu:** Criação e execução inicial dos scripts `scripts/*.ps1`
+**O que aconteceu:** Scripts PowerShell criados com strings `Write-Host` contendo caracteres UTF-8 acentuados (ex.: `ã`, `ç`, `ô`) causaram o erro "cadeia de caracteres sem terminador" ao serem executados no PowerShell do Windows. Os scripts eram sintaticamente corretos no editor, mas o interpretador PowerShell rejeitava o arquivo inteiro.
+**Causa raiz:** O PowerShell no Windows lê arquivos `.ps1` com encoding diferente do que o editor de texto usa para salvá-los. Caracteres fora do ASCII puro (> 127) geram inconsistência de encoding que o parser trata como string não fechada.
+**Impacto:** Todos os 4 scripts precisaram ser reescritos — retrabalho completo na Fase 4D.2. O erro só foi identificado após tentativa de execução real no terminal do Anderson.
+**Como foi resolvido:** Todos os scripts foram reescritos usando apenas caracteres ASCII simples (sem acentos, sem cedilha, sem til). Mensagens como "Validação" → "Validacao", "Verificação" → "Verificacao".
+**Regra adotada:** Arquivos `.ps1` devem usar exclusivamente ASCII puro (caracteres ≤ 127). Nenhuma string, comentário ou nome de variável deve conter caracteres acentuados. Antes de entregar qualquer script PowerShell, verificar manualmente se todos os textos visíveis usam apenas letras não acentuadas.
+
+---
+
 ### E-005 — Risco de colisão de ID entre `f-contrato` e novo campo contrato
 **Fase:** v1.4 / Fase 4A — ficha.html
 **Quando ocorreu:** Adição de novo campo "Nº Contrato" em `projetos/ficha.html`
@@ -104,4 +116,4 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
-*Última atualização: 2026-06-10 · Fase: 4D.1 — Governança Operacional*
+*Última atualização: 2026-06-11 · Fase: 4D.4.1 — Consolidação da Memória Operacional*
