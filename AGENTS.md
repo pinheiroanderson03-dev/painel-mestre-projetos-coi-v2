@@ -204,4 +204,61 @@ git log --oneline -10
 
 ---
 
-*Última atualização: 2026-06-11 · Versão: v1.4.1 · Fase: 4D.4.1 — Consolidação da Memória Operacional*
+---
+
+## 11. Modelo de Delegação Operacional (Fase 4D.4.2)
+
+Fluxo de responsabilidade: **Anderson (aprovação) → Claude (execução e validação) → ChatGPT (suporte a decisões críticas)**.
+
+O ChatGPT não executa alterações. Atua como parceiro analítico para revisar decisões de escopo, interpretar retornos de terminal e validar raciocínios antes de ações críticas.
+
+### Comandos que Claude pode executar de forma autônoma
+
+| Comando | Finalidade |
+|---|---|
+| `git status` | Verificar estado do repositório |
+| `git diff --name-only` | Listar arquivos modificados |
+| `git diff --stat` | Resumo das modificações |
+| `git diff --check` | Verificar trailing whitespace e problemas de formatação |
+| `git branch --show-current` | Confirmar branch ativa |
+| `git log --oneline -5` | Verificar últimos commits |
+| `git add -N` | Marcar arquivo para rastreamento sem estagiá-lo |
+| `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` | Habilitar execução de scripts PS1 |
+| `.\scripts\validar-projeto.ps1` | Validação geral pré-commit |
+| `.\scripts\validar-docs.ps1` | Validação de documentação |
+| `.\scripts\validar-dados.ps1` | Validação de dados/projetos.js |
+
+### Comandos que exigem autorização explícita do Anderson
+
+| Comando | Motivo |
+|---|---|
+| `git add` (definitivo) | Prepara o commit — ponto de não-retorno fácil |
+| `git commit` | Registro permanente no histórico |
+| `git push` | Envia para repositório remoto |
+| `git switch main` | Muda para branch principal |
+| `git merge` | Integração entre branches |
+| `git tag` | Cria tag estável |
+| `git push origin main` | Publica na branch principal remota |
+| `git push origin <tag>` | Publica tag no remoto |
+| `git reset` | Desfaz commits ou alterações |
+| `git restore` | Descarta alterações em arquivo |
+| `git clean` | Remove arquivos não rastreados |
+| Exclusão de branch | Remove histórico de branch |
+| Qualquer rollback | Operação potencialmente destrutiva |
+
+### Padrão de Entrega ao Final de Cada Fase
+
+Ao final de qualquer fase ou etapa com alterações, Claude deve entregar obrigatoriamente:
+
+1. **Branch atual** — nome da branch em que o trabalho foi realizado
+2. **Arquivos criados** — lista de arquivos novos criados nesta fase
+3. **Arquivos alterados** — lista de arquivos modificados com resumo das mudanças
+4. **Comandos executados** — todos os comandos git e scripts rodados
+5. **Validações realizadas** — resultado das validações (scripts, node --check, git diff --check)
+6. **Erros ou avisos** — avisos encontrados e classificação: erro real ou comportamento normal (ex: CRLF)
+7. **Pendências** — o que ainda não foi feito e requer autorização ou ação do Anderson
+8. **Proximos comandos recomendados** — sugestão de próximos passos sem executar os críticos
+
+---
+
+*Última atualização: 2026-06-11 · Versão: v1.4.1 · Fase: 4D.4.2 — Delegação Operacional Controlada ao Claude*

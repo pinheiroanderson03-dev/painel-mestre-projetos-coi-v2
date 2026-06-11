@@ -8,7 +8,7 @@ Centro de Operacoes Integradas · Governo do Distrito Federal
 
 ---
 
-Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.4.1 — Consolidacao da Memoria
+Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.4.2 — Delegacao Operacional Controlada ao Claude
 
 ---
 
@@ -18,7 +18,7 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.4.1 — Conso
 |---|---|
 | Versao atual | v1.4.1 |
 | Branch principal | main |
-| Ultima tag estavel | v1.4.1-base-interacao-chatgpt |
+| Ultima tag estavel | v1.4.1-consolidacao-memoria |
 | Branch protegida (nunca tocar) | publicacao-demandas-central-df |
 
 ---
@@ -34,6 +34,7 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.4.1 — Conso
 | Fase 4D.3 | v1.4.1 | Memoria operacional e checklist (docs/) |
 | Fase 4D.4 | v1.4.1 | Base de interacao assistida no ChatGPT (docs/) |
 | Fase 4D.4.1 | v1.4.1 | Consolidacao da memoria operacional do projeto |
+| Fase 4D.4.2 | v1.4.1 | Delegacao operacional controlada ao Claude — EM EXECUCAO |
 
 ---
 
@@ -48,8 +49,8 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 4D.4.1 — Conso
 
 ## Proxima Acao Prevista
 
-Fase 4B — Edicao de Fichas e Exportacao de Dados (planejada).
-Aguardando autorizacao e definicao de escopo pelo Anderson.
+Fase 4D.4.2 — Em execucao (branch: fase-4d4-2-delegacao-operacional-claude).
+Proxima fase planejada: Fase 4D.5 — Plano de Rollback Seguro (a definir escopo com Anderson).
 
 ---
 
@@ -66,7 +67,7 @@ Aguardando autorizacao e definicao de escopo pelo Anderson.
 | `scripts/validar-projeto.ps1` | Validacao geral pre-commit — ASCII puro |
 | `docs/ESTADO_ATUAL_DO_PROJETO.md` | Este arquivo — estado pontual do projeto |
 | `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Regras, scripts, estrutura de arquivos — documento estrutural |
-| `AGENTS.md` | Regras e papeis dos agentes — atualizado ate Fase 4D.4.1 |
+| `AGENTS.md` | Regras e papeis dos agentes — atualizado ate Fase 4D.4.2 (secao 11: delegacao) |
 
 ---
 
@@ -78,6 +79,7 @@ Aguardando autorizacao e definicao de escopo pelo Anderson.
 | v1.4.1-governanca-agentes | 4D.1 | Governanca operacional dos agentes |
 | v1.4.1-scripts-validacao | 4D.2 | Scripts de validacao PowerShell |
 | v1.4.1-base-interacao-chatgpt | 4D.4 | Base de interacao assistida no ChatGPT |
+| v1.4.1-consolidacao-memoria | 4D.4.1 | Consolidacao da memoria operacional (pendente push) |
 
 ---
 
@@ -89,4 +91,4 @@ Aguardando autorizacao e definicao de escopo pelo Anderson.
 
 ---
 
-*Ultima atualizacao: 2026-06-11 - Fase 4D.4.1 - Consolidacao da Memoria Operacional*
+*Ultima atualizacao: 2026-06-11 - Fase 4D.4.2 - Delegacao Operacional Controlada ao Claude*

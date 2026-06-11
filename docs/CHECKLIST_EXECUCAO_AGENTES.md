@@ -15,6 +15,7 @@ Para detalhes de cada item, consultar AGENTS.md e PROTOCOLO_OPERACIONAL_AGENTES.
 - [ ] Listar arquivos que serao alterados
 - [ ] Listar arquivos que NAO serao alterados
 - [ ] Confirmar que Anderson autorizou o escopo antes de comecar
+- [ ] Verificar se ha comandos criticos no escopo (git add, commit, push, merge, tag, reset, restore) — aguardar autorizacao explícita antes de executar
 
 ---
 
@@ -70,4 +71,21 @@ Escolher o script adequado e rodar:
 
 ---
 
-*Ultima atualizacao: 2026-06-11 - Fase 4D.4.1 - Consolidacao da Memoria Operacional*
+---
+
+## 6. Entrega Final da Fase (Padrao 4D.4.2)
+
+Ao entregar qualquer fase ou etapa com alteracoes, Claude deve incluir:
+
+- [ ] Branch atual
+- [ ] Arquivos criados nesta fase
+- [ ] Arquivos alterados com resumo das mudancas
+- [ ] Comandos executados (git e scripts)
+- [ ] Resultado das validacoes
+- [ ] Erros ou avisos classificados (erro real / comportamento normal)
+- [ ] Pendencias que requerem autorizacao do Anderson
+- [ ] Proximos comandos recomendados (sem executar os criticos)
+
+---
+
+*Ultima atualizacao: 2026-06-11 - Fase 4D.4.2 - Delegacao Operacional Controlada ao Claude*

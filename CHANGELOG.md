@@ -4,6 +4,20 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 4D.4.2: Delegação Operacional Controlada ao Claude (2026-06-11)
+
+### Governança operacional — `AGENTS.md`, `CLAUDE.md`, `docs/`
+
+- Atualizado `AGENTS.md` — nova seção 11 "Modelo de Delegação Operacional (Fase 4D.4.2)": tabela de comandos autônomos (11 comandos), tabela de comandos críticos que exigem autorização (13 entradas), padrão de entrega com 8 itens obrigatórios ao final de cada fase
+- Atualizado `CLAUDE.md` — adicionada seção "Delegação Operacional" com regras de operação autônoma, lista de comandos permitidos e proibidos, e padrão de entrega de 8 itens; referência ao modelo Anderson → Claude → ChatGPT
+- Atualizado `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` — adicionado protocolo P9 "Delegação Operacional ao Claude" com listas de comandos autônomos e críticos, e padrão de entrega de 8 itens em formato de checklist
+- Atualizado `docs/CHECKLIST_EXECUCAO_AGENTES.md` — seção 1 ("Antes de Iniciar") inclui verificação de comandos críticos no escopo; nova seção 6 ("Entrega Final da Fase") com checklist dos 8 itens obrigatórios
+- Atualizado `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` — adicionada seção "Papel do ChatGPT no Modelo de Delegação" descrevendo a terceira camada (validação crítica, revisão de entrega, interpretação de terminal)
+- Atualizado `docs/ESTADO_ATUAL_DO_PROJETO.md` — Fase 4D.4.2 registrada como em execução; tag `v1.4.1-consolidacao-memoria` adicionada; próxima ação atualizada para Fase 4D.5
+- Atualizado `docs/MEMORIA_OPERACIONAL_PROJETO.md` — Fase 4D.4.2 adicionada à tabela de estado atual como "Em andamento"
+
+---
+
 ## v1.4.1 — Fase 4D.4.1: Consolidação da Memória Operacional (2026-06-11)
 
 ### Governança e documentação — `docs/`, `AGENTS.md`, `CHANGELOG.md`, `ROADMAP_COI.md`
