@@ -28,6 +28,8 @@ Documentos de referência:
 
 - `docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md` — como iniciar conversa, informar contexto, pedir análise de terminal, criar prompts para o Claude e validar antes de commit/push.
 - `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` — perfis especializados: governança, Git/PowerShell, demandas, relatórios executivos, contratos/riscos, AIOps e expansão comercial.
+- `docs/PLANO_ROLLBACK_SEGURO.md` — quando e como executar rollback, checklists antes/depois e comandos seguros vs. críticos.
+- `docs/MATRIZ_CONTINGENCIA.md` — incidentes por severidade, ação recomendada, evidência necessária e fluxo de aprovação.
 
 ---
 
@@ -323,4 +325,4 @@ COMANDOS CRITICOS (exigem "pode executar" do Anderson):
 
 ---
 
-*Última atualização: 2026-06-11 · Fase: 4D.4.2 — Delegação Operacional Controlada ao Claude*
+*Última atualização: 2026-06-11 · Fase: 4D.5 — Plano de Rollback Seguro*

@@ -16,6 +16,8 @@ Antes de qualquer fase ou alteração, consultar:
 | `docs/CHECKLIST_EXECUCAO_AGENTES.md` | Checklist passo a passo para execução segura |
 | `docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md` | Como usar o ChatGPT como apoio analítico e operacional |
 | `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` | Perfis de agentes ChatGPT por domínio (governança, Git, demandas, relatórios, etc.) |
+| `docs/PLANO_ROLLBACK_SEGURO.md` | Quando e como executar rollback — tipos, checklists, comandos seguros e críticos |
+| `docs/MATRIZ_CONTINGENCIA.md` | Incidentes por severidade — ação, aprovação, evidência, ChatGPT e Anderson |
 
 Esses documentos são o ponto de entrada operacional. Este arquivo (`AGENTS.md`) contém as regras detalhadas e os papéis dos agentes internos do projeto.
 
@@ -261,4 +263,4 @@ Ao final de qualquer fase ou etapa com alterações, Claude deve entregar obriga
 
 ---
 
-*Última atualização: 2026-06-11 · Versão: v1.4.1 · Fase: 4D.4.2 — Delegação Operacional Controlada ao Claude*
+*Última atualização: 2026-06-11 · Versão: v1.4.1 · Fase: 4D.5 — Plano de Rollback Seguro*
