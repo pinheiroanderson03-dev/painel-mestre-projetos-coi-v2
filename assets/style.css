@@ -330,6 +330,15 @@ tr:last-child td { border-bottom: none; }
 footer { text-align: center; font-size: .73rem; color: #888; padding: 20px; border-top: 1px solid #DDD; margin-top: 10px; }
 
 /* ─── EXECUÇÃO MENSAL E PLANO DE EXCELÊNCIA (Fase 4A) ─────────────── */
+/* Fase 4A.1 — seletor de competência (movido de index.html em Fase 5A.2) */
+.em-select {
+  font: inherit; font-size: .85rem;
+  padding: 5px 10px; border: 1px solid var(--borda);
+  border-radius: 6px; background: var(--branco);
+  color: var(--texto); cursor: pointer; min-width: 160px;
+}
+#em-controls { margin-bottom: 4px; }
+
 .em-section { margin-top: 32px; }
 
 .em-header {
