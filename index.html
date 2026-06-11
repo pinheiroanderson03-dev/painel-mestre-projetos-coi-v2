@@ -221,7 +221,11 @@ document.getElementById('c-andamento').textContent= andamento;
 document.getElementById('c-atencao').textContent  = atencao;
 document.getElementById('c-criticos').textContent = criticos;
 document.getElementById('c-concluidos').textContent = concluidos;
-const em = (COI_DATA.meta && COI_DATA.meta.execucaoMensal) ? COI_DATA.meta.execucaoMensal : {};
+// Fase 5A.2 — B-02: usa execucoesMensais[last] (mesma cadeia de buildExecucaoMensal)
+// Fallback: execucoesMensais[last] → execucaoMensal → {}
+const em = (COI_DATA.meta && Array.isArray(COI_DATA.meta.execucoesMensais) && COI_DATA.meta.execucoesMensais.length > 0)
+  ? COI_DATA.meta.execucoesMensais[COI_DATA.meta.execucoesMensais.length - 1]
+  : ((COI_DATA.meta && COI_DATA.meta.execucaoMensal) ? COI_DATA.meta.execucaoMensal : {});
 const totalRiscos   = ps.reduce(function(acc,p){ return acc + (p.riscosCriticos   || 0); }, 0);
 const totalDecisoes = ps.reduce(function(acc,p){ return acc + (p.decisoesPendentes || 0); }, 0);
 // Demandas: conta projetos com tipoItem === 'Demanda' e status != 'Concluído'
