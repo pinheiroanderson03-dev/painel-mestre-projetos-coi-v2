@@ -22,15 +22,19 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 
 ## Estado Atual
 
+> Para o estado pontual atualizado (versao, branch, tag, fases, proxima acao), consultar `docs/ESTADO_ATUAL_DO_PROJETO.md`.
+
 | Fase | Status | Descricao |
 |---|---|---|
 | v1.4 / Fase 4A | Concluida | Execucao Mensal e Gestao Executiva |
 | v1.4.1 / Fase 4A.1 | Concluida | Historico mensal e seletor de competencia |
 | Fase 4D.1 | Concluida | Governanca operacional dos agentes (AGENTS.md, docs/) |
 | Fase 4D.2 | Concluida | Scripts de validacao PowerShell (scripts/) |
-| Fase 4D.3 | Em andamento | Memoria operacional dos agentes |
-| Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
+| Fase 4D.3 | Concluida | Memoria operacional e checklist (docs/) |
+| Fase 4D.4 | Concluida | Base de interacao assistida no ChatGPT (docs/) |
+| Fase 4D.4.1 | Concluida | Consolidacao da memoria operacional do projeto |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
+| Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
 
 Branch de publicacao protegida: `publicacao-demandas-central-df` — NUNCA TOCAR.
 
@@ -38,11 +42,12 @@ Branch de publicacao protegida: `publicacao-demandas-central-df` — NUNCA TOCAR
 
 ## Tags Estaveis
 
-| Tag | Descricao |
-|---|---|
-| v1.4.1-historico-mensal | Historico mensal com seletor de competencia |
-| v1.4.1-governanca-agentes | Governanca operacional dos agentes |
-| v1.4.1-scripts-validacao | Scripts de validacao PowerShell |
+| Tag | Fase | Descricao |
+|---|---|---|
+| v1.4.1-historico-mensal | 4A.1 | Historico mensal com seletor de competencia |
+| v1.4.1-governanca-agentes | 4D.1 | Governanca operacional dos agentes |
+| v1.4.1-scripts-validacao | 4D.2 | Scripts de validacao PowerShell |
+| v1.4.1-base-interacao-chatgpt | 4D.4 | Base de interacao assistida no ChatGPT |
 
 ---
 
@@ -87,12 +92,15 @@ raiz/
   ROADMAP_COI.md               roadmap de fases
   scripts/                     scripts de validacao PowerShell
   docs/
+    ESTADO_ATUAL_DO_PROJETO.md     estado pontual do projeto (atualizar ao fechar fase)
     PROTOCOLO_OPERACIONAL_AGENTES.md
     REGISTRO_DE_ERROS_E_APRENDIZADOS.md
-    MEMORIA_OPERACIONAL_PROJETO.md   (este arquivo)
+    MEMORIA_OPERACIONAL_PROJETO.md   (este arquivo — documento estrutural)
     CHECKLIST_EXECUCAO_AGENTES.md
+    BASE_INTERACAO_ASSISTIDA_CHATGPT.md
+    AGENTES_ESPECIALIZADOS_CHATGPT.md
 ```
 
 ---
 
-*Ultima atualizacao: 2026-06-10 - Fase 4D.3 - Memoria Operacional*
+*Ultima atualizacao: 2026-06-11 - Fase 4D.4.1 - Consolidacao da Memoria Operacional*
