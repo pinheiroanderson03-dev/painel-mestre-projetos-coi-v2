@@ -114,6 +114,16 @@ Centro de Operações Integradas · Governo do Distrito Federal
 **Contexto:** Estratégia de branches do projeto
 **O que funcionou:** Manter a branch `publicacao-demandas-central-df` (GitHub Pages v1) completamente isolada das branches de desenvolvimento permitiu evoluir o V2 sem risco de quebrar o painel em produção. Regra: branches de publicação ativas nunca recebem push acidental.
 
+### A-005 — Modelo de 3 camadas para decisoes criticas
+**Fase:** v1.4.1 / Fase 4D.4.2 — Delegacao Operacional
+**Contexto:** Formalizacao do modelo Anderson → Claude → ChatGPT para operacao do repositorio
+**O que funcionou:** Separar as responsabilidades em tres camadas distintas — Anderson aprova, Claude executa e valida, ChatGPT analisa decisoes criticas — criou um padrao claro de governanca que evita acoes acidentais e distribui a responsabilidade de forma rastreavel. O ponto de corte "Claude nao executa git commit/push/reset sem 'pode executar'" provou ser seguro em todas as fases da 4D.
+
+### A-006 — Documentacao de rollback antes de precisar dele
+**Fase:** v1.4.1 / Fase 4D.5 — Plano de Rollback Seguro
+**Contexto:** Criacao de PLANO_ROLLBACK_SEGURO.md e MATRIZ_CONTINGENCIA.md antes de qualquer incidente real
+**O que funcionou:** Documentar os tipos de rollback e a matriz de incidentes em estado de calma — sem pressao de um incidente real — permitiu cobrir todos os cenarios possiveis com clareza. A matriz com severidade S1-S4 e especialmente util para diferenciar rapidamente o que exige acao imediata (S1) do que pode ser corrigido com novo commit (S4).
+
 ---
 
-*Última atualização: 2026-06-11 · Fase: 4D.4.1 — Consolidação da Memória Operacional*
+*Ultima atualizacao: 2026-06-11 · Fase: 4D.5 — Plano de Rollback Seguro*

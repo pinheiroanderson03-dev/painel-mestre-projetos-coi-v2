@@ -33,7 +33,8 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 4D.3 | Concluida | Memoria operacional e checklist (docs/) |
 | Fase 4D.4 | Concluida | Base de interacao assistida no ChatGPT (docs/) |
 | Fase 4D.4.1 | Concluida | Consolidacao da memoria operacional do projeto |
-| Fase 4D.4.2 | Em andamento | Delegacao operacional controlada ao Claude (AGENTS.md, CLAUDE.md, docs/) |
+| Fase 4D.4.2 | Concluida | Delegacao operacional controlada ao Claude (AGENTS.md, CLAUDE.md, docs/) |
+| Fase 4D.5 | Em andamento | Plano de rollback seguro e matriz de contingencia (docs/) |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
 | Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
 
@@ -104,4 +105,4 @@ raiz/
 
 ---
 
-*Ultima atualizacao: 2026-06-11 - Fase 4D.4.2 - Delegacao Operacional Controlada ao Claude*
+*Ultima atualizacao: 2026-06-11 - Fase 4D.5 - Plano de Rollback Seguro*

@@ -16,6 +16,7 @@ Para detalhes de cada item, consultar AGENTS.md e PROTOCOLO_OPERACIONAL_AGENTES.
 - [ ] Listar arquivos que NAO serao alterados
 - [ ] Confirmar que Anderson autorizou o escopo antes de comecar
 - [ ] Verificar se ha comandos criticos no escopo (git add, commit, push, merge, tag, reset, restore) — aguardar autorizacao explícita antes de executar
+- [ ] Se houver risco de rollback: consultar `docs/PLANO_ROLLBACK_SEGURO.md` e `docs/MATRIZ_CONTINGENCIA.md` antes de agir
 
 ---
 
@@ -88,4 +89,4 @@ Ao entregar qualquer fase ou etapa com alteracoes, Claude deve incluir:
 
 ---
 
-*Ultima atualizacao: 2026-06-11 - Fase 4D.4.2 - Delegacao Operacional Controlada ao Claude*
+*Ultima atualizacao: 2026-06-11 - Fase 4D.5 - Plano de Rollback Seguro*

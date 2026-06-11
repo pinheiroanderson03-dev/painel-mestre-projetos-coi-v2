@@ -4,6 +4,20 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 4D.5: Plano de Rollback Seguro (2026-06-11)
+
+### Governança de contingência — `docs/`, `AGENTS.md`
+
+- Criado `docs/PLANO_ROLLBACK_SEGURO.md` — 14 seções: objetivo, modelo de aprovação (Anderson→Claude→ChatGPT), quando usar/não usar rollback, rollback de commit local, commit remoto, merge, tag, branch e GitHub Pages; checklists antes/depois de rollback; comandos seguros e comandos críticos
+- Criado `docs/MATRIZ_CONTINGENCIA.md` — 13 tipos de incidente classificados por severidade (S1 a S4); colunas: tipo, impacto, ação recomendada, evidência necessária, se exige validação do ChatGPT, se exige autorização do Anderson; fluxo de decisão e referência cruzada ao PLANO_ROLLBACK_SEGURO.md
+- Atualizado `AGENTS.md` — tabela "Leitura Obrigatória" inclui PLANO_ROLLBACK_SEGURO.md e MATRIZ_CONTINGENCIA.md; rodapé atualizado para Fase 4D.5
+- Atualizado `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` — seção "Apoio via ChatGPT" inclui referências ao plano de rollback e à matriz de contingência; rodapé atualizado para Fase 4D.5
+- Atualizado `docs/CHECKLIST_EXECUCAO_AGENTES.md` — item adicionado na seção 1: consultar PLANO_ROLLBACK_SEGURO.md e MATRIZ_CONTINGENCIA.md se houver risco de rollback; rodapé atualizado para Fase 4D.5
+- Atualizado `docs/ESTADO_ATUAL_DO_PROJETO.md` — Fase 4D.4.2 marcada como Concluída; Fase 4D.5 registrada como em execução; dois novos arquivos adicionados à tabela de arquivos críticos
+- Atualizado `docs/MEMORIA_OPERACIONAL_PROJETO.md` — Fase 4D.4.2 marcada como Concluída; Fase 4D.5 adicionada como "Em andamento"; rodapé atualizado
+
+---
+
 ## v1.4.1 — Fase 4D.4.2: Delegação Operacional Controlada ao Claude (2026-06-11)
 
 ### Governança operacional — `AGENTS.md`, `CLAUDE.md`, `docs/`
