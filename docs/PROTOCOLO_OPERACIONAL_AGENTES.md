@@ -276,4 +276,51 @@ Se houver alteração em documentação:
 
 ---
 
-*Última atualização: 2026-06-11 · Fase: 4D.4.1 — Consolidação da Memória Operacional*
+---
+
+### P9 — Delegação Operacional ao Claude (Fase 4D.4.2)
+
+**Modelo de responsabilidade:** Anderson (aprovação) → Claude (execução) → ChatGPT (suporte a decisões críticas).
+
+```
+COMANDOS AUTONOMOS (Claude pode executar sem pedir autorização):
+  git status
+  git diff --name-only
+  git diff --stat
+  git diff --check
+  git branch --show-current
+  git log --oneline -5
+  git add -N
+  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+  .\scripts\validar-projeto.ps1
+  .\scripts\validar-docs.ps1
+  .\scripts\validar-dados.ps1
+
+COMANDOS CRITICOS (exigem "pode executar" do Anderson):
+  git add (definitivo)
+  git commit
+  git push
+  git switch main
+  git merge
+  git tag
+  git push origin main / git push origin <tag>
+  git reset / git restore / git clean
+  exclusao de branch / qualquer rollback
+```
+
+**Padrão de entrega obrigatório ao final de cada fase:**
+
+```
+1. Branch atual
+2. Arquivos criados
+3. Arquivos alterados (com resumo das mudanças)
+4. Comandos executados
+5. Validações realizadas (resultado dos scripts e checks)
+6. Erros ou avisos (classificados: erro real ou comportamento normal)
+7. Pendências (o que requer autorização ou ação do Anderson)
+8. Próximos comandos recomendados (sem executar os críticos)
+```
+
+---
+
+*Última atualização: 2026-06-11 · Fase: 4D.4.2 — Delegação Operacional Controlada ao Claude*

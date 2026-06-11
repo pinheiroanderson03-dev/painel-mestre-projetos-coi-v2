@@ -12,6 +12,19 @@ Contexto: [informar fase, branch, arquivos, objetivo]
 
 ---
 
+## Papel do ChatGPT no Modelo de Delegação (Fase 4D.4.2)
+
+O ChatGPT atua como terceira camada no modelo Anderson → Claude → ChatGPT:
+
+- **Antes de decisões críticas:** validar escopo, identificar riscos e confirmar alinhamento com ROADMAP
+- **Após execução do Claude:** revisar entrega, checar se o padrão de 8 itens foi cumprido, identificar gaps
+- **Em conflitos de escopo:** analisar os arquivos autorizados versus os alterados e alertar para desvios
+- **Interpretação de terminal:** classificar saída de scripts e git como erro real, aviso normal ou informação
+
+Para usar como validador, copiar a entrega do Claude (os 8 itens) e pedir: *"Atue como Agente de Governança e valide esta entrega da Fase [X]."*
+
+---
+
 ## Agente 1 — Governança do Projeto
 
 **Objetivo:** Zelar pelas regras operacionais, escopo das fases e integridade do processo de desenvolvimento.
@@ -173,4 +186,4 @@ Contexto: [informar fase, branch, arquivos, objetivo]
 
 ---
 
-*Última atualização: 2026-06-10 · Fase 4D.4 — Base de Interação Assistida no ChatGPT*
+*Última atualização: 2026-06-11 · Fase 4D.4.2 — Delegação Operacional Controlada ao Claude*

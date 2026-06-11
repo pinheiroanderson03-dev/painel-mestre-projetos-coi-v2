@@ -58,8 +58,9 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 | Fase 4D.3 | 2026-06-10 | `docs/MEMORIA_OPERACIONAL_PROJETO.md`, `docs/CHECKLIST_EXECUCAO_AGENTES.md` |
 | Fase 4D.4 | 2026-06-10 | `docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md`, `docs/AGENTES_ESPECIALIZADOS_CHATGPT.md` |
 | Fase 4D.4.1 | 2026-06-11 | `docs/ESTADO_ATUAL_DO_PROJETO.md`; consolidação e sincronização de toda documentação operacional |
+| Fase 4D.4.2 | 2026-06-11 | Delegação operacional controlada ao Claude — modelo de 3 camadas, padrão de entrega de 8 itens, tabelas de comandos autônomos e críticos |
 
-**Tag estável:** `v1.4.1-base-interacao-chatgpt`
+**Tag estável:** `v1.4.1-base-interacao-chatgpt` · **Tag pendente push:** `v1.4.1-consolidacao-memoria`
 
 ---
 
