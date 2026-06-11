@@ -61,7 +61,20 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 | Fase 4D.4.2 | 2026-06-11 | Delegação operacional controlada ao Claude — modelo de 3 camadas, padrão de entrega de 8 itens, tabelas de comandos autônomos e críticos |
 | Fase 4D.5 | 2026-06-11 | Plano de rollback seguro e matriz de contingência — 14 tipos de rollback, 13 incidentes classificados, fluxo Anderson→Claude→ChatGPT |
 
-**Tag estável:** `v1.4.1-base-interacao-chatgpt` · **Tags pendentes push:** `v1.4.1-consolidacao-memoria`, `v1.4.1-rollback-seguro` (a criar)
+**Tag estável:** `v1.4.1-base-interacao-chatgpt` · **Tags publicadas:** `v1.4.1-rollback-seguro` · **Tags pendentes push:** `v1.4.1-consolidacao-memoria`, `v1.4.1-delegacao-operacional`
+
+---
+
+### 🔄 v1.4.1 — Ciclo 5A: Evolução Funcional do Painel (em andamento — 2026-06-11)
+
+**Objetivo:** Preparar e executar melhorias funcionais no painel com qualidade, rastreabilidade e governança.
+
+| Fase | Data | Entrega |
+|---|---|---|
+| Fase 5A.1 | 2026-06-11 | Preparação da evolução funcional — `meta.versao` corrigido, documentação alinhada, diagnóstico técnico |
+| Fase 5A.2 | — | Evolução Funcional do Painel — escopo a definir com Anderson |
+
+**Tag sugerida ao concluir 5A.1:** `v1.4.1-preparacao-evolucao`
 
 ---
 
