@@ -66,10 +66,7 @@
       </select>
       <select class="filter-input" id="filtro-frente" onchange="aplicarFiltros()">
         <option value="">Todas as frentes</option>
-        <option>CENTRAL DF</option>
-        <option>Central de Atendimento</option>
-        <option>MDS</option>
-        <option>COI</option>
+        <!-- Fase 5A.2 — I-04: opções populadas dinamicamente via JS -->
       </select>
       <input class="filter-input" id="filtro-contrato" placeholder="🔍 Contrato..." oninput="aplicarFiltros()" style="width:140px">
       <input class="filter-input" id="filtro-gerente" placeholder="🔍 Gerente contrato..." oninput="aplicarFiltros()" style="width:160px">
@@ -302,11 +299,12 @@
 <!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4</footer>
+<footer>COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4.1</footer>
 
 <script>
 // ─── Helpers ────────────────────────────────────────────────────────
 function txt(val) { return String(val || '—'); }
+function clearEl(el) { while (el.firstChild) el.removeChild(el.firstChild); } // Fase 5A.2 — B-05
 function priorBadge(p) { return p==='P0'?'badge-vermelho':p==='P1'?'badge-amarelo':'badge-azul'; }
 function statusBadge(s) {
   return {'Em andamento':'badge-azul','Homologação':'badge-amarelo','Produção':'badge-verde',
@@ -391,7 +389,7 @@ var NCOLS_PROJ   = 13;
 
 function renderProjetos(lista) {
   var tb = document.getElementById('tbody-projetos');
-  tb.innerHTML = '';
+  clearEl(tb); // Fase 5A.2 — B-05: substituído innerHTML='' por clearEl()
 
   var sorted = lista.slice().sort(function(a, b) {
     var oa = FRENTE_ORDER[a.frente] || 99;
@@ -521,11 +519,27 @@ function renderProjetos(lista) {
 }
 renderProjetos(COI_DATA.projetos);
 
+// Fase 5A.2 — I-04: popular filtro de frente dinamicamente a partir dos dados
+(function() {
+  var sel = document.getElementById('filtro-frente');
+  var vistas = {};
+  var frentesOrdenadas = COI_DATA.projetos
+    .map(function(p) { return p.frente || ''; })
+    .filter(function(f) { if (!f || vistas[f]) return false; vistas[f] = true; return true; })
+    .sort(function(a, b) { return (FRENTE_ORDER[a] || 99) - (FRENTE_ORDER[b] || 99); });
+  frentesOrdenadas.forEach(function(f) {
+    var opt = document.createElement('option');
+    opt.value = f;
+    opt.textContent = f;
+    sel.appendChild(opt);
+  });
+}());
+
 // ─── Renderizar riscos (localStorage) ───────────────────────────────
 function renderRiscos() {
   const tb = document.getElementById('tbody-riscos');
   const riscos = coiCarregarSecaoFicha('PORTFOLIO', 'riscos');
-  tb.innerHTML = '';
+  clearEl(tb); // Fase 5A.2 — B-05: substituído innerHTML='' por clearEl()
   if (riscos.length === 0) {
     tb.innerHTML = '<tr><td colspan="9"><div class="empty-state"><span class="icon">⚠️</span>Nenhum risco cadastrado.</div></td></tr>';
     return;
