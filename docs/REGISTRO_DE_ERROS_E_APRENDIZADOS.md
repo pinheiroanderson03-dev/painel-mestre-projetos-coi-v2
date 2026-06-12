@@ -92,6 +92,24 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+### E-007 — Truncamento silencioso de arquivos .js pela ferramenta Write e pelo sandbox Linux
+
+**Fase:** v1.4.1 / Fase 5T.1 e 5T.2-fix
+**Quando ocorreu:** Criacao e reescrita de `scripts/validar-funcional.js`
+**O que aconteceu:** A ferramenta Write truncou silenciosamente o arquivo em ~306 linhas ao gravar conteudo com caracteres Unicode. O arquivo aparecia correto no editor mas `node scripts/validar-funcional.js` retornava `SyntaxError: Unexpected end of input`. Em sessao posterior, mesmo apos reescrita via bash heredoc, o sandbox Linux exibia versao truncada ao ler o arquivo, enquanto o Read tool no lado Windows mostrava o arquivo completo.
+**Causa raiz (dupla):**
+(1) Write tool: limite interno ao serializar conteudo com caracteres Unicode em combinacoes especificas de encoding.
+(2) Sandbox Linux: discrepancia de cache entre o sistema de arquivos montado (Windows) e a visao do processo bash no container.
+**Impacto:** `validar-funcional.js` commitado na Fase 5T.1 com os ultimos 3 bytes ausentes. Erro detectado apenas na sessao seguinte. Retrabalho de reescrita completa na Fase 5T.2-fix.
+**Como foi resolvido:** Reescrita completa via `bash cat << 'ENDOFSCRIPT' ... ENDOFSCRIPT` (heredoc puro, ASCII). Verificacao pos-escrita via `node scripts/validar-funcional.js` confirmou 40/40 PASS exit 0.
+**Regra adotada:**
+(1) NUNCA usar a ferramenta Write para arquivos .js ou .ps1 que contenham ou possam conter caracteres Unicode.
+(2) SEMPRE usar bash cat heredoc para scripts. Verificar com `node <script>` imediatamente apos escrita.
+(3) Se sandbox mostrar arquivo truncado mas Read tool (Windows) mostrar completo: Read tool e autoritativo. Refazer escrita via heredoc.
+(4) Apos qualquer escrita de script JS: executar `node scripts/validar-funcional.js` como verificacao obrigatoria antes de reportar conclusao.
+
+---
+
 ## Aprendizados Positivos (padrões que funcionaram bem)
 
 ### A-001 — Separação `em-controls` / `em-content`
@@ -119,6 +137,11 @@ Centro de Operações Integradas · Governo do Distrito Federal
 **Contexto:** Formalizacao do modelo Anderson → Claude → ChatGPT para operacao do repositorio
 **O que funcionou:** Separar as responsabilidades em tres camadas distintas — Anderson aprova, Claude executa e valida, ChatGPT analisa decisoes criticas — criou um padrao claro de governanca que evita acoes acidentais e distribui a responsabilidade de forma rastreavel. O ponto de corte "Claude nao executa git commit/push/reset sem 'pode executar'" provou ser seguro em todas as fases da 4D.
 
+### A-007 -- Framework forense e aprendizado continuo como camadas de prevencao
+**Fase:** v1.4.1 / Fase 5T.3 -- Aprendizado Continuo e Validacao Forense
+**Contexto:** Expansao do framework de skills de 7 para 11 componentes
+**O que funcionou:** Separar a analise de evidencias (COI-FORENSE) da tomada de decisao (COI-ARQUITETO) eliminou decisoes de escopo baseadas em estado inferido do sandbox. Consultar o historico de erros antes de executar (COI-LEARNINGS) preveniu repeticao dos erros E-006A e E-007 em implementacoes subsequentes. A suite de testes T1-T6 (COI-TESTES) detecta problemas antes do QA, reduzindo iteracoes de correcao. A auditoria A1-A5 (COI-AUDITOR) garante que escopo e protocolo sejam verificados independentemente de quem executou.
+
 ### A-006 — Documentacao de rollback antes de precisar dele
 **Fase:** v1.4.1 / Fase 4D.5 — Plano de Rollback Seguro
 **Contexto:** Criacao de PLANO_ROLLBACK_SEGURO.md e MATRIZ_CONTINGENCIA.md antes de qualquer incidente real
@@ -126,4 +149,4 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
-*Ultima atualizacao: 2026-06-11 · Fase: 4D.5 — Plano de Rollback Seguro*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - A-007 framework forense e aprendizado continuo (4 novas skills)*

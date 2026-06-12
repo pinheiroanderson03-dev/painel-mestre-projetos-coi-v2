@@ -72,18 +72,37 @@ Ao final de cada fase ou etapa, entregar:
 
 ---
 
-## Skills Operacionais (Fase 5T.2)
+## Skills Operacionais (Fase 5T.2 — atualizado 5T.3)
 
-A pasta `.claude/skills/` contem 7 skills que definem o fluxo operacional por especialidade:
+A pasta `.claude/skills/` contem 11 skills que definem o fluxo operacional completo:
 
-- `COI-MESTRE.md` — orquestrador (ponto de entrada para qualquer fase)
-- `COI-MEMORIA.md` — leitura de contexto e alertas
-- `COI-ARQUITETO.md` — planejamento e classificacao de modo
+- `COI-MESTRE.md` — orquestrador (unica porta de entrada para qualquer fase)
+- `COI-MEMORIA.md` — estado atual, erros conhecidos, alertas
+- `COI-FORENSE.md` — evidencias vs hipoteses; estado real do repositorio
+- `COI-ARQUITETO.md` — modo, escopo e plano de execucao
+- `COI-LEARNINGS.md` — prevencao de erros; consulta DAR e base evolutiva
 - `COI-EXECUTOR.md` — implementacao segura com padroes corretos
+- `COI-TESTES.md` — suite de testes pre-QA (T1 a T6)
+- `COI-AUDITOR.md` — auditoria de escopo, arquivos proibidos e protocolo
 - `COI-QA.md` — validacao completa (git + node + PS1)
-- `COI-GOVERNANCA.md` — atualizacao de documentos de governanca
-- `COI-RELEASE-MANAGER.md` — empacotamento e entrega final
+- `COI-GOVERNANCA.md` — atualizacao de documentos de estado
+- `COI-RELEASE-MANAGER.md` — pacote de entrega de 9 itens
 
-Fluxo: COI-MEMORIA -> COI-ARQUITETO -> COI-EXECUTOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
+Fluxo: COI-MEMORIA -> COI-FORENSE -> COI-ARQUITETO -> COI-LEARNINGS -> COI-EXECUTOR -> COI-TESTES -> COI-AUDITOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
+
+### Regras de Autonomia (Fase 5T.3)
+
+- Claude deve agir de forma proativa e autonoma: identificar escopo, executar, validar, corrigir e entregar sem solicitar confirmacoes intermediarias para decisoes de baixo risco.
+- Papel do Anderson: aprovar mudancas.
+- Papel do Claude: executar mudancas.
+- Papel do ChatGPT: validar criticamente antes da publicacao.
+
+### Regra de Autocorrecao
+
+Se qualquer validacao falhar: identificar causa -> corrigir -> re-executar TODAS as validacoes -> repetir ate aprovacao completa. Nunca entregar com erro conhecido.
+
+### Quando interromper (obrigatorio)
+
+Parar e aguardar validacao humana apenas para: alteracao em dados/projetos.js sem autorizacao, alteracao de arquitetura, alteracao de regras de negocio, exclusao de arquivos, rollback, conflito de merge, falha critica sem solucao, commit, push, merge, tag, publicacao em producao.
 
 As skills nao substituem as regras deste arquivo. Em caso de conflito, prevalecem as regras acima.

@@ -8,7 +8,7 @@ Centro de Operacoes Integradas · Governo do Distrito Federal
 
 ---
 
-Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.2 — Skills Operacionais Claude
+Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.3 — Aprendizado continuo e validacao forense
 
 ---
 
@@ -40,14 +40,15 @@ Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.2 — Skills 
 | Fase 5A.2 | v1.4.1 | Evolucao Funcional do Painel — 9 melhorias (B-01 a I-04, U-01 a U-04) — Concluida |
 | Fase 5A.3 | v1.4.1 | Refinamentos Funcionais — tag v1.4.1-refinamentos-funcionais — Concluida |
 | Fase 5T.1 | v1.4.1 | Infraestrutura de Qualidade — validador JS multiplataforma, checklist, docs — Concluida |
+| Fase 5T.2 | v1.4.1 | Skills Operacionais Claude — 7 skills em .claude/skills/, 10 docs atualizados — Concluida |
+| Fase 5T.2-fix | v1.4.1 | Correcao truncamento validar-funcional.js + fechamento documental (E-007) — Concluida |
+| Fase 5T.3 | v1.4.1 | Aprendizado continuo e validacao forense — 4 skills novas, 2 docs novos, framework 11 skills — Concluida |
 
 ---
 
 ## Fase em Execucao
 
-| Fase | Status | Descricao |
-|---|---|---|
-| Fase 5T.2 | Em andamento | Skills Operacionais Claude — 7 skills em .claude/skills/, atualizacao de governanca |
+Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
 
@@ -63,8 +64,8 @@ Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.2 — Skills 
 
 ## Proxima Acao Prevista
 
-Fase 5T.2 em execucao (branch: fase-5t-1-infraestrutura-qualidade-validacao).
-Proxima fase apos 5T.2: Fase 5B — Evolucao das Fichas dos Projetos.
+Fase 5T.2 concluida e mergeada. Aplicando correcao de truncamento em scripts/validar-funcional.js.
+Proxima fase: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
 
@@ -78,7 +79,13 @@ Proxima fase apos 5T.2: Fase 5B — Evolucao das Fichas dos Projetos.
 | `portfolio.html` | clearEl; filtro frente dinamico; footer v1.4.1 |
 | `projetos/ficha.html` | clearEl; salvarEdicao permite limpar campos; footer v1.4.1 |
 | `scripts/validar-funcional.js` | Fase 5T.1 — validador Node.js multiplataforma, 40 asserts, exit 0/1 |
-| `.claude/skills/COI-MESTRE.md` | NOVO (Fase 5T.2) — orquestrador de skills operacionais |
+| `.claude/skills/COI-MESTRE.md` | Atualizado (Fase 5T.3) — orquestrador de 11 skills |
+| `.claude/skills/COI-FORENSE.md` | NOVO (Fase 5T.3) — analise forense pre-execucao |
+| `.claude/skills/COI-LEARNINGS.md` | NOVO (Fase 5T.3) — prevencao de erros por aprendizado |
+| `.claude/skills/COI-TESTES.md` | NOVO (Fase 5T.3) — suite de testes T1-T6 pre-QA |
+| `.claude/skills/COI-AUDITOR.md` | NOVO (Fase 5T.3) — auditoria de protocolo e escopo |
+| `docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md` | NOVO (Fase 5T.3) — padroes aprovados e anti-padroes |
+| `docs/DECISOES_ARQUITETURAIS_COI.md` | NOVO (Fase 5T.3) — DAR-001 a DAR-010 |
 | `scripts/status-seguro.ps1` | Validacao de branch e status — ASCII puro |
 | `scripts/validar-docs.ps1` | Validacao de documentacao — ASCII puro |
 | `scripts/validar-dados.ps1` | Validacao de dados/projetos.js — ASCII puro |
@@ -122,4 +129,4 @@ Proxima fase apos 5T.2: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Framework 11 skills + BASE_DE_CONHECIMENTO + DECISOES_ARQUITETURAIS*

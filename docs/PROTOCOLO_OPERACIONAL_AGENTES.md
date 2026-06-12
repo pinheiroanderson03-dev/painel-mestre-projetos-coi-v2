@@ -327,30 +327,43 @@ COMANDOS CRITICOS (exigem "pode executar" do Anderson):
 
 ---
 
-### P10 — Skills Operacionais Claude (Fase 5T.2)
+### P10 — Skills Operacionais Claude (Fase 5T.2 -- atualizado 5T.3)
 
-A pasta `.claude/skills/` contem 7 skills Markdown que estendem o fluxo de execucao do Claude com papeis especializados.
+A pasta `.claude/skills/` contem 11 skills Markdown que definem o fluxo operacional completo do Claude.
 
-**Fluxo via COI-MESTRE (recomendado para qualquer fase nova):**
+**Fluxo via COI-MESTRE (obrigatorio para qualquer fase nova):**
 
 ```
-COI-MEMORIA -> COI-ARQUITETO -> COI-EXECUTOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
+COI-MEMORIA -> COI-FORENSE -> COI-ARQUITETO -> COI-LEARNINGS -> COI-EXECUTOR
+  -> COI-TESTES -> COI-AUDITOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
 ```
 
 **Quando usar cada skill:**
 
-| Skill | Situacao |
+| Skill | Posicao | Situacao |
+|---|---|---|
+| COI-MESTRE | Orquestrador | Unica porta de entrada para qualquer fase |
+| COI-MEMORIA | 1 | Carregar estado atual, erros conhecidos, alertas |
+| COI-FORENSE | 2 | Classificar evidencias vs hipoteses; confirmar estado real do repo |
+| COI-ARQUITETO | 3 | Classificar modo, mapear escopo, plano de execucao |
+| COI-LEARNINGS | 4 | Consultar erros anteriores, DAR e base evolutiva; emitir lembretes |
+| COI-EXECUTOR | 5 | Implementar alteracoes com padroes corretos |
+| COI-TESTES | 6 | Suite de testes pre-QA (T1-T6); autocorrecao se FAIL |
+| COI-AUDITOR | 7 | Auditoria de escopo, arquivos proibidos, protocolo; parecer final |
+| COI-QA | 8 | Validacao completa: git diff, validar-funcional.js, PS1 |
+| COI-GOVERNANCA | 9 | Atualizar 5 documentos obrigatorios + base evolutiva + decisoes |
+| COI-RELEASE-MANAGER | 10 | Montar pacote de entrega de 9 itens |
+
+**Documentos de conhecimento consultados pelas skills:**
+
+| Documento | Consultado por |
 |---|---|
-| COI-MESTRE | Inicio de fase -- orquestra todo o fluxo |
-| COI-MEMORIA | Carregar estado, erros conhecidos e alertas antes de executar |
-| COI-ARQUITETO | Classificar modo (Rapido/Seguro/Critico) e mapear escopo |
-| COI-EXECUTOR | Implementar alteracoes com padroes corretos (clearEl, spawnSync etc.) |
-| COI-QA | Rodar suite completa: git diff, node scripts/validar-funcional.js, PS1 |
-| COI-GOVERNANCA | Atualizar os 5 documentos obrigatorios antes do commit |
-| COI-RELEASE-MANAGER | Montar pacote de entrega de 9 itens, verificar commit-readiness |
+| `docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md` | COI-LEARNINGS, COI-GOVERNANCA |
+| `docs/DECISOES_ARQUITETURAIS_COI.md` | COI-LEARNINGS, COI-AUDITOR, COI-GOVERNANCA |
+| `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md` | COI-LEARNINGS, COI-GOVERNANCA |
 
 **Regra:** Skills nao substituem AGENTS.md. Em conflito, prevalece AGENTS.md.
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Framework expandido para 11 skills*
