@@ -4,6 +4,64 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 5T.1: Infraestrutura de Qualidade e Validação (2026-06-12)
+
+### Tooling multiplataforma e governança — `scripts/validar-funcional.js`, `docs/`, `CHANGELOG.md`, `ROADMAP_COI.md`, `RELEASE_NOTES.md`
+
+- Criado `scripts/validar-funcional.js` — validador Node.js puro, multiplataforma (Windows, Linux, macOS); 40 asserts em 6 seções: arquivos principais (16), sintaxe de dados/projetos.js (1), conteúdo de dados/projetos.js (7), melhorias das Fases 5A.2/5A.3 (7), padrões proibidos (4), integridade de navegação (4); exit code 0 (sem erros) ou 1 (há erros); sem dependências externas
+- Atualizado `docs/CHECKLIST_EXECUCAO_AGENTES.md` — 4 novos itens: preferência por commits atômicos por melhoria; proibição de acumular mais de uma fase sem commit; `node scripts/validar-funcional.js` adicionado à tabela de scripts (seção 3); obrigação de atualizar ESTADO_ATUAL, CHANGELOG, ROADMAP e MEMORIA antes do commit de fechamento da fase (seção 5)
+- Atualizado `docs/ESTADO_ATUAL_DO_PROJETO.md` — fases 5A.2 e 5A.3 marcadas como concluídas; tag v1.4.1-refinamentos-funcionais registrada como última tag estável; Fase 5T.1 registrada como em andamento; scripts/validar-funcional.js incluído na tabela de arquivos críticos; recomendação futura de .gitattributes documentada (sem implementar)
+- Atualizado `docs/MEMORIA_OPERACIONAL_PROJETO.md` — tabela de estado atualizada com 5A.2, 5A.3 (concluídas) e 5T.1 (em andamento); tabela de tags completa com todas as tags até v1.4.1-refinamentos-funcionais; tabela de scripts inclui validar-funcional.js com coluna de plataforma; 2 novas regras rápidas (9 e 10); estrutura de arquivos inclui scripts/validar-funcional.js
+- Atualizado `CHANGELOG.md`, `RELEASE_NOTES.md`, `ROADMAP_COI.md` — fases 5A.2 e 5A.3 registradas; Fase 5T.1 documentada; Fase 5B marcada como próxima
+
+---
+
+## v1.4.1 — Fase 5A.3: Refinamentos Funcionais (2026-06-12)
+
+### Refinamentos funcionais — tag: `v1.4.1-refinamentos-funcionais`
+
+- Fase concluída, commitada e tagueada com `v1.4.1-refinamentos-funcionais`
+- Detalhes técnicos completos a registrar a partir do histórico da sessão correspondente
+
+---
+
+## v1.4.1 — Fase 5A.2: Evolução Funcional do Painel (2026-06-12)
+
+### Correções de bugs e melhorias funcionais — `index.html`, `assets/style.css`, `portfolio.html`, `projetos/ficha.html`
+
+**B-01 / U-03 — Variáveis CSS corrigidas e estilo inline removido**
+- Removido bloco `<style>` inline do `<head>` de `index.html` — usava 3 variáveis inexistentes (`--border`, `--bg-card`, `--text-main`)
+- Adicionado `.em-select` e `#em-controls` em `assets/style.css` com variáveis corretas (`--borda`, `--branco`, `--texto`)
+
+**B-02 — Card "Entregas da Semana" corrigido**
+- Alinhado ao mesmo fallback chain de `buildExecucaoMensal()`: `execucoesMensais[last] → execucaoMensal → {}`
+- Eliminada divergência que usava `meta.execucaoMensal` estático em vez do último item do array
+
+**B-04 — clearEl em buildAlertas()**
+- `innerHTML = ''` substituído por `clearEl(grid)` em `index.html` — padrão v1.3
+
+**B-05 — clearEl em portfolio.html**
+- Função `clearEl()` adicionada ao bloco de helpers de `portfolio.html`
+- 2 ocorrências de `innerHTML = ''` substituídas: em `renderProjetos()` e em `renderRiscos()`
+
+**U-04 — Filtro P0 ativos**
+- Card P0 em `index.html` agora exclui projetos com status `Concluído` ou `Suspenso`
+
+**I-03 — salvarEdicao permite limpar campos**
+- `ficha.html`: campo com valor `'—'` agora é salvo como string vazia, permitindo limpeza intencional de campos
+
+**I-04 — Filtro de frente dinâmico**
+- `portfolio.html`: opções hardcoded removidas do `<select id="filtro-frente">`
+- IIFE popula o seletor dinamicamente a partir de `COI_DATA.projetos`, ordenado por `FRENTE_ORDER`
+
+**U-01 — Footer unificado v1.4.1**
+- Footer atualizado para `v1.4.1` em `index.html`, `portfolio.html` e `projetos/ficha.html` (HTML + `renderHero()`)
+
+**U-02 — Versão em assets/style.css**
+- Comentário de versão atualizado para `1.4.1 (Fase 5A.2 — Evolução Funcional)`
+
+---
+
 ## v1.4.1 — Fase 5A.1: Preparação da Evolução Funcional do Painel (2026-06-11)
 
 ### Preparação técnica e documental — `dados/projetos.js`, `docs/`, `CHANGELOG.md`, `ROADMAP_COI.md`

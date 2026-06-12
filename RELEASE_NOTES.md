@@ -4,6 +4,58 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Infraestrutura de Qualidade e Validação (Fase 5T.1)
+**Data:** 2026-06-12
+
+### O que mudou (internamente)
+
+Esta versão não altera nenhuma funcionalidade visível do painel. As mudanças são internas, de infraestrutura e processo.
+
+**Validação multiplataforma:** foi criado um script de validação em Node.js (`scripts/validar-funcional.js`) que pode ser executado em qualquer sistema operacional — Windows, Linux ou macOS. Ele verifica automaticamente se os arquivos principais estão presentes, se os dados estão íntegros e se as melhorias mais recentes estão corretamente implementadas. Garante que erros técnicos sejam detectados antes de qualquer commit.
+
+**Processo de commit aprimorado:** o checklist operacional foi atualizado para formalizar boas práticas de rastreabilidade: preferência por commits por melhoria individual, proibição de acumular fases sem commit e obrigação de atualizar toda a documentação antes de fechar cada fase.
+
+**Documentação sincronizada:** todos os documentos de estado (ESTADO_ATUAL, MEMORIA, CHANGELOG, ROADMAP) foram atualizados para refletir o estado real do projeto após as Fases 5A.2 e 5A.3.
+
+### O que não muda
+
+Todas as funcionalidades do painel continuam iguais. Nenhum arquivo HTML, CSS ou JavaScript funcional foi alterado nesta fase.
+
+---
+
+## v1.4.1 — Refinamentos Funcionais (Fase 5A.3)
+**Data:** 2026-06-12
+**Tag:** `v1.4.1-refinamentos-funcionais`
+
+### O que melhorou
+
+Refinamentos aplicados sobre a base estabelecida na Fase 5A.2. Detalhes completos registrados no histórico da fase.
+
+---
+
+## v1.4.1 — Evolução Funcional do Painel (Fase 5A.2)
+**Data:** 2026-06-12
+
+### O que melhorou
+
+**Card "Entregas da Semana" corrigido:** o card agora exibe corretamente as entregas da competência selecionada ou da última competência disponível, em vez de usar sempre um valor estático. Estava divergindo da seção "Execução Mensal" abaixo do dashboard.
+
+**Card P0 exibe apenas projetos realmente ativos:** o contador de projetos P0 (críticos) passou a excluir projetos com status "Concluído" ou "Suspenso". Antes contabilizava todos os P0 independente do status, inflando o número exibido.
+
+**Painel funciona sem erros visuais de estilo:** corrigidas três variáveis CSS que não existiam no design system do projeto. O seletor de competência mensal agora usa as cores e fontes corretas definidas pelo painel — antes herdava estilos do navegador.
+
+**Filtro de frente no portfólio é dinâmico:** as opções do filtro de frente são geradas automaticamente a partir dos dados reais dos projetos. Antes eram quatro opções fixas no código que precisavam ser atualizadas manualmente ao adicionar projetos com novas frentes.
+
+**Edição de campos permite limpeza:** ao editar uma ficha de projeto, campos preenchidos com `—` agora podem ser limpos corretamente. Antes o sistema ignorava a limpeza e mantinha o valor anterior.
+
+**Código mais seguro e padronizado:** substituição do padrão `innerHTML = ''` por `clearEl()` nos arquivos de portfólio, alinhando com o padrão de segurança adotado desde a v1.3. Rodapé de versão unificado em todas as páginas.
+
+### O que não muda
+
+Todas as funcionalidades existentes continuam iguais: cadastro de projetos, fichas, atividades, riscos, marcos, pendências, seletor de competência e funcionamento offline.
+
+---
+
 ## v1.4.1 — Histórico Mensal e Filtro por Competência
 **Data:** 2026-06-10
 

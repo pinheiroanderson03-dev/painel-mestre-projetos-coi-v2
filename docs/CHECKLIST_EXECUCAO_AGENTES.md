@@ -28,6 +28,8 @@ Para detalhes de cada item, consultar AGENTS.md e PROTOCOLO_OPERACIONAL_AGENTES.
 - [ ] Para dados historicos mensais: consultar painel antigo antes de preencher
 - [ ] Registrar qualquer decisao relevante no relatorio da etapa
 - [ ] Nao fazer commit nem push durante a execucao
+- [ ] Preferir commits atomicos por melhoria individual — nao agrupar varias melhorias num unico commit se puder ser evitado (Fase 5T.1)
+- [ ] Nunca acumular mais de uma fase inteira sem commit — aumenta risco de rollback e dificulta revisao (Fase 5T.1)
 
 ---
 
@@ -35,13 +37,15 @@ Para detalhes de cada item, consultar AGENTS.md e PROTOCOLO_OPERACIONAL_AGENTES.
 
 Escolher o script adequado e rodar:
 
-| Tipo de alteracao | Script |
-|---|---|
-| Documentacao (*.md) | `.\scripts\validar-docs.ps1` |
-| Dados (dados/projetos.js) | `.\scripts\validar-dados.ps1` |
-| Qualquer alteracao | `.\scripts\validar-projeto.ps1` |
+| Tipo de alteracao | Script | Plataforma |
+|---|---|---|
+| Documentacao (*.md) | `.\scripts\validar-docs.ps1` | Windows / PowerShell |
+| Dados (dados/projetos.js) | `.\scripts\validar-dados.ps1` | Windows / PowerShell |
+| Qualquer alteracao | `.\scripts\validar-projeto.ps1` | Windows / PowerShell |
+| Alteracao funcional (HTML/CSS/JS) | `node scripts/validar-funcional.js` | Qualquer SO (Node.js) |
 
 - [ ] Rodar script e verificar saida
+- [ ] Se houver alteracao funcional: executar tambem `node scripts/validar-funcional.js` e confirmar exit code 0 (Fase 5T.1)
 - [ ] Aviso LF/CRLF: ignorar (comportamento normal do Windows)
 - [ ] Erros reais: corrigir antes de continuar
 - [ ] Enviar retorno da validacao para Anderson revisar
@@ -69,6 +73,8 @@ Escolher o script adequado e rodar:
 - [ ] Atualizar `docs/MEMORIA_OPERACIONAL_PROJETO.md` com novo estado na tabela
 - [ ] Registrar aprendizados em `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md`
 - [ ] Sugerir tag estavel ao Anderson
+- [ ] OBRIGATORIO: os 4 documentos acima (ESTADO_ATUAL, CHANGELOG, ROADMAP, MEMORIA) devem ser atualizados ANTES do commit de fechamento da fase — nao depois (Fase 5T.1)
+- [ ] Verificar se ESTADO_ATUAL reflete a tag mais recente e a proxima fase correta
 
 ---
 
@@ -89,4 +95,4 @@ Ao entregar qualquer fase ou etapa com alteracoes, Claude deve incluir:
 
 ---
 
-*Ultima atualizacao: 2026-06-11 - Fase 4D.5 - Plano de Rollback Seguro*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.1 - Infraestrutura de Qualidade e Validacao*
