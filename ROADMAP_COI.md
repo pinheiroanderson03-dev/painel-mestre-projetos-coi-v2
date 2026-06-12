@@ -79,20 +79,36 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-### 🔄 v1.4.1 — Fase 5T.1: Infraestrutura de Qualidade e Validação (em andamento — 2026-06-12)
+### ✅ v1.4.1 — Fase 5T.1: Infraestrutura de Qualidade e Validação (concluída — 2026-06-12)
 
 **Objetivo:** Fechar lacunas de tooling expostas pelo Ciclo 5A antes de avançar para desenvolvimento funcional complexo (5B).
 
-| Entregável | Status | Descrição |
+| Entregavel | Status | Descricao |
 |---|---|---|
-| `scripts/validar-funcional.js` | ✅ Criado | Validador Node.js puro, 40 asserts, multiplataforma, exit 0/1 |
-| `docs/CHECKLIST_EXECUCAO_AGENTES.md` | ✅ Atualizado | Commits atômicos, proibição de acúmulo, validar-funcional.js, docs antes do commit |
-| `docs/ESTADO_ATUAL_DO_PROJETO.md` | ✅ Atualizado | Reflete 5A.2, 5A.3, 5T.1, tag atual |
-| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | ✅ Atualizado | Tags completas, scripts atualizados, 2 novas regras |
-| `CHANGELOG.md` | ✅ Atualizado | Entradas para 5A.2, 5A.3, 5T.1 |
-| `RELEASE_NOTES.md` | ✅ Atualizado | Notas para 5A.2, 5A.3, 5T.1 |
-| `ROADMAP_COI.md` | ✅ Atualizado | Este arquivo |
-| `.gitattributes` | ⏳ Adiado | Normalização CRLF/LF — documentado, a tratar em fase técnica futura |
+| `scripts/validar-funcional.js` | Criado | Validador Node.js puro, 40 asserts, multiplataforma, exit 0/1 |
+| `docs/CHECKLIST_EXECUCAO_AGENTES.md` | Atualizado | Commits atomicos, proibicao de acumulo, validar-funcional.js, docs antes do commit |
+| `docs/ESTADO_ATUAL_DO_PROJETO.md` | Atualizado | Reflete 5A.2, 5A.3, 5T.1, tag atual |
+| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Atualizado | Tags completas, scripts atualizados, 2 novas regras |
+| `CHANGELOG.md`, `RELEASE_NOTES.md`, `ROADMAP_COI.md` | Atualizados | Entradas para 5A.2, 5A.3, 5T.1 |
+
+**Branch:** `fase-5t-1-infraestrutura-qualidade-validacao`
+
+---
+
+### 🔄 v1.4.1 — Fase 5T.2: Skills Operacionais Claude (em andamento — 2026-06-12)
+
+**Objetivo:** Criar framework de skills especializadas para padronizar e qualificar o fluxo de execucao do Claude em cada fase.
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `.claude/skills/COI-MESTRE.md` | Criado | Orquestrador -- coordena as 6 skills especializadas |
+| `.claude/skills/COI-MEMORIA.md` | Criado | Leitura de contexto, erros conhecidos e alertas |
+| `.claude/skills/COI-ARQUITETO.md` | Criado | Classificacao de modo, mapeamento de arquivos |
+| `.claude/skills/COI-EXECUTOR.md` | Criado | Implementacao segura com padroes corretos |
+| `.claude/skills/COI-QA.md` | Criado | Suite completa de validacoes |
+| `.claude/skills/COI-GOVERNANCA.md` | Criado | Atualizacao obrigatoria de 5 documentos |
+| `.claude/skills/COI-RELEASE-MANAGER.md` | Criado | Pacote de entrega de 9 itens |
+| 10 documentos de governanca | Atualizados | AGENTS, CLAUDE, PROTOCOLO, AGENTES_CHATGPT, CHECKLIST, ESTADO_ATUAL, MEMORIA, CHANGELOG, RELEASE_NOTES, ROADMAP |
 
 **Branch:** `fase-5t-1-infraestrutura-qualidade-validacao`
 
@@ -190,4 +206,4 @@ Escopo a definir com Anderson antes de iniciar.
 
 ---
 
-*Última atualização: 2026-06-12 · Versão: v1.4.1 · Última tag: v1.4.1-refinamentos-funcionais · Fase em execução: 5T.1 · Próxima: Fase 5B*
+*Ultima atualizacao: 2026-06-12 - Versao: v1.4.1 - Ultima tag: v1.4.1-refinamentos-funcionais - Fase em execucao: 5T.2 - Proxima: Fase 5B*

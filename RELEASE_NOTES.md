@@ -4,6 +4,23 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Skills Operacionais Claude (Fase 5T.2)
+**Data:** 2026-06-12
+
+### O que mudou (internamente)
+
+Esta versao nao altera nenhuma funcionalidade visivel do painel. As mudancas sao de infraestrutura operacional do Claude.
+
+**Skills especializadas criadas:** foram criados 7 arquivos de skills em `.claude/skills/` que definem papeis operacionais do Claude para este projeto. O orquestrador `COI-MESTRE` coordena um fluxo de 6 especialidades: leitura de contexto, planejamento, execucao, validacao, governanca de documentacao e empacotamento da entrega. O objetivo e garantir que toda fase siga o mesmo padrao de qualidade, rastreabilidade e seguranca.
+
+**Governanca atualizada:** 10 documentos de governanca foram atualizados para refletir o novo framework de skills, incluindo AGENTS.md, CLAUDE.md e o Protocolo Operacional.
+
+### O que nao muda
+
+Todas as funcionalidades do painel continuam iguais. Nenhum arquivo HTML, CSS ou JavaScript funcional foi alterado nesta fase.
+
+---
+
 ## v1.4.1 — Infraestrutura de Qualidade e Validação (Fase 5T.1)
 **Data:** 2026-06-12
 

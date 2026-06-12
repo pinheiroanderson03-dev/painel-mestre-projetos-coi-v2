@@ -8,7 +8,7 @@ Centro de Operacoes Integradas · Governo do Distrito Federal
 
 ---
 
-Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.1 — Infraestrutura de Qualidade e Validacao
+Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.2 — Skills Operacionais Claude
 
 ---
 
@@ -39,6 +39,7 @@ Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.1 — Infraes
 | Fase 5A.1 | v1.4.1 | Preparacao da evolucao funcional — meta.versao corrigido, documentacao alinhada — Concluida |
 | Fase 5A.2 | v1.4.1 | Evolucao Funcional do Painel — 9 melhorias (B-01 a I-04, U-01 a U-04) — Concluida |
 | Fase 5A.3 | v1.4.1 | Refinamentos Funcionais — tag v1.4.1-refinamentos-funcionais — Concluida |
+| Fase 5T.1 | v1.4.1 | Infraestrutura de Qualidade — validador JS multiplataforma, checklist, docs — Concluida |
 
 ---
 
@@ -46,7 +47,7 @@ Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.1 — Infraes
 
 | Fase | Status | Descricao |
 |---|---|---|
-| Fase 5T.1 | Em andamento | Infraestrutura de Qualidade e Validacao — validador JS, checklist, docs |
+| Fase 5T.2 | Em andamento | Skills Operacionais Claude — 7 skills em .claude/skills/, atualizacao de governanca |
 
 ---
 
@@ -62,8 +63,8 @@ Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.1 — Infraes
 
 ## Proxima Acao Prevista
 
-Fase 5T.1 em execucao (branch: fase-5t-1-infraestrutura-qualidade-validacao).
-Proxima fase apos 5T.1: Fase 5B — Evolucao das Fichas dos Projetos.
+Fase 5T.2 em execucao (branch: fase-5t-1-infraestrutura-qualidade-validacao).
+Proxima fase apos 5T.2: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
 
@@ -76,7 +77,8 @@ Proxima fase apos 5T.1: Fase 5B — Evolucao das Fichas dos Projetos.
 | `assets/style.css` | v1.4.1; namespace .em-*; .em-select com variaveis corretas |
 | `portfolio.html` | clearEl; filtro frente dinamico; footer v1.4.1 |
 | `projetos/ficha.html` | clearEl; salvarEdicao permite limpar campos; footer v1.4.1 |
-| `scripts/validar-funcional.js` | NOVO (Fase 5T.1) — validador Node.js multiplataforma, 40 asserts, exit 0/1 |
+| `scripts/validar-funcional.js` | Fase 5T.1 — validador Node.js multiplataforma, 40 asserts, exit 0/1 |
+| `.claude/skills/COI-MESTRE.md` | NOVO (Fase 5T.2) — orquestrador de skills operacionais |
 | `scripts/status-seguro.ps1` | Validacao de branch e status — ASCII puro |
 | `scripts/validar-docs.ps1` | Validacao de documentacao — ASCII puro |
 | `scripts/validar-dados.ps1` | Validacao de dados/projetos.js — ASCII puro |
@@ -120,4 +122,4 @@ Proxima fase apos 5T.1: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.1 - Infraestrutura de Qualidade e Validacao*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*

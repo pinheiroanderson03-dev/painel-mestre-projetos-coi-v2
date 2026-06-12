@@ -325,4 +325,32 @@ COMANDOS CRITICOS (exigem "pode executar" do Anderson):
 
 ---
 
-*Última atualização: 2026-06-11 · Fase: 4D.5 — Plano de Rollback Seguro*
+---
+
+### P10 — Skills Operacionais Claude (Fase 5T.2)
+
+A pasta `.claude/skills/` contem 7 skills Markdown que estendem o fluxo de execucao do Claude com papeis especializados.
+
+**Fluxo via COI-MESTRE (recomendado para qualquer fase nova):**
+
+```
+COI-MEMORIA -> COI-ARQUITETO -> COI-EXECUTOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
+```
+
+**Quando usar cada skill:**
+
+| Skill | Situacao |
+|---|---|
+| COI-MESTRE | Inicio de fase -- orquestra todo o fluxo |
+| COI-MEMORIA | Carregar estado, erros conhecidos e alertas antes de executar |
+| COI-ARQUITETO | Classificar modo (Rapido/Seguro/Critico) e mapear escopo |
+| COI-EXECUTOR | Implementar alteracoes com padroes corretos (clearEl, spawnSync etc.) |
+| COI-QA | Rodar suite completa: git diff, node scripts/validar-funcional.js, PS1 |
+| COI-GOVERNANCA | Atualizar os 5 documentos obrigatorios antes do commit |
+| COI-RELEASE-MANAGER | Montar pacote de entrega de 9 itens, verificar commit-readiness |
+
+**Regra:** Skills nao substituem AGENTS.md. Em conflito, prevalece AGENTS.md.
+
+---
+
+*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*

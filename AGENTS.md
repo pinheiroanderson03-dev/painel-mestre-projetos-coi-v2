@@ -263,4 +263,38 @@ Ao final de qualquer fase ou etapa com alterações, Claude deve entregar obriga
 
 ---
 
-*Última atualização: 2026-06-11 · Versão: v1.4.1 · Fase: 4D.5 — Plano de Rollback Seguro*
+---
+
+## 12. Skills Operacionais Claude (Fase 5T.2)
+
+A pasta `.claude/skills/` contem skills Markdown que definem papeis operacionais especializados do Claude para este projeto. Cada skill e um arquivo de instrucoes que o Claude consulta ao executar uma fase.
+
+### Hierarquia de Skills
+
+| Skill | Papel | Quando usar |
+|---|---|---|
+| `COI-MESTRE.md` | Orquestrador geral | Inicio de qualquer fase -- coordena as demais skills |
+| `COI-MEMORIA.md` | Leitura de contexto | Antes de qualquer execucao -- carrega estado, erros e regras |
+| `COI-ARQUITETO.md` | Planejamento tecnico | Classificar modo, mapear arquivos, planejar rollback |
+| `COI-EXECUTOR.md` | Implementacao segura | Aplicar alteracoes autorizadas com padroes corretos |
+| `COI-QA.md` | Validacao completa | Rodar suite de validacoes e classificar resultados |
+| `COI-GOVERNANCA.md` | Atualizacao de docs | Atualizar ESTADO_ATUAL, CHANGELOG, ROADMAP, MEMORIA, RELEASE_NOTES |
+| `COI-RELEASE-MANAGER.md` | Empacotamento final | Montar pacote de entrega de 9 itens, preparar commit |
+
+### Fluxo obrigatorio via COI-MESTRE
+
+```
+COI-MEMORIA -> COI-ARQUITETO -> COI-EXECUTOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
+```
+
+Nenhuma etapa pode ser pulada. Se uma skill identificar bloqueador, a execucao para e Anderson e consultado.
+
+### Regra de uso
+
+- Skills sao consultadas -- nao substituem as regras deste AGENTS.md
+- A skill COI-MESTRE e o ponto de entrada recomendado para qualquer fase nova
+- Em caso de conflito entre skill e AGENTS.md, prevalece AGENTS.md
+
+---
+
+*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*

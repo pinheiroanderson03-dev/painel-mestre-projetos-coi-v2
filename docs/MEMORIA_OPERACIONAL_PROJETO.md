@@ -38,7 +38,8 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 5A.1 | Concluida | Preparacao da evolucao funcional — meta.versao corrigido, docs alinhados |
 | Fase 5A.2 | Concluida | Evolucao Funcional do Painel — 9 melhorias (clearEl, filtro P0, frentes dinamicas, footer v1.4.1) |
 | Fase 5A.3 | Concluida | Refinamentos Funcionais — tag v1.4.1-refinamentos-funcionais |
-| Fase 5T.1 | Em andamento | Infraestrutura de Qualidade — validador JS multiplataforma, checklist, docs |
+| Fase 5T.1 | Concluida | Infraestrutura de Qualidade — validador JS multiplataforma, checklist, docs |
+| Fase 5T.2 | Em andamento | Skills Operacionais Claude — 7 skills em .claude/skills/ |
 | Fase 5B | Planejada | Evolucao das Fichas dos Projetos |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
 | Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
@@ -108,6 +109,14 @@ raiz/
   ROADMAP_COI.md               roadmap de fases
   scripts/                     scripts de validacao PowerShell e Node.js
     validar-funcional.js         validador multiplataforma Node.js (Fase 5T.1)
+  .claude/skills/              skills operacionais Claude (Fase 5T.2)
+    COI-MESTRE.md                orquestrador do fluxo de execucao
+    COI-MEMORIA.md               leitura de contexto e alertas
+    COI-ARQUITETO.md             planejamento e classificacao de modo
+    COI-EXECUTOR.md              implementacao segura com padroes corretos
+    COI-QA.md                    validacao completa
+    COI-GOVERNANCA.md            atualizacao de documentos obrigatorios
+    COI-RELEASE-MANAGER.md       empacotamento e entrega final
   docs/
     ESTADO_ATUAL_DO_PROJETO.md     estado pontual do projeto (atualizar ao fechar fase)
     PROTOCOLO_OPERACIONAL_AGENTES.md
@@ -120,4 +129,4 @@ raiz/
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.1 - Infraestrutura de Qualidade e Validacao*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*
