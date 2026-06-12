@@ -4,6 +4,26 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Aprendizado Continuo e Validacao Forense (Fase 5T.3)
+**Data:** 2026-06-12
+
+### O que mudou (internamente)
+
+Esta versao nao altera o painel visivelmente para o usuario final. Melhora a qualidade e seguranca do processo de desenvolvimento com 4 novas camadas de controle operacional:
+
+- **Analise forense antes de cada fase:** o Claude agora distingue o que foi confirmado por leitura direta do que e apenas inferencia. Decisoes erradas de escopo sao prevenidas antes de qualquer edicao.
+- **Prevencao de erros por aprendizado:** antes de implementar, o Claude consulta automaticamente o historico de erros, padroes aprovados e decisoes arquiteturais do projeto para evitar repeticao de problemas conhecidos.
+- **Suite de testes pre-validacao:** 6 categorias de testes (T1-T6) sao executadas antes do QA -- incluindo validacao funcional completa, verificacao de sintaxe JS, auditoria de padroes proibidos e integridade de arquivos.
+- **Auditoria de protocolo:** apos cada implementacao, uma auditoria (A1-A5) verifica se o escopo foi respeitado, nenhum arquivo proibido foi tocado e o modo de execucao foi adequado ao risco.
+- **Base de conhecimento evolutiva:** padroes aprovados (PA) e anti-padroes (AP) documentados para consulta futura.
+- **Registro de decisoes arquiteturais:** DAR-001 a DAR-010 documentados com contexto e restricoes derivadas.
+
+### O que nao muda
+
+Todas as funcionalidades do painel continuam identicas para o usuario.
+
+---
+
 ## v1.4.1 — Skills Operacionais Claude (Fase 5T.2)
 **Data:** 2026-06-12
 

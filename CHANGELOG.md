@@ -4,6 +4,46 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 5T.3: Aprendizado Continuo, Autonomia Inteligente e Validacao Forense (2026-06-12)
+
+### Skills criadas -- `.claude/skills/`
+
+- `COI-FORENSE.md` -- analise forense pre-execucao: classifica EVIDENCIA CONFIRMADA vs HIPOTESE NAO VALIDADA; bloqueia decisoes sem leitura previa; relatorio estruturado antes do COI-ARQUITETO
+- `COI-LEARNINGS.md` -- prevencao de erros por aprendizado continuo: consulta REGISTRO, BASE_EVOLUTIVA e DECISOES antes de executar; emite lembretes obrigatorios; bloqueia se anti-padrao critico detectado
+- `COI-TESTES.md` -- suite de testes pre-QA (T1-T6): validar-funcional.js (40 asserts), node --check em .js modificados, grep anti-padroes (innerHTML, eval), clearEl audit, ASCII em .ps1, estrutura de arquivos
+- `COI-AUDITOR.md` -- auditoria de protocolo (A1-A5): escopo vs autorizado, arquivos proibidos, padroes de codigo, modo de execucao, disponibilidade de rollback; parecer APROVADO/CONDICIONADO/REPROVADO
+- `COI-MESTRE.md` -- atualizado: fluxo expandido de 7 para 10 skills; posicoes definidas (1-10)
+
+### Documentos criados -- `docs/`
+
+- `docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md` -- padroes aprovados PA-001/PA-010, anti-padroes AP-001/AP-010, solucoes recorrentes por categoria (escrita de arquivos, validacao JS, limpeza DOM, conflito sandbox/Windows, dados mensais)
+- `docs/DECISOES_ARQUITETURAIS_COI.md` -- DAR-001 a DAR-010 com contexto, alternativas consideradas e restricoes derivadas
+
+### Documentos atualizados
+
+- `AGENTS.md` -- secao 12 atualizada com tabela de 11 skills e documentos de conhecimento
+- `CLAUDE.md` -- Skills Operacionais atualizado: 11 skills, fluxo completo
+- `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` -- P10 atualizado: fluxo de 10 skills, tabela de quando usar, docs de conhecimento
+- `docs/CHECKLIST_EXECUCAO_AGENTES.md` -- Secao 1 e 3: COI-FORENSE, COI-LEARNINGS, COI-TESTES, COI-AUDITOR; Secao 5: BASE_EVOLUTIVA e DECISOES
+- `docs/ESTADO_ATUAL_DO_PROJETO.md` -- Fase 5T.3 em Fases Concluidas; 7 novos arquivos criticos listados
+- `docs/MEMORIA_OPERACIONAL_PROJETO.md` -- 11 skills na estrutura; 2 novos docs; status 5T.3 atualizado
+- `ROADMAP_COI.md` -- Secao 5T.3 expandida com todos os entregaveis
+- `RELEASE_NOTES.md` -- entrada 5T.3 adicionada (infra interna)
+- `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md` -- A-007 adicionado (framework forense e aprendizado)
+
+---
+
+## v1.4.1 — Fase 5T.2-fix: Correcao de truncamento em validar-funcional.js (2026-06-12)
+
+### Bugfix -- scripts/validar-funcional.js
+
+- Corrigido truncamento silencioso em `scripts/validar-funcional.js` -- arquivo commitado com os ultimos 3 bytes ausentes (`;\r\n}\r\n`), causando SyntaxError `Unexpected end of input` ao executar no Node.js
+- Causa raiz: bash heredoc escreveu arquivo com LF; montagem sandbox/Windows gerou inconsistencia que deixou arquivo truncado na visao do sistema de arquivos. Ver E-007 em REGISTRO_DE_ERROS_E_APRENDIZADOS.md
+- Solucao: reescrita completa via bash cat heredoc (177 linhas, ASCII puro, LF)
+- Validacao: 40/40 PASS -- exit 0 confirmado
+
+---
+
 ## v1.4.1 — Fase 5T.2: Skills Operacionais Claude (2026-06-12)
 
 ### Skills de execucao especializada — `.claude/skills/` — 7 arquivos criados

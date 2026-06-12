@@ -12,11 +12,13 @@ Para detalhes de cada item, consultar AGENTS.md e PROTOCOLO_OPERACIONAL_AGENTES.
 - [ ] Confirmar branch atual com `.\scripts\status-seguro.ps1`
 - [ ] Confirmar que NAO esta na branch `publicacao-demandas-central-df`
 - [ ] Confirmar escopo da fase: objetivo, entregaveis, restricoes
-- [ ] Para fases novas: considerar usar a skill COI-MESTRE como ponto de entrada (`.claude/skills/COI-MESTRE.md`) — orquestra o fluxo completo automaticamente (Fase 5T.2)
+- [ ] Para qualquer fase com alteracoes: acionar COI-MESTRE (`.claude/skills/COI-MESTRE.md`) como unica porta de entrada -- fluxo de 10 skills (Fase 5T.3)
+- [ ] COI-FORENSE: confirmar estado real do repositorio antes de planejar
+- [ ] COI-LEARNINGS: consultar `docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md` e `docs/DECISOES_ARQUITETURAIS_COI.md` antes de executar
 - [ ] Listar arquivos que serao alterados
 - [ ] Listar arquivos que NAO serao alterados
 - [ ] Confirmar que Anderson autorizou o escopo antes de comecar
-- [ ] Verificar se ha comandos criticos no escopo (git add, commit, push, merge, tag, reset, restore) — aguardar autorizacao explícita antes de executar
+- [ ] Verificar se ha comandos criticos no escopo (git add, commit, push, merge, tag, reset, restore) — aguardar autorizacao explicita antes de executar
 - [ ] Se houver risco de rollback: consultar `docs/PLANO_ROLLBACK_SEGURO.md` e `docs/MATRIZ_CONTINGENCIA.md` antes de agir
 
 ---
@@ -47,8 +49,10 @@ Escolher o script adequado e rodar:
 
 - [ ] Rodar script e verificar saida
 - [ ] Se houver alteracao funcional: executar tambem `node scripts/validar-funcional.js` e confirmar exit code 0 (Fase 5T.1)
+- [ ] COI-TESTES: executar suite T1-T6 antes de avancar para COI-AUDITOR
+- [ ] COI-AUDITOR: confirmar parecer APROVADO ou CONDICIONADO antes do COI-QA
 - [ ] Aviso LF/CRLF: ignorar (comportamento normal do Windows)
-- [ ] Erros reais: corrigir antes de continuar
+- [ ] Erros reais: corrigir antes de continuar (Regra de Autocorrecao)
 - [ ] Enviar retorno da validacao para Anderson revisar
 - [ ] Aguardar aprovacao explicitamente antes de commitar
 - [ ] Usar mensagem de commit no padrao: `<fase>: <descricao objetiva>`
@@ -73,8 +77,10 @@ Escolher o script adequado e rodar:
 - [ ] Atualizar `ROADMAP_COI.md` marcando fase como concluida
 - [ ] Atualizar `docs/MEMORIA_OPERACIONAL_PROJETO.md` com novo estado na tabela
 - [ ] Registrar aprendizados em `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md`
+- [ ] Se houver novo padrao ou solucao: registrar em `docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md` (Fase 5T.3)
+- [ ] Se houver nova decisao arquitetural: registrar em `docs/DECISOES_ARQUITETURAIS_COI.md` (Fase 5T.3)
 - [ ] Sugerir tag estavel ao Anderson
-- [ ] OBRIGATORIO: os 4 documentos acima (ESTADO_ATUAL, CHANGELOG, ROADMAP, MEMORIA) devem ser atualizados ANTES do commit de fechamento da fase — nao depois (Fase 5T.1)
+- [ ] OBRIGATORIO: ESTADO_ATUAL, CHANGELOG, ROADMAP e MEMORIA devem ser atualizados ANTES do commit de fechamento da fase (Fase 5T.1)
 - [ ] Verificar se ESTADO_ATUAL reflete a tag mais recente e a proxima fase correta
 
 ---
@@ -96,4 +102,4 @@ Ao entregar qualquer fase ou etapa com alteracoes, Claude deve incluir:
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Fluxo de 10 skills, COI-TESTES, COI-AUDITOR, base evolutiva*

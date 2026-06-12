@@ -265,9 +265,38 @@ Ao final de qualquer fase ou etapa com alterações, Claude deve entregar obriga
 
 ---
 
-## 12. Skills Operacionais Claude (Fase 5T.2)
+## 12. Skills Operacionais Claude (Fase 5T.2 -- atualizado 5T.3)
 
-A pasta `.claude/skills/` contem skills Markdown que definem papeis operacionais especializados do Claude para este projeto. Cada skill e um arquivo de instrucoes que o Claude consulta ao executar uma fase.
+A pasta `.claude/skills/` contem 11 skills Markdown que definem o fluxo operacional completo do Claude.
+
+**Fluxo obrigatorio:**
+```
+COI-MEMORIA -> COI-FORENSE -> COI-ARQUITETO -> COI-LEARNINGS -> COI-EXECUTOR
+  -> COI-TESTES -> COI-AUDITOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
+```
+
+| Skill | Papel |
+|---|---|
+| COI-MESTRE | Orquestrador -- unica porta de entrada |
+| COI-MEMORIA | Estado atual, erros, alertas |
+| COI-FORENSE | Evidencias vs hipoteses; estado real do repo |
+| COI-ARQUITETO | Modo, escopo, plano |
+| COI-LEARNINGS | Prevencao de erros; DAR; base evolutiva |
+| COI-EXECUTOR | Implementacao segura |
+| COI-TESTES | Suite pre-QA (T1-T6) |
+| COI-AUDITOR | Auditoria de protocolo e escopo |
+| COI-QA | Validacao completa |
+| COI-GOVERNANCA | Documentos de estado |
+| COI-RELEASE-MANAGER | Pacote de entrega |
+
+**Documentos de conhecimento (consultados pelas skills):**
+- `docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md` -- padroes aprovados, anti-padroes, solucoes
+- `docs/DECISOES_ARQUITETURAIS_COI.md` -- DAR-001 a DAR-NNN
+- `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md` -- E-NNN e A-NNN
+
+**Regra:** Skills nao substituem este arquivo. Em conflito, prevalece AGENTS.md.
+
+*Ultima atualizacao: 2026-06-12 - Fase 5T.3*
 
 ### Hierarquia de Skills
 
