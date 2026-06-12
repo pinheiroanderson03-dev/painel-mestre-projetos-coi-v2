@@ -69,3 +69,21 @@ Ao final de cada fase ou etapa, entregar:
 6. Erros ou avisos (classificados: real ou comportamento normal)
 7. Pendências
 8. Próximos comandos recomendados (sem executar os críticos)
+
+---
+
+## Skills Operacionais (Fase 5T.2)
+
+A pasta `.claude/skills/` contem 7 skills que definem o fluxo operacional por especialidade:
+
+- `COI-MESTRE.md` — orquestrador (ponto de entrada para qualquer fase)
+- `COI-MEMORIA.md` — leitura de contexto e alertas
+- `COI-ARQUITETO.md` — planejamento e classificacao de modo
+- `COI-EXECUTOR.md` — implementacao segura com padroes corretos
+- `COI-QA.md` — validacao completa (git + node + PS1)
+- `COI-GOVERNANCA.md` — atualizacao de documentos de governanca
+- `COI-RELEASE-MANAGER.md` — empacotamento e entrega final
+
+Fluxo: COI-MEMORIA -> COI-ARQUITETO -> COI-EXECUTOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
+
+As skills nao substituem as regras deste arquivo. Em caso de conflito, prevalecem as regras acima.

@@ -4,6 +4,22 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 5T.2: Skills Operacionais Claude (2026-06-12)
+
+### Skills de execucao especializada — `.claude/skills/` — 7 arquivos criados
+
+- Criada pasta `.claude/skills/` com 7 skills Markdown de papeis operacionais especializados
+- `COI-MESTRE.md` — orquestrador; define fluxo obrigatorio entre as 6 skills especializadas; produz pacote de entrega de 9 itens
+- `COI-MEMORIA.md` — carrega estado atual (ESTADO_ATUAL, MEMORIA, REGISTRO, AGENTS, PROTOCOLO); identifica erros conhecidos, riscos recorrentes e regras aplicaveis; bloqueia execucao em condicoes criticas (branch errada, working tree sujo, tag ausente)
+- `COI-ARQUITETO.md` — classifica modo (Rapido/Seguro/Critico); mapeia arquivos autorizados vs proibidos com tabela de impacto; define plano de execucao e rollback conceitual; tratamento especial para dados/projetos.js (CRITICO) e assets/js/chart.umd.min.js (PROIBIDO)
+- `COI-EXECUTOR.md` — implementa alteracoes autorizadas; regras: ler antes de editar; usar bash heredoc para .ps1 e arquivos grandes; nao usar Unicode especial em Write tool; prefixar comentarios com fase; clearEl em vez de innerHTML=''
+- `COI-QA.md` — suite completa: git status, git diff --name-only/stat/check, node scripts/validar-funcional.js, validar-projeto.ps1, validar-docs.ps1 (se docs alterados), validar-dados.ps1 + node --check (se dados alterados); classificacao PASS/WARN/FAIL; CRLF = WARN/NORMAL
+- `COI-GOVERNANCA.md` — atualiza ESTADO_ATUAL, CHANGELOG, RELEASE_NOTES, ROADMAP, MEMORIA; checklist de 8 itens; bloqueia se multiplas fases sem registro, tag inexistente ou mismatch no ROADMAP
+- `COI-RELEASE-MANAGER.md` — prepara pacote de 9 itens (branch, arquivos criados, alterados, skills, docs, comandos, validacoes, riscos, recomendacao de commit); nunca executa comandos criticos; template padrao de output
+- Atualizados 10 documentos de governanca: AGENTS.md, CLAUDE.md, PROTOCOLO, AGENTES_CHATGPT, CHECKLIST, ESTADO_ATUAL, MEMORIA, CHANGELOG, RELEASE_NOTES, ROADMAP
+
+---
+
 ## v1.4.1 — Fase 5T.1: Infraestrutura de Qualidade e Validação (2026-06-12)
 
 ### Tooling multiplataforma e governança — `scripts/validar-funcional.js`, `docs/`, `CHANGELOG.md`, `ROADMAP_COI.md`, `RELEASE_NOTES.md`

@@ -12,6 +12,7 @@ Para detalhes de cada item, consultar AGENTS.md e PROTOCOLO_OPERACIONAL_AGENTES.
 - [ ] Confirmar branch atual com `.\scripts\status-seguro.ps1`
 - [ ] Confirmar que NAO esta na branch `publicacao-demandas-central-df`
 - [ ] Confirmar escopo da fase: objetivo, entregaveis, restricoes
+- [ ] Para fases novas: considerar usar a skill COI-MESTRE como ponto de entrada (`.claude/skills/COI-MESTRE.md`) — orquestra o fluxo completo automaticamente (Fase 5T.2)
 - [ ] Listar arquivos que serao alterados
 - [ ] Listar arquivos que NAO serao alterados
 - [ ] Confirmar que Anderson autorizou o escopo antes de comecar
@@ -95,4 +96,4 @@ Ao entregar qualquer fase ou etapa com alteracoes, Claude deve incluir:
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.1 - Infraestrutura de Qualidade e Validacao*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*

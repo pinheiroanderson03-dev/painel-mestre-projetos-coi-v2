@@ -186,4 +186,20 @@ Para usar como validador, copiar a entrega do Claude (os 8 itens) e pedir: *"Atu
 
 ---
 
-*Última atualização: 2026-06-11 · Fase 4D.4.2 — Delegação Operacional Controlada ao Claude*
+---
+
+## Contexto sobre Skills Operacionais Claude (Fase 5T.2)
+
+O Claude passou a contar com skills especializadas em `.claude/skills/`. Quando o ChatGPT for acionado para validar uma entrega do Claude, considerar que o fluxo de execucao segue a hierarquia:
+
+`COI-MEMORIA -> COI-ARQUITETO -> COI-EXECUTOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER`
+
+Para validar entregas do Claude usando o **Agente de Governanca**, solicitar:
+```
+Atue como Agente de Governanca. O Claude executou a Fase [X] usando as skills COI. Valide o pacote de entrega abaixo e verifique se o fluxo de skills foi seguido:
+[colar os 9 itens do pacote de entrega]
+```
+
+---
+
+*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*
