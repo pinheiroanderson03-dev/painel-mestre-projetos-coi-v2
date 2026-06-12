@@ -173,7 +173,7 @@ if (typeof Chart === 'undefined') {
 </main>
 
 <footer>
-  COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4 · <span id="footer-ciclo"></span>
+  COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4.1 · <span id="footer-ciclo"></span>
 </footer>
 
 <script>
@@ -508,12 +508,13 @@ buildExecucaoMensal();
 // ─── Alertas dinâmicos ───────────────────────────────────────────────
 function buildAlertas() {
   const grid = document.getElementById('alertas-grid');
-  grid.innerHTML = '';
+  clearEl(grid); // Fase 5A.2 — B-04: substituído innerHTML='' por clearEl()
 
   const criticos_list = ps.filter(p => p.semaforo === '🔴');
   const atencao_list  = ps.filter(p => p.semaforo === '🟡');
   const ok_list       = ps.filter(p => p.semaforo === '🟢');
-  const p0_list       = ps.filter(p => p.prioridade === 'P0');
+  // Fase 5A.2 — U-04: excluir Suspenso e Concluído do card P0 Ativos
+  const p0_list       = ps.filter(p => p.prioridade === 'P0' && p.status !== 'Concluído' && p.status !== 'Suspenso');
 
   function makeCard(cls, titulo, items, dotCls, emptyMsg) {
     const div = document.createElement('div');

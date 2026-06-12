@@ -308,7 +308,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer id="rodape">COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4</footer>
+<footer id="rodape">COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4.1</footer>
 
 <script>
 // ─── ID do projeto via hash da URL ────────────────────────────────────
@@ -432,7 +432,7 @@ function renderHero(p) {
   document.getElementById('hdr-titulo').textContent = p.id + ' — ' + p.nome;
   document.title = 'COI — ' + p.id + ': ' + p.nome;
   document.getElementById('rodape').textContent =
-    'COI — Centro de Operações Integradas · Governo do Distrito Federal · Ficha ' + p.id + ' · Painel Mestre v1.4';
+    'COI — Centro de Operações Integradas · Governo do Distrito Federal · Ficha ' + p.id + ' · Painel Mestre v1.4.1';
   document.getElementById('hero-id-line').textContent =
     p.id + ' · Atualizado em ' + (p.atualizadoEm || new Date().toLocaleDateString('pt-BR'));
   document.getElementById('hero-nome').textContent = p.nome;
@@ -577,7 +577,7 @@ function salvarEdicao() {
     const el = document.getElementById(id);
     if (el) {
       const val = el.textContent.trim();
-      if (val !== '—') p[map[id]] = val;
+      p[map[id]] = (val === '—' ? '' : val); // Fase 5A.2 — I-03: permite limpar campo
       el.setAttribute('contenteditable','false');
       el.classList.remove('edit');
     }
