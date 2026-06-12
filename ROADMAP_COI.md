@@ -65,16 +65,36 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-### 🔄 v1.4.1 — Ciclo 5A: Evolução Funcional do Painel (em andamento — 2026-06-11)
+### ✅ v1.4.1 — Ciclo 5A: Evolução Funcional do Painel (concluído — 2026-06-12)
 
 **Objetivo:** Preparar e executar melhorias funcionais no painel com qualidade, rastreabilidade e governança.
 
-| Fase | Data | Entrega |
-|---|---|---|
-| Fase 5A.1 | 2026-06-11 | Preparação da evolução funcional — `meta.versao` corrigido, documentação alinhada, diagnóstico técnico |
-| Fase 5A.2 | — | Evolução Funcional do Painel — escopo a definir com Anderson |
+| Fase | Data | Status | Entrega |
+|---|---|---|---|
+| Fase 5A.1 | 2026-06-11 | ✅ Concluída | Preparação — `meta.versao` corrigido, documentação alinhada, diagnóstico técnico |
+| Fase 5A.2 | 2026-06-12 | ✅ Concluída | 9 melhorias: clearEl, CSS vars, filtro P0, frentes dinâmicas, salvarEdicao, footer v1.4.1 |
+| Fase 5A.3 | 2026-06-12 | ✅ Concluída | Refinamentos funcionais — tag `v1.4.1-refinamentos-funcionais` |
 
-**Tag sugerida ao concluir 5A.1:** `v1.4.1-preparacao-evolucao`
+**Última tag estável:** `v1.4.1-refinamentos-funcionais`
+
+---
+
+### 🔄 v1.4.1 — Fase 5T.1: Infraestrutura de Qualidade e Validação (em andamento — 2026-06-12)
+
+**Objetivo:** Fechar lacunas de tooling expostas pelo Ciclo 5A antes de avançar para desenvolvimento funcional complexo (5B).
+
+| Entregável | Status | Descrição |
+|---|---|---|
+| `scripts/validar-funcional.js` | ✅ Criado | Validador Node.js puro, 40 asserts, multiplataforma, exit 0/1 |
+| `docs/CHECKLIST_EXECUCAO_AGENTES.md` | ✅ Atualizado | Commits atômicos, proibição de acúmulo, validar-funcional.js, docs antes do commit |
+| `docs/ESTADO_ATUAL_DO_PROJETO.md` | ✅ Atualizado | Reflete 5A.2, 5A.3, 5T.1, tag atual |
+| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | ✅ Atualizado | Tags completas, scripts atualizados, 2 novas regras |
+| `CHANGELOG.md` | ✅ Atualizado | Entradas para 5A.2, 5A.3, 5T.1 |
+| `RELEASE_NOTES.md` | ✅ Atualizado | Notas para 5A.2, 5A.3, 5T.1 |
+| `ROADMAP_COI.md` | ✅ Atualizado | Este arquivo |
+| `.gitattributes` | ⏳ Adiado | Normalização CRLF/LF — documentado, a tratar em fase técnica futura |
+
+**Branch:** `fase-5t-1-infraestrutura-qualidade-validacao`
 
 ---
 
@@ -90,6 +110,13 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 | Fallback robusto | `execucoesMensais[]` → `execucaoMensal` → `{}`; padrão = último item (Junho/2026) | `index.html` | `c451426` |
 | Dados reais Maio/2026 | 9 atividades, 5 demandas, 8 principais ganhos e 6 próximos passos extraídos do painel anterior | `dados/projetos.js` | `8eaef98` |
 | Documentação v1.4.1 | ROADMAP, CHANGELOG e RELEASE_NOTES | `ROADMAP_COI.md` · `CHANGELOG.md` · `RELEASE_NOTES.md` | `c83031a` |
+
+### 🔄 v1.5 — Fase 5B: Evolução das Fichas dos Projetos (próxima fase — após 5T.1)
+
+**Objetivo:** Expandir as funcionalidades de edição e visualização das fichas de projeto.
+Escopo a definir com Anderson antes de iniciar.
+
+---
 
 ### 🔄 v1.5 — Fase 4B: Edição de Fichas e Exportação de Dados (planejada)
 
@@ -159,4 +186,8 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-*Última atualização: 2026-06-11 · Versão: v1.4.1 · Próxima: v1.5 (Fase 4B — Edição e Exportação) · Planejadas: Fase 4C (Edição pelo GitHub)*
+| DT-06 | Normalização CRLF/LF ausente — `git diff --check` gera ruído em todos os arquivos | P2 | Fase técnica futura (após 5B) |
+
+---
+
+*Última atualização: 2026-06-12 · Versão: v1.4.1 · Última tag: v1.4.1-refinamentos-funcionais · Fase em execução: 5T.1 · Próxima: Fase 5B*

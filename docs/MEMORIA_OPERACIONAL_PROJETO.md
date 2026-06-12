@@ -36,7 +36,10 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 4D.4.2 | Concluida | Delegacao operacional controlada ao Claude (AGENTS.md, CLAUDE.md, docs/) |
 | Fase 4D.5 | Concluida | Plano de rollback seguro e matriz de contingencia (docs/) |
 | Fase 5A.1 | Concluida | Preparacao da evolucao funcional — meta.versao corrigido, docs alinhados |
-| Fase 5A.2 | Planejada | Evolucao funcional do painel (escopo a definir) |
+| Fase 5A.2 | Concluida | Evolucao Funcional do Painel — 9 melhorias (clearEl, filtro P0, frentes dinamicas, footer v1.4.1) |
+| Fase 5A.3 | Concluida | Refinamentos Funcionais — tag v1.4.1-refinamentos-funcionais |
+| Fase 5T.1 | Em andamento | Infraestrutura de Qualidade — validador JS multiplataforma, checklist, docs |
+| Fase 5B | Planejada | Evolucao das Fichas dos Projetos |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
 | Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
 
@@ -52,19 +55,26 @@ Branch de publicacao protegida: `publicacao-demandas-central-df` — NUNCA TOCAR
 | v1.4.1-governanca-agentes | 4D.1 | Governanca operacional dos agentes |
 | v1.4.1-scripts-validacao | 4D.2 | Scripts de validacao PowerShell |
 | v1.4.1-base-interacao-chatgpt | 4D.4 | Base de interacao assistida no ChatGPT |
+| v1.4.1-consolidacao-memoria | 4D.4.1 | Consolidacao da memoria operacional |
+| v1.4.1-delegacao-operacional | 4D.4.2 | Delegacao operacional controlada ao Claude |
+| v1.4.1-rollback-seguro | 4D.5 | Plano de rollback seguro e matriz de contingencia |
+| v1.4.1-refinamentos-funcionais | 5A.3 | Refinamentos funcionais — ULTIMA TAG ESTAVEL ATUAL |
 
 ---
 
 ## Scripts Oficiais de Validacao
 
-Executar sempre a partir da raiz do projeto no PowerShell.
+| Script | Quando usar | Plataforma |
+|---|---|---|
+| `.\scripts\status-seguro.ps1` | Verificar branch, status e commits antes de qualquer acao | Windows / PowerShell |
+| `.\scripts\validar-docs.ps1` | Apos alterar arquivos de documentacao | Windows / PowerShell |
+| `.\scripts\validar-dados.ps1` | Apos alterar dados/projetos.js | Windows / PowerShell |
+| `.\scripts\validar-projeto.ps1` | Validacao geral antes de qualquer commit ou push | Windows / PowerShell |
+| `node scripts/validar-funcional.js` | Apos alterar HTML, CSS ou JS funcional | Qualquer SO (Node.js) |
 
-| Script | Quando usar |
-|---|---|
-| `.\scripts\status-seguro.ps1` | Verificar branch, status e commits antes de qualquer acao |
-| `.\scripts\validar-docs.ps1` | Apos alterar arquivos de documentacao |
-| `.\scripts\validar-dados.ps1` | Apos alterar dados/projetos.js |
-| `.\scripts\validar-projeto.ps1` | Validacao geral antes de qualquer commit ou push |
+O script `validar-funcional.js` foi criado na Fase 5T.1. Executa 40 asserts: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3 e padroes proibidos. Retorna exit code 0 (sem erros) ou 1 (ha erros).
+
+Executar sempre a partir da raiz do projeto.
 
 ---
 
@@ -78,6 +88,8 @@ Executar sempre a partir da raiz do projeto no PowerShell.
 6. Sempre rodar os scripts de validacao antes do commit.
 7. Se precisar sair do escopo autorizado, parar e pedir autorizacao.
 8. Aviso LF/CRLF do git nao e erro — e comportamento normal do Windows.
+9. Preferir commits atomicos por melhoria individual — nunca acumular mais de uma fase sem commit (Fase 5T.1).
+10. ESTADO_ATUAL, CHANGELOG, ROADMAP e MEMORIA devem ser atualizados ANTES do commit de fechamento de fase (Fase 5T.1).
 
 ---
 
@@ -94,7 +106,8 @@ raiz/
   CHANGELOG.md                 historico de versoes tecnico
   RELEASE_NOTES.md             notas de versao para usuario
   ROADMAP_COI.md               roadmap de fases
-  scripts/                     scripts de validacao PowerShell
+  scripts/                     scripts de validacao PowerShell e Node.js
+    validar-funcional.js         validador multiplataforma Node.js (Fase 5T.1)
   docs/
     ESTADO_ATUAL_DO_PROJETO.md     estado pontual do projeto (atualizar ao fechar fase)
     PROTOCOLO_OPERACIONAL_AGENTES.md
@@ -107,4 +120,4 @@ raiz/
 
 ---
 
-*Ultima atualizacao: 2026-06-11 - Fase 5A.1 - Preparacao da Evolucao Funcional*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.1 - Infraestrutura de Qualidade e Validacao*

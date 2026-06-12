@@ -8,7 +8,7 @@ Centro de Operacoes Integradas · Governo do Distrito Federal
 
 ---
 
-Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 5A.1 — Preparacao da Evolucao Funcional
+Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.1 — Infraestrutura de Qualidade e Validacao
 
 ---
 
@@ -18,7 +18,7 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 5A.1 — Prepara
 |---|---|
 | Versao atual | v1.4.1 |
 | Branch principal | main |
-| Ultima tag estavel | v1.4.1-rollback-seguro |
+| Ultima tag estavel | v1.4.1-refinamentos-funcionais |
 | Branch protegida (nunca tocar) | publicacao-demandas-central-df |
 
 ---
@@ -37,6 +37,16 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 5A.1 — Prepara
 | Fase 4D.4.2 | v1.4.1 | Delegacao operacional controlada ao Claude — Concluida |
 | Fase 4D.5 | v1.4.1 | Plano de rollback seguro e matriz de contingencia — Concluida |
 | Fase 5A.1 | v1.4.1 | Preparacao da evolucao funcional — meta.versao corrigido, documentacao alinhada — Concluida |
+| Fase 5A.2 | v1.4.1 | Evolucao Funcional do Painel — 9 melhorias (B-01 a I-04, U-01 a U-04) — Concluida |
+| Fase 5A.3 | v1.4.1 | Refinamentos Funcionais — tag v1.4.1-refinamentos-funcionais — Concluida |
+
+---
+
+## Fase em Execucao
+
+| Fase | Status | Descricao |
+|---|---|---|
+| Fase 5T.1 | Em andamento | Infraestrutura de Qualidade e Validacao — validador JS, checklist, docs |
 
 ---
 
@@ -44,6 +54,7 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 5A.1 — Prepara
 
 | Fase | Versao | Escopo |
 |---|---|---|
+| Fase 5B | v1.5 | Evolucao das Fichas dos Projetos |
 | Fase 4B | v1.5 | Edicao de fichas e exportacao de dados |
 | Fase 4C | v1.6 | Edicao orientada pelo GitHub e governanca de dados |
 
@@ -51,8 +62,8 @@ Atualizado em: 2026-06-11 · Responsavel pela atualizacao: Fase 5A.1 — Prepara
 
 ## Proxima Acao Prevista
 
-Fase 5A.1 — Concluida (branch: fase-5a-1-preparacao-evolucao-funcional).
-Proxima fase planejada: Fase 5A.2 — Evolucao Funcional do Painel (escopo a definir com Anderson).
+Fase 5T.1 em execucao (branch: fase-5t-1-infraestrutura-qualidade-validacao).
+Proxima fase apos 5T.1: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
 
@@ -60,18 +71,21 @@ Proxima fase planejada: Fase 5A.2 — Evolucao Funcional do Painel (escopo a def
 
 | Arquivo | Estado |
 |---|---|
-| `dados/projetos.js` | meta.versao "1.4.1" (corrigido na Fase 5A.1); execucoesMensais[] com Maio/2026 (dados reais) e Junho/2026 (estrutura pronta) |
-| `index.html` | Seletor de competencia funcional; fallback robusto em cadeia |
-| `assets/style.css` | Namespace .em-* completo (72 linhas, sem colisao) |
+| `dados/projetos.js` | meta.versao "1.4.1"; execucoesMensais[] com Maio/2026 (dados reais) e Junho/2026 |
+| `index.html` | v1.4.1; seletor de competencia; fallback robusto; clearEl; filtro P0 ativo |
+| `assets/style.css` | v1.4.1; namespace .em-*; .em-select com variaveis corretas |
+| `portfolio.html` | clearEl; filtro frente dinamico; footer v1.4.1 |
+| `projetos/ficha.html` | clearEl; salvarEdicao permite limpar campos; footer v1.4.1 |
+| `scripts/validar-funcional.js` | NOVO (Fase 5T.1) — validador Node.js multiplataforma, 40 asserts, exit 0/1 |
 | `scripts/status-seguro.ps1` | Validacao de branch e status — ASCII puro |
 | `scripts/validar-docs.ps1` | Validacao de documentacao — ASCII puro |
 | `scripts/validar-dados.ps1` | Validacao de dados/projetos.js — ASCII puro |
 | `scripts/validar-projeto.ps1` | Validacao geral pre-commit — ASCII puro |
-| `docs/ESTADO_ATUAL_DO_PROJETO.md` | Este arquivo — estado pontual do projeto |
-| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Regras, scripts, estrutura de arquivos — documento estrutural |
-| `AGENTS.md` | Regras e papeis dos agentes — atualizado ate Fase 4D.5 (leitura obrigatoria: rollback e contingencia) |
-| `docs/PLANO_ROLLBACK_SEGURO.md` | Novo — procedimentos de rollback por tipo; checklists antes/depois; comandos seguros e criticos |
-| `docs/MATRIZ_CONTINGENCIA.md` | Novo — 13 tipos de incidente com severidade, acao, evidencia e fluxo de aprovacao |
+| `docs/ESTADO_ATUAL_DO_PROJETO.md` | Este arquivo — atualizado em Fase 5T.1 |
+| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Documento estrutural — atualizado em Fase 5T.1 |
+| `AGENTS.md` | Regras e papeis dos agentes — atualizado ate Fase 4D.5 |
+| `docs/PLANO_ROLLBACK_SEGURO.md` | Procedimentos de rollback por tipo — Fase 4D.5 |
+| `docs/MATRIZ_CONTINGENCIA.md` | 13 tipos de incidente classificados — Fase 4D.5 |
 
 ---
 
@@ -86,6 +100,15 @@ Proxima fase planejada: Fase 5A.2 — Evolucao Funcional do Painel (escopo a def
 | v1.4.1-consolidacao-memoria | 4D.4.1 | Consolidacao da memoria operacional |
 | v1.4.1-delegacao-operacional | 4D.4.2 | Delegacao operacional controlada ao Claude |
 | v1.4.1-rollback-seguro | 4D.5 | Plano de rollback seguro e matriz de contingencia |
+| v1.4.1-refinamentos-funcionais | 5A.3 | Refinamentos funcionais — ultima tag estavel atual |
+
+---
+
+## Recomendacoes Tecnicas Pendentes (nao criticas)
+
+| Item | Descricao | Fase sugerida |
+|---|---|---|
+| .gitattributes | Normalizar CRLF/LF para eliminar ruido no git diff --check | Fase tecnica futura (apos 5B) |
 
 ---
 
@@ -97,4 +120,4 @@ Proxima fase planejada: Fase 5A.2 — Evolucao Funcional do Painel (escopo a def
 
 ---
 
-*Ultima atualizacao: 2026-06-11 - Fase 5A.1 - Preparacao da Evolucao Funcional*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.1 - Infraestrutura de Qualidade e Validacao*
