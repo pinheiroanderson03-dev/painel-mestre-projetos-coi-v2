@@ -4,6 +4,24 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Enforcement Operacional do COI-MESTRE (Fase 5T.4)
+**Data:** 2026-06-15
+
+### O que mudou (internamente)
+
+Esta versao nao altera o painel visivelmente para o usuario final. Consolida o modelo de governanca operacional do Claude no projeto.
+
+- **Porta de entrada unica definida:** o Claude agora tem uma unica instrucao de entrada para qualquer tarefa tecnica — COI-MESTRE. Antes havia dois protocolos paralelos em CLAUDE.md, um dos quais subordinava o framework de skills ao protocolo original. Essa ambiguidade foi eliminada.
+- **Sequencia pre-planejamento obrigatoria:** antes de qualquer execucao, o Claude deve obrigatoriamente percorrer COI-MEMORIA → COI-FORENSE → COI-LEARNINGS → COI-ARQUITETO. Isso garante que nenhuma fase seja planejada sem evidencia real e consulta ao historico de erros.
+- **Proibicao explicita de atalhos:** COI-EXECUTOR, COI-TESTES, COI-QA, COI-AUDITOR, COI-GOVERNANCA e COI-RELEASE-MANAGER nao podem mais ser o ponto de entrada de qualquer atividade.
+- **Checklist e protocolo alinhados:** os dois documentos de execucao refletem a nova regra com items de verificacao explicitamente identificados como "PASSO 0 — OBRIGATORIO".
+
+### O que nao muda
+
+Todas as funcionalidades do painel continuam identicas para o usuario.
+
+---
+
 ## v1.4.1 — Aprendizado Continuo e Validacao Forense (Fase 5T.3)
 **Data:** 2026-06-12
 

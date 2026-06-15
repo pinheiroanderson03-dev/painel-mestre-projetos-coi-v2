@@ -4,6 +4,35 @@ Centro de Operações Integradas · Governo do Distrito Federal
 
 ---
 
+## v1.4.1 — Fase 5T.4: Enforcement Operacional do COI-MESTRE (2026-06-15)
+
+### Problema resolvido
+
+O COI-MESTRE estava declarado como obrigatorio na secao de Skills (CLAUDE.md linha ~63) mas linha 108 subordinava as skills ao protocolo original de "Arquiteto de Solucoes" — criando dois protocolos paralelos em conflito. O PROTOCOLO_OPERACIONAL tambem tinha um "Fluxo Padrao de Execucao" (passos 0-6) sem rota pelo COI-MESTRE.
+
+### Alteracoes realizadas
+
+**`CLAUDE.md`**
+- Secao 1 (linhas 1-43) substituida: removido protocolo paralelo "Arquiteto de Solucoes" e dashboard diagnose; substituido por "Regra de Entrada Obrigatoria (Fase 5T.4)" declarando COI-MESTRE como unica porta de entrada
+- Linha 108 (hierarquia): substituida subordinacao das skills pelo protocolo original por: regras de seguranca prevalecem em conflitos de seguranca; COI-MESTRE e obrigatorio e nao substituivel por protocolo alternativo
+
+**`AGENTS.md`**
+- COI-MESTRE adicionado como primeira linha da tabela "Leitura Obrigatoria Antes de Iniciar" com instrucao "(Fase 5T.4) — Acionar primeiro"
+
+**`docs/CHECKLIST_EXECUCAO_AGENTES.md`**
+- 3 novos itens inseridos no topo da secao 1 como PASSO 0: acionar COI-MESTRE, proibicao de entrada direta, fluxo pre-planejamento obrigatorio
+
+**`docs/PROTOCOLO_OPERACIONAL_AGENTES.md`**
+- Bloco `> REGRA OBRIGATORIA (Fase 5T.4)` adicionado antes do "Fluxo Padrao de Execucao"
+- Passo `-1. ACIONAR COI-MESTRE` inserido antes do passo `0. CONSULTAR ESTADO E MEMORIA`
+
+### Resultado
+
+Nenhum arquivo HTML, CSS ou JS funcional alterado. Sem impacto no painel para o usuario.
+Eliminacao dos dois pontos fracos de enforcement: protocolo paralelo e hierarquia incorreta.
+
+---
+
 ## v1.4.1 — Fase 5T.3: Aprendizado Continuo, Autonomia Inteligente e Validacao Forense (2026-06-12)
 
 ### Skills criadas -- `.claude/skills/`

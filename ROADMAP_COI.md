@@ -114,6 +114,23 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
+### ✅ v1.4.1 — Fase 5T.4: Enforcement Operacional do COI-MESTRE (concluida — 2026-06-15)
+
+**Objetivo:** Eliminar ambiguidade de protocolo e tornar COI-MESTRE a unica porta de entrada obrigatoria para qualquer atividade tecnica no projeto.
+
+**Problema resolvido:** CLAUDE.md tinha dois protocolos paralelos (Fase PF-001/PF-002); linha 108 subordinava skills ao protocolo original; PROTOCOLO_OPERACIONAL tinha fluxo sem rota pelo COI-MESTRE (PF-003).
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `CLAUDE.md` | ALTERADO | Secao 1 substituida por "Regra de Entrada Obrigatoria (Fase 5T.4)"; hierarquia linha 108 corrigida |
+| `AGENTS.md` | ALTERADO | COI-MESTRE como primeira linha da tabela "Leitura Obrigatoria" |
+| `docs/CHECKLIST_EXECUCAO_AGENTES.md` | ALTERADO | PASSO 0 obrigatorio (3 novos itens) no topo da secao 1 |
+| `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` | ALTERADO | Bloco REGRA OBRIGATORIA + passo -1 ACIONAR COI-MESTRE |
+
+**Branch:** `main` (aguardando commit)
+
+---
+
 ### ✅ v1.4.1 — Fase 5T.3: Aprendizado Continuo, Autonomia Inteligente e Validacao Forense (concluida — 2026-06-12)
 
 **Objetivo:** Expandir o framework de skills para 11 componentes com capacidade forense, prevencao de erros por aprendizado, suite de testes pre-QA e auditoria de protocolo.

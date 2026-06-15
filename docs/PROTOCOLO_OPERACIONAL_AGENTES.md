@@ -35,8 +35,17 @@ Documentos de referência:
 
 ## Fluxo Padrão de Execução
 
+> **REGRA OBRIGATORIA (Fase 5T.4):** Toda tarefa tecnica inicia por `.claude/skills/COI-MESTRE.md`.
+> O fluxo abaixo e executado INTERNAMENTE pelo COI-MESTRE.
+> Proibido iniciar diretamente por COI-EXECUTOR, COI-TESTES, COI-QA, COI-AUDITOR, COI-GOVERNANCA ou COI-RELEASE-MANAGER.
+> Fluxo pre-planejamento obrigatorio: COI-MEMORIA -> COI-FORENSE -> COI-LEARNINGS -> COI-ARQUITETO.
+
 ```
-0. CONSULTAR ESTADO E MEMORIA
+-1. ACIONAR COI-MESTRE (OBRIGATORIO -- Fase 5T.4)
+    └─ Ler .claude/skills/COI-MESTRE.md
+    └─ Executar: COI-MEMORIA -> COI-FORENSE -> COI-LEARNINGS -> COI-ARQUITETO antes de planejar
+
+0. CONSULTAR ESTADO E MEMORIA (via COI-MEMORIA)
    └─ Ler docs/ESTADO_ATUAL_DO_PROJETO.md     (versao, branch, tag, fases)
    └─ Ler docs/MEMORIA_OPERACIONAL_PROJETO.md (regras, scripts, estrutura)
    └─ Abrir docs/CHECKLIST_EXECUCAO_AGENTES.md
@@ -366,4 +375,4 @@ COI-MEMORIA -> COI-FORENSE -> COI-ARQUITETO -> COI-LEARNINGS -> COI-EXECUTOR
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Framework expandido para 11 skills*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.4 - COI-MESTRE como passo -1 obrigatorio no Fluxo Padrao; proibicao de entrada direta por skills especializadas*

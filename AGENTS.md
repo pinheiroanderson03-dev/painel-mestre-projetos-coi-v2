@@ -11,6 +11,7 @@ Antes de qualquer fase ou alteração, consultar:
 
 | Documento | Finalidade |
 |---|---|
+| `.claude/skills/COI-MESTRE.md` | **Acionar primeiro (Fase 5T.4).** Fluxo obrigatorio de 10 skills para qualquer tarefa tecnica. Proibido iniciar por COI-EXECUTOR, COI-TESTES, COI-QA, COI-AUDITOR, COI-GOVERNANCA ou COI-RELEASE-MANAGER. Fluxo pre-planejamento: COI-MEMORIA -> COI-FORENSE -> COI-LEARNINGS -> COI-ARQUITETO. |
 | `docs/ESTADO_ATUAL_DO_PROJETO.md` | **Ler primeiro.** Versão, branch, tag atual, fases concluídas, próxima ação |
 | `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Regras rápidas, scripts, estrutura de arquivos |
 | `docs/CHECKLIST_EXECUCAO_AGENTES.md` | Checklist passo a passo para execução segura |

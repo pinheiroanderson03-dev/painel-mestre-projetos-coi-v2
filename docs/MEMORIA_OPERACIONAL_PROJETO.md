@@ -42,6 +42,7 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 5T.2 | Concluida | Skills Operacionais Claude — 7 skills em .claude/skills/, 10 docs atualizados |
 | Fase 5T.2-fix | Concluida | Correcao truncamento validar-funcional.js (E-007) + fechamento documental |
 | Fase 5T.3 | Concluida | Framework 11 skills (COI-FORENSE, COI-LEARNINGS, COI-TESTES, COI-AUDITOR), 2 novos docs |
+| Fase 5T.4 | Concluida | Enforcement operacional — COI-MESTRE como porta de entrada obrigatoria; 4 docs atualizados |
 | Fase 5B | Planejada | Evolucao das Fichas dos Projetos |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
 | Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
@@ -137,4 +138,4 @@ raiz/
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Framework 11 skills, BASE_DE_CONHECIMENTO_EVOLUTIVA, DECISOES_ARQUITETURAIS*
+*Ultima atualizacao: 2026-06-15 - Fase 5T.4 - COI-MESTRE como porta de entrada obrigatoria; enforcement em CLAUDE.md, AGENTS.md, CHECKLIST, PROTOCOLO*
