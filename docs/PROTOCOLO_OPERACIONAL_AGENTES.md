@@ -1,6 +1,6 @@
 # PROTOCOLO OPERACIONAL DOS AGENTES — Painel Mestre COI
 
-Centro de Operações Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
@@ -361,7 +361,7 @@ COI-MEMORIA -> COI-FORENSE -> COI-ARQUITETO -> COI-LEARNINGS -> COI-EXECUTOR
 | COI-AUDITOR | 7 | Auditoria de escopo, arquivos proibidos, protocolo; parecer final |
 | COI-QA | 8 | Validacao completa: git diff, validar-funcional.js, PS1 |
 | COI-GOVERNANCA | 9 | Atualizar 5 documentos obrigatorios + base evolutiva + decisoes |
-| COI-RELEASE-MANAGER | 10 | Montar pacote de entrega de 9 itens |
+| COI-RELEASE-MANAGER | 10 | Preparar pacote de release e comandos recomendados |
 
 **Documentos de conhecimento consultados pelas skills:**
 
@@ -375,4 +375,4 @@ COI-MEMORIA -> COI-FORENSE -> COI-ARQUITETO -> COI-LEARNINGS -> COI-EXECUTOR
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.4 - COI-MESTRE como passo -1 obrigatorio no Fluxo Padrao; proibicao de entrada direta por skills especializadas*
+*Ultima atualizacao: 2026-06-15 - Fase 5T.5 - Correcao de identidade institucional do COI.*

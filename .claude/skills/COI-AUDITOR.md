@@ -1,6 +1,6 @@
 # COI-AUDITOR -- Auditor de Protocolo e Escopo
 
-**Projeto:** Painel Mestre COI - Centro de Operacoes Integradas - GDF
+**Projeto:** Painel Mestre COI · Comunicacao Omnichannel Inteligente · Central IT
 **Fase de criacao:** 5T.3 (2026-06-12)
 **Tipo:** Skill de auditoria de aderencia ao protocolo
 **Posicao no fluxo:** Depois de COI-TESTES, antes de COI-QA

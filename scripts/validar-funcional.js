@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // validar-funcional.js -- Validador multiplataforma Node.js puro
-// Painel Mestre COI - Centro de Operacoes Integradas - GDF
+// Painel Mestre COI - Comunicacao Omnichannel Inteligente - Central IT
 // Fase 5T.1 -- Infraestrutura de Qualidade e Validacao
 //
 // Uso:  node scripts/validar-funcional.js

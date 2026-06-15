@@ -1,6 +1,6 @@
 # AGENTES ESPECIALIZADOS NO CHATGPT — Painel Mestre COI
 
-Centro de Operações Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 Cada agente abaixo representa um modo de interação especializado com o ChatGPT. Não são configurações técnicas — são perfis de uso que Anderson pode acionar simplesmente descrevendo o contexto e pedindo que o ChatGPT atue naquele papel.
 

@@ -1,6 +1,6 @@
 # AGENTS.md — Governança Operacional dos Agentes COI
 
-Centro de Operações Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 Painel Mestre de Acompanhamento de Projetos
 
 ---
@@ -317,14 +317,4 @@ COI-MEMORIA -> COI-FORENSE -> COI-ARQUITETO -> COI-LEARNINGS -> COI-EXECUTOR
 COI-MEMORIA -> COI-ARQUITETO -> COI-EXECUTOR -> COI-QA -> COI-GOVERNANCA -> COI-RELEASE-MANAGER
 ```
 
-Nenhuma etapa pode ser pulada. Se uma skill identificar bloqueador, a execucao para e Anderson e consultado.
-
-### Regra de uso
-
-- Skills sao consultadas -- nao substituem as regras deste AGENTS.md
-- A skill COI-MESTRE e o ponto de entrada recomendado para qualquer fase nova
-- Em caso de conflito entre skill e AGENTS.md, prevalece AGENTS.md
-
----
-
-*Ultima atualizacao: 2026-06-12 - Fase 5T.2 - Skills Operacionais Claude*
+Nenhuma etapa pode ser pulada. Se uma skill identificar bloqueador, a execucao para e Anderson e consultado

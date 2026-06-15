@@ -1,6 +1,24 @@
 # RELEASE NOTES — Painel Mestre COI
 
-Centro de Operações Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
+
+---
+
+## v1.4.1 — Correção de Identidade Institucional (Fase 5T.5)
+**Data:** 2026-06-15
+
+### O que mudou (internamente)
+
+Esta versao nao altera o painel visivelmente para o usuario final. Consolida a identidade institucional oficial do COI em todos os arquivos do projeto.
+
+- **Identidade corrigida:** COI = Comunicacao Omnichannel Inteligente, plataforma da Central IT. Todos os arquivos ativos que exibiam "Centro de Operacoes Integradas" ou "Governo do Distrito Federal" como proprietario foram corrigidos.
+- **30 arquivos atualizados:** index.html, portfolio.html, projetos/ficha.html, 11 skills (.claude/skills/*.md), 14 documentos de governanca e scripts/validar-funcional.js.
+- **Preservacao de historico:** ocorrencias no corpo do CHANGELOG (historico tecnico), nomes proprios de projetos (e-GDF) e referencias ao GDF como cliente, ambiente ou sistema foram preservadas.
+- **Validacao completa:** node scripts/validar-funcional.js — 40 asserts, exit 0.
+
+### O que nao muda
+
+Todas as funcionalidades do painel continuam identicas para o usuario.
 
 ---
 
@@ -192,26 +210,4 @@ A aparência, o layout e o funcionamento das fichas são idênticos à versão a
 
 ### O que mudou
 
-**Dados centralizados:** todas as informações dos projetos passaram a ser gerenciadas em um único arquivo (`dados/projetos.js`). Antes, os dados estavam duplicados em cada arquivo HTML — qualquer atualização exigia editar 10 arquivos.
-
-**Persistência de dados:** atividades, riscos, marcos e pendências registrados nas fichas agora são salvos no navegador e sobrevivem ao fechamento da janela ou ao recarregamento da página.
-
-**Gráficos no dashboard:** o painel principal passou a exibir gráficos de distribuição por status, prioridade e classificação dos projetos, atualizados automaticamente a partir dos dados reais.
-
-**Segurança:** correção de vulnerabilidade que permitia injeção de código via campos de texto. Todos os campos agora são tratados como texto simples.
-
-### O que não muda
-
-A estrutura visual do painel, as fichas individuais e a navegação entre projetos.
-
----
-
-## v1.0 — Versão Inicial
-**Data:** 2026-06-07
-
-Lançamento do Painel Mestre COI com:
-- Dashboard executivo com visão geral dos 8 projetos
-- Portfólio com listagem, filtros e status de todos os projetos
-- Fichas individuais para COI-001 a COI-008 com objetivo, cronograma, responsáveis, riscos e próximos passos
-- Base de dados Excel (`coi_base_dados.xlsx`)
-- Manual de governança (`manual_governanca.md`)
+**Dados centralizados:** todas as informações

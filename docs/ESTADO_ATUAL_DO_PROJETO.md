@@ -1,6 +1,6 @@
 # ESTADO ATUAL DO PROJETO — Painel Mestre COI
 
-Centro de Operacoes Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 > Este documento registra o estado pontual do projeto em determinado momento.
 > Sem regras, sem fluxos, sem historico detalhado — apenas o que e preciso saber antes de comecar.
@@ -8,7 +8,7 @@ Centro de Operacoes Integradas · Governo do Distrito Federal
 
 ---
 
-Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5T.4 — Enforcement operacional do COI-MESTRE
+Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5T.5 — Correcao de Identidade Institucional
 
 ---
 
@@ -44,12 +44,13 @@ Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5T.4 — Enforce
 | Fase 5T.2-fix | v1.4.1 | Correcao truncamento validar-funcional.js + fechamento documental (E-007) — Concluida |
 | Fase 5T.3 | v1.4.1 | Aprendizado continuo e validacao forense — 4 skills novas, 2 docs novos, framework 11 skills — Concluida |
 | Fase 5T.4 | v1.4.1 | Enforcement operacional do COI-MESTRE — COI-MESTRE como unica porta de entrada obrigatoria em CLAUDE.md, AGENTS.md, CHECKLIST, PROTOCOLO — Concluida |
+| Fase 5T.5 | v1.4.1 | Correcao de Identidade Institucional — COI = Comunicacao Omnichannel Inteligente / Central IT; 30 arquivos corrigidos (HTML, skills, docs, script) — Concluida |
 
 ---
 
 ## Fase em Execucao
 
-Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas dos Projetos. (Fase 5T.4 concluida em 2026-06-15 — aguardando commit do Anderson)
+Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas dos Projetos. (Fase 5T.5 concluida em 2026-06-15 — aguardando commit do Anderson)
 
 ---
 
@@ -65,7 +66,7 @@ Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas do
 
 ## Proxima Acao Prevista
 
-Fase 5T.4 concluida (2026-06-15). COI-MESTRE declarado como unica porta de entrada obrigatoria.
+Fase 5T.5 concluida (2026-06-15). Identidade institucional corrigida: COI = Comunicacao Omnichannel Inteligente / Central IT em todos os arquivos ativos.
 Aguardando commit e aprovacao do Anderson para fechar a fase.
 Proxima fase: Fase 5B — Evolucao das Fichas dos Projetos.
 
@@ -118,20 +119,4 @@ Proxima fase: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
 
-## Recomendacoes Tecnicas Pendentes (nao criticas)
-
-| Item | Descricao | Fase sugerida |
-|---|---|---|
-| .gitattributes | Normalizar CRLF/LF para eliminar ruido no git diff --check | Fase tecnica futura (apos 5B) |
-
----
-
-## Convencao de Atualizacao
-
-- Quem fecha a fase atualiza este arquivo antes do commit de documentacao.
-- Campos obrigatorios a atualizar: ultima tag estavel, tabela de fases concluidas, proxima acao prevista, estado dos arquivos criticos se houver mudanca.
-- Nao registrar regras, fluxos ou historico detalhado aqui — esses conteudos pertencem a MEMORIA_OPERACIONAL_PROJETO.md, CHANGELOG.md e ROADMAP_COI.md.
-
----
-
-*Ultima atualizacao: 2026-06-15 - Fase 5T.4 - COI-MESTRE como porta de entrada obrigatoria; enforcement operacional em 4 documentos*
+## Recomendacoes Tecnica

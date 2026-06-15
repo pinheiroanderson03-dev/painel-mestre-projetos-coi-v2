@@ -1,6 +1,31 @@
 # CHANGELOG — Painel Mestre COI
 
-Centro de Operações Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
+
+---
+
+## v1.4.1 — Fase 5T.5: Correção de Identidade Institucional (2026-06-15)
+
+**Branch:** `fase-5t-5-correcao-identidade-institucional`
+
+**Problema resolvido:** Todos os arquivos ativos do projeto exibiam a expansao incorreta do COI ("Centro de Operacoes Integradas") e identificavam o GDF como proprietario ("Governo do Distrito Federal"). A identidade oficial e: COI = Comunicacao Omnichannel Inteligente, plataforma da Central IT. GDF e cliente.
+
+**Arquivos alterados (30):**
+
+| Grupo | Arquivos | Mudanca |
+|---|---|---|
+| HTML | index.html, portfolio.html, projetos/ficha.html | h1, header-meta, footer, document.title |
+| Skills (11) | COI-MESTRE a COI-RELEASE-MANAGER | linha 3: Projeto — identidade corrigida |
+| Governanca (14) | AGENTS, CHANGELOG, RELEASE_NOTES, ROADMAP, docs/*.md | subtitulo linha 3 |
+| Script | scripts/validar-funcional.js | comentario de cabecalho |
+
+**Regras aplicadas:**
+- Identidade institucional ativa: corrigida
+- Nomes proprios de projetos (e-GDF, e-SIC): preservados
+- Referencias ao GDF como cliente, ambiente, contrato: preservadas
+- Historico no corpo do CHANGELOG: preservado
+- manual_governanca.md (legado): nao tocado
+- dados/projetos.js: nao alterado
 
 ---
 
@@ -349,43 +374,4 @@ Commit: `5352e83 fase-4a: adicionar campos executivos na ficha do projeto`
 - Reescrito com cards dinâmicos gerados de `COI_DATA`
 - Alertas dinâmicos (projetos atrasados, em risco)
 - Gráficos Chart.js 4.4.1 (CDN) com fallback `.chart-fallback`
-- XSS: substituição de `innerHTML` por `createElement`/`textContent`
-
-**portfolio.html**
-- Dados 100% dinâmicos via `COI_DATA`
-- CSS externalizado para `assets/style.css`
-- Modal de novo projeto salva via `coiSalvarProjeto()`
-- XSS: `td()` helper reescrito com `createElement`
-
-**fichas COI-001 a COI-008**
-- CSS externalizado para `assets/style.css`
-- Persistência via `localStorage` (atividades, marcos, riscos, pendências)
-- Funções `coiSalvarSecaoFicha` / `coiCarregarSecaoFicha` em `dados/projetos.js`
-
-**dados/projetos.js**
-- Fonte única de verdade: `const COI_DATA = { meta, projetos: [...] }`
-- IIFE `aplicarOverridesLocalStorage()` aplica overrides na inicialização
-- Funções exportadas: `coiSalvarProjeto`, `coiSalvarSecaoFicha`, `coiCarregarSecaoFicha`
-
-**assets/style.css**
-- Design system com CSS custom properties
-- Classes adicionadas: `.perc-circle`, `.perc-inner`, `.perc-val`, `.perc-label`, `.field-val.edit`
-
-### Débitos técnicos
-
-- `index.html` — dead code `sanitize()` removido
-- `portfolio.html` — ramo `isHTML=true` do helper `td()` removido
-- Fichas — `emptyRow()` convertido de `innerHTML` para `createElement` (XSS)
-- Fichas — campo percentual com clamp `Math.min(100, Math.max(0, ...))`
-- Fichas — badge P1 padronizado para `badge-amarelo` (alinhado ao portfólio)
-
----
-
-## v1.0 — Baseline (2026-06-07)
-
-Versão inicial gerada com estrutura estática:
-- `index.html` — dashboard executivo (dados hardcoded)
-- `portfolio.html` — portfólio de projetos (dados hardcoded)
-- `projetos/ficha_COI001.html` até `ficha_COI008.html` — fichas individuais (dados hardcoded)
-- `dados/coi_base_dados.xlsx` — base de dados Excel
-- `docs/manual_governanca.md` — manual de governança do COI
+- XSS: substituição de `innerHTML` por `createElement`/`textConte

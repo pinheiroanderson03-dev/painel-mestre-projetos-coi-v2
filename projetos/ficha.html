@@ -14,10 +14,10 @@
     <div class="logo-box">COI</div>
     <div class="header-title">
       <h1 id="hdr-titulo">Ficha do Projeto</h1>
-      <p>Ficha Individual do Projeto · Centro de Operações Integradas</p>
+      <p>Ficha Individual do Projeto · Comunicação Omnichannel Inteligente</p>
     </div>
   </div>
-  <div class="header-meta"><strong id="data-atual"></strong>Governo do Distrito Federal</div>
+  <div class="header-meta"><strong id="data-atual"></strong>Central IT</div>
 </header>
 
 <nav id="nav-principal">
@@ -308,7 +308,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer id="rodape">COI — Centro de Operações Integradas · Governo do Distrito Federal · Painel Mestre v1.4.1</footer>
+<footer id="rodape">COI — Comunicação Omnichannel Inteligente · Central IT · Painel Mestre v1.4.1</footer>
 
 <script>
 // ─── ID do projeto via hash da URL ────────────────────────────────────
@@ -432,7 +432,7 @@ function renderHero(p) {
   document.getElementById('hdr-titulo').textContent = p.id + ' — ' + p.nome;
   document.title = 'COI — ' + p.id + ': ' + p.nome;
   document.getElementById('rodape').textContent =
-    'COI — Centro de Operações Integradas · Governo do Distrito Federal · Ficha ' + p.id + ' · Painel Mestre v1.4.1';
+    'COI — Comunicação Omnichannel Inteligente · Central IT · Ficha ' + p.id + ' · Painel Mestre v1.4.1';
   document.getElementById('hero-id-line').textContent =
     p.id + ' · Atualizado em ' + (p.atualizadoEm || new Date().toLocaleDateString('pt-BR'));
   document.getElementById('hero-nome').textContent = p.nome;

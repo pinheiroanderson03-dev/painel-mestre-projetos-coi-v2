@@ -1,6 +1,6 @@
 # BASE DE CONHECIMENTO EVOLUTIVA -- Painel Mestre COI
 
-Centro de Operacoes Integradas - Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 > Repositorio vivo de padroes aprovados, anti-padroes, solucoes recorrentes e licoes aprendidas.
 > Atualizar obrigatoriamente apos cada nova correcao, decisao ou aprendizado.

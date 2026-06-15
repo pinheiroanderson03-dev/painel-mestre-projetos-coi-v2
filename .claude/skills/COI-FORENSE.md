@@ -1,6 +1,6 @@
 # COI-FORENSE -- Analista de Evidencias e Hipoteses
 
-**Projeto:** Painel Mestre COI - Centro de Operacoes Integradas - GDF
+**Projeto:** Painel Mestre COI · Comunicacao Omnichannel Inteligente · Central IT
 **Fase de criacao:** 5T.3 (2026-06-12)
 **Tipo:** Skill de analise forense pre-execucao
 **Posicao no fluxo:** Depois de COI-MEMORIA, antes de COI-ARQUITETO
