@@ -8,7 +8,7 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
-Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5B.1 — Modelagem Operacional Inicial
+Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5B.1.1 — Consolidacao de Memoria e Aprendizado
 
 ---
 
@@ -18,7 +18,7 @@ Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5B.1 — Modelag
 |---|---|
 | Versao atual | v1.4.1 |
 | Branch principal | main |
-| Ultima tag estavel | v1.4.1-refinamentos-funcionais |
+| Ultima tag estavel | v1.4.1-modelagem-operacional-inicial |
 | Branch protegida (nunca tocar) | publicacao-demandas-central-df |
 
 ---
@@ -47,12 +47,14 @@ Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5B.1 — Modelag
 | Fase 5T.5 | v1.4.1 | Correcao de Identidade Institucional — COI = Comunicacao Omnichannel Inteligente / Central IT; 30 arquivos corrigidos (HTML, skills, docs, script) — Concluida |
 | Fase 5B.0 | v1.4.1 | Auditoria Funcional — veredito NAO; painel sem representacao operacional real — Concluida |
 | Fase 5B.1 | v1.4.1 | Modelagem Operacional Inicial — 5 registros COI-009 a COI-013; novos tipoItem; aba Demandas ativa; psProj/ps separados — Concluida |
+| Fase 5B.1.1 | v1.4.1 | Consolidacao de Memoria e Aprendizado — E-008, A-008/A-009, PA-011 a PA-013, AP-011, DAR-011; 5 docs atualizados — Concluida |
 
 ---
 
 ## Fase em Execucao
 
-Fase 5B.1 concluida em 2026-06-15. Aguardando commit e aprovacao do Anderson.
+Fase 5B.1.1 concluida em 2026-06-15. Documentacao de memoria e aprendizado registrada.
+Aguardando commit e aprovacao do Anderson para fechar 5B.1 + 5B.1.1.
 Proxima fase: Fase 5B.2 — Evolucao do Painel (fichas operacionais, filtros de tipoItem, exibicao de campos novos na ficha universal).
 
 ---
@@ -70,7 +72,8 @@ Proxima fase: Fase 5B.2 — Evolucao do Painel (fichas operacionais, filtros de 
 
 ## Proxima Acao Prevista
 
-Fase 5B.1 concluida (2026-06-15). 5 registros operacionais inseridos (COI-009 a COI-013).
+Fases 5B.1 + 5B.1.1 concluidas em 2026-06-15.
+5 registros operacionais inseridos (COI-009 a COI-013). Memoria e aprendizados da modelagem multi-tipo registrados.
 Painel representa agora: Projetos Estrategicos (COI-001 a COI-008) + Demandas + Incidentes + Licencas + Atividades Operacionais + Entregas Contratuais.
 Aguardando commit e aprovacao do Anderson.
 Proxima fase sugerida: Fase 5B.2 — Evolucao do Painel (ficha.html + filtros tipoItem).

@@ -133,12 +133,27 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+### DAR-011 -- Estrutura unificada `COI_DATA.projetos[]` com campo `tipoItem` para multi-tipo
+
+**Status:** ATIVA
+**Fase:** 5B.1
+**Decisao:** Manter um unico array `COI_DATA.projetos[]` para todos os tipos de item (projetos estrategicos, demandas, incidentes, licencas, atividades operacionais, entregas contratuais), diferenciando-os pelo campo `tipoItem`. Nao criar arrays separados (ex.: `COI_DATA.demandas[]`, `COI_DATA.incidentes[]`).
+**Contexto:** Durante a auditoria Fase 5B.0, identificou-se que o painel estava focado exclusivamente em projetos estrategicos, sem representacao da operacao real da Central IT. A opcao era: (A) criar arrays separados por tipo — exigiria refatorar todas as funcoes de renderizacao; (B) usar campo `tipoItem` no array existente — compativel com todas as funcoes existentes, sem quebra retroativa.
+**Alternativas consideradas:**
+- Arrays separados `COI_DATA.demandas[]`, `COI_DATA.incidentes[]` (descartado por impacto de refatoracao e risco de quebra de funcoes existentes como `renderProjetos`, `buildAlertas`, `buildGraficos`)
+- Endpoint externo / JSON por tipo (descartado por DAR-001 — painel estatico)
+**Impacto:** `dados/projetos.js` aceita qualquer `tipoItem` novo sem alteracao estrutural. Funcoes HTML filtram via `tipoItem` antes de renderizar. Campo omitido ou `'Projeto'` e tratado como projeto estrategico (retrocompatibilidade total).
+**Restricao derivada:** Novos registros operacionais DEVEM incluir `tipoItem` explicito. Registros sem `tipoItem` sao tratados como projetos estrategicos (comportamento padrao).
+
+---
+
 ## Historico de Atualizacoes
 
 | Data | Fase | Atualizacao |
 |---|---|---|
 | 2026-06-12 | 5T.3 | Documento criado -- DAR-001 a DAR-010 |
+| 2026-06-15 | 5B.1.1 | DAR-011 -- Estrutura unificada projetos[] com tipoItem para multi-tipo |
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Criacao do documento*
+*Ultima atualizacao: 2026-06-15 - Fase 5B.1.1 - DAR-011 (estrutura unificada com tipoItem)*
