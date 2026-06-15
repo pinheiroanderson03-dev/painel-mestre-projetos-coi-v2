@@ -8,7 +8,7 @@ Centro de Operacoes Integradas · Governo do Distrito Federal
 
 ---
 
-Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.3 — Aprendizado continuo e validacao forense
+Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5T.4 — Enforcement operacional do COI-MESTRE
 
 ---
 
@@ -43,12 +43,13 @@ Atualizado em: 2026-06-12 · Responsavel pela atualizacao: Fase 5T.3 — Aprendi
 | Fase 5T.2 | v1.4.1 | Skills Operacionais Claude — 7 skills em .claude/skills/, 10 docs atualizados — Concluida |
 | Fase 5T.2-fix | v1.4.1 | Correcao truncamento validar-funcional.js + fechamento documental (E-007) — Concluida |
 | Fase 5T.3 | v1.4.1 | Aprendizado continuo e validacao forense — 4 skills novas, 2 docs novos, framework 11 skills — Concluida |
+| Fase 5T.4 | v1.4.1 | Enforcement operacional do COI-MESTRE — COI-MESTRE como unica porta de entrada obrigatoria em CLAUDE.md, AGENTS.md, CHECKLIST, PROTOCOLO — Concluida |
 
 ---
 
 ## Fase em Execucao
 
-Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas dos Projetos.
+Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas dos Projetos. (Fase 5T.4 concluida em 2026-06-15 — aguardando commit do Anderson)
 
 ---
 
@@ -64,7 +65,8 @@ Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas do
 
 ## Proxima Acao Prevista
 
-Fase 5T.2 concluida e mergeada. Aplicando correcao de truncamento em scripts/validar-funcional.js.
+Fase 5T.4 concluida (2026-06-15). COI-MESTRE declarado como unica porta de entrada obrigatoria.
+Aguardando commit e aprovacao do Anderson para fechar a fase.
 Proxima fase: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
@@ -92,7 +94,10 @@ Proxima fase: Fase 5B — Evolucao das Fichas dos Projetos.
 | `scripts/validar-projeto.ps1` | Validacao geral pre-commit — ASCII puro |
 | `docs/ESTADO_ATUAL_DO_PROJETO.md` | Este arquivo — atualizado em Fase 5T.1 |
 | `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Documento estrutural — atualizado em Fase 5T.1 |
-| `AGENTS.md` | Regras e papeis dos agentes — atualizado ate Fase 4D.5 |
+| `AGENTS.md` | Regras e papeis dos agentes — COI-MESTRE como primeira leitura obrigatoria (Fase 5T.4) |
+| `CLAUDE.md` | Regra de Entrada Obrigatoria (Fase 5T.4) — COI-MESTRE como unica porta de entrada; protocolo paralelo removido |
+| `docs/CHECKLIST_EXECUCAO_AGENTES.md` | PASSO 0 obrigatorio (Fase 5T.4) — COI-MESTRE; proibicao de entrada direta por skills especializadas |
+| `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` | Passo -1 ACIONAR COI-MESTRE (Fase 5T.4) — regra obrigatoria antes do fluxo padrao |
 | `docs/PLANO_ROLLBACK_SEGURO.md` | Procedimentos de rollback por tipo — Fase 4D.5 |
 | `docs/MATRIZ_CONTINGENCIA.md` | 13 tipos de incidente classificados — Fase 4D.5 |
 
@@ -129,4 +134,4 @@ Proxima fase: Fase 5B — Evolucao das Fichas dos Projetos.
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Framework 11 skills + BASE_DE_CONHECIMENTO + DECISOES_ARQUITETURAIS*
+*Ultima atualizacao: 2026-06-15 - Fase 5T.4 - COI-MESTRE como porta de entrada obrigatoria; enforcement operacional em 4 documentos*

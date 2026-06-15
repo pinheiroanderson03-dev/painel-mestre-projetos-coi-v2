@@ -7,14 +7,16 @@ Para detalhes de cada item, consultar AGENTS.md e PROTOCOLO_OPERACIONAL_AGENTES.
 
 ## 1. Antes de Iniciar
 
+- [ ] **PASSO 0 -- OBRIGATORIO (Fase 5T.4):** Acionar `.claude/skills/COI-MESTRE.md` como unica porta de entrada antes de qualquer acao tecnica.
+- [ ] **PROIBIDO iniciar diretamente por:** COI-EXECUTOR, COI-TESTES, COI-QA, COI-AUDITOR, COI-GOVERNANCA ou COI-RELEASE-MANAGER.
+- [ ] **Fluxo pre-planejamento obrigatorio:** COI-MEMORIA -> COI-FORENSE -> COI-LEARNINGS -> COI-ARQUITETO (nesta ordem, antes de qualquer execucao).
 - [ ] Consultar `docs/ESTADO_ATUAL_DO_PROJETO.md` — versao, branch, tag, fases concluidas, proxima acao
 - [ ] Consultar `docs/MEMORIA_OPERACIONAL_PROJETO.md` — regras rapidas, scripts, estrutura de arquivos
 - [ ] Confirmar branch atual com `.\scripts\status-seguro.ps1`
 - [ ] Confirmar que NAO esta na branch `publicacao-demandas-central-df`
-- [ ] Confirmar escopo da fase: objetivo, entregaveis, restricoes
-- [ ] Para qualquer fase com alteracoes: acionar COI-MESTRE (`.claude/skills/COI-MESTRE.md`) como unica porta de entrada -- fluxo de 10 skills (Fase 5T.3)
 - [ ] COI-FORENSE: confirmar estado real do repositorio antes de planejar
 - [ ] COI-LEARNINGS: consultar `docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md` e `docs/DECISOES_ARQUITETURAIS_COI.md` antes de executar
+- [ ] Confirmar escopo da fase: objetivo, entregaveis, restricoes
 - [ ] Listar arquivos que serao alterados
 - [ ] Listar arquivos que NAO serao alterados
 - [ ] Confirmar que Anderson autorizou o escopo antes de comecar
@@ -102,4 +104,4 @@ Ao entregar qualquer fase ou etapa com alteracoes, Claude deve incluir:
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Fluxo de 10 skills, COI-TESTES, COI-AUDITOR, base evolutiva*
+*Ultima atualizacao: 2026-06-12 - Fase 5T.4 - COI-MESTRE como passo 0 obrigatorio; proibicao de entrada direta por skills especializadas*
