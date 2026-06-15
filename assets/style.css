@@ -163,6 +163,14 @@ tr:last-child td { border-bottom: none; }
 .badge-roxo    { background: #F3E5F5; color: #6A1B9A; }
 .badge-laranja { background: #FFF3E0; color: #E65100; }
 
+/* ─── Fase 5B.1 — Badges tipoItem operacional ──────────────────────── */
+.badge-tipo-demanda              { background: #E3F2FD; color: #1565C0; }
+.badge-tipo-incidente            { background: #FFEBEE; color: #C62828; }
+.badge-tipo-melhoria             { background: #F3E5F5; color: #6A1B9A; }
+.badge-tipo-licen-a-contrato     { background: #FFF3E0; color: #E65100; }
+.badge-tipo-atividade-operacional{ background: #E8F5E9; color: #2E7D32; }
+.badge-tipo-entrega-contratual   { background: #E8EAF6; color: #283593; }
+
 /* ─── PROGRESS BAR ─────────────────────────────────────────────────── */
 .progress-bar  { background: #EEF1F8; border-radius: 10px; height: 7px; overflow: hidden; min-width: 70px; }
 .progress-fill { height: 100%; border-radius: 10px; transition: width .4s; }

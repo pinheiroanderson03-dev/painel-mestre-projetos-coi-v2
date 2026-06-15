@@ -4,6 +4,55 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Fase 5B.1: Modelagem Operacional Inicial (2026-06-15)
+
+**Branch:** `fase-5b-1-modelagem-operacional`
+
+**Objetivo:** Transformar o painel de vitrine de projetos estratégicos em instrumento de gestão operacional completa do contrato Central IT, conforme veredito da Fase 5B.0.
+
+**Novos registros em dados/projetos.js (COI-009 a COI-013):**
+
+| ID | Nome | tipoItem | Status |
+|---|---|---|---|
+| COI-009 | Renovação de Licença AIOps | Licença/Contrato | Em andamento |
+| COI-010 | Recarga Emergencial Gupshup — Ticket 511151 | Demanda | Concluído |
+| COI-011 | Incidente Nuvidio — Validação e Reclassificação | Incidente | Concluído |
+| COI-012 | Atividade Operacional — Monitoramento AIOps AURA 156 | Atividade Operacional | Concluído |
+| COI-013 | MDS — Sistema Formulário de Ouvidoria | Entrega Contratual | Em andamento |
+
+**Novos campos adicionados ao schema:**
+`solicitante`, `dataSolicitacao`, `prazoResolucao`, `dataResolucao`, `categoriaOperacional`, `origem`, `observacoesOperacionais`
+
+**Alterações em index.html:**
+- Separação `psProj` (tipoItem='Projeto') × `ps` (todos os itens) — cards de projetos não são mais afetados por novos tipos operacionais
+- `nDemandas` agora conta todos os itens operacionais não-Concluídos (Demanda + Incidente + Licença/Contrato + etc.)
+- Gráficos (status, prioridade, classificação, evolução) filtrados para `psProj` apenas
+- Alertas (críticos, atenção, P0, prazo) filtrados para `psProj` apenas
+
+**Alterações em portfolio.html:**
+- `aplicarFiltros()` filtrada para exibir apenas `tipoItem === 'Projeto'` na aba Projetos
+- `renderProjetos()` inicializado com filtro `tipoItem === 'Projeto'`
+- Aba Demandas ativada com `renderDemandas()` dinâmica: lista todos os itens operacionais não-Projeto com busca por texto
+- `tbody-demandas` e `busca-demanda` adicionados ao HTML da aba
+
+**Alterações em assets/style.css:**
+- 6 novos badges: `.badge-tipo-demanda`, `.badge-tipo-incidente`, `.badge-tipo-melhoria`, `.badge-tipo-licen-a-contrato`, `.badge-tipo-atividade-operacional`, `.badge-tipo-entrega-contratual`
+
+**Alterações em scripts/validar-funcional.js:**
+- 14 novas asserções: IDs COI-009 a COI-013, todos os novos tipoItem, campos categoriaOperacional/solicitante/observacoesOperacionais, renderDemandas(), tbody-demandas, psProj
+
+**Resultado do validador:** 55 PASS | 0 FAIL | 0 AVISO
+
+---
+
+## v1.4.1 — Fase 5B.0: Auditoria Funcional (2026-06-15)
+
+**Branch:** (diagnóstico — sem alteração de código)
+
+**Veredito:** NÃO — o painel, em sua versão v1.4.1 anterior à Fase 5B.1, não atendia ao objetivo real de gestão completa do contrato. Todos os 8 projetos tinham `tipoItem: 'Projeto'`; demandas, incidentes, licenças e atividades operacionais reais do mês de Maio/2026 não eram rastreáveis no painel.
+
+---
+
 ## v1.4.1 — Fase 5T.5: Correção de Identidade Institucional (2026-06-15)
 
 **Branch:** `fase-5t-5-correcao-identidade-institucional`

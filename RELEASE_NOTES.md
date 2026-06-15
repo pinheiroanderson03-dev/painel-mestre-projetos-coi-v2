@@ -4,6 +4,37 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Modelagem Operacional Inicial (Fase 5B.1)
+**Data:** 2026-06-15
+
+### O que mudou
+
+O painel passou a representar a operação real do contrato Central IT — não apenas projetos estratégicos.
+
+**Novos registros:**
+- **COI-009** — Renovação de Licença AIOps (`Licença/Contrato`, Em andamento)
+- **COI-010** — Recarga Emergencial Gupshup — Ticket 511151 (`Demanda`, Concluído)
+- **COI-011** — Incidente Nuvidio — Validação e Reclassificação (`Incidente`, Concluído)
+- **COI-012** — Atividade Operacional — Monitoramento AIOps AURA 156 (`Atividade Operacional`, Concluído)
+- **COI-013** — MDS — Sistema Formulário de Ouvidoria (`Entrega Contratual`, Em andamento)
+
+**Dashboard (index.html):**
+- Cards de projetos estratégicos não são mais distorcidos por itens operacionais (separação `psProj`/`ps`)
+- Card "Demandas em Aberto" retorna 2 (COI-009 + COI-013 — itens operacionais ativos)
+- Gráficos e alertas filtrados para projetos apenas
+
+**Portfólio (portfolio.html):**
+- Aba "Projetos" exibe somente tipoItem='Projeto' (8 itens)
+- Aba "Demandas" ativa: lista os 5 novos registros operacionais com busca dinâmica
+
+**Validação:** 55 PASS | 0 FAIL | 0 AVISO
+
+### O que não muda
+
+Os 8 projetos estratégicos existentes (COI-001 a COI-008) não foram alterados. Toda a lógica e estrutura anterior do painel é preservada.
+
+---
+
 ## v1.4.1 — Correção de Identidade Institucional (Fase 5T.5)
 **Data:** 2026-06-15
 
