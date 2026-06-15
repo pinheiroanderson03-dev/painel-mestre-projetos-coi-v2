@@ -33,6 +33,9 @@ Solucoes validadas e recomendadas para uso no projeto.
 | PA-008 | Commits atomicos por melhoria | Historico de commits | Nunca acumular mais de uma fase sem commit |
 | PA-009 | Read tool (Windows) prevalece sobre sandbox | Conflito sandbox x Windows | Em conflito de estado de arquivo, o Read tool e autoritativo |
 | PA-010 | Verificar com `node <script>` apos qualquer escrita | Qualquer escrita de .js | Executar imediatamente apos criar/editar para confirmar sintaxe |
+| PA-011 | Separacao `psProj`/`ps` para filtragem por tipoItem | `index.html` com itens multi-tipo | `psProj = ps.filter(p => !p.tipoItem \|\| p.tipoItem === 'Projeto')` para cards/graficos; `ps` completo para demandas |
+| PA-012 | Campo `tipoItem` para diferenciar tipos de item em `COI_DATA.projetos[]` | Modelagem operacional | Valores: `'Projeto'`, `'Demanda'`, `'Incidente'`, `'Melhoria'`, `'Atividade Operacional'`, `'Entrega Contratual'`, `'Licenca/Contrato'` |
+| PA-013 | Python `rfind()` + concatenacao de bytes para reparo cirurgico de JS truncado | Arquivo .js truncado no meio do conteudo | Localizar byte de truncamento, concatenar conteudo ausente como UTF-8, verificar com `node --check` |
 
 ---
 
@@ -52,6 +55,7 @@ Abordagens proibidas ou que causaram problemas confirmados.
 | AP-008 | Alterar arquivo fora do escopo sem comunicar | Quebra de governanca e commits misturados | Parar e comunicar antes de agir |
 | AP-009 | `eval()` com dados externos | Vulnerabilidade de segurança critica | Nao usar eval() em nenhuma circunstancia |
 | AP-010 | Tocar `assets/js/chart.umd.min.js` | Biblioteca externa -- pode quebrar graficos | Arquivo PROIBIDO: nunca editar |
+| AP-011 | Usar ferramenta Edit para insercao de multiplos registros JS em bloco unico | Truncamento silencioso sem aviso de erro | Usar script Python com abertura binaria, localizacao de ponto de insercao e escrita atomica |
 
 ---
 
@@ -98,12 +102,44 @@ Abordagens proibidas ou que causaram problemas confirmados.
 
 ---
 
+---
+
+### Categoria: Modelagem Multi-Tipo em COI_DATA.projetos[]
+
+**Problema:** Precisar exibir projetos estrategicos e itens operacionais (demandas, incidentes, licencas) no mesmo painel sem distorcer os cards de indicadores
+**Solucao:**
+- Em `dados/projetos.js`: adicionar campo `tipoItem` a todos os registros operacionais (`'Demanda'`, `'Incidente'`, `'Licenca/Contrato'`, `'Atividade Operacional'`, `'Entrega Contratual'`). Registros de projeto estrategico omitem o campo ou usam `'Projeto'`.
+- Em `index.html`: separar `psProj = ps.filter(p => !p.tipoItem || p.tipoItem === 'Projeto')` de `ps`. Cards, graficos e alertas usam `psProj`. Card `nDemandas` conta `ps` completo.
+- Em `portfolio.html`: funcao `renderDemandas()` filtra `p.tipoItem && p.tipoItem !== 'Projeto'` e renderiza tabela dedicada. Aba Projetos usa `aplicarFiltros()` com filtro adicional por `tipoItem`.
+**Verificacao:** `psProj.length` deve ser igual ao numero de projetos estrategicos. `ps.length - psProj.length` deve ser igual ao numero de itens operacionais.
+**Referencia:** PA-011, PA-012, DAR-011
+
+---
+
+### Categoria: Reparo Cirurgico de Arquivo JS Truncado
+
+**Problema:** Arquivo .js truncado no meio do conteudo por ferramenta Edit, com bytes ausentes a partir de um ponto especifico
+**Solucao:**
+```python
+with open('dados/projetos.js', 'rb') as f:
+    content = f.read()
+idx = content.rfind(b'<string-unica-no-ponto-de-corte>')
+conteudo_ausente = b'<resto-do-conteudo>'
+with open('dados/projetos.js', 'wb') as f:
+    f.write(content[:idx] + conteudo_ausente)
+```
+**Verificacao:** `node --check dados/projetos.js` imediatamente apos. Confirmar tamanho final em bytes.
+**Referencia:** PA-013, E-008, A-009
+
+---
+
 ## Historico de Atualizacoes
 
 | Data | Fase | Atualizacao |
 |---|---|---|
 | 2026-06-12 | 5T.3 | Documento criado -- PA-001 a PA-010, AP-001 a AP-010, 5 categorias de solucoes |
+| 2026-06-15 | 5B.1.1 | PA-011 a PA-013, AP-011, 2 novas categorias (Modelagem Multi-Tipo, Reparo Cirurgico JS) |
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - Criacao do documento*
+*Ultima atualizacao: 2026-06-15 - Fase 5B.1.1 - PA-011 a PA-013, AP-011, categorias de modelagem multi-tipo e reparo JS*

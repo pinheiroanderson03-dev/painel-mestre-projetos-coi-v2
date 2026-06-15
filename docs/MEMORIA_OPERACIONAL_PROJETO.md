@@ -44,11 +44,29 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 5T.3 | Concluida | Framework 11 skills (COI-FORENSE, COI-LEARNINGS, COI-TESTES, COI-AUDITOR), 2 novos docs |
 | Fase 5T.4 | Concluida | Enforcement operacional — COI-MESTRE como porta de entrada obrigatoria; 4 docs atualizados |
 | Fase 5T.5 | Concluida | Correcao de Identidade Institucional — COI = Comunicacao Omnichannel Inteligente / Central IT; 30 arquivos corrigidos |
-| Fase 5B | Planejada | Evolucao das Fichas dos Projetos |
+| Fase 5B.0 | Concluida | Auditoria Funcional — veredito NAO; painel sem representacao operacional real |
+| Fase 5B.1 | Concluida | Modelagem Operacional Inicial — 5 registros COI-009 a COI-013; novos tipoItem; aba Demandas ativa; psProj/ps separados |
+| Fase 5B.1.1 | Concluida | Consolidacao de Memoria e Aprendizado — E-008, A-008/A-009, PA-011 a PA-013, AP-011, DAR-011 registrados |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
 | Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
 
 Branch de publicacao protegida: `publicacao-demandas-central-df` — NUNCA TOCAR.
+
+### Modelagem Operacional (apos Fase 5B.1)
+
+O painel passou a representar dois grupos de itens em `COI_DATA.projetos[]`:
+
+**Projetos Estrategicos** (campo `tipoItem` omitido ou `'Projeto'`):
+- COI-001 a COI-008
+
+**Itens Operacionais** (campo `tipoItem` explicito):
+- `'Demanda'` — COI-010 (Recarga Gupshup)
+- `'Incidente'` — COI-011 (Incidente Nuvidio)
+- `'Licenca/Contrato'` — COI-009 (Licenca AIOps)
+- `'Atividade Operacional'` — COI-012 (Monitoramento AIOps AURA 156)
+- `'Entrega Contratual'` — COI-013 (MDS Formulario Ouvidoria)
+
+Campos adicionais em registros operacionais: `solicitante`, `dataSolicitacao`, `prazoResolucao`, `dataResolucao`, `categoriaOperacional`, `origem`, `observacoesOperacionais`.
 
 ---
 
@@ -77,7 +95,7 @@ Branch de publicacao protegida: `publicacao-demandas-central-df` — NUNCA TOCAR
 | `.\scripts\validar-projeto.ps1` | Validacao geral antes de qualquer commit ou push | Windows / PowerShell |
 | `node scripts/validar-funcional.js` | Apos alterar HTML, CSS ou JS funcional | Qualquer SO (Node.js) |
 
-O script `validar-funcional.js` foi criado na Fase 5T.1. Executa 40 asserts: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3 e padroes proibidos. Retorna exit code 0 (sem erros) ou 1 (ha erros).
+O script `validar-funcional.js` foi criado na Fase 5T.1 e expandido na Fase 5B.1. Executa 55 asserts: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3, padroes proibidos e modelagem operacional (Secao 6 — 14 novos asserts). Retorna exit code 0 (sem erros) ou 1 (ha erros).
 
 Executar sempre a partir da raiz do projeto.
 

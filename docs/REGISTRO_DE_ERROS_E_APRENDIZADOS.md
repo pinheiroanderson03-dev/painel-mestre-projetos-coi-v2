@@ -110,6 +110,18 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+### E-008 — Truncamento silencioso de arquivos .js pela ferramenta Edit em insercao de multiplos registros
+
+**Fase:** v1.4.1 / Fase 5B.1 — Modelagem Operacional Inicial
+**Quando ocorreu:** Insercao dos registros operacionais COI-009 a COI-013 em `dados/projetos.js`
+**O que aconteceu:** A ferramenta Edit truncou silenciosamente o arquivo ao inserir bloco grande (5 registros JS em uma unica operacao). O arquivo encerrou no meio do campo `tipoItem: "Dema` (byte ~16920 de 16941). A ferramenta nao reportou erro — entregou como se tivesse concluido com sucesso.
+**Causa raiz:** A ferramenta Edit tem limite de payload similar ao da ferramenta Write para operacoes grandes. Insercoes de conteudo acima do limite causam truncamento sem aviso.
+**Impacto:** `dados/projetos.js` ficou com sintaxe invalida (SyntaxError: Unexpected end of input). Os registros COI-010 a COI-013 foram perdidos ate a correcao via Python.
+**Como foi resolvido:** Script Python para: (1) localizar o ponto de truncamento com `content.rfind(b'tipoItem: "Dema')`; (2) concatenar o conteudo ausente (restante de COI-010 + COI-011 a COI-013 + fechamento do arquivo); (3) escrever o arquivo corrigido (25863 bytes); (4) verificar com `node --check dados/projetos.js` -> SYNTAX OK.
+**Regra adotada:** Para insercoes de multiplos registros JS em `dados/projetos.js`, preferir script Python que abre o arquivo, localiza o ponto de insercao e escreve o conteudo completo em uma unica operacao. Nunca confiar que Edit reportou sucesso sem verificar com `node --check` imediatamente apos.
+
+---
+
 ## Aprendizados Positivos (padrões que funcionaram bem)
 
 ### A-001 — Separação `em-controls` / `em-content`
@@ -149,4 +161,16 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
-*Ultima atualizacao: 2026-06-12 - Fase 5T.3 - A-007 framework forense e aprendizado continuo (4 novas skills)*
+### A-008 — Separacao psProj/ps para modelagem multi-tipo no painel
+**Fase:** v1.4.1 / Fase 5B.1 — Modelagem Operacional Inicial
+**Contexto:** Insercao de itens operacionais (Demanda, Incidente, Licenca/Contrato, Atividade Operacional, Entrega Contratual) em `COI_DATA.projetos[]`
+**O que funcionou:** Separar `psProj = ps.filter(p => !p.tipoItem || p.tipoItem === 'Projeto')` de `ps` (todos os itens) em `index.html` permitiu que os cards, graficos e alertas do dashboard continuassem exibindo apenas projetos estrategicos, enquanto o card `nDemandas` passou a contar todos os itens operacionais nao-concluidos. A aba Demandas em `portfolio.html` passou a ser populada dinamicamente pela funcao `renderDemandas()`, que filtra `p.tipoItem && p.tipoItem !== 'Projeto'`. O padrao e extensivel: qualquer novo tipoItem futuro e automaticamente incluido nos filtros sem alterar logica central.
+
+### A-009 — Python como ferramenta de reparo cirurgico de arquivos JS truncados
+**Fase:** v1.4.1 / Fase 5B.1 — Modelagem Operacional Inicial
+**Contexto:** Reparo de `dados/projetos.js` truncado pela ferramenta Edit
+**O que funcionou:** Script Python de 10 linhas para: (1) ler o arquivo como bytes; (2) localizar o byte exato de truncamento com `rfind()`; (3) concatenar o conteudo ausente como bytes UTF-8; (4) escrever o arquivo reparado. Mais preciso e seguro do que bash heredoc para arquivos que ja existem parcialmente e precisam ser completados, nao reescritos do zero.
+
+---
+
+*Ultima atualizacao: 2026-06-15 - Fase 5B.1.1 - E-008 (truncamento Edit), A-008 (psProj/ps), A-009 (Python reparo cirurgico)*
