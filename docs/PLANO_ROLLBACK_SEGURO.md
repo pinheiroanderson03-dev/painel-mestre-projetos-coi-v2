@@ -1,6 +1,6 @@
 # PLANO DE ROLLBACK SEGURO — Painel Mestre COI
 
-Centro de Operacoes Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 > Rollback e uma acao critica e irreversivel em alguns casos.
 > Claude nao pode executar rollback sem autorizacao explícita do Anderson e validacao do ChatGPT.

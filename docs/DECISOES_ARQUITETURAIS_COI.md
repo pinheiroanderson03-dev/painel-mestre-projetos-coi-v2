@@ -1,6 +1,6 @@
 # DECISOES ARQUITETURAIS COI -- Painel Mestre COI
 
-Centro de Operacoes Integradas - Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 > Registro formal de decisoes arquiteturais relevantes tomadas durante o desenvolvimento.
 > Cada decisao tem contexto, alternativas consideradas, razao da escolha e impacto.

@@ -1,6 +1,6 @@
 # REGISTRO DE ERROS E APRENDIZADOS — Painel Mestre COI
 
-Centro de Operações Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 > Este documento registra erros ocorridos durante o desenvolvimento, a causa raiz identificada e a regra ou padrão adotado para evitar repetição. Deve ser atualizado ao final de cada fase ou quando um erro relevante for identificado.
 

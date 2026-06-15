@@ -1,12 +1,12 @@
 # ROADMAP — Painel Mestre COI
 
-Centro de Operações Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
 ## Visão Estratégica
 
-O Painel Mestre COI é a ferramenta central de gestão visual dos projetos estratégicos do Centro de Operações Integradas. Seu objetivo é fornecer rastreabilidade, transparência e agilidade na tomada de decisão, operando 100% em modo estático (sem servidor, sem banco de dados) e compatível com ambientes restritos de rede.
+O Painel Mestre COI é a ferramenta central de gestão visual dos projetos estratégicos do COI — Comunicação Omnichannel Inteligente. Seu objetivo é fornecer rastreabilidade, transparência e agilidade na tomada de decisão, operando 100% em modo estático (sem servidor, sem banco de dados) e compatível com ambientes restritos de rede.
 
 ---
 
@@ -111,6 +111,23 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 | 10 documentos de governanca | Atualizados | AGENTS, CLAUDE, PROTOCOLO, AGENTES_CHATGPT, CHECKLIST, ESTADO_ATUAL, MEMORIA, CHANGELOG, RELEASE_NOTES, ROADMAP |
 
 **Branch:** `fase-5t-1-infraestrutura-qualidade-validacao`
+
+---
+
+### ✅ v1.4.1 — Fase 5T.5: Correcao de Identidade Institucional (concluida — 2026-06-15)
+
+**Objetivo:** Corrigir a identidade institucional ativa do COI em todos os arquivos do projeto, padronizando para COI = Comunicacao Omnichannel Inteligente / Central IT.
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `index.html` | CORRIGIDO | h1, header-meta, meta description, footer |
+| `portfolio.html` | CORRIGIDO | h1, header-meta, footer |
+| `projetos/ficha.html` | CORRIGIDO | subtitulo, header-meta, footer, document.title JS |
+| `.claude/skills/*.md` (11) | CORRIGIDOS | linha 3 — Projeto: identidade padronizada |
+| 14 documentos de governanca | CORRIGIDOS | subtitulo linha 3 — identidade padronizada |
+| `scripts/validar-funcional.js` | CORRIGIDO | comentario de cabecalho |
+
+**Branch:** `fase-5t-5-correcao-identidade-institucional`
 
 ---
 
@@ -219,27 +236,4 @@ Escopo a definir com Anderson antes de iniciar.
 | Fonte única de verdade | `dados/projetos.js` | ✅ |
 | Funcional offline (sem CDN) | Chart.js local | ✅ |
 | Novos projetos sem arquivos físicos | Hash routing | ✅ |
-| Feedback de erros ao usuário | Toast + tela de erro | ✅ |
-| Diagnóstico de falhas | Log localStorage | ✅ |
-| Tratamento de quota localStorage | QuotaExceededError | ✅ |
-| Dead code zero | Auditoria contínua | ✅ |
-
----
-
-## Débitos Técnicos em Aberto
-
-| ID | Descrição | Prioridade | Fase |
-|---|---|---|---|
-| ~~DT-01~~ | ~~Chart.js via CDN — dependência de rede para gráficos~~ | ~~P2~~ | ✅ Resolvido v1.3 |
-| DT-02 | `hashchange` com `location.reload()` — recarrega DOM inteiro | P3 | 3 |
-| DT-03 | `ficha_COI001–008.html` são redirects, não removidos | P3 | 4 |
-| DT-04 | Sem paginação em tabelas de atividades/riscos extensas | P3 | 4 |
-| DT-05 | Sem acessibilidade ARIA nas tabelas e modais | P2 | 4 |
-
----
-
-| DT-06 | Normalização CRLF/LF ausente — `git diff --check` gera ruído em todos os arquivos | P2 | Fase técnica futura (após 5B) |
-
----
-
-*Ultima atualizacao: 2026-06-12 - Versao: v1.4.1 - Ultima tag: v1.4.1-refinamentos-funcionais - 5T.3 concluida - Proxima: Fase 5B*
+| Feedback de erros ao usuário |

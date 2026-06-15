@@ -1,6 +1,6 @@
 # MATRIZ DE CONTINGENCIA — Painel Mestre COI
 
-Centro de Operacoes Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 > Este documento classifica incidentes no repositorio por severidade e define a acao recomendada,
 > quem aprova, qual evidencia e necessaria e se e obrigatorio validar com ChatGPT antes de agir.

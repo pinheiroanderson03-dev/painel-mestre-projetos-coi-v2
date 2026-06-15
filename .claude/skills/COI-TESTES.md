@@ -1,6 +1,6 @@
 # COI-TESTES -- Executor de Testes Funcionais e de Regressao
 
-**Projeto:** Painel Mestre COI - Centro de Operacoes Integradas - GDF
+**Projeto:** Painel Mestre COI · Comunicacao Omnichannel Inteligente · Central IT
 **Fase de criacao:** 5T.3 (2026-06-12)
 **Tipo:** Skill de testes pre-QA
 **Posicao no fluxo:** Depois de COI-EXECUTOR, antes de COI-AUDITOR

@@ -1,6 +1,6 @@
 # COI-GOVERNANCA — Guardiao Documental
 
-**Projeto:** Painel Mestre COI · Centro de Operacoes Integradas · GDF
+**Projeto:** Painel Mestre COI · Comunicacao Omnichannel Inteligente · Central IT
 **Fase de criacao:** 5T.2
 **Tipo:** Skill de documentacao e estado
 

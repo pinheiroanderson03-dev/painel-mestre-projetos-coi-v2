@@ -1,6 +1,6 @@
 # COI-MESTRE -- Orquestrador Principal
 
-**Projeto:** Painel Mestre COI - Centro de Operacoes Integradas - GDF
+**Projeto:** Painel Mestre COI · Comunicacao Omnichannel Inteligente · Central IT
 **Fase de criacao:** 5T.2
 **Atualizado em:** 5T.3 (2026-06-12) -- fluxo expandido para 10 skills
 **Tipo:** Skill de orquestracao

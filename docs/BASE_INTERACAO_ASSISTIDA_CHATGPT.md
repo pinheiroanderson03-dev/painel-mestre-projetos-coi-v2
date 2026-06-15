@@ -1,6 +1,6 @@
 # BASE DE INTERAÇÃO ASSISTIDA NO CHATGPT — Painel Mestre COI
 
-Centro de Operações Integradas · Governo do Distrito Federal
+Comunicação Omnichannel Inteligente · Central IT
 
 Este documento padroniza como Anderson interage com o ChatGPT no contexto do projeto COI, reduzindo perda de contexto, aumentando precisão nas respostas e facilitando a continuidade entre sessões.
 

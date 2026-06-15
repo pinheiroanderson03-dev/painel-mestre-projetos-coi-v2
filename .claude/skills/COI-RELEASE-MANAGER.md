@@ -1,6 +1,6 @@
 # COI-RELEASE-MANAGER — Preparador de Publicacao
 
-**Projeto:** Painel Mestre COI · Centro de Operacoes Integradas · GDF
+**Projeto:** Painel Mestre COI · Comunicacao Omnichannel Inteligente · Central IT
 **Fase de criacao:** 5T.2
 **Tipo:** Skill de preparacao de release
 
