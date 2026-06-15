@@ -180,9 +180,31 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 | Dados reais Maio/2026 | 9 atividades, 5 demandas, 8 principais ganhos e 6 próximos passos extraídos do painel anterior | `dados/projetos.js` | `8eaef98` |
 | Documentação v1.4.1 | ROADMAP, CHANGELOG e RELEASE_NOTES | `ROADMAP_COI.md` · `CHANGELOG.md` · `RELEASE_NOTES.md` | `c83031a` |
 
-### 🔄 v1.5 — Fase 5B: Evolução das Fichas dos Projetos (próxima fase — após 5T.1)
+### ✅ v1.4.1 — Fase 5B.0: Auditoria Funcional (concluída — 2026-06-15)
 
-**Objetivo:** Expandir as funcionalidades de edição e visualização das fichas de projeto.
+**Veredito:** NÃO — painel v1.4.1 representava apenas 8 projetos estratégicos; demandas, incidentes, licenças e atividades operacionais reais do mês de Maio/2026 não eram rastreáveis.
+
+---
+
+### ✅ v1.4.1 — Fase 5B.1: Modelagem Operacional Inicial (concluída — 2026-06-15)
+
+**Objetivo:** Transformar o painel em instrumento de gestão operacional completa — além de projetos estratégicos.
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `dados/projetos.js` | ALTERADO | 5 novos registros (COI-009 a COI-013); 7 novos campos operacionais; 5 novos tipoItem |
+| `index.html` | ALTERADO | Separacao psProj/ps; cards corretos; nDemandas conta todos os itens operacionais ativos |
+| `portfolio.html` | ALTERADO | Aba Projetos filtrada; aba Demandas dinamica com renderDemandas() |
+| `assets/style.css` | ALTERADO | 6 badges de tipoItem operacional |
+| `scripts/validar-funcional.js` | ALTERADO | 14 novas assertivas; 55 PASS total |
+
+**Branch:** `fase-5b-1-modelagem-operacional`
+
+---
+
+### 🔄 v1.5 — Fase 5B.2: Evolução do Painel para Registros Operacionais (próxima)
+
+**Objetivo:** Expandir a ficha.html para exibir campos operacionais dos novos tipos; adicionar filtro de tipoItem no portfólio; considerar cards de Incidentes e Licenças no dashboard.
 Escopo a definir com Anderson antes de iniciar.
 
 ---

@@ -8,7 +8,7 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
-Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5T.5 — Correcao de Identidade Institucional
+Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5B.1 — Modelagem Operacional Inicial
 
 ---
 
@@ -45,12 +45,15 @@ Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5T.5 — Correca
 | Fase 5T.3 | v1.4.1 | Aprendizado continuo e validacao forense — 4 skills novas, 2 docs novos, framework 11 skills — Concluida |
 | Fase 5T.4 | v1.4.1 | Enforcement operacional do COI-MESTRE — COI-MESTRE como unica porta de entrada obrigatoria em CLAUDE.md, AGENTS.md, CHECKLIST, PROTOCOLO — Concluida |
 | Fase 5T.5 | v1.4.1 | Correcao de Identidade Institucional — COI = Comunicacao Omnichannel Inteligente / Central IT; 30 arquivos corrigidos (HTML, skills, docs, script) — Concluida |
+| Fase 5B.0 | v1.4.1 | Auditoria Funcional — veredito NAO; painel sem representacao operacional real — Concluida |
+| Fase 5B.1 | v1.4.1 | Modelagem Operacional Inicial — 5 registros COI-009 a COI-013; novos tipoItem; aba Demandas ativa; psProj/ps separados — Concluida |
 
 ---
 
 ## Fase em Execucao
 
-Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas dos Projetos. (Fase 5T.5 concluida em 2026-06-15 — aguardando commit do Anderson)
+Fase 5B.1 concluida em 2026-06-15. Aguardando commit e aprovacao do Anderson.
+Proxima fase: Fase 5B.2 — Evolucao do Painel (fichas operacionais, filtros de tipoItem, exibicao de campos novos na ficha universal).
 
 ---
 
@@ -58,7 +61,8 @@ Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas do
 
 | Fase | Versao | Escopo |
 |---|---|---|
-| Fase 5B | v1.5 | Evolucao das Fichas dos Projetos |
+| Fase 5B.2 | v1.5 | Evolucao do Painel — ficha.html para novos campos, filtros por tipoItem no portfolio |
+| Fase 5B.3 | v1.5 | Indicadores operacionais — cards para Incidentes, Licencas, Atividades Operacionais |
 | Fase 4B | v1.5 | Edicao de fichas e exportacao de dados |
 | Fase 4C | v1.6 | Edicao orientada pelo GitHub e governanca de dados |
 
@@ -66,9 +70,10 @@ Nenhuma fase em execucao no momento. Proxima: Fase 5B — Evolucao das Fichas do
 
 ## Proxima Acao Prevista
 
-Fase 5T.5 concluida (2026-06-15). Identidade institucional corrigida: COI = Comunicacao Omnichannel Inteligente / Central IT em todos os arquivos ativos.
-Aguardando commit e aprovacao do Anderson para fechar a fase.
-Proxima fase: Fase 5B — Evolucao das Fichas dos Projetos.
+Fase 5B.1 concluida (2026-06-15). 5 registros operacionais inseridos (COI-009 a COI-013).
+Painel representa agora: Projetos Estrategicos (COI-001 a COI-008) + Demandas + Incidentes + Licencas + Atividades Operacionais + Entregas Contratuais.
+Aguardando commit e aprovacao do Anderson.
+Proxima fase sugerida: Fase 5B.2 — Evolucao do Painel (ficha.html + filtros tipoItem).
 
 ---
 
@@ -76,12 +81,14 @@ Proxima fase: Fase 5B — Evolucao das Fichas dos Projetos.
 
 | Arquivo | Estado |
 |---|---|
-| `dados/projetos.js` | meta.versao "1.4.1"; execucoesMensais[] com Maio/2026 (dados reais) e Junho/2026 |
+| `dados/projetos.js` | meta.versao "1.4.1"; 13 registros (COI-001 a COI-013); novos tipoItem: Demanda, Incidente, Licenca/Contrato, Atividade Operacional, Entrega Contratual |
 | `index.html` | v1.4.1; seletor de competencia; fallback robusto; clearEl; filtro P0 ativo |
 | `assets/style.css` | v1.4.1; namespace .em-*; .em-select com variaveis corretas |
-| `portfolio.html` | clearEl; filtro frente dinamico; footer v1.4.1 |
+| `portfolio.html` | Fase 5B.1 — aba Projetos filtrada por tipoItem='Projeto'; aba Demandas com renderDemandas() dinamica (COI-009 a COI-013) |
+| `index.html` | Fase 5B.1 — psProj/ps separados; cards projetos usam psProj; nDemandas conta todos os nao-Projeto nao-Concluidos |
+| `assets/style.css` | Fase 5B.1 — badges tipoItem: .badge-tipo-demanda, -incidente, -melhoria, -licen-a-contrato, -atividade-operacional, -entrega-contratual |
 | `projetos/ficha.html` | clearEl; salvarEdicao permite limpar campos; footer v1.4.1 |
-| `scripts/validar-funcional.js` | Fase 5T.1 — validador Node.js multiplataforma, 40 asserts, exit 0/1 |
+| `scripts/validar-funcional.js` | Fase 5B.1 — 55 asserts (14 novos para modelagem operacional), exit 0/1 |
 | `.claude/skills/COI-MESTRE.md` | Atualizado (Fase 5T.3) — orquestrador de 11 skills |
 | `.claude/skills/COI-FORENSE.md` | NOVO (Fase 5T.3) — analise forense pre-execucao |
 | `.claude/skills/COI-LEARNINGS.md` | NOVO (Fase 5T.3) — prevencao de erros por aprendizado |

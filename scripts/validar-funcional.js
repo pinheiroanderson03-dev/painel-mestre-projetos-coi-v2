@@ -147,9 +147,71 @@ sep('5. PADROES PROIBIDOS');
 pass('dados/projetos.js carregado como script externo (nao via innerHTML)');
 
 // ============================================================
-// 6. INTEGRIDADE BASICA DE NAVEGACAO
+// 6. FASE 5B.1 — MODELAGEM OPERACIONAL
 // ============================================================
-sep('6. INTEGRIDADE BASICA DE NAVEGACAO');
+sep('6. FASE 5B.1 - MODELAGEM OPERACIONAL');
+
+var pj = require('fs').readFileSync(require('path').join(__dirname, '..', 'dados', 'projetos.js'), 'utf8');
+
+// IDs dos novos registros operacionais
+['COI-009','COI-010','COI-011','COI-012','COI-013'].forEach(function(id) {
+  (pj.indexOf('"' + id + '"') !== -1)
+    ? pass('Registro ' + id + ' presente em dados/projetos.js')
+    : fail('Registro ' + id + ' AUSENTE em dados/projetos.js');
+});
+
+// Pelo menos 1 tipoItem diferente de 'Projeto'
+(pj.indexOf("tipoItem: \"Demanda\"") !== -1 || pj.indexOf("tipoItem: 'Demanda'") !== -1)
+  ? pass("tipoItem 'Demanda' presente em dados/projetos.js")
+  : fail("tipoItem 'Demanda' AUSENTE em dados/projetos.js");
+
+(pj.indexOf("tipoItem: \"Incidente\"") !== -1 || pj.indexOf("tipoItem: 'Incidente'") !== -1)
+  ? pass("tipoItem 'Incidente' presente em dados/projetos.js")
+  : fail("tipoItem 'Incidente' AUSENTE em dados/projetos.js");
+
+(pj.indexOf("tipoItem: \"Licen") !== -1 || pj.indexOf("tipoItem: 'Licen") !== -1)
+  ? pass("tipoItem 'Licenca/Contrato' presente em dados/projetos.js")
+  : fail("tipoItem 'Licenca/Contrato' AUSENTE em dados/projetos.js");
+
+(pj.indexOf("tipoItem: \"Atividade Operacional\"") !== -1 || pj.indexOf("tipoItem: 'Atividade Operacional'") !== -1)
+  ? pass("tipoItem 'Atividade Operacional' presente em dados/projetos.js")
+  : fail("tipoItem 'Atividade Operacional' AUSENTE em dados/projetos.js");
+
+(pj.indexOf("tipoItem: \"Entrega Contratual\"") !== -1 || pj.indexOf("tipoItem: 'Entrega Contratual'") !== -1)
+  ? pass("tipoItem 'Entrega Contratual' presente em dados/projetos.js")
+  : fail("tipoItem 'Entrega Contratual' AUSENTE em dados/projetos.js");
+
+// Novos campos operacionais
+(pj.indexOf('categoriaOperacional') !== -1)
+  ? pass("Campo 'categoriaOperacional' presente em dados/projetos.js")
+  : fail("Campo 'categoriaOperacional' AUSENTE em dados/projetos.js");
+
+(pj.indexOf('solicitante') !== -1)
+  ? pass("Campo 'solicitante' presente em dados/projetos.js")
+  : fail("Campo 'solicitante' AUSENTE em dados/projetos.js");
+
+(pj.indexOf('observacoesOperacionais') !== -1)
+  ? pass("Campo 'observacoesOperacionais' presente em dados/projetos.js")
+  : fail("Campo 'observacoesOperacionais' AUSENTE em dados/projetos.js");
+
+// Aba Demandas com binding dinamico em portfolio.html
+(pf.indexOf('renderDemandas') !== -1)
+  ? pass("Funcao renderDemandas() presente em portfolio.html")
+  : fail("Funcao renderDemandas() AUSENTE em portfolio.html");
+
+(pf.indexOf('tbody-demandas') !== -1)
+  ? pass("tbody-demandas presente em portfolio.html")
+  : fail("tbody-demandas AUSENTE em portfolio.html");
+
+// Cards de projetos filtrados por psProj em index.html
+(idx.indexOf('psProj') !== -1)
+  ? pass("Separacao psProj/ps presente em index.html")
+  : fail("Separacao psProj/ps AUSENTE em index.html");
+
+// ============================================================
+// 7. INTEGRIDADE BASICA DE NAVEGACAO
+// ============================================================
+sep('7. INTEGRIDADE BASICA DE NAVEGACAO');
 
 (idx.indexOf('portfolio.html') !== -1) ? pass('Link portfolio.html em index.html')      : fail('Link portfolio.html AUSENTE em index.html');
 (pf.indexOf('ficha.html')      !== -1) ? pass('Link ficha.html em portfolio.html')       : fail('Link ficha.html AUSENTE em portfolio.html');

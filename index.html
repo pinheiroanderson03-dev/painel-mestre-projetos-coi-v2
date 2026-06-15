@@ -208,13 +208,15 @@ COI_DATA.projetos.forEach(p => {
 });
 
 // ─── Calcular cards ──────────────────────────────────────────────────
-const ps = COI_DATA.projetos;
-const total     = ps.length;
-const andamento = ps.filter(p => p.status === 'Em andamento').length;
-const atencao   = ps.filter(p => p.semaforo === '🟡').length;
-const criticos  = ps.filter(p => p.semaforo === '🔴').length;
-const concluidos= ps.filter(p => p.status === 'Concluído').length;
-const evolMedia = Math.round(ps.reduce((acc,p)=>acc+p.percentual,0)/total);
+// Fase 5B.1: ps = todos os itens; psProj = apenas tipoItem 'Projeto'
+const ps     = COI_DATA.projetos;
+const psProj = ps.filter(p => !p.tipoItem || p.tipoItem === 'Projeto');
+const total     = psProj.length;
+const andamento = psProj.filter(p => p.status === 'Em andamento').length;
+const atencao   = psProj.filter(p => p.semaforo === '🟡').length;
+const criticos  = psProj.filter(p => p.semaforo === '🔴').length;
+const concluidos= psProj.filter(p => p.status === 'Concluído').length;
+const evolMedia = psProj.length > 0 ? Math.round(psProj.reduce((acc,p)=>acc+p.percentual,0)/psProj.length) : 0;
 
 document.getElementById('c-total').textContent    = total;
 document.getElementById('c-andamento').textContent= andamento;
@@ -226,10 +228,10 @@ document.getElementById('c-concluidos').textContent = concluidos;
 const em = (COI_DATA.meta && Array.isArray(COI_DATA.meta.execucoesMensais) && COI_DATA.meta.execucoesMensais.length > 0)
   ? COI_DATA.meta.execucoesMensais[COI_DATA.meta.execucoesMensais.length - 1]
   : ((COI_DATA.meta && COI_DATA.meta.execucaoMensal) ? COI_DATA.meta.execucaoMensal : {});
-const totalRiscos   = ps.reduce(function(acc,p){ return acc + (p.riscosCriticos   || 0); }, 0);
-const totalDecisoes = ps.reduce(function(acc,p){ return acc + (p.decisoesPendentes || 0); }, 0);
-// Demandas: conta projetos com tipoItem === 'Demanda' e status != 'Concluído'
-const nDemandas     = ps.filter(function(p){ return p.tipoItem === 'Demanda' && p.status !== 'Concluído'; }).length;
+const totalRiscos   = psProj.reduce(function(acc,p){ return acc + (p.riscosCriticos   || 0); }, 0);
+const totalDecisoes = psProj.reduce(function(acc,p){ return acc + (p.decisoesPendentes || 0); }, 0);
+// Fase 5B.1: Demandas em Aberto = todos os itens operacionais não-Projeto e não-Concluídos
+const nDemandas = ps.filter(function(p){ return p.tipoItem && p.tipoItem !== 'Projeto' && p.status !== 'Concluído'; }).length;
 // Entregas da semana: janela [hoje, hoje+7] com data válida
 const _hoje   = new Date(); _hoje.setHours(0, 0, 0, 0);
 const _em7    = new Date(_hoje.getTime()); _em7.setDate(_em7.getDate() + 7); _em7.setHours(23, 59, 59, 999);
@@ -510,11 +512,12 @@ function buildAlertas() {
   const grid = document.getElementById('alertas-grid');
   clearEl(grid); // Fase 5A.2 — B-04: substituído innerHTML='' por clearEl()
 
-  const criticos_list = ps.filter(p => p.semaforo === '🔴');
-  const atencao_list  = ps.filter(p => p.semaforo === '🟡');
-  const ok_list       = ps.filter(p => p.semaforo === '🟢');
+  // Fase 5B.1: alertas filtrados para tipoItem === 'Projeto'
+  const criticos_list = psProj.filter(p => p.semaforo === '🔴');
+  const atencao_list  = psProj.filter(p => p.semaforo === '🟡');
+  const ok_list       = psProj.filter(p => p.semaforo === '🟢');
   // Fase 5A.2 — U-04: excluir Suspenso e Concluído do card P0 Ativos
-  const p0_list       = ps.filter(p => p.prioridade === 'P0' && p.status !== 'Concluído' && p.status !== 'Suspenso');
+  const p0_list       = psProj.filter(p => p.prioridade === 'P0' && p.status !== 'Concluído' && p.status !== 'Suspenso');
 
   function makeCard(cls, titulo, items, dotCls, emptyMsg) {
     const div = document.createElement('div');
@@ -561,11 +564,11 @@ window.addEventListener('load', () => {
     return;
   }
 
-  // Contagem por status
+  // Fase 5B.1: gráficos baseados em psProj (apenas tipoItem === 'Projeto')
   const statusMap = {};
   const priorMap  = {};
   const classMap  = {};
-  ps.forEach(p => {
+  psProj.forEach(p => {
     statusMap[p.status]       = (statusMap[p.status]       || 0) + 1;
     priorMap[p.prioridade]    = (priorMap[p.prioridade]    || 0) + 1;
     classMap[p.classificacao] = (classMap[p.classificacao] || 0) + 1;
@@ -619,9 +622,9 @@ window.addEventListener('load', () => {
   new Chart(document.getElementById('chartEvolucao'), {
     type:'bar',
     data:{
-      labels: ps.map(p => p.id),
-      datasets:[{ label:'% Conclusão', data: ps.map(p => p.percentual),
-        backgroundColor: ps.map(p => percColor(p.percentual)),
+      labels: psProj.map(p => p.id),
+      datasets:[{ label:'% Conclusão', data: psProj.map(p => p.percentual),
+        backgroundColor: psProj.map(p => percColor(p.percentual)),
         borderRadius:6 }]
     },
     options:{

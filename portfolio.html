@@ -84,18 +84,17 @@
     </div>
   </div>
 
-  <!-- ABA DEMANDAS -->
+  <!-- ABA DEMANDAS — Fase 5B.1: binding dinâmico via COI_DATA.projetos -->
   <div class="tab-content" id="tab-demandas">
     <div class="filters">
-      <input class="filter-input" placeholder="🔍 Buscar demanda...">
-      <button class="btn-add">+ Nova Demanda</button>
+      <input class="filter-input" id="busca-demanda" placeholder="🔍 Buscar demanda, incidente ou licença..." oninput="renderDemandas()">
     </div>
     <div class="table-wrap">
-      <table><thead><tr>
-        <th>ID</th><th>Título</th><th>Tipo</th><th>Projeto</th><th>Prioridade</th>
-        <th>Status</th><th>Solicitante</th><th>Responsável COI</th><th>Prazo</th><th>Impacto</th>
+      <table id="tb-demandas"><thead><tr>
+        <th>ID</th><th>Título</th><th>Tipo</th><th>Categoria</th><th>Prioridade</th>
+        <th>Status</th><th>Solicitante</th><th>Competência</th><th>Prazo</th><th>Evidência</th>
       </tr></thead>
-      <tbody><tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span>Nenhuma demanda cadastrada. Registre na aba Demandas da base Excel.</div></td></tr></tbody></table>
+      <tbody id="tbody-demandas"><tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span>Carregando...</div></td></tr></tbody></table>
     </div>
   </div>
 
@@ -372,8 +371,10 @@ function aplicarFiltros() {
   var contrato = document.getElementById('filtro-contrato').value.toLowerCase().trim();
   var gerente  = document.getElementById('filtro-gerente').value.toLowerCase().trim();
   var busca    = document.getElementById('busca-proj').value.toLowerCase().trim();
+  // Fase 5B.1: aba Projetos exibe apenas tipoItem === 'Projeto'
   var filtrados = COI_DATA.projetos.filter(function(p) {
-    return (!prior    || p.prioridade === prior)
+    return (!p.tipoItem || p.tipoItem === 'Projeto')
+        && (!prior    || p.prioridade === prior)
         && (!status   || p.status === status)
         && (!frente   || (p.frente || '') === frente)
         && (!contrato || (p.contrato || '').toLowerCase().includes(contrato))
@@ -517,7 +518,8 @@ function renderProjetos(lista) {
     tb.appendChild(tr);
   });
 }
-renderProjetos(COI_DATA.projetos);
+// Fase 5B.1: renderizar aba Projetos apenas com tipoItem === 'Projeto'
+renderProjetos(COI_DATA.projetos.filter(function(p){ return !p.tipoItem || p.tipoItem === 'Projeto'; }));
 
 // Fase 5A.2 — I-04: popular filtro de frente dinamicamente a partir dos dados
 (function() {
@@ -534,6 +536,56 @@ renderProjetos(COI_DATA.projetos);
     sel.appendChild(opt);
   });
 }());
+
+// ─── Fase 5B.1: Renderizar aba Demandas (itens operacionais não-Projeto) ─────
+var TIPOS_OPERACIONAIS = ['Demanda','Incidente','Melhoria','Licença/Contrato','Atividade Operacional','Entrega Contratual'];
+function renderDemandas() {
+  var tb = document.getElementById('tbody-demandas');
+  if (!tb) return;
+  clearEl(tb);
+  var busca = (document.getElementById('busca-demanda') ? document.getElementById('busca-demanda').value : '').toLowerCase().trim();
+  var lista = COI_DATA.projetos.filter(function(p) {
+    return p.tipoItem && p.tipoItem !== 'Projeto'
+        && (!busca || (p.id + ' ' + p.nome + ' ' + (p.tipoItem || '') + ' ' + (p.categoriaOperacional || '')).toLowerCase().includes(busca));
+  });
+  if (lista.length === 0) {
+    var row = document.createElement('tr');
+    var cell = document.createElement('td');
+    cell.colSpan = 10;
+    var div = document.createElement('div');
+    div.className = 'empty-state';
+    var icon = document.createElement('span');
+    icon.className = 'icon'; icon.textContent = '📋';
+    div.appendChild(icon);
+    div.appendChild(document.createTextNode(busca ? 'Nenhum item encontrado.' : 'Nenhum item operacional cadastrado.'));
+    cell.appendChild(div); row.appendChild(cell); tb.appendChild(row);
+    return;
+  }
+  lista.forEach(function(p) {
+    var tr = document.createElement('tr');
+    var tdId   = document.createElement('td'); tdId.textContent   = p.id;
+    var tdNome = document.createElement('td'); tdNome.style.maxWidth = '220px'; tdNome.textContent = p.nome;
+    var tdTipo = document.createElement('td');
+    var spTipo = document.createElement('span');
+    spTipo.className = 'badge badge-tipo-' + (p.tipoItem || 'outro').toLowerCase().replace(/[^a-z]/g, '-');
+    spTipo.textContent = p.tipoItem || '—';
+    tdTipo.appendChild(spTipo);
+    var tdCat  = document.createElement('td'); tdCat.textContent  = p.categoriaOperacional || '—';
+    var tdPrior= document.createElement('td');
+    var spPrior= document.createElement('span'); spPrior.className = 'badge ' + priorBadge(p.prioridade); spPrior.textContent = p.prioridade;
+    tdPrior.appendChild(spPrior);
+    var tdSt   = document.createElement('td');
+    var spSt   = document.createElement('span'); spSt.className = 'badge ' + statusBadge(p.status); spSt.textContent = p.status;
+    tdSt.appendChild(spSt);
+    var tdSolic= document.createElement('td'); tdSolic.textContent= p.solicitante || '—';
+    var tdComp = document.createElement('td'); tdComp.textContent = p.competencia  || '—';
+    var tdPrazo= document.createElement('td'); tdPrazo.textContent= p.prazoResolucao || p.prazoPrevisto || '—';
+    var tdEvid = document.createElement('td'); tdEvid.style.maxWidth = '180px'; tdEvid.textContent = p.evidencia || '—';
+    tr.append(tdId, tdNome, tdTipo, tdCat, tdPrior, tdSt, tdSolic, tdComp, tdPrazo, tdEvid);
+    tb.appendChild(tr);
+  });
+}
+renderDemandas();
 
 // ─── Renderizar riscos (localStorage) ───────────────────────────────
 function renderRiscos() {
