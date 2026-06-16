@@ -171,6 +171,18 @@ tr:last-child td { border-bottom: none; }
 .badge-tipo-atividade-operacional{ background: #E8F5E9; color: #2E7D32; }
 .badge-tipo-entrega-contratual   { background: #E8EAF6; color: #283593; }
 
+/* ─── Fase 5B.2 — Resumo Executivo Operacional ─────────────────────── */
+.op-resumo-exec { background: var(--azul-claro, #E3F2FD); border-radius: var(--radius-md, 10px); padding: 16px 20px; margin-bottom: 16px; }
+.op-resumo-exec h3 { font-size: .84rem; font-weight: 700; color: var(--azul-escuro, #1B3A6B); margin-bottom: 12px; }
+.op-mini-cards { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.op-mini-card  { background: #fff; border-radius: var(--radius-sm, 6px); padding: 10px 16px; text-align: center; min-width: 90px; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
+.op-mini-value { font-size: 1.5rem; font-weight: 800; color: var(--azul-medio, #1565C0); line-height: 1; }
+.op-mini-value.verde    { color: #2E7D32; }
+.op-mini-value.amarelo  { color: #F9A825; }
+.op-mini-value.vermelho { color: #C62828; }
+.op-mini-label { font-size: .63rem; color: #666; text-transform: uppercase; letter-spacing: .4px; font-weight: 600; margin-top: 3px; }
+.op-tipo-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+
 /* ─── PROGRESS BAR ─────────────────────────────────────────────────── */
 .progress-bar  { background: #EEF1F8; border-radius: 10px; height: 7px; overflow: hidden; min-width: 70px; }
 .progress-fill { height: 100%; border-radius: 10px; transition: width .4s; }

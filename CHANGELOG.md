@@ -4,6 +4,34 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Fase 5B.2: Exibicao Executiva das Demandas Operacionais no Portfolio (2026-06-16)
+
+**Branch:** `main`
+
+**Objetivo:** Evoluir a aba Demandas do portfolio.html com painel executivo, filtros avancados e tabela expandida — transformando a listagem basica de 5B.1 em instrumento de gestao operacional real.
+
+**Alteracoes em portfolio.html:**
+- `getItensOperacionais()` — nova funcao: filtra `COI_DATA.projetos` para `tipoItem !== 'Projeto'`
+- `renderResumoExecutivo()` — nova funcao: painel com 4 mini-cards (Total / Em Aberto / Concluidos / P0+P1) e badges por tipo
+- `renderDemandas()` — expandida com 4 filtros encadeados (tipoItem, status, prioridade, frente) alem da busca por texto
+- Tabela de 10 para 11 colunas: adicionada coluna `Frente/Cliente`
+- IIFE para popular dinamicamente o filtro de frente com valores unicos
+- `<div id="op-resumo-exec">` injetado no topo da aba Demandas
+- 4 `<select>` com IDs: `filtro-dem-tipo`, `filtro-dem-status`, `filtro-dem-prior`, `filtro-dem-frente`
+- Aba Projetos permanece isolada — sem alteracao na logica de `psProj`
+
+**Alteracoes em assets/style.css:**
+- 9 novas regras: `.op-resumo-exec`, `.op-resumo-exec h3`, `.op-mini-cards`, `.op-mini-card`, `.op-mini-value`, `.op-mini-value.verde`, `.op-mini-value.amarelo`, `.op-mini-value.vermelho`, `.op-mini-label`, `.op-tipo-badges`
+
+**Alteracoes em scripts/validar-funcional.js:**
+- Secao 7 adicionada com 11 novos asserts: resumo executivo, filtros, coluna Frente/Cliente, isolamento da aba Projetos, integridade do chart.js
+- Secao anterior (navegacao basica) renomeada para Secao 8
+- Total: 66 asserts | 0 FAIL | 0 AVISO
+
+**Resultado do validador:** 66 PASS | 0 FAIL | 0 AVISO
+
+---
+
 ## v1.4.1 — Fase 5B.1: Modelagem Operacional Inicial (2026-06-15)
 
 **Branch:** `fase-5b-1-modelagem-operacional`

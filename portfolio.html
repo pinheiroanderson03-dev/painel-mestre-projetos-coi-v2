@@ -84,17 +84,37 @@
     </div>
   </div>
 
-  <!-- ABA DEMANDAS — Fase 5B.1: binding dinâmico via COI_DATA.projetos -->
+  <!-- ABA DEMANDAS — Fase 5B.2: exibição executiva com filtros e resumo operacional -->
   <div class="tab-content" id="tab-demandas">
+    <div id="op-resumo-exec"></div>
     <div class="filters">
       <input class="filter-input" id="busca-demanda" placeholder="🔍 Buscar demanda, incidente ou licença..." oninput="renderDemandas()">
+      <select class="filter-input" id="filtro-dem-tipo" onchange="renderDemandas()">
+        <option value="">Todos os tipos</option>
+        <option>Demanda</option><option>Incidente</option><option>Melhoria</option>
+        <option>Licença/Contrato</option><option>Atividade Operacional</option><option>Entrega Contratual</option>
+      </select>
+      <select class="filter-input" id="filtro-dem-status" onchange="renderDemandas()">
+        <option value="">Todos os status</option>
+        <option>Planejamento</option><option>Em andamento</option>
+        <option>Homologação</option><option>Produção</option>
+        <option>Concluído</option><option>Suspenso</option>
+      </select>
+      <select class="filter-input" id="filtro-dem-prior" onchange="renderDemandas()">
+        <option value="">Todas as prioridades</option>
+        <option>P0</option><option>P1</option><option>P2</option><option>P3</option>
+      </select>
+      <select class="filter-input" id="filtro-dem-frente" onchange="renderDemandas()">
+        <option value="">Todas as frentes</option>
+      </select>
     </div>
     <div class="table-wrap">
       <table id="tb-demandas"><thead><tr>
-        <th>ID</th><th>Título</th><th>Tipo</th><th>Categoria</th><th>Prioridade</th>
-        <th>Status</th><th>Solicitante</th><th>Competência</th><th>Prazo</th><th>Evidência</th>
+        <th>ID</th><th>Título</th><th>Tipo</th><th>Status</th><th>Prioridade</th>
+        <th>Frente/Cliente</th><th>Responsável</th><th>Solicitante</th>
+        <th>Categoria Operacional</th><th>Prazo</th><th>Evidência</th>
       </tr></thead>
-      <tbody id="tbody-demandas"><tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span>Carregando...</div></td></tr></tbody></table>
+      <tbody id="tbody-demandas"><tr><td colspan="11"><div class="empty-state"><span class="icon">📋</span>Carregando...</div></td></tr></tbody></table>
     </div>
   </div>
 
@@ -538,54 +558,113 @@ renderProjetos(COI_DATA.projetos.filter(function(p){ return !p.tipoItem || p.tip
 }());
 
 // ─── Fase 5B.1: Renderizar aba Demandas (itens operacionais não-Projeto) ─────
+// ─── Fase 5B.2: Renderizar aba Demandas com filtros executivos e resumo ─────────
 var TIPOS_OPERACIONAIS = ['Demanda','Incidente','Melhoria','Licença/Contrato','Atividade Operacional','Entrega Contratual'];
+var NCOLS_DEM = 11;
+
+function getItensOperacionais() {
+  return COI_DATA.projetos.filter(function(p) { return p.tipoItem && p.tipoItem !== 'Projeto'; });
+}
+
+function renderResumoExecutivo() {
+  var el = document.getElementById('op-resumo-exec');
+  if (!el) return;
+  var todos      = getItensOperacionais();
+  var abertos    = todos.filter(function(p) { return p.status !== 'Concluído'; });
+  var concluidos = todos.filter(function(p) { return p.status === 'Concluído'; });
+  var p0p1       = todos.filter(function(p) { return p.prioridade === 'P0' || p.prioridade === 'P1'; });
+  var porTipo = {};
+  todos.forEach(function(p) { porTipo[p.tipoItem] = (porTipo[p.tipoItem] || 0) + 1; });
+  var tipoHtml = Object.keys(porTipo).map(function(t) {
+    var cls = 'badge badge-tipo-' + t.toLowerCase().replace(/[^a-z]/g, '-');
+    return '<span class="' + cls + '" style="font-size:.68rem;padding:2px 8px;margin-right:4px;margin-bottom:4px"><strong>' + porTipo[t] + '\u00a0</strong>' + t + '</span>';
+  }).join('');
+  el.innerHTML = '<div class="op-resumo-exec">'
+    + '<h3>📊 Resumo Executivo — Itens Operacionais</h3>'
+    + '<div class="op-mini-cards">'
+    + '<div class="op-mini-card"><div class="op-mini-value">' + todos.length + '</div><div class="op-mini-label">Total</div></div>'
+    + '<div class="op-mini-card"><div class="op-mini-value amarelo">' + abertos.length + '</div><div class="op-mini-label">Em Aberto</div></div>'
+    + '<div class="op-mini-card"><div class="op-mini-value verde">' + concluidos.length + '</div><div class="op-mini-label">Concluídos</div></div>'
+    + '<div class="op-mini-card"><div class="op-mini-value vermelho">' + p0p1.length + '</div><div class="op-mini-label">P0/P1</div></div>'
+    + '</div>'
+    + '<div class="op-tipo-badges" style="margin-top:8px">' + tipoHtml + '</div>'
+    + '</div>';
+}
+
 function renderDemandas() {
+  renderResumoExecutivo();
   var tb = document.getElementById('tbody-demandas');
   if (!tb) return;
   clearEl(tb);
-  var busca = (document.getElementById('busca-demanda') ? document.getElementById('busca-demanda').value : '').toLowerCase().trim();
-  var lista = COI_DATA.projetos.filter(function(p) {
-    return p.tipoItem && p.tipoItem !== 'Projeto'
-        && (!busca || (p.id + ' ' + p.nome + ' ' + (p.tipoItem || '') + ' ' + (p.categoriaOperacional || '')).toLowerCase().includes(busca));
+  var busca   = (document.getElementById('busca-demanda')     || {value:''}).value.toLowerCase().trim();
+  var fTipo   = (document.getElementById('filtro-dem-tipo')   || {value:''}).value;
+  var fSt     = (document.getElementById('filtro-dem-status') || {value:''}).value;
+  var fPrior  = (document.getElementById('filtro-dem-prior')  || {value:''}).value;
+  var fFrente = (document.getElementById('filtro-dem-frente') || {value:''}).value;
+  var lista   = getItensOperacionais().filter(function(p) {
+    return (!fTipo   || p.tipoItem   === fTipo)
+        && (!fSt     || p.status     === fSt)
+        && (!fPrior  || p.prioridade === fPrior)
+        && (!fFrente || (p.frente || '') === fFrente)
+        && (!busca   || (p.id + ' ' + p.nome + ' ' + (p.tipoItem || '') + ' ' + (p.categoriaOperacional || '') + ' ' + (p.frente || '')).toLowerCase().includes(busca));
   });
   if (lista.length === 0) {
     var row = document.createElement('tr');
-    var cell = document.createElement('td');
-    cell.colSpan = 10;
-    var div = document.createElement('div');
-    div.className = 'empty-state';
-    var icon = document.createElement('span');
-    icon.className = 'icon'; icon.textContent = '📋';
+    var cell = document.createElement('td'); cell.colSpan = NCOLS_DEM;
+    var div = document.createElement('div'); div.className = 'empty-state';
+    var icon = document.createElement('span'); icon.className = 'icon'; icon.textContent = '📋';
     div.appendChild(icon);
-    div.appendChild(document.createTextNode(busca ? 'Nenhum item encontrado.' : 'Nenhum item operacional cadastrado.'));
+    var msg = (busca || fTipo || fSt || fPrior || fFrente)
+      ? 'Nenhum item encontrado com os filtros aplicados.'
+      : 'Nenhum item operacional cadastrado.';
+    div.appendChild(document.createTextNode(msg));
     cell.appendChild(div); row.appendChild(cell); tb.appendChild(row);
     return;
   }
   lista.forEach(function(p) {
     var tr = document.createElement('tr');
-    var tdId   = document.createElement('td'); tdId.textContent   = p.id;
-    var tdNome = document.createElement('td'); tdNome.style.maxWidth = '220px'; tdNome.textContent = p.nome;
-    var tdTipo = document.createElement('td');
-    var spTipo = document.createElement('span');
+    var tdId     = document.createElement('td'); tdId.textContent = p.id;
+    var tdNome   = document.createElement('td'); tdNome.style.maxWidth = '200px'; tdNome.textContent = p.nome;
+    var tdTipo   = document.createElement('td');
+    var spTipo   = document.createElement('span');
     spTipo.className = 'badge badge-tipo-' + (p.tipoItem || 'outro').toLowerCase().replace(/[^a-z]/g, '-');
     spTipo.textContent = p.tipoItem || '—';
     tdTipo.appendChild(spTipo);
-    var tdCat  = document.createElement('td'); tdCat.textContent  = p.categoriaOperacional || '—';
-    var tdPrior= document.createElement('td');
-    var spPrior= document.createElement('span'); spPrior.className = 'badge ' + priorBadge(p.prioridade); spPrior.textContent = p.prioridade;
-    tdPrior.appendChild(spPrior);
-    var tdSt   = document.createElement('td');
-    var spSt   = document.createElement('span'); spSt.className = 'badge ' + statusBadge(p.status); spSt.textContent = p.status;
+    var tdSt     = document.createElement('td');
+    var spSt     = document.createElement('span'); spSt.className = 'badge ' + statusBadge(p.status); spSt.textContent = p.status;
     tdSt.appendChild(spSt);
-    var tdSolic= document.createElement('td'); tdSolic.textContent= p.solicitante || '—';
-    var tdComp = document.createElement('td'); tdComp.textContent = p.competencia  || '—';
-    var tdPrazo= document.createElement('td'); tdPrazo.textContent= p.prazoResolucao || p.prazoPrevisto || '—';
-    var tdEvid = document.createElement('td'); tdEvid.style.maxWidth = '180px'; tdEvid.textContent = p.evidencia || '—';
-    tr.append(tdId, tdNome, tdTipo, tdCat, tdPrior, tdSt, tdSolic, tdComp, tdPrazo, tdEvid);
+    var tdPrior  = document.createElement('td');
+    var spPrior  = document.createElement('span'); spPrior.className = 'badge ' + priorBadge(p.prioridade); spPrior.textContent = p.prioridade;
+    tdPrior.appendChild(spPrior);
+    var tdFrente = document.createElement('td');
+    var spFrente = document.createElement('span'); spFrente.className = 'badge badge-azul'; spFrente.style.fontSize = '.65rem'; spFrente.textContent = p.frente || '—';
+    tdFrente.appendChild(spFrente);
+    var tdResp   = document.createElement('td'); tdResp.textContent   = p.responsavel || '—';
+    var tdSolic  = document.createElement('td'); tdSolic.textContent  = p.solicitante  || '—';
+    var tdCat    = document.createElement('td'); tdCat.textContent    = p.categoriaOperacional || '—';
+    var tdPrazo  = document.createElement('td'); tdPrazo.textContent  = p.prazoResolucao || p.prazoPrevisto || '—';
+    var tdEvid   = document.createElement('td'); tdEvid.style.maxWidth = '160px'; tdEvid.textContent = p.evidencia || '—';
+    tr.append(tdId, tdNome, tdTipo, tdSt, tdPrior, tdFrente, tdResp, tdSolic, tdCat, tdPrazo, tdEvid);
     tb.appendChild(tr);
   });
 }
 renderDemandas();
+
+// Fase 5B.2: popular filtro de frente das demandas dinamicamente
+(function() {
+  var sel = document.getElementById('filtro-dem-frente');
+  if (!sel) return;
+  var vistas = {};
+  getItensOperacionais()
+    .map(function(p) { return p.frente || ''; })
+    .filter(function(f) { if (!f || vistas[f]) return false; vistas[f] = true; return true; })
+    .sort()
+    .forEach(function(f) {
+      var opt = document.createElement('option');
+      opt.value = f; opt.textContent = f;
+      sel.appendChild(opt);
+    });
+}());
 
 // ─── Renderizar riscos (localStorage) ───────────────────────────────
 function renderRiscos() {
@@ -639,75 +718,4 @@ function salvarProjeto() {
   const nome = document.getElementById('f-nome').value.trim();
   if (!id || !nome) { showToast('ID e Nome são obrigatórios.', true); return; }
   if (COI_DATA.projetos.find(p => p.id === id)) {
-    showToast(`ID ${id} já existe no portfólio.`, true); return;
-  }
-
-  const novo = {
-    id,
-    nome,
-    classificacao:   document.getElementById('f-class').value,
-    prioridade:      document.getElementById('f-prior').value,
-    status:          document.getElementById('f-status').value,
-    fase:            document.getElementById('f-fase').value,
-    percentual:      Math.min(100, Math.max(0, parseInt(document.getElementById('f-perc').value) || 0)),
-    semaforo:        '🟡',
-    patrocinador:    document.getElementById('f-patr').value,
-    responsavel:     document.getElementById('f-resp').value,
-    orgao:           document.getElementById('f-orgao').value,
-    plataforma:      document.getElementById('f-plat').value,
-    dataInicio:      document.getElementById('f-inicio').value,
-    prazoPrevisto:   document.getElementById('f-prazo').value,
-    dependencias:    document.getElementById('f-dep').value,
-    beneficio:       document.getElementById('f-benef').value,
-    impactoContratual: document.getElementById('f-contrato').value,
-    fonteInformacao: document.getElementById('f-fonte').value,
-    observacoesExecutivas: document.getElementById('f-obs').value,
-    atualizadoEm:    new Date().toLocaleDateString('pt-BR')
-  };
-
-  COI_DATA.projetos.push(novo);
-  coiSalvarProjeto(novo);
-  renderProjetos(COI_DATA.projetos);
-  fecharModal('modal-projeto');
-  showToast(`Projeto ${id} cadastrado com sucesso.`);
-}
-
-// ─── Salvar novo risco ───────────────────────────────────────────────
-function salvarRisco() {
-  const desc = document.getElementById('r-desc').value.trim();
-  if (!desc) { showToast('Descrição do risco é obrigatória.', true); return; }
-
-  const risco = {
-    desc,
-    projeto: document.getElementById('r-proj').value,
-    prob:    document.getElementById('r-prob').value,
-    imp:     document.getElementById('r-imp').value,
-    status:  document.getElementById('r-status').value,
-    mit:     document.getElementById('r-mit').value,
-    resp:    document.getElementById('r-resp').value,
-    prazo:   document.getElementById('r-prazo').value
-  };
-
-  const riscos = coiCarregarSecaoFicha('PORTFOLIO', 'riscos');
-  riscos.push(risco);
-  coiSalvarSecaoFicha('PORTFOLIO', 'riscos', riscos);
-  renderRiscos();
-  fecharModal('modal-risco');
-  showToast('Risco cadastrado com sucesso.');
-}
-
-// ─── Fechar modal clicando no overlay ────────────────────────────────
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) overlay.classList.remove('open');
-  });
-});
-
-// ─── Fechar modal com ESC ─────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
-});
-</script>
-</body>
-</html>
-                                                                                                                                                             
+    showToast(`ID ${id} já existe no portfólio.

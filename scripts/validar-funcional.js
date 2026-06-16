@@ -209,9 +209,59 @@ var pj = require('fs').readFileSync(require('path').join(__dirname, '..', 'dados
   : fail("Separacao psProj/ps AUSENTE em index.html");
 
 // ============================================================
-// 7. INTEGRIDADE BASICA DE NAVEGACAO
+// 7. FASE 5B.2 — EXIBICAO EXECUTIVA DEMANDAS OPERACIONAIS
 // ============================================================
-sep('7. INTEGRIDADE BASICA DE NAVEGACAO');
+sep('7. FASE 5B.2 - EXIBICAO EXECUTIVA DEMANDAS OPERACIONAIS');
+
+(pf.indexOf('op-resumo-exec') !== -1)
+  ? pass('op-resumo-exec presente em portfolio.html -- resumo executivo implementado')
+  : fail('op-resumo-exec AUSENTE em portfolio.html');
+
+(pf.indexOf('renderResumoExecutivo') !== -1)
+  ? pass('renderResumoExecutivo() presente em portfolio.html')
+  : fail('renderResumoExecutivo() AUSENTE em portfolio.html');
+
+(pf.indexOf('getItensOperacionais') !== -1)
+  ? pass('getItensOperacionais() presente em portfolio.html')
+  : fail('getItensOperacionais() AUSENTE em portfolio.html');
+
+(pf.indexOf('filtro-dem-tipo') !== -1)
+  ? pass('Filtro tipoItem (filtro-dem-tipo) presente em portfolio.html')
+  : fail('Filtro tipoItem AUSENTE em portfolio.html');
+
+(pf.indexOf('filtro-dem-status') !== -1)
+  ? pass('Filtro status (filtro-dem-status) presente em portfolio.html')
+  : fail('Filtro status AUSENTE em portfolio.html');
+
+(pf.indexOf('filtro-dem-prior') !== -1)
+  ? pass('Filtro prioridade (filtro-dem-prior) presente em portfolio.html')
+  : fail('Filtro prioridade AUSENTE em portfolio.html');
+
+(pf.indexOf('filtro-dem-frente') !== -1)
+  ? pass('Filtro frente (filtro-dem-frente) presente em portfolio.html')
+  : fail('Filtro frente AUSENTE em portfolio.html');
+
+(pf.indexOf('Frente/Cliente') !== -1)
+  ? pass('Coluna Frente/Cliente presente na tabela de demandas')
+  : fail('Coluna Frente/Cliente AUSENTE na tabela de demandas');
+
+(pf.indexOf("tipoItem !== 'Projeto'") !== -1)
+  ? pass("tipoItem !== 'Projeto' presente em portfolio.html")
+  : fail("tipoItem !== 'Projeto' AUSENTE em portfolio.html");
+
+(pf.indexOf("!p.tipoItem || p.tipoItem === 'Projeto'") !== -1 || pf.indexOf("tipoItem === 'Projeto'") !== -1)
+  ? pass('Aba Projetos continua isolada para projetos estrategicos')
+  : fail('Isolamento da aba Projetos AUSENTE em portfolio.html');
+
+var chartJs = read('assets/js/chart.umd.min.js');
+(chartJs.length > 10000)
+  ? pass('assets/js/chart.umd.min.js preservado -- biblioteca nao alterada')
+  : fail('assets/js/chart.umd.min.js AUSENTE ou corrompido');
+
+// ============================================================
+// 8. INTEGRIDADE BASICA DE NAVEGACAO
+// ============================================================
+sep('8. INTEGRIDADE BASICA DE NAVEGACAO');
 
 (idx.indexOf('portfolio.html') !== -1) ? pass('Link portfolio.html em index.html')      : fail('Link portfolio.html AUSENTE em index.html');
 (pf.indexOf('ficha.html')      !== -1) ? pass('Link ficha.html em portfolio.html')       : fail('Link ficha.html AUSENTE em portfolio.html');

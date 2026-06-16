@@ -202,9 +202,23 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-### 🔄 v1.5 — Fase 5B.2: Evolução do Painel para Registros Operacionais (próxima)
+### ✅ v1.4.1 — Fase 5B.2: Exibicao Executiva das Demandas Operacionais no Portfolio (concluida — 2026-06-16)
 
-**Objetivo:** Expandir a ficha.html para exibir campos operacionais dos novos tipos; adicionar filtro de tipoItem no portfólio; considerar cards de Incidentes e Licenças no dashboard.
+**Objetivo:** Evoluir a aba Demandas do portfolio.html com painel executivo, filtros avancados e tabela expandida.
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `portfolio.html` | ALTERADO | getItensOperacionais(), renderResumoExecutivo(), 4 filtros, tabela 11 colunas, IIFE frente dinamica |
+| `assets/style.css` | ALTERADO | 9 novas regras .op-* para resumo executivo e mini-cards |
+| `scripts/validar-funcional.js` | ALTERADO | Secao 7 com 11 novos asserts; 66 PASS total, 8 secoes |
+
+**Branch:** `main`
+
+---
+
+### 🔄 v1.5 — Fase 5B.3: Indicadores Operacionais no Dashboard (proxima)
+
+**Objetivo:** Adicionar cards executivos no dashboard (index.html) para Incidentes, Licencas e Atividades Operacionais — complementando os cards de Projetos Estrategicos ja existentes.
 Escopo a definir com Anderson antes de iniciar.
 
 ---

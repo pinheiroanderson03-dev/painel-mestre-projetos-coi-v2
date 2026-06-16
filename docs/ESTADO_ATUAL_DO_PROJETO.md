@@ -8,7 +8,7 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
-Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5B.1.1 — Consolidacao de Memoria e Aprendizado
+Atualizado em: 2026-06-16 · Responsavel pela atualizacao: Fase 5B.2 — Exibicao Executiva das Demandas Operacionais no Portfolio
 
 ---
 
@@ -48,14 +48,15 @@ Atualizado em: 2026-06-15 · Responsavel pela atualizacao: Fase 5B.1.1 — Conso
 | Fase 5B.0 | v1.4.1 | Auditoria Funcional — veredito NAO; painel sem representacao operacional real — Concluida |
 | Fase 5B.1 | v1.4.1 | Modelagem Operacional Inicial — 5 registros COI-009 a COI-013; novos tipoItem; aba Demandas ativa; psProj/ps separados — Concluida |
 | Fase 5B.1.1 | v1.4.1 | Consolidacao de Memoria e Aprendizado — E-008, A-008/A-009, PA-011 a PA-013, AP-011, DAR-011; 5 docs atualizados — Concluida |
+| Fase 5B.2 | v1.4.1 | Exibicao Executiva das Demandas Operacionais no Portfolio — resumo executivo, 4 filtros, tabela 11 colunas, 11 novos asserts (66 total) — Concluida |
 
 ---
 
 ## Fase em Execucao
 
-Fase 5B.1.1 concluida em 2026-06-15. Documentacao de memoria e aprendizado registrada.
-Aguardando commit e aprovacao do Anderson para fechar 5B.1 + 5B.1.1.
-Proxima fase: Fase 5B.2 — Evolucao do Painel (fichas operacionais, filtros de tipoItem, exibicao de campos novos na ficha universal).
+Fase 5B.2 concluida em 2026-06-16. Portfolio com exibicao executiva das demandas operacionais implementada e validada.
+Aguardando commit e aprovacao do Anderson para fechar 5B.2.
+Proxima fase: Fase 5B.3 — Indicadores Operacionais (cards executivos para Incidentes, Licencas, Atividades Operacionais).
 
 ---
 
@@ -63,8 +64,8 @@ Proxima fase: Fase 5B.2 — Evolucao do Painel (fichas operacionais, filtros de 
 
 | Fase | Versao | Escopo |
 |---|---|---|
-| Fase 5B.2 | v1.5 | Evolucao do Painel — ficha.html para novos campos, filtros por tipoItem no portfolio |
 | Fase 5B.3 | v1.5 | Indicadores operacionais — cards para Incidentes, Licencas, Atividades Operacionais |
+| Fase 5B.4 | v1.5 | Evolucao ficha.html — exibicao de campos operacionais na ficha universal |
 | Fase 4B | v1.5 | Edicao de fichas e exportacao de dados |
 | Fase 4C | v1.6 | Edicao orientada pelo GitHub e governanca de dados |
 
@@ -72,11 +73,11 @@ Proxima fase: Fase 5B.2 — Evolucao do Painel (fichas operacionais, filtros de 
 
 ## Proxima Acao Prevista
 
-Fases 5B.1 + 5B.1.1 concluidas em 2026-06-15.
-5 registros operacionais inseridos (COI-009 a COI-013). Memoria e aprendizados da modelagem multi-tipo registrados.
-Painel representa agora: Projetos Estrategicos (COI-001 a COI-008) + Demandas + Incidentes + Licencas + Atividades Operacionais + Entregas Contratuais.
+Fase 5B.2 concluida em 2026-06-16.
+Portfolio com resumo executivo operacional (totais, por tipo, P0/P1), 4 filtros (tipoItem, status, prioridade, frente), tabela com 11 colunas e novas funcoes JS (getItensOperacionais, renderResumoExecutivo).
+validar-funcional.js: 66 asserts, 0 falhas.
 Aguardando commit e aprovacao do Anderson.
-Proxima fase sugerida: Fase 5B.2 — Evolucao do Painel (ficha.html + filtros tipoItem).
+Proxima fase sugerida: Fase 5B.3 — Indicadores Operacionais (cards dashboard para Incidentes, Licencas, Atividades).
 
 ---
 
@@ -87,11 +88,11 @@ Proxima fase sugerida: Fase 5B.2 — Evolucao do Painel (ficha.html + filtros ti
 | `dados/projetos.js` | meta.versao "1.4.1"; 13 registros (COI-001 a COI-013); novos tipoItem: Demanda, Incidente, Licenca/Contrato, Atividade Operacional, Entrega Contratual |
 | `index.html` | v1.4.1; seletor de competencia; fallback robusto; clearEl; filtro P0 ativo |
 | `assets/style.css` | v1.4.1; namespace .em-*; .em-select com variaveis corretas |
-| `portfolio.html` | Fase 5B.1 — aba Projetos filtrada por tipoItem='Projeto'; aba Demandas com renderDemandas() dinamica (COI-009 a COI-013) |
+| `portfolio.html` | Fase 5B.2 — resumo executivo operacional, 4 filtros (tipoItem/status/prioridade/frente), tabela 11 colunas, getItensOperacionais(), renderResumoExecutivo() |
 | `index.html` | Fase 5B.1 — psProj/ps separados; cards projetos usam psProj; nDemandas conta todos os nao-Projeto nao-Concluidos |
 | `assets/style.css` | Fase 5B.1 — badges tipoItem: .badge-tipo-demanda, -incidente, -melhoria, -licen-a-contrato, -atividade-operacional, -entrega-contratual |
 | `projetos/ficha.html` | clearEl; salvarEdicao permite limpar campos; footer v1.4.1 |
-| `scripts/validar-funcional.js` | Fase 5B.1 — 55 asserts (14 novos para modelagem operacional), exit 0/1 |
+| `scripts/validar-funcional.js` | Fase 5B.2 — 66 asserts (11 novos para exibicao executiva demandas), 8 secoes, exit 0/1 |
 | `.claude/skills/COI-MESTRE.md` | Atualizado (Fase 5T.3) — orquestrador de 11 skills |
 | `.claude/skills/COI-FORENSE.md` | NOVO (Fase 5T.3) — analise forense pre-execucao |
 | `.claude/skills/COI-LEARNINGS.md` | NOVO (Fase 5T.3) — prevencao de erros por aprendizado |
