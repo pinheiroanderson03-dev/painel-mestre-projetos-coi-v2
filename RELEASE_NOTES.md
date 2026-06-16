@@ -4,6 +4,41 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Agente Curador de Demandas e Projetos (Fase 5C.1)
+**Data:** 2026-06-16
+
+### O que mudou para o usuario
+
+**Novo agente: COI-CURADOR-DEMANDAS-PROJETOS**
+
+A partir desta fase, o Anderson pode descrever em texto livre qualquer criação, atualização ou conclusão de demanda, projeto ou item operacional — e o agente cuida de mapear os campos corretamente, apresentar uma prévia estruturada para aprovação e, após confirmação, aplicar a alteração em `dados/projetos.js`.
+
+**Como usar:**
+- Modo Prévia (padrão): "Atualize a COI-009. Licença AIOps concluída, chamado 518190." → o agente apresenta a prévia e aguarda aprovação.
+- Modo Assistido: após aprovação, aplica a alteração e valida sem commit.
+- Modo Publicação: após aprovação, aplica, valida, cria branch, commit e push.
+
+**Documentação disponível em:**
+- `docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md`
+- `docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md`
+- `docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md`
+
+---
+
+## v1.4.1 — Ficha Operacional e Conclusao de Demandas (Fase 5B.3)
+**Data:** 2026-06-16
+
+### O que mudou para o usuario
+
+**Ficha de Demandas, Incidentes e Atividades Operacionais:**
+- Ao abrir a ficha de um item operacional (Demanda, Incidente, Licenca/Contrato, Atividade Operacional ou Entrega Contratual), o painel exibe agora um formulario especifico com os campos relevantes para aquele tipo de item.
+- Campos visiveis: Categoria, Frente/Cliente, Solicitante, Origem, Status, Prioridade, Responsavel, Orgao, Prazo de Resolucao, Data de Resolucao, Observacoes Operacionais, Evidencias.
+- Botao **Editar Demanda**: habilita a edicao dos campos. Clicar em **Salvar Alteracoes** persiste as mudancas no navegador (localStorage). Cancelar descarta as edicoes.
+- Botao **Concluir Demanda**: define automaticamente Status = Concluido, registra a data de resolucao de hoje e persiste. Itens ja concluidos exibem confirmacao em verde.
+- Fichas de Projetos Estrategicos (COI-001 a COI-008) continuam funcionando exatamente como antes — sem nenhuma alteracao visivel.
+
+---
+
 ## v1.4.1 — Hotfix Renderizacao das Abas do Portfolio (Fase 5B.2.1)
 **Data:** 2026-06-16
 
@@ -237,59 +272,4 @@ Todas as funcionalidades da v1.4 continuam iguais: seletor por frente e contrato
 
 **Portfólio com agrupamento por frente:** os projetos no portfólio agora são organizados visualmente por frente de atuação (CENTRAL DF, Central de Atendimento, MDS, COI). Novos filtros permitem localizar projetos por frente, número de contrato ou gerente do contrato — além dos filtros de prioridade, status e busca por nome que já existiam.
 
-**Cards do dashboard preenchidos:** os 4 cards de acompanhamento rápido (Demandas Ativas, Riscos Críticos, Decisões Pendentes, Entregas da Semana) agora exibem valores calculados automaticamente a partir dos dados reais dos projetos. Antes exibiam zero.
-
-**Nova seção no dashboard — Execução Mensal e Plano de Excelência:** o painel principal passou a consolidar a competência em vigência, resumo executivo do mês, totais de atividades e melhorias, principais ganhos, próximas entregas com prazo e plano de excelência do COI.
-
-**Fichas individuais com dados executivos completos:** cada ficha de projeto agora exibe frente, tipo do item, número e gerente do contrato, competência de referência. Uma nova seção — Execução Mensal e Gestão Executiva — mostra indicadores como riscos críticos, decisões pendentes e status do plano de excelência, além de benefícios esperados, realizados e evidências.
-
-**Campos preparados para preenchimento:** todos os novos campos têm valor padrão `—` quando não preenchidos. O preenchimento desses campos será habilitado no modo de edição da próxima versão (Fase 4B).
-
-### O que não muda
-
-Todas as funcionalidades existentes continuam iguais: cadastro de projetos, atividades, riscos, marcos, pendências, modo de edição dos campos originais e funcionamento offline.
-
----
-
-## v1.3 — Polimento e Robustez
-**Data:** 2026-06-09
-
-### O que melhorou
-
-**Dashboard funciona sem internet:** os gráficos do painel principal agora carregam de um arquivo local (`assets/js/chart.umd.min.js`), sem precisar de conexão com a internet. Caso o arquivo local não seja encontrado, o painel busca automaticamente a versão online como reserva. Ambientes com restrição de rede no GDF não são mais afetados.
-
-**Armazenamento mais seguro:** se o navegador atingir o limite de armazenamento local (~5MB), o painel agora exibe um aviso claro em vez de falhar silenciosamente. A mensagem orienta o usuário a exportar os dados antes de continuar.
-
-**Diagnóstico de links inválidos:** acessos a fichas com ID inexistente passam a ser registrados automaticamente. Isso permite identificar rapidamente links quebrados sem depender de relatos manuais dos usuários. Os registros ficam visíveis no DevTools do navegador.
-
-**Código mais limpo:** remoção de funções sem uso que haviam ficado como resíduo de versões anteriores. Sem impacto visível para o usuário.
-
-### O que não muda
-
-Todas as funcionalidades existentes continuam iguais: cadastro de projetos, fichas individuais, atividades, riscos, marcos, pendências e modo de edição.
-
----
-
-## v1.2 — Ficha Dinâmica Universal
-**Data:** 2026-06-09
-
-### O que mudou
-
-**Novos projetos funcionam imediatamente:** antes, cadastrar um novo projeto no portfólio gerava uma ficha sem conteúdo porque o arquivo HTML físico não existia. Agora, qualquer projeto cadastrado em `dados/projetos.js` abre sua ficha automaticamente pelo endereço `projetos/ficha.html#COI-009` (ou qualquer ID).
-
-**Links antigos continuam funcionando:** os endereços `ficha_COI001.html` até `ficha_COI008.html` redirecionam automaticamente para a nova ficha. Bookmarks salvos não quebram.
-
-**Dados históricos preservados:** nenhum dado registrado em versões anteriores foi perdido. O armazenamento local (atividades, riscos, marcos, pendências) permanece intacto.
-
-### O que não muda
-
-A aparência, o layout e o funcionamento das fichas são idênticos à versão anterior.
-
----
-
-## v1.1 — Estabilização
-**Data:** 2026-06-08
-
-### O que mudou
-
-**Dados centralizados:** todas as informações
+**Cards do dashboard preen

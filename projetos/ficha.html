@@ -26,6 +26,7 @@
 </nav>
 
 <main id="main-content">
+  <div id="secao-projeto">
 
   <!-- HERO -->
   <div class="hero" id="hero-bloco">
@@ -223,12 +224,113 @@
     </div>
   </div>
 
+  </div><!-- /secao-projeto -->
+
+  <!-- === FICHA OPERACIONAL (Fase 5B.3) ===================================
+       Visivel apenas para itens com tipoItem != 'Projeto'.
+       Oculto por padrao; ativado via JS ao detectar tipoItem operacional.  -->
+  <div id="secao-operacional" style="display:none">
+
+    <!-- OP BLOCO 1: Identificacao -->
+    <div class="section-title" id="op-secao-titulo">1. Identificacao da Demanda</div>
+    <div class="grid-2">
+      <div class="block">
+        <h3>Dados da Demanda</h3>
+        <div class="field"><div class="field-label">Tipo:</div><div class="field-val" id="op-tipo">—</div></div>
+        <div class="field"><div class="field-label">Categoria Operacional:</div>
+          <div class="field-val op-editavel" id="op-categoria" contenteditable="false">—</div></div>
+        <div class="field"><div class="field-label">Frente / Cliente:</div>
+          <div class="field-val op-editavel" id="op-frente" contenteditable="false">—</div></div>
+        <div class="field"><div class="field-label">Solicitante:</div>
+          <div class="field-val op-editavel" id="op-solicitante" contenteditable="false">—</div></div>
+        <div class="field"><div class="field-label">Origem:</div>
+          <div class="field-val" id="op-origem">—</div></div>
+      </div>
+      <div class="block">
+        <h3>Gestao</h3>
+        <div class="field">
+          <div class="field-label">Status:</div>
+          <div class="field-val">
+            <select id="op-status" disabled class="op-select">
+              <option>Planejamento</option><option>Em andamento</option>
+              <option>Homologacao</option><option>Producao</option>
+              <option>Concluído</option><option>Suspenso</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">Prioridade:</div>
+          <div class="field-val">
+            <select id="op-prioridade" disabled class="op-select">
+              <option>P0</option><option>P1</option><option>P2</option><option>P3</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">Responsavel COI:</div>
+          <div class="field-val op-editavel" id="op-responsavel" contenteditable="false">—</div></div>
+        <div class="field"><div class="field-label">Orgao / Cliente:</div>
+          <div class="field-val op-editavel" id="op-orgao" contenteditable="false">—</div></div>
+        <button class="btn-edit" id="op-btn-editar" style="margin-top:10px;" onclick="ativarEdicaoOp()">&#x270F;&#xFE0F; Editar Demanda</button>
+      </div>
+    </div>
+
+    <!-- OP BLOCO 2: Datas -->
+    <div class="section-title">2. Datas e Prazos</div>
+    <div class="grid-3">
+      <div class="block" style="text-align:center;">
+        <h3>Data da Solicitacao</h3>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--azul-medio);margin:8px 0;" id="op-data-solic">—</div>
+        <div style="font-size:.72rem;color:#777;">Quando foi solicitado</div>
+      </div>
+      <div class="block" style="text-align:center;">
+        <h3>Prazo de Resolucao</h3>
+        <input type="date" id="op-prazo-resolucao" disabled
+          style="font-size:1rem;font-weight:800;color:#F9A825;border:1px solid #dde3ef;border-radius:6px;padding:6px 10px;text-align:center;width:90%;margin:8px auto;display:block;">
+        <div style="font-size:.72rem;color:#777;">Data limite prevista</div>
+      </div>
+      <div class="block" style="text-align:center;">
+        <h3>Data de Resolucao</h3>
+        <input type="date" id="op-data-resolucao" disabled
+          style="font-size:1rem;font-weight:800;color:#2E7D32;border:1px solid #dde3ef;border-radius:6px;padding:6px 10px;text-align:center;width:90%;margin:8px auto;display:block;">
+        <div style="font-size:.72rem;color:#777;">Quando foi resolvido</div>
+      </div>
+    </div>
+
+    <!-- OP BLOCO 3: Observacoes -->
+    <div class="section-title">3. Observacoes e Andamento</div>
+    <div class="block">
+      <h3>Observacoes Operacionais</h3>
+      <div class="field-val op-editavel" id="op-obs-operacionais" contenteditable="false"
+        style="min-height:60px;padding:8px 12px;border-radius:6px;line-height:1.6;">—</div>
+      <h3 style="margin-top:16px;">Evidencia / Link</h3>
+      <div class="field-val op-editavel" id="op-evidencia" contenteditable="false">—</div>
+      <div class="field" style="margin-top:12px;">
+        <div class="field-label">Ultima Atualizacao:</div>
+        <div class="field-val" id="op-atualizado-em">—</div>
+      </div>
+    </div>
+
+    <!-- OP BLOCO 4: Conclusao -->
+    <div class="section-title">4. Conclusao da Demanda</div>
+    <div class="block" id="op-bloco-conclusao">
+      <!-- Preenchido dinamicamente pelo JS -->
+    </div>
+
+    <!-- Barra de edicao operacional -->
+    <div class="edit-bar" id="op-edit-bar">
+      &#x270F;&#xFE0F; Modo Edicao Ativo
+      <button class="btn-save" onclick="salvarEdicaoOp()">&#x1F4BE; Salvar Alteracoes</button>
+      <button class="btn-cancel" onclick="cancelarEdicaoOp()">&#x2715; Cancelar</button>
+    </div>
+
+  </div><!-- /secao-operacional -->
+
 </main>
 
 <!-- MODAL ATIVIDADE -->
 <div class="modal-overlay" id="modal-atividade" role="dialog" aria-modal="true">
   <div class="modal">
-    <h2>➕ Registrar Atividade Realizada</h2>
+    <h2>+ Registrar Atividade Realizada</h2>
     <div class="form-grid">
       <div class="form-group full"><label>Descrição da Atividade *</label><textarea id="atv-desc" rows="2" placeholder="Descreva a atividade concluída"></textarea></div>
       <div class="form-group"><label>Responsável</label><input type="text" id="atv-resp"></div>
@@ -289,7 +391,7 @@
 <!-- MODAL PENDÊNCIA -->
 <div class="modal-overlay" id="modal-pendencia" role="dialog" aria-modal="true">
   <div class="modal">
-    <h2>🔔 Registrar Pendência</h2>
+    <h2>📔 Registrar Pendência</h2>
     <div class="form-grid">
       <div class="form-group full"><label>Descrição *</label><textarea id="pend-desc" rows="2"></textarea></div>
       <div class="form-group"><label>Responsável</label><input type="text" id="pend-resp"></div>
@@ -311,7 +413,7 @@
 <footer id="rodape">COI — Comunicação Omnichannel Inteligente · Central IT · Painel Mestre v1.4.1</footer>
 
 <script>
-// ─── ID do projeto via hash da URL ────────────────────────────────────
+// --- ID do projeto via hash da URL ------------------------------------
 // Exemplo: projetos/ficha.html#COI-001
 // Hash vazio → redireciona para portfólio
 const FICHA_ID = window.location.hash.slice(1);
@@ -324,7 +426,7 @@ if (!FICHA_ID) {
 // com o novo hash, re-executando todo o script — sem estado perdido
 window.addEventListener('hashchange', () => { window.location.reload(); });
 
-// ─── Helpers ──────────────────────────────────────────────────────────
+// --- Helpers ----------------------------------------------------------
 function showToast(msg, erro=false) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -354,7 +456,7 @@ function emptyRow(cols, msg) {
   div.className = 'empty-state';
   const icon = document.createElement('span');
   icon.className = 'icon';
-  icon.textContent = '📭';
+  icon.textContent = '[Caixa]';
   div.appendChild(icon);
   div.appendChild(document.createTextNode(' ' + msg));
   td.appendChild(div);
@@ -362,11 +464,11 @@ function emptyRow(cols, msg) {
   return tr;
 }
 
-// ─── Data ────────────────────────────────────────────────────────────
+// --- Data ------------------------------------------------------------
 document.getElementById('data-atual').textContent =
   new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-// ─── Projeto (com fallback de erro visual) ────────────────────────────
+// --- Projeto (com fallback de erro visual) ----------------------------
 const projeto = COI_DATA.projetos.find(p => p.id === FICHA_ID);
 
 if (!projeto) {
@@ -379,7 +481,7 @@ if (!projeto) {
 
   const icon = document.createElement('div');
   icon.style.cssText = 'font-size:3rem;margin-bottom:16px;';
-  icon.textContent = '🔍';
+  icon.textContent = '[Busca]';
 
   const titulo = document.createElement('h2');
   titulo.style.cssText = 'color:var(--azul-escuro);margin-bottom:10px;';
@@ -404,7 +506,7 @@ if (!projeto) {
   document.getElementById('hdr-titulo').textContent = 'Projeto não encontrado';
   document.title = 'COI — Projeto não encontrado';
 
-  // ─── Log diagnóstico de hashes inválidos ────────────────────────
+  // --- Log diagnóstico de hashes inválidos ------------------------
   // Consultável via DevTools > Application > localStorage > coi_hash_invalidos
   try {
     const log = JSON.parse(localStorage.getItem('coi_hash_invalidos') || '[]');
@@ -415,7 +517,7 @@ if (!projeto) {
   console.warn('COI: hash inválido registrado —', FICHA_ID);
 }
 
-// ─── Nav dinâmica ─────────────────────────────────────────────────────
+// --- Nav dinâmica -----------------------------------------------------
 // Links usam ficha.html#ID — sem arquivo físico por projeto
 const nav = document.getElementById('nav-principal');
 COI_DATA.projetos.forEach(p => {
@@ -427,7 +529,7 @@ COI_DATA.projetos.forEach(p => {
   nav.appendChild(a);
 });
 
-// ─── Renderizar HERO ──────────────────────────────────────────────────
+// --- Renderizar HERO --------------------------------------------------
 function renderHero(p) {
   document.getElementById('hdr-titulo').textContent = p.id + ' — ' + p.nome;
   document.title = 'COI — ' + p.id + ': ' + p.nome;
@@ -468,7 +570,7 @@ function renderHero(p) {
   });
 }
 
-// ─── Renderizar campos texto ──────────────────────────────────────────
+// --- Renderizar campos texto ------------------------------------------
 function renderCampos(p) {
   const set = function(id, val) {
     const el = document.getElementById(id);
@@ -488,14 +590,14 @@ function renderCampos(p) {
   set('f-prazo',     p.prazoPrevisto || '—');
   set('f-upd',       p.atualizadoEm  || new Date().toLocaleDateString('pt-BR'));
 
-  // ── Fase 4A: campos de identificação ──────────────────────────────
+  // -- Fase 4A: campos de identificação ------------------------------
   set('f-frente',          p.frente          || '—');
   set('f-tipo',            p.tipoItem        || '—');
   set('f-contrato-num',    p.contrato        || '—');
   set('f-gerente-contrato',p.gerenteContrato || '—');
   set('f-competencia',     p.competencia     || '—');
 
-  // ── Fase 4A: indicadores executivos ───────────────────────────────
+  // -- Fase 4A: indicadores executivos -------------------------------
   // Riscos críticos — badge vermelho se > 0
   var elRiscos = document.getElementById('f-riscos-criticos');
   if (elRiscos) {
@@ -528,7 +630,7 @@ function renderCampos(p) {
     elPlano.appendChild(spPlano);
   }
 
-  // ── Fase 4A: benefícios e evidências ──────────────────────────────
+  // -- Fase 4A: benefícios e evidências ------------------------------
   set('f-benef-esp',  p.beneficioEsperado  || '—');
   set('f-benef-real', p.beneficioRealizado || '—');
   set('f-evidencia',  p.evidencia          || '—');
@@ -536,7 +638,7 @@ function renderCampos(p) {
 
 if (projeto) { renderHero(projeto); renderCampos(projeto); }
 
-// ─── Modo edição ──────────────────────────────────────────────────────
+// --- Modo edição ------------------------------------------------------
 const EDIT_FIELDS = ['f-patr','f-orgao','f-resp','f-fonte','f-obs'];
 let dadosEdicao = {};
 
@@ -592,7 +694,7 @@ function salvarEdicao() {
   showToast('Dados salvos com sucesso.');
 }
 
-// ─── Tabelas (localStorage) ───────────────────────────────────────────
+// --- Tabelas (localStorage) -------------------------------------------
 function renderTabela(tbodyId, dados, colunas, vazio) {
   const tb = document.getElementById(tbodyId);
   clearEl(tb);
@@ -719,22 +821,279 @@ function salvarPendencia() {
   showToast('Pendência registrada.');
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────
-if (projeto) {
-  carregarAtividades();
-  carregarPassos();
-  carregarRiscos();
-  carregarPendencias();
+
+
+// --- Fase 5B.3: Ficha Operacional Condicional -----------------------------
+// Detecta se o item eh operacional (tipoItem presente e diferente de 'Projeto')
+function eOperacional(p) {
+  return p.tipoItem && p.tipoItem !== 'Projeto';
 }
 
-// ─── Fechar modal via overlay ou ESC ──────────────────────────────────
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target===o) o.classList.remove('open'); });
-});
-document.addEventListener('keydown', e => {
-  if (e.key==='Escape')
-    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
-});
+// Preenche a ficha operacional e oculta blocos de projeto estrategico
+function renderFichaOperacional(p) {
+  var secProj = document.getElementById('secao-projeto');
+  if (secProj) secProj.style.display = 'none';
+  var barProj = document.getElementById('edit-bar');
+  if (barProj) barProj.style.display = 'none';
+
+  var secOp = document.getElementById('secao-operacional');
+  if (secOp) secOp.style.display = '';
+
+  // Titulo da secao
+  var tituloSec = document.getElementById('op-secao-titulo');
+  if (tituloSec) tituloSec.textContent = '1. Identificacao — ' + (p.tipoItem || 'Item Operacional');
+
+  // Campos de texto simples
+  var setOp = function(id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val || '—';
+  };
+  setOp('op-tipo',              p.tipoItem             || '—');
+  setOp('op-categoria',         p.categoriaOperacional  || '—');
+  setOp('op-frente',            p.frente                || '—');
+  setOp('op-solicitante',       p.solicitante           || '—');
+  setOp('op-origem',            p.origem                || '—');
+  setOp('op-responsavel',       p.responsavel           || '—');
+  setOp('op-orgao',             p.orgao                 || '—');
+  setOp('op-data-solic',        p.dataSolicitacao       || '—');
+  setOp('op-obs-operacionais',  p.observacoesOperacionais || '—');
+  setOp('op-evidencia',         p.evidencia             || '—');
+  setOp('op-atualizado-em',     p.atualizadoEm          || '—');
+
+  // Select Status
+  var selSt = document.getElementById('op-status');
+  if (selSt) {
+    for (var i = 0; i < selSt.options.length; i++) {
+      // Comparar ignorando acentos comuns (opcoes ASCII vs dados com acento)
+      var opt = selSt.options[i].value;
+      if (opt === p.status || normalizarStatus(opt) === normalizarStatus(p.status || '')) {
+        selSt.selectedIndex = i; break;
+      }
+    }
+  }
+
+  // Select Prioridade
+  var selPr = document.getElementById('op-prioridade');
+  if (selPr) {
+    for (var j = 0; j < selPr.options.length; j++) {
+      if (selPr.options[j].value === p.prioridade) { selPr.selectedIndex = j; break; }
+    }
+  }
+
+  // Date inputs
+  var elPrazo = document.getElementById('op-prazo-resolucao');
+  if (elPrazo) elPrazo.value = p.prazoResolucao || '';
+  var elDataRes = document.getElementById('op-data-resolucao');
+  if (elDataRes) elDataRes.value = p.dataResolucao || '';
+
+  renderBlocoConclusao(p);
+}
+
+// Normaliza strings de status para comparacao (remove acentos basicos)
+function normalizarStatus(s) {
+  return s.toLowerCase()
+    .replace(/[aáàãâ]/g, 'a').replace(/[eéê]/g, 'e')
+    .replace(/[iíî]/g, 'i').replace(/[oóôõ]/g, 'o')
+    .replace(/[uúû]/g, 'u').replace(/[cç]/g, 'c');
+}
+
+// Renderiza o bloco de conclusao (estado Concluído ou botao de concluir)
+function renderBlocoConclusao(p) {
+  var bloco = document.getElementById('op-bloco-conclusao');
+  if (!bloco) return;
+  clearEl(bloco);
+
+  var concluido = (p.status === 'Concluído' || normalizarStatus(p.status || '') === 'concluido');
+  if (concluido) {
+    var divOk = document.createElement('div');
+    divOk.className = 'op-concluido';
+
+    var icone = document.createElement('div');
+    icone.style.fontSize = '2.5rem';
+    icone.style.marginBottom = '8px';
+    icone.textContent = '✅';
+
+    var titulo = document.createElement('h3');
+    titulo.style.color = '#2E7D32';
+    titulo.style.marginBottom = '12px';
+    titulo.textContent = 'Demanda Concluída';
+
+    function criarCampoInfo(label, valor) {
+      var div = document.createElement('div');
+      div.className = 'field';
+      var lb = document.createElement('div');
+      lb.className = 'field-label';
+      lb.textContent = label;
+      var vl = document.createElement('div');
+      vl.className = 'field-val';
+      vl.textContent = valor || '—';
+      div.appendChild(lb);
+      div.appendChild(vl);
+      return div;
+    }
+
+    divOk.appendChild(icone);
+    divOk.appendChild(titulo);
+    divOk.appendChild(criarCampoInfo('Data de Resolucao:', p.dataResolucao));
+    divOk.appendChild(criarCampoInfo('Atualizado em:', p.atualizadoEm));
+    bloco.appendChild(divOk);
+  } else {
+    var info = document.createElement('p');
+    info.style.color = '#555';
+    info.style.marginBottom = '16px';
+    info.textContent = 'Status atual: ' + (p.status || '—') + '. Use o botao abaixo para registrar a conclusao desta demanda.';
+
+    var btn = document.createElement('button');
+    btn.className = 'btn-concluir';
+    btn.textContent = '✅ Concluir Demanda';
+    btn.setAttribute('onclick', 'concluirDemanda()');
+
+    bloco.appendChild(info);
+    bloco.appendChild(btn);
+  }
+}
+
+// --- Edicao operacional ---------------------------------------------------
+var OP_TEXT_FIELDS = [
+  'op-categoria','op-frente','op-solicitante',
+  'op-responsavel','op-orgao','op-obs-operacionais','op-evidencia'
+];
+var opDadosEdicao = {};
+
+function ativarEdicaoOp() {
+  OP_TEXT_FIELDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.setAttribute('contenteditable', 'true');
+      el.classList.add('edit');
+      opDadosEdicao[id] = el.textContent.trim();
+    }
+  });
+  ['op-status','op-prioridade','op-prazo-resolucao','op-data-resolucao'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.disabled = false;
+  });
+  var bar = document.getElementById('op-edit-bar');
+  if (bar) bar.classList.add('show');
+  var btn = document.getElementById('op-btn-editar');
+  if (btn) btn.style.display = 'none';
+}
+
+function cancelarEdicaoOp() {
+  OP_TEXT_FIELDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.textContent = opDadosEdicao[id] || '—';
+      el.setAttribute('contenteditable', 'false');
+      el.classList.remove('edit');
+    }
+  });
+  ['op-status','op-prioridade','op-prazo-resolucao','op-data-resolucao'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.disabled = true;
+  });
+  var bar = document.getElementById('op-edit-bar');
+  if (bar) bar.classList.remove('show');
+  var btn = document.getElementById('op-btn-editar');
+  if (btn) btn.style.display = '';
+}
+
+function salvarEdicaoOp() {
+  var p = COI_DATA.projetos.find(function(pr) { return pr.id === FICHA_ID; });
+  if (!p) { showToast('Projeto não encontrado.', true); return; }
+
+  var mapText = {
+    'op-categoria':         'categoriaOperacional',
+    'op-frente':            'frente',
+    'op-solicitante':       'solicitante',
+    'op-responsavel':       'responsavel',
+    'op-orgao':             'orgao',
+    'op-obs-operacionais':  'observacoesOperacionais',
+    'op-evidencia':         'evidencia'
+  };
+
+  OP_TEXT_FIELDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      var val = el.textContent.trim();
+      p[mapText[id]] = (val === '—' ? '' : val);
+      el.setAttribute('contenteditable', 'false');
+      el.classList.remove('edit');
+    }
+  });
+
+  // Selects
+  var selSt = document.getElementById('op-status');
+  if (selSt) { p.status = selSt.options[selSt.selectedIndex].text; selSt.disabled = true; }
+  var selPr = document.getElementById('op-prioridade');
+  if (selPr) { p.prioridade = selPr.value; selPr.disabled = true; }
+
+  // Date inputs
+  var elPrazo = document.getElementById('op-prazo-resolucao');
+  if (elPrazo) { p.prazoResolucao = elPrazo.value; elPrazo.disabled = true; }
+  var elDataRes = document.getElementById('op-data-resolucao');
+  if (elDataRes) { p.dataResolucao = elDataRes.value; elDataRes.disabled = true; }
+
+  p.atualizadoEm = new Date().toLocaleDateString('pt-BR');
+  coiSalvarProjeto(p);
+
+  var bar = document.getElementById('op-edit-bar');
+  if (bar) bar.classList.remove('show');
+  var btn = document.getElementById('op-btn-editar');
+  if (btn) btn.style.display = '';
+
+  renderHero(p);
+  var elUpd = document.getElementById('op-atualizado-em');
+  if (elUpd) elUpd.textContent = p.atualizadoEm;
+  renderBlocoConclusao(p);
+
+  showToast('Demanda atualizada com sucesso.');
+}
+
+// ─── Concluir demanda ─────────────────────────────────────────────────────
+function concluirDemanda() {
+  var p = COI_DATA.projetos.find(function(pr) { return pr.id === FICHA_ID; });
+  if (!p) { showToast('Projeto não encontrado.', true); return; }
+  if (!confirm('Confirma a conclusão da demanda ' + p.id + '?\n' + p.nome)) return;
+
+  var hoje = new Date().toLocaleDateString('pt-BR');
+  p.status        = 'Concluído';
+  p.dataResolucao = p.dataResolucao || hoje;
+  p.atualizadoEm  = hoje;
+  p.percentual    = 100;
+
+  coiSalvarProjeto(p);
+  renderHero(p);
+
+  var selSt = document.getElementById('op-status');
+  if (selSt) {
+    for (var i = 0; i < selSt.options.length; i++) {
+      if (normalizarStatus(selSt.options[i].value) === 'concluido') {
+        selSt.selectedIndex = i; break;
+      }
+    }
+  }
+
+  var elDataRes = document.getElementById('op-data-resolucao');
+  if (elDataRes) elDataRes.value = p.dataResolucao;
+  var elUpd = document.getElementById('op-atualizado-em');
+  if (elUpd) elUpd.textContent = p.atualizadoEm;
+
+  renderBlocoConclusao(p);
+  showToast('Demanda concluída com sucesso! ✅');
+}
+
+// ─── Dispatch: projeto estratégico ou operacional ─────────────────────────
+if (projeto) {
+  if (eOperacional(projeto)) {
+    renderFichaOperacional(projeto);
+  } else {
+    carregarAtividades();
+    carregarPassos();
+    carregarRiscos();
+    carregarPendencias();
+  }
+}
 </script>
 </body>
 </html>

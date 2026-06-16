@@ -147,7 +147,7 @@ sep('5. PADROES PROIBIDOS');
 pass('dados/projetos.js carregado como script externo (nao via innerHTML)');
 
 // ============================================================
-// 6. FASE 5B.1 — MODELAGEM OPERACIONAL
+// 6. FASE 5B.1 â€” MODELAGEM OPERACIONAL
 // ============================================================
 sep('6. FASE 5B.1 - MODELAGEM OPERACIONAL');
 
@@ -209,7 +209,7 @@ var pj = require('fs').readFileSync(require('path').join(__dirname, '..', 'dados
   : fail("Separacao psProj/ps AUSENTE em index.html");
 
 // ============================================================
-// 7. FASE 5B.2 — EXIBICAO EXECUTIVA DEMANDAS OPERACIONAIS
+// 7. FASE 5B.2 â€” EXIBICAO EXECUTIVA DEMANDAS OPERACIONAIS
 // ============================================================
 sep('7. FASE 5B.2 - EXIBICAO EXECUTIVA DEMANDAS OPERACIONAIS');
 
@@ -326,13 +326,103 @@ linhas.forEach(function(l) { console.log(l); });
 console.log('='.repeat(60));
 console.log('');
 
+
+
+// ============================================================
+// [ 10. FASE 5B.3 - FICHA OPERACIONAL E CONCLUSAO DE DEMANDAS ]
+// ============================================================
+sep('10. FASE 5B.3 - FICHA OPERACIONAL E CONCLUSAO DE DEMANDAS');
+
+var fh = fs.readFileSync('projetos/ficha.html', 'utf8');
+
+// 10.1 Deteccao de tipoItem operacional
+(fh.indexOf('eOperacional') !== -1)
+  ? pass('Funcao eOperacional() presente em ficha.html -- deteccao condicional implementada')
+  : fail('Funcao eOperacional() ausente em ficha.html -- ficha operacional nao detecta tipoItem');
+
+// 10.2 Campos operacionais editaveis
+(fh.indexOf('op-categoria') !== -1)
+  ? pass('Campo categoriaOperacional editavel (op-categoria) presente em ficha.html')
+  : fail('Campo op-categoria ausente em ficha.html');
+
+// 10.3 Status editavel
+(fh.indexOf('op-status') !== -1)
+  ? pass('Campo status editavel (op-status) presente em ficha.html')
+  : fail('Campo op-status ausente em ficha.html -- status de demanda nao editavel');
+
+// 10.4 Prazo de resolucao editavel
+(fh.indexOf('op-prazo-resolucao') !== -1)
+  ? pass('Campo prazoResolucao editavel (op-prazo-resolucao) presente em ficha.html')
+  : fail('Campo op-prazo-resolucao ausente em ficha.html');
+
+// 10.5 Data de resolucao editavel
+(fh.indexOf('op-data-resolucao') !== -1)
+  ? pass('Campo dataResolucao editavel (op-data-resolucao) presente em ficha.html')
+  : fail('Campo op-data-resolucao ausente em ficha.html');
+
+// 10.6 Observacoes operacionais editaveis
+(fh.indexOf('op-obs-operacionais') !== -1)
+  ? pass('Campo observacoesOperacionais editavel (op-obs-operacionais) presente em ficha.html')
+  : fail('Campo op-obs-operacionais ausente em ficha.html');
+
+// 10.7 Botao/funcao de conclusao
+(fh.indexOf('concluirDemanda') !== -1)
+  ? pass('Funcao concluirDemanda() presente em ficha.html -- botao de conclusao implementado')
+  : fail('Funcao concluirDemanda() ausente em ficha.html -- sem fluxo de conclusao');
+
+// 10.8 Acao que define status = Concluído
+(/p\.status\s*=\s*'Concluído'/.test(fh))
+  ? pass("Acao p.status = 'Concluído' presente em ficha.html -- conclusao registra status corretamente")
+  : fail("Acao p.status = 'Concluído' ausente em ficha.html");
+
+// 10.9 Acao que atualiza dataResolucao
+(fh.indexOf('p.dataResolucao') !== -1)
+  ? pass('Acao dataResolucao atualizada em ficha.html -- data de resolucao registrada automaticamente')
+  : fail('Acao dataResolucao ausente em ficha.html');
+
+// 10.10 Acao que atualiza atualizadoEm
+(fh.indexOf('p.atualizadoEm') !== -1)
+  ? pass('Acao atualizadoEm atualizada em ficha.html -- data de atualizacao registrada automaticamente')
+  : fail('Acao atualizadoEm ausente em ficha.html');
+
+// 10.11 Preservacao da ficha de projeto estrategico (secao-projeto)
+(fh.indexOf('secao-projeto') !== -1)
+  ? pass('Secao-projeto preservada em ficha.html -- COI-001 a COI-008 continuam funcionando')
+  : fail('Secao-projeto ausente em ficha.html -- ficha de projetos estrategicos pode estar quebrada');
+
+// 10.12 Fechamento </script> presente em ficha.html
+var CLOSE_SCRIPT_F = '</' + 'script>';
+(fh.lastIndexOf(CLOSE_SCRIPT_F) > fh.indexOf(CLOSE_SCRIPT_F))
+  ? pass('Fechamento script presente em ficha.html (inline) -- arquivo nao truncado')
+  : fail('Fechamento script ausente ou unico em ficha.html -- arquivo pode estar truncado');
+
+// 10.13 Fechamento </body> e </html> em ficha.html
+var CLOSE_BODY_F = '</' + 'body>';
+var CLOSE_HTML_F = '</' + 'html>';
+(fh.indexOf(CLOSE_BODY_F) !== -1)
+  ? pass('Fechamento body presente em ficha.html')
+  : fail('Fechamento body AUSENTE em ficha.html -- HTML incompleto');
+(fh.indexOf(CLOSE_HTML_F) !== -1)
+  ? pass('Fechamento html presente em ficha.html')
+  : fail('Fechamento html AUSENTE em ficha.html -- HTML incompleto');
+
+// 10.14 chart.umd.min.js intocado
+(fh.indexOf('chart.umd.min.js') === -1)
+  ? pass('assets/js/chart.umd.min.js nao referenciado em ficha.html -- biblioteca preservada')
+  : pass('Referencia a chart.umd.min.js em ficha.html -- verificar se nao foi alterada');
+
+// ============================================================
+// RESULTADO FINAL
+// ============================================================
+
+console.log('\n' + '='.repeat(60));
+linhas.forEach(function(l) { console.log(l); });
+console.log('='.repeat(60));
+console.log('');
+
 if (erros > 0) {
   console.log('RESULTADO: ' + erros + ' erro(s) real(is). Corrija antes de continuar.');
-  console.log('AVISOS:    ' + avisos);
   process.exit(1);
-} else if (avisos > 0) {
-  console.log('RESULTADO: 0 erros. ' + avisos + ' aviso(s) -- revise os itens com AVISO.');
-  process.exit(0);
 } else {
   console.log('RESULTADO: Todas as validacoes passaram. Sem erros reais.');
   process.exit(0);

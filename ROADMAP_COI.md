@@ -231,7 +231,36 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-### 🔄 v1.5 — Fase 5B.3: Indicadores Operacionais no Dashboard (proxima)
+### ✅ v1.4.1 — Fase 5B.3: Ficha Operacional Condicional e Conclusao de Demandas (concluida — 2026-06-16)
+
+**Objetivo:** Implementar formulario operacional condicional em ficha.html para itens com tipoItem diferente de 'Projeto', com edicao de campos e botao de conclusao.
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `projetos/ficha.html` | ALTERADO | eOperacional(), renderFichaOperacional(), concluirDemanda(), salvarEdicaoOp(); dispatch condicional; secao-operacional com 13 campos editaveis |
+| `assets/style.css` | ALTERADO | .op-select, .op-editavel, .op-concluido, .btn-concluir |
+| `scripts/validar-funcional.js` | ALTERADO | Secao 10 com 14 novos asserts; total 93 PASS, 0 FAIL |
+
+**Branch:** `fase-`
+
+---
+
+### ✅ v1.4.1 — Fase 5C.1: Agente Curador de Demandas e Projetos (concluida — 2026-06-16)
+
+**Objetivo:** Criar a estrutura de governanca do agente COI-CURADOR-DEMANDAS-PROJETOS para receber texto livre e gerar atualizacoes estruturadas em dados/projetos.js.
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md` | CRIADO | Regras completas, modos, exemplos, limites de seguranca, integracao |
+| `docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md` | CRIADO | Templates de entrada por tipo; campos minimos; formato de saida |
+| `docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md` | CRIADO | Protocolo 5-fases: interpretacao, previa, execucao, validacao, entrega |
+| `AGENTS.md` | ALTERADO | Secao 13 adicionada com papel, modos e limites do COI-CURADOR |
+
+**Branch:** `fase-`
+
+---
+
+### 🔄 v1.5 — Fase 5B.4: Indicadores Operacionais no Dashboard (proxima)
 
 **Objetivo:** Adicionar cards executivos no dashboard (index.html) para Incidentes, Licencas e Atividades Operacionais — complementando os cards de Projetos Estrategicos ja existentes.
 Escopo a definir com Anderson antes de iniciar.
@@ -242,49 +271,4 @@ Escopo a definir com Anderson antes de iniciar.
 
 **Objetivo:** Expandir o modo de edição das fichas e permitir exportação de dados dos projetos.
 
-| Funcionalidade | Descrição | Complexidade | Valor |
-|---|---|---|---|
-| Edição dos novos campos | Expandir modo de edição da ficha para cobrir os 11 campos da Fase 4A | Média | Alto |
-| Exportação PDF | Gerar PDF da ficha individual via `window.print()` + CSS `@media print` | Média | Alto |
-| Exportação XLSX | Exportar atividades, riscos e pendências para Excel via SheetJS | Alta | Alto |
-| Histórico de mudanças | Linha do tempo de edições por projeto no localStorage | Alta | Médio |
-| Linha do Tempo Executiva | Página `linha-do-tempo.html` com visão cronológica dos marcos | Alta | Alto |
-| Relatório Mensal PDF | Página `relatorio-mensal.html` com consolidação mensal exportável | Alta | Alto |
-
-### 🔄 v1.6 — Fase 4C: Edição Orientada pelo GitHub e Governança de Dados (planejada)
-
-**Objetivo:** Facilitar a gestão e edição dos dados do painel diretamente pelo GitHub, sem dependência de alteração manual complexa no código.
-
-> Esta fase não tem implementação técnica iniciada. É um planejamento de governança de dados.
-
-| Diretriz | Descrição |
-|---|---|
-| Estrutura de dados editável | Avaliar separação em `dados/projetos.json` + `dados/execucoes-mensais.json`, ou manter `dados/projetos.js` com estrutura mais simples e documentada |
-| Edição pelo GitHub | Permitir que o gestor edite dados pelo GitHub Web Editor ou `github.dev` sem necessidade de ambiente local |
-| Documentação de edição | Guia claro: onde alterar projeto, onde alterar mês, onde alterar entregas, onde alterar plano de excelência, como validar antes de salvar |
-| `admin.html` local (futuro) | Interface local que permita preencher campos e exportar JSON pronto para colar no GitHub — sem token exposto |
-| Gravação automática | Qualquer gravação no GitHub deve ser avaliada com segurança — preferencialmente via GitHub Actions, Pull Request ou fluxo controlado. **Sem token de API exposto no frontend público.** |
-
----
-
-## v2.0 — Fase 5: Integração e Multi-usuário (visão futura)
-
-> Requer decisão arquitetural: manter estático ou migrar para servidor.
-
-- API REST simples (Node/Python) para substituir `localStorage` por banco de dados
-- Autenticação via LDAP/AD do GDF
-- Notificações por e-mail para projetos com semáforo vermelho
-- Integração com sistemas do GDF (SEI, SUAP, ÁGATHA)
-- Painel de indicadores consolidados para diretoria
-
----
-
-## Critérios de Qualidade
-
-| Critério | Meta | Status |
-|---|---|---|
-| Sem innerHTML com dados externos | 0 ocorrências | ✅ |
-| Fonte única de verdade | `dados/projetos.js` | ✅ |
-| Funcional offline (sem CDN) | Chart.js local | ✅ |
-| Novos projetos sem arquivos físicos | Hash routing | ✅ |
-| Feedback de erros ao usuário |
+| Funcionalida

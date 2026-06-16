@@ -8,7 +8,7 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
-Atualizado em: 2026-06-16 · Responsavel pela atualizacao: Fase 5B.2.1 — Hotfix Renderizacao Abas Portfolio
+Atualizado em: 2026-06-16 · Responsavel pela atualizacao: Fase 5C.1 — Agente Curador de Demandas e Projetos
 
 ---
 
@@ -50,14 +50,16 @@ Atualizado em: 2026-06-16 · Responsavel pela atualizacao: Fase 5B.2.1 — Hotfi
 | Fase 5B.1.1 | v1.4.1 | Consolidacao de Memoria e Aprendizado — E-008, A-008/A-009, PA-011 a PA-013, AP-011, DAR-011; 5 docs atualizados — Concluida |
 | Fase 5B.2 | v1.4.1 | Exibicao Executiva das Demandas Operacionais no Portfolio — resumo executivo, 4 filtros, tabela 11 colunas, 11 novos asserts (66 total) — Concluida |
 | Fase 5B.2.1 | v1.4.1 | Hotfix Renderizacao Abas Portfolio — portfolio.html truncado corrigido; null-check selProj; nav filtrada; Secao 9 validar-funcional.js (13 asserts, 79 total) — Concluida |
+| Fase 5B.3 | v1.4.1 | Ficha Operacional Condicional e Conclusao de Demandas — eOperacional(), renderFichaOperacional(), concluirDemanda(), 13 campos op, Secao 10 validar-funcional.js (14 asserts, 93 total) — Concluida |
+| Fase 5C.1 | v1.4.1 | Agente Curador de Demandas e Projetos — 3 novos docs (AGENTE_CURADOR, MODELO_ENTRADA, PROTOCOLO_ATUALIZACAO); AGENTS.md secao 13 — Concluida |
 
 ---
 
 ## Fase em Execucao
 
-Fase 5B.2.1 concluida em 2026-06-16. Hotfix critico: portfolio.html truncado corrigido — JS agora executa corretamente, todas as abas renderizam.
-Aguardando commit e aprovacao do Anderson para fechar 5B.2 + 5B.2.1.
-Proxima fase: Fase 5B.3 — Indicadores Operacionais (cards executivos para Incidentes, Licencas, Atividades Operacionais).
+Fase 5C.1 concluida em 2026-06-16. Agente COI-CURADOR-DEMANDAS-PROJETOS estruturado: 3 novos documentos criados (AGENTE_CURADOR, MODELO_ENTRADA, PROTOCOLO_ATUALIZACAO); AGENTS.md atualizado com secao 13.
+Aguardando commit e aprovacao do Anderson para fechar 5C.1.
+Proxima fase: Fase 5B.4 ou uso do agente curador para atualizar COI-009 (exemplo obrigatorio da fase).
 
 ---
 
@@ -74,11 +76,12 @@ Proxima fase: Fase 5B.3 — Indicadores Operacionais (cards executivos para Inci
 
 ## Proxima Acao Prevista
 
-Fase 5B.2.1 concluida em 2026-06-16.
-portfolio.html truncado corrigido (handler ESC, </script>, </body>, </html> restaurados). null-check em selProj. Nav filtrada para projetos estrategicos.
-validar-funcional.js: 79 asserts (Secao 9 adicionada), 0 falhas.
+Fase 5C.1 concluida em 2026-06-16.
+3 novos documentos criados: docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md, docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md, docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md.
+AGENTS.md: secao 13 adicionada com papel, modos e limites do COI-CURADOR.
+Validador: 93 PASS, 0 FAIL (sem alteracao em scripts/validar-funcional.js).
 Aguardando commit e aprovacao do Anderson.
-Proxima fase sugerida: Fase 5B.3 — Indicadores Operacionais (cards dashboard para Incidentes, Licencas, Atividades).
+Proxima acao sugerida: usar COI-CURADOR para aplicar exemplo obrigatorio (atualizar COI-009 — chamado 518190, licenca AIOps concluida) ou iniciar Fase 5B.4.
 
 ---
 
@@ -92,43 +95,12 @@ Proxima fase sugerida: Fase 5B.3 — Indicadores Operacionais (cards dashboard p
 | `portfolio.html` | Fase 5B.2.1 — CORRIGIDO (truncamento): fechamento JS/HTML restaurado, null-check selProj, nav filtrada. Contem tambem: resumo executivo, 4 filtros, tabela 11 colunas, getItensOperacionais(), renderResumoExecutivo() |
 | `index.html` | Fase 5B.1 — psProj/ps separados; cards projetos usam psProj; nDemandas conta todos os nao-Projeto nao-Concluidos |
 | `assets/style.css` | Fase 5B.1 — badges tipoItem: .badge-tipo-demanda, -incidente, -melhoria, -licen-a-contrato, -atividade-operacional, -entrega-contratual |
-| `projetos/ficha.html` | clearEl; salvarEdicao permite limpar campos; footer v1.4.1 |
-| `scripts/validar-funcional.js` | Fase 5B.2.1 — 79 asserts (Secao 9: 13 novos asserts de integridade portfolio.html), 9 secoes, exit 0/1 |
+| `projetos/ficha.html` | Fase 5B.3 — eOperacional(), renderFichaOperacional(), concluirDemanda(), salvarEdicaoOp(); formulario condicional para itens operacionais; secao-projeto preservada para COI-001 a COI-008 |
+| `scripts/validar-funcional.js` | Fase 5B.3 — 93 asserts (Secao 10: 14 novos asserts ficha operacional), 10 secoes, exit 0/1 |
 | `.claude/skills/COI-MESTRE.md` | Atualizado (Fase 5T.3) — orquestrador de 11 skills |
 | `.claude/skills/COI-FORENSE.md` | NOVO (Fase 5T.3) — analise forense pre-execucao |
 | `.claude/skills/COI-LEARNINGS.md` | NOVO (Fase 5T.3) — prevencao de erros por aprendizado |
 | `.claude/skills/COI-TESTES.md` | NOVO (Fase 5T.3) — suite de testes T1-T6 pre-QA |
 | `.claude/skills/COI-AUDITOR.md` | NOVO (Fase 5T.3) — auditoria de protocolo e escopo |
 | `docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md` | NOVO (Fase 5T.3) — padroes aprovados e anti-padroes |
-| `docs/DECISOES_ARQUITETURAIS_COI.md` | NOVO (Fase 5T.3) — DAR-001 a DAR-010 |
-| `scripts/status-seguro.ps1` | Validacao de branch e status — ASCII puro |
-| `scripts/validar-docs.ps1` | Validacao de documentacao — ASCII puro |
-| `scripts/validar-dados.ps1` | Validacao de dados/projetos.js — ASCII puro |
-| `scripts/validar-projeto.ps1` | Validacao geral pre-commit — ASCII puro |
-| `docs/ESTADO_ATUAL_DO_PROJETO.md` | Este arquivo — atualizado em Fase 5T.1 |
-| `docs/MEMORIA_OPERACIONAL_PROJETO.md` | Documento estrutural — atualizado em Fase 5T.1 |
-| `AGENTS.md` | Regras e papeis dos agentes — COI-MESTRE como primeira leitura obrigatoria (Fase 5T.4) |
-| `CLAUDE.md` | Regra de Entrada Obrigatoria (Fase 5T.4) — COI-MESTRE como unica porta de entrada; protocolo paralelo removido |
-| `docs/CHECKLIST_EXECUCAO_AGENTES.md` | PASSO 0 obrigatorio (Fase 5T.4) — COI-MESTRE; proibicao de entrada direta por skills especializadas |
-| `docs/PROTOCOLO_OPERACIONAL_AGENTES.md` | Passo -1 ACIONAR COI-MESTRE (Fase 5T.4) — regra obrigatoria antes do fluxo padrao |
-| `docs/PLANO_ROLLBACK_SEGURO.md` | Procedimentos de rollback por tipo — Fase 4D.5 |
-| `docs/MATRIZ_CONTINGENCIA.md` | 13 tipos de incidente classificados — Fase 4D.5 |
-
----
-
-## Tags Estaveis Registradas
-
-| Tag | Fase | Descricao |
-|---|---|---|
-| v1.4.1-historico-mensal | 4A.1 | Historico mensal com seletor de competencia |
-| v1.4.1-governanca-agentes | 4D.1 | Governanca operacional dos agentes |
-| v1.4.1-scripts-validacao | 4D.2 | Scripts de validacao PowerShell |
-| v1.4.1-base-interacao-chatgpt | 4D.4 | Base de interacao assistida no ChatGPT |
-| v1.4.1-consolidacao-memoria | 4D.4.1 | Consolidacao da memoria operacional |
-| v1.4.1-delegacao-operacional | 4D.4.2 | Delegacao operacional controlada ao Claude |
-| v1.4.1-rollback-seguro | 4D.5 | Plano de rollback seguro e matriz de contingencia |
-| v1.4.1-refinamentos-funcionais | 5A.3 | Refinamentos funcionais — ultima tag estavel atual |
-
----
-
-## Recomendacoes Tecnica
+| `docs/DECISOES_ARQUITETURAIS_COI.md` | NOVO (F
