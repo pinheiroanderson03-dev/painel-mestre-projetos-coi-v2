@@ -4,6 +4,38 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Exibicao Executiva das Demandas Operacionais (Fase 5B.2)
+**Data:** 2026-06-16
+
+### O que mudou
+
+A aba "Demandas" do portfolio passou de uma listagem basica para um painel de gestao executiva operacional.
+
+**Resumo Executivo (novo):**
+- Painel com 4 mini-cards: Total / Em Aberto / Concluidos / P0+P1
+- Badges coloridos por tipo de item (Demanda, Incidente, Licenca/Contrato, Atividade Operacional, Entrega Contratual)
+
+**Filtros avancados (novos):**
+- Busca por texto (ja existia) + 4 novos filtros encadeados:
+  - Tipo de Item (`filtro-dem-tipo`)
+  - Status (`filtro-dem-status`)
+  - Prioridade (`filtro-dem-prior`)
+  - Frente/Cliente (`filtro-dem-frente`) — populado dinamicamente com valores unicos
+
+**Tabela expandida:**
+- De 10 para 11 colunas: adicionada coluna "Frente/Cliente"
+
+**Aba Projetos preservada:**
+- Nenhuma alteracao na logica de projetos estrategicos (psProj)
+
+**Validacao:** 66 PASS | 0 FAIL | 0 AVISO
+
+### O que nao muda
+
+Os dados (`dados/projetos.js`) nao foram alterados. Os 13 registros (COI-001 a COI-013) estao intactos.
+
+---
+
 ## v1.4.1 — Modelagem Operacional Inicial (Fase 5B.1)
 **Data:** 2026-06-15
 
