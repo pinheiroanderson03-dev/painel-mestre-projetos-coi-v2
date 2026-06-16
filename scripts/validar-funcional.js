@@ -269,6 +269,56 @@ sep('8. INTEGRIDADE BASICA DE NAVEGACAO');
 (idx.indexOf('dados/projetos.js') !== -1) ? pass('dados/projetos.js carregado em index.html') : fail('dados/projetos.js NAO carregado em index.html');
 
 // ============================================================
+// 9. FASE 5B.2.1 -- HOTFIX RENDERIZACAO ABAS PORTFOLIO
+// ============================================================
+sep('9. FASE 5B.2.1 - HOTFIX RENDERIZACAO ABAS PORTFOLIO');
+
+// Arquivo nao pode estar truncado -- deve ter fechamento correto
+var CLOSE_SCRIPT = '</' + 'script>';
+var CLOSE_BODY   = '</' + 'body>';
+var CLOSE_HTML   = '</' + 'html>';
+
+(pf.indexOf(CLOSE_SCRIPT) !== -1)
+  ? pass('Fechamento script presente em portfolio.html -- arquivo nao truncado')
+  : fail('Fechamento script AUSENTE em portfolio.html -- arquivo TRUNCADO (falha critica de JS)');
+
+(pf.indexOf(CLOSE_BODY) !== -1)
+  ? pass('Fechamento body presente em portfolio.html')
+  : fail('Fechamento body AUSENTE em portfolio.html -- HTML incompleto');
+
+(pf.indexOf(CLOSE_HTML) !== -1)
+  ? pass('Fechamento html presente em portfolio.html')
+  : fail('Fechamento html AUSENTE em portfolio.html -- HTML incompleto');
+
+// renderProjetos() chamada na inicializacao
+(pf.indexOf('renderProjetos(COI_DATA') !== -1)
+  ? pass('renderProjetos() chamada na inicializacao do portfolio.html')
+  : fail('renderProjetos() NAO chamada na inicializacao -- aba Projetos nao renderiza');
+
+// renderDemandas() chamada na inicializacao
+(pf.indexOf('renderDemandas()') !== -1)
+  ? pass('renderDemandas() chamada na inicializacao do portfolio.html')
+  : fail('renderDemandas() NAO chamada na inicializacao -- aba Demandas nao renderiza');
+
+// null-check em selProj
+(pf.indexOf('if (selProj)') !== -1)
+  ? pass('null-check em selProj presente -- protegido contra TypeError')
+  : fail('null-check em selProj AUSENTE -- risco de TypeError em selProj.appendChild');
+
+// Nav dinamica filtrada para projetos estrategicos
+(pf.indexOf("!p.tipoItem || p.tipoItem === 'Projeto'") !== -1)
+  ? pass('Nav dinamica filtrada para projetos estrategicos em portfolio.html')
+  : fail('Nav dinamica NAO filtrada -- itens operacionais na nav');
+
+// Todas as abas tem data-tab e id correspondentes
+var ABAS = ['projetos','demandas','melhorias','riscos','indicadores','cronograma','pendencias','decisoes','entregas'];
+ABAS.forEach(function(t) {
+  (pf.indexOf('data-tab="' + t + '"') !== -1 && pf.indexOf('id="tab-' + t + '"') !== -1)
+    ? pass('Aba "' + t + '": data-tab e id tab-' + t + ' presentes')
+    : fail('Aba "' + t + '": data-tab ou id AUSENTE -- alternancia pode falhar');
+});
+
+// ============================================================
 // RESUMO FINAL
 // ============================================================
 console.log('\n' + '='.repeat(60));

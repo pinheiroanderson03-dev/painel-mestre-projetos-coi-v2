@@ -4,6 +4,26 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Fase 5B.2.1: Hotfix Renderizacao das Abas do Portfolio (2026-06-16)
+
+**Branch:** `main`
+
+**Objetivo:** Corrigir falha critica de execucao JS em portfolio.html — arquivo commitado truncado na Fase 5B.2 causava parse error total, impedindo renderizacao de todas as abas (Projetos, Demandas e demais).
+
+**Causa raiz:** `portfolio.html` foi commitado truncado no commit 60915bc (35571 bytes) — arquivo cortado a meio dentro da string `document.getElementById('`, causando SyntaxError no parser do browser e bloqueio completo de todo o JS da pagina.
+
+**Alteracoes em portfolio.html:**
+- Restaurado fechamento do handler ESC: `forEach(m => m.classList.remove('open'));`
+- Restaurados `});\n});\n</script>\n</body>\n</html>` ausentes
+- `null-check` adicionado ao bloco `selProj`: `if (selProj) { ... }` — protege contra TypeError se elemento nao existir
+- Nav dinamica filtrada: apenas `tipoItem === 'Projeto'` adicionada ao nav-principal (Fase 5B.2.1)
+
+**Alteracoes em scripts/validar-funcional.js:**
+- Secao 9 adicionada com 13 novos asserts: fechamento </script>, </body>, </html>; renderProjetos(); renderDemandas(); null-check selProj; nav dinamica filtrada; 9 verificacoes de data-tab/id por aba
+- Total: 79 asserts | 0 FAIL | 0 AVISO
+
+---
+
 ## v1.4.1 — Fase 5B.2: Exibicao Executiva das Demandas Operacionais no Portfolio (2026-06-16)
 
 **Branch:** `main`

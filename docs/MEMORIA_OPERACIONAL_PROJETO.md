@@ -48,6 +48,7 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 5B.1 | Concluida | Modelagem Operacional Inicial — 5 registros COI-009 a COI-013; novos tipoItem; aba Demandas ativa; psProj/ps separados |
 | Fase 5B.1.1 | Concluida | Consolidacao de Memoria e Aprendizado — E-008, A-008/A-009, PA-011 a PA-013, AP-011, DAR-011 registrados |
 | Fase 5B.2 | Concluida | Exibicao Executiva das Demandas Operacionais no Portfolio — resumo executivo, 4 filtros, tabela 11 colunas, 11 novos asserts (66 total) |
+| Fase 5B.2.1 | Concluida | Hotfix Renderizacao Abas Portfolio — portfolio.html truncado corrigido; null-check selProj; nav filtrada; Secao 9 validar-funcional.js (13 asserts, 79 total) |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
 | Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
 
@@ -96,7 +97,7 @@ Campos adicionais em registros operacionais: `solicitante`, `dataSolicitacao`, `
 | `.\scripts\validar-projeto.ps1` | Validacao geral antes de qualquer commit ou push | Windows / PowerShell |
 | `node scripts/validar-funcional.js` | Apos alterar HTML, CSS ou JS funcional | Qualquer SO (Node.js) |
 
-O script `validar-funcional.js` foi criado na Fase 5T.1, expandido na Fase 5B.1 e na Fase 5B.2. Executa 66 asserts em 8 secoes: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3, padroes proibidos, modelagem operacional (Secao 6 — 14 asserts), exibicao executiva demandas (Secao 7 — 11 asserts) e integridade de navegacao (Secao 8). Retorna exit code 0 (sem erros) ou 1 (ha erros).
+O script `validar-funcional.js` foi criado na Fase 5T.1, expandido na Fase 5B.1, 5B.2 e 5B.2.1. Executa 79 asserts em 9 secoes: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3, padroes proibidos, modelagem operacional (Secao 6 — 14 asserts), exibicao executiva demandas (Secao 7 — 11 asserts), integridade de navegacao (Secao 8) e hotfix renderizacao portfolio (Secao 9 — 13 asserts: fechamento HTML, funcoes essenciais, 9 abas). Retorna exit code 0 (sem erros) ou 1 (ha erros).
 
 Executar sempre a partir da raiz do projeto.
 
