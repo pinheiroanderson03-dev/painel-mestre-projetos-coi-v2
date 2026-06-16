@@ -1,6 +1,6 @@
-# MEMORIA OPERACIONAL DO PROJETO — Painel Mestre COI
+# MEMORIA OPERACIONAL DO PROJETO â€” Painel Mestre COI
 
-Comunicação Omnichannel Inteligente · Central IT
+ComunicaÃ§Ã£o Omnichannel Inteligente Â· Central IT
 
 Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 
@@ -35,24 +35,26 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 4D.4.1 | Concluida | Consolidacao da memoria operacional do projeto |
 | Fase 4D.4.2 | Concluida | Delegacao operacional controlada ao Claude (AGENTS.md, CLAUDE.md, docs/) |
 | Fase 4D.5 | Concluida | Plano de rollback seguro e matriz de contingencia (docs/) |
-| Fase 5A.1 | Concluida | Preparacao da evolucao funcional — meta.versao corrigido, docs alinhados |
-| Fase 5A.2 | Concluida | Evolucao Funcional do Painel — 9 melhorias (clearEl, filtro P0, frentes dinamicas, footer v1.4.1) |
-| Fase 5A.3 | Concluida | Refinamentos Funcionais — tag v1.4.1-refinamentos-funcionais |
-| Fase 5T.1 | Concluida | Infraestrutura de Qualidade — validador JS multiplataforma, checklist, docs |
-| Fase 5T.2 | Concluida | Skills Operacionais Claude — 7 skills em .claude/skills/, 10 docs atualizados |
+| Fase 5A.1 | Concluida | Preparacao da evolucao funcional â€” meta.versao corrigido, docs alinhados |
+| Fase 5A.2 | Concluida | Evolucao Funcional do Painel â€” 9 melhorias (clearEl, filtro P0, frentes dinamicas, footer v1.4.1) |
+| Fase 5A.3 | Concluida | Refinamentos Funcionais â€” tag v1.4.1-refinamentos-funcionais |
+| Fase 5T.1 | Concluida | Infraestrutura de Qualidade â€” validador JS multiplataforma, checklist, docs |
+| Fase 5T.2 | Concluida | Skills Operacionais Claude â€” 7 skills em .claude/skills/, 10 docs atualizados |
 | Fase 5T.2-fix | Concluida | Correcao truncamento validar-funcional.js (E-007) + fechamento documental |
 | Fase 5T.3 | Concluida | Framework 11 skills (COI-FORENSE, COI-LEARNINGS, COI-TESTES, COI-AUDITOR), 2 novos docs |
-| Fase 5T.4 | Concluida | Enforcement operacional — COI-MESTRE como porta de entrada obrigatoria; 4 docs atualizados |
-| Fase 5T.5 | Concluida | Correcao de Identidade Institucional — COI = Comunicacao Omnichannel Inteligente / Central IT; 30 arquivos corrigidos |
-| Fase 5B.0 | Concluida | Auditoria Funcional — veredito NAO; painel sem representacao operacional real |
-| Fase 5B.1 | Concluida | Modelagem Operacional Inicial — 5 registros COI-009 a COI-013; novos tipoItem; aba Demandas ativa; psProj/ps separados |
-| Fase 5B.1.1 | Concluida | Consolidacao de Memoria e Aprendizado — E-008, A-008/A-009, PA-011 a PA-013, AP-011, DAR-011 registrados |
-| Fase 5B.2 | Concluida | Exibicao Executiva das Demandas Operacionais no Portfolio — resumo executivo, 4 filtros, tabela 11 colunas, 11 novos asserts (66 total) |
-| Fase 5B.2.1 | Concluida | Hotfix Renderizacao Abas Portfolio — portfolio.html truncado corrigido; null-check selProj; nav filtrada; Secao 9 validar-funcional.js (13 asserts, 79 total) |
+| Fase 5T.4 | Concluida | Enforcement operacional â€” COI-MESTRE como porta de entrada obrigatoria; 4 docs atualizados |
+| Fase 5T.5 | Concluida | Correcao de Identidade Institucional â€” COI = Comunicacao Omnichannel Inteligente / Central IT; 30 arquivos corrigidos |
+| Fase 5B.0 | Concluida | Auditoria Funcional â€” veredito NAO; painel sem representacao operacional real |
+| Fase 5B.1 | Concluida | Modelagem Operacional Inicial â€” 5 registros COI-009 a COI-013; novos tipoItem; aba Demandas ativa; psProj/ps separados |
+| Fase 5B.1.1 | Concluida | Consolidacao de Memoria e Aprendizado â€” E-008, A-008/A-009, PA-011 a PA-013, AP-011, DAR-011 registrados |
+| Fase 5B.2 | Concluida | Exibicao Executiva das Demandas Operacionais no Portfolio â€” resumo executivo, 4 filtros, tabela 11 colunas, 11 novos asserts (66 total) |
+| Fase 5B.2.1 | Concluida | Hotfix Renderizacao Abas Portfolio â€” portfolio.html truncado corrigido; null-check selProj; nav filtrada; Secao 9 validar-funcional.js (13 asserts, 79 total) |
+| Fase 5B.3 | Concluida | Ficha Operacional Condicional e Conclusao de Demandas â€” eOperacional(), renderFichaOperacional(), concluirDemanda(); 13 campos op; Secao 10 validar-funcional.js (14 asserts, 93 total) |
+| Fase 5C.1 | Concluida | Agente Curador de Demandas e Projetos — 3 docs criados (AGENTE_CURADOR, MODELO_ENTRADA, PROTOCOLO_ATUALIZACAO); AGENTS.md secao 13; modos previa/assistido/publicacao |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
-| Fase 4C | Planejada | Edicao orientada pelo GitHub — sem implementacao |
+| Fase 4C | Planejada | Edicao orientada pelo GitHub â€” sem implementacao |
 
-Branch de publicacao protegida: `publicacao-demandas-central-df` — NUNCA TOCAR.
+Branch de publicacao protegida: `publicacao-demandas-central-df` â€” NUNCA TOCAR.
 
 ### Modelagem Operacional (apos Fase 5B.1)
 
@@ -62,11 +64,11 @@ O painel passou a representar dois grupos de itens em `COI_DATA.projetos[]`:
 - COI-001 a COI-008
 
 **Itens Operacionais** (campo `tipoItem` explicito):
-- `'Demanda'` — COI-010 (Recarga Gupshup)
-- `'Incidente'` — COI-011 (Incidente Nuvidio)
-- `'Licenca/Contrato'` — COI-009 (Licenca AIOps)
-- `'Atividade Operacional'` — COI-012 (Monitoramento AIOps AURA 156)
-- `'Entrega Contratual'` — COI-013 (MDS Formulario Ouvidoria)
+- `'Demanda'` â€” COI-010 (Recarga Gupshup)
+- `'Incidente'` â€” COI-011 (Incidente Nuvidio)
+- `'Licenca/Contrato'` â€” COI-009 (Licenca AIOps)
+- `'Atividade Operacional'` â€” COI-012 (Monitoramento AIOps AURA 156)
+- `'Entrega Contratual'` â€” COI-013 (MDS Formulario Ouvidoria)
 
 Campos adicionais em registros operacionais: `solicitante`, `dataSolicitacao`, `prazoResolucao`, `dataResolucao`, `categoriaOperacional`, `origem`, `observacoesOperacionais`.
 
@@ -83,7 +85,7 @@ Campos adicionais em registros operacionais: `solicitante`, `dataSolicitacao`, `
 | v1.4.1-consolidacao-memoria | 4D.4.1 | Consolidacao da memoria operacional |
 | v1.4.1-delegacao-operacional | 4D.4.2 | Delegacao operacional controlada ao Claude |
 | v1.4.1-rollback-seguro | 4D.5 | Plano de rollback seguro e matriz de contingencia |
-| v1.4.1-refinamentos-funcionais | 5A.3 | Refinamentos funcionais — ULTIMA TAG ESTAVEL ATUAL |
+| v1.4.1-refinamentos-funcionais | 5A.3 | Refinamentos funcionais â€” ULTIMA TAG ESTAVEL ATUAL |
 
 ---
 
@@ -97,7 +99,7 @@ Campos adicionais em registros operacionais: `solicitante`, `dataSolicitacao`, `
 | `.\scripts\validar-projeto.ps1` | Validacao geral antes de qualquer commit ou push | Windows / PowerShell |
 | `node scripts/validar-funcional.js` | Apos alterar HTML, CSS ou JS funcional | Qualquer SO (Node.js) |
 
-O script `validar-funcional.js` foi criado na Fase 5T.1, expandido na Fase 5B.1, 5B.2 e 5B.2.1. Executa 79 asserts em 9 secoes: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3, padroes proibidos, modelagem operacional (Secao 6 — 14 asserts), exibicao executiva demandas (Secao 7 — 11 asserts), integridade de navegacao (Secao 8) e hotfix renderizacao portfolio (Secao 9 — 13 asserts: fechamento HTML, funcoes essenciais, 9 abas). Retorna exit code 0 (sem erros) ou 1 (ha erros).
+O script `validar-funcional.js` foi criado na Fase 5T.1, expandido nas Fases 5B.1, 5B.2, 5B.2.1 e 5B.3. Executa 93 asserts em 10 secoes: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3, padroes proibidos, modelagem operacional (Secao 6 â€” 14 asserts), exibicao executiva demandas (Secao 7 â€” 11 asserts), integridade de navegacao (Secao 8), hotfix renderizacao portfolio (Secao 9 â€” 13 asserts), ficha operacional e conclusao de demandas (Secao 10 â€” 14 asserts). Retorna exit code 0 (sem erros) ou 1 (ha erros).
 
 Executar sempre a partir da raiz do projeto.
 
@@ -112,8 +114,8 @@ Executar sempre a partir da raiz do projeto.
 5. Sempre informar quais arquivos pretende alterar antes de comecar.
 6. Sempre rodar os scripts de validacao antes do commit.
 7. Se precisar sair do escopo autorizado, parar e pedir autorizacao.
-8. Aviso LF/CRLF do git nao e erro — e comportamento normal do Windows.
-9. Preferir commits atomicos por melhoria individual — nunca acumular mais de uma fase sem commit (Fase 5T.1).
+8. Aviso LF/CRLF do git nao e erro â€” e comportamento normal do Windows.
+9. Preferir commits atomicos por melhoria individual â€” nunca acumular mais de uma fase sem commit (Fase 5T.1).
 10. ESTADO_ATUAL, CHANGELOG, ROADMAP e MEMORIA devem ser atualizados ANTES do commit de fechamento de fase (Fase 5T.1).
 
 ---
@@ -122,39 +124,4 @@ Executar sempre a partir da raiz do projeto.
 
 ```
 raiz/
-  index.html                  dashboard executivo
-  portfolio.html               portfolio de projetos
-  dados/projetos.js            fonte unica de verdade
-  assets/style.css             design system
-  projetos/ficha.html          ficha dinamica universal
-  AGENTS.md                    regras e papeis dos agentes
-  CHANGELOG.md                 historico de versoes tecnico
-  RELEASE_NOTES.md             notas de versao para usuario
-  ROADMAP_COI.md               roadmap de fases
-  scripts/                     scripts de validacao PowerShell e Node.js
-    validar-funcional.js         validador multiplataforma Node.js (Fase 5T.1)
-  .claude/skills/              skills operacionais Claude (Fase 5T.2-5T.3) -- 11 skills
-    COI-MESTRE.md                orquestrador -- unica porta de entrada
-    COI-MEMORIA.md               estado atual, erros, alertas
-    COI-FORENSE.md               evidencias vs hipoteses (Fase 5T.3)
-    COI-ARQUITETO.md             modo, escopo, plano
-    COI-LEARNINGS.md             prevencao de erros; DAR; base evolutiva (Fase 5T.3)
-    COI-EXECUTOR.md              implementacao segura com padroes corretos
-    COI-TESTES.md                suite de testes pre-QA T1-T6 (Fase 5T.3)
-    COI-AUDITOR.md               auditoria de protocolo e escopo (Fase 5T.3)
-    COI-QA.md                    validacao completa
-    COI-GOVERNANCA.md            atualizacao de documentos obrigatorios
-    COI-RELEASE-MANAGER.md       pacote de entrega de 9 itens
-  docs/
-    ESTADO_ATUAL_DO_PROJETO.md     estado pontual do projeto (atualizar ao fechar fase)
-    PROTOCOLO_OPERACIONAL_AGENTES.md
-    REGISTRO_DE_ERROS_E_APRENDIZADOS.md
-    BASE_DE_CONHECIMENTO_EVOLUTIVA.md  padroes aprovados, anti-padroes, solucoes (Fase 5T.3)
-    DECISOES_ARQUITETURAIS_COI.md      DAR-001 a DAR-NNN (Fase 5T.3)
-    MEMORIA_OPERACIONAL_PROJETO.md   (este arquivo — documento estrutural)
-    CHECKLIST_EXECUCAO_AGENTES.md
-    BASE_INTERACAO_ASSISTIDA_CHATGPT.md
-    AGENTES_ESPECIALIZADOS_CHATGPT.md
-```
-
----
+  index.html                  dashboa
