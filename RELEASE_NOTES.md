@@ -4,6 +4,25 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Hotfix Renderizacao das Abas do Portfolio (Fase 5B.2.1)
+**Data:** 2026-06-16
+
+### O que foi corrigido
+
+O portfolio.html carregava visualmente mas nenhuma aba funcionava — a aba Projetos aparecia sem dados e as demais abas (Demandas, Melhorias, Riscos etc.) nao respondiam a cliques. A causa era um arquivo HTML commitado truncado: o JavaScript terminava no meio de uma string, causando SyntaxError no browser e bloqueando 100% da execucao JS.
+
+**Correccoes aplicadas:**
+- Fechamento do handler de tecla ESC restaurado
+- Tags `</script>`, `</body>`, `</html>` restauradas
+- null-check adicionado ao bloco de popular select de projetos (`if (selProj)`) — previne TypeError
+- Nav dinamica filtrada somente para projetos estrategicos
+
+**Validador atualizado:**
+- 13 novos asserts na Secao 9 detectam truncamento futuro de portfolio.html
+- Total: 79 asserts | 0 FAIL
+
+---
+
 ## v1.4.1 — Exibicao Executiva das Demandas Operacionais (Fase 5B.2)
 **Data:** 2026-06-16
 

@@ -350,15 +350,19 @@ function fecharModal(id) { document.getElementById(id).classList.remove('open');
 document.getElementById('data-atual').textContent =
   new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-// ─── Nav dinâmica ────────────────────────────────────────────────────
+// ─── Nav dinâmica — apenas projetos estratégicos (Fase 5B.2.1) ───────
 const nav = document.getElementById('nav-principal');
-COI_DATA.projetos.forEach(p => {
-  const a = document.createElement('a');
-  a.href = `projetos/ficha.html#${p.id}`;
-  a.textContent = p.id;
-  a.title = p.nome;
-  nav.appendChild(a);
-});
+if (nav) {
+  COI_DATA.projetos
+    .filter(function(p) { return !p.tipoItem || p.tipoItem === 'Projeto'; })
+    .forEach(function(p) {
+      const a = document.createElement('a');
+      a.href = 'projetos/ficha.html#' + p.id;
+      a.textContent = p.id;
+      a.title = p.nome;
+      nav.appendChild(a);
+    });
+}
 
 // ─── Tabs ────────────────────────────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -704,13 +708,16 @@ function renderRiscos() {
 renderRiscos();
 
 // ─── Popular select de projetos no modal de risco ────────────────────
+// Fase 5B.2.1: null-check antes de appendChild
 const selProj = document.getElementById('r-proj');
-COI_DATA.projetos.forEach(p => {
-  const opt = document.createElement('option');
-  opt.value = p.id;
-  opt.textContent = p.id + ' — ' + p.nome.substring(0,40);
-  selProj.appendChild(opt);
-});
+if (selProj) {
+  COI_DATA.projetos.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.id + ' — ' + p.nome.substring(0,40);
+    selProj.appendChild(opt);
+  });
+}
 
 // ─── Salvar novo projeto ─────────────────────────────────────────────
 function salvarProjeto() {
@@ -718,4 +725,74 @@ function salvarProjeto() {
   const nome = document.getElementById('f-nome').value.trim();
   if (!id || !nome) { showToast('ID e Nome são obrigatórios.', true); return; }
   if (COI_DATA.projetos.find(p => p.id === id)) {
-    showToast(`ID ${id} já existe no portfólio.
+    showToast(`ID ${id} já existe no portfólio.`, true); return;
+  }
+
+  const novo = {
+    id,
+    nome,
+    classificacao:   document.getElementById('f-class').value,
+    prioridade:      document.getElementById('f-prior').value,
+    status:          document.getElementById('f-status').value,
+    fase:            document.getElementById('f-fase').value,
+    percentual:      Math.min(100, Math.max(0, parseInt(document.getElementById('f-perc').value) || 0)),
+    semaforo:        '🟡',
+    patrocinador:    document.getElementById('f-patr').value,
+    responsavel:     document.getElementById('f-resp').value,
+    orgao:           document.getElementById('f-orgao').value,
+    plataforma:      document.getElementById('f-plat').value,
+    dataInicio:      document.getElementById('f-inicio').value,
+    prazoPrevisto:   document.getElementById('f-prazo').value,
+    dependencias:    document.getElementById('f-dep').value,
+    beneficio:       document.getElementById('f-benef').value,
+    impactoContratual: document.getElementById('f-contrato').value,
+    fonteInformacao: document.getElementById('f-fonte').value,
+    observacoesExecutivas: document.getElementById('f-obs').value,
+    atualizadoEm:    new Date().toLocaleDateString('pt-BR')
+  };
+
+  COI_DATA.projetos.push(novo);
+  coiSalvarProjeto(novo);
+  renderProjetos(COI_DATA.projetos);
+  fecharModal('modal-projeto');
+  showToast(`Projeto ${id} cadastrado com sucesso.`);
+}
+
+// ─── Salvar novo risco ───────────────────────────────────────────────
+function salvarRisco() {
+  const desc = document.getElementById('r-desc').value.trim();
+  if (!desc) { showToast('Descrição do risco é obrigatória.', true); return; }
+
+  const risco = {
+    desc,
+    projeto: document.getElementById('r-proj').value,
+    prob:    document.getElementById('r-prob').value,
+    imp:     document.getElementById('r-imp').value,
+    status:  document.getElementById('r-status').value,
+    mit:     document.getElementById('r-mit').value,
+    resp:    document.getElementById('r-resp').value,
+    prazo:   document.getElementById('r-prazo').value
+  };
+
+  const riscos = coiCarregarSecaoFicha('PORTFOLIO', 'riscos');
+  riscos.push(risco);
+  coiSalvarSecaoFicha('PORTFOLIO', 'riscos', riscos);
+  renderRiscos();
+  fecharModal('modal-risco');
+  showToast('Risco cadastrado com sucesso.');
+}
+
+// ─── Fechar modal clicando no overlay ────────────────────────────────
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+// ─── Fechar modal com ESC ─────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+});
+</script>
+</body>
+</html>

@@ -202,6 +202,21 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
+### ✅ v1.4.1 — Fase 5B.2.1: Hotfix Renderizacao das Abas do Portfolio (concluida — 2026-06-16)
+
+**Objetivo:** Corrigir falha critica de JS em portfolio.html que impedia a renderizacao de todas as abas apos o commit da Fase 5B.2.
+
+**Causa raiz:** arquivo commitado truncado (commit 60915bc) — JS cortado no meio de string literal causava SyntaxError total no browser.
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `portfolio.html` | CORRIGIDO | Fechamento ESC handler, `</script>`, `</body>`, `</html>` restaurados; null-check em selProj; nav dinamica filtrada |
+| `scripts/validar-funcional.js` | ALTERADO | Secao 9 com 13 novos asserts; total 79 PASS, 0 FAIL |
+
+**Branch:** `main`
+
+---
+
 ### ✅ v1.4.1 — Fase 5B.2: Exibicao Executiva das Demandas Operacionais no Portfolio (concluida — 2026-06-16)
 
 **Objetivo:** Evoluir a aba Demandas do portfolio.html com painel executivo, filtros avancados e tabela expandida.
