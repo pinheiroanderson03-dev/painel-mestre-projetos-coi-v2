@@ -318,3 +318,42 @@ COI-MEMORIA -> COI-ARQUITETO -> COI-EXECUTOR -> COI-QA -> COI-GOVERNANCA -> COI-
 ```
 
 Nenhuma etapa pode ser pulada. Se uma skill identificar bloqueador, a execucao para e Anderson e consultado
+
+---
+
+## 13. Agente Curador de Demandas e Projetos (Fase 5C.1)
+
+### Papel
+
+O COI-CURADOR-DEMANDAS-PROJETOS recebe informacoes operacionais em texto livre ou formulario estruturado e as transforma em entradas validas para dados/projetos.js, sem necessidade de edicao manual.
+
+### Modos de Operacao
+
+| Modo | Descricao |
+|---|---|
+| Previa (padrao) | Interpreta a entrada, gera bloco JSON, aguarda aprovacao. Nenhum arquivo e alterado. |
+| Assistido | Entrada incompleta: o curador identifica campos obrigatorios faltantes e faz perguntas especificas. |
+| Publicacao | Apos confirmacao explicita de Anderson: aciona COI-EXECUTOR para aplicar o JSON aprovado. |
+
+### Tipos de Item Gerenciados
+
+Demanda - Incidente - Licenca/Contrato - Atividade Operacional - Entrega Contratual
+
+Projetos estrategicos (COI-001 a COI-008) so sao atualizados com escopo explicitamente autorizado por Anderson.
+
+### Limites de Seguranca
+
+- Nunca altera dados/projetos.js sem previa aprovada
+- Nunca remove registros existentes
+- Nunca altera campo id de registro existente
+- Nunca altera meta.versao
+- Nunca faz commit ou push sem autorizacao explicita de Anderson
+- Nunca toca a branch publicacao-demandas-central-df
+
+### Documentos de Referencia
+
+| Documento | Conteudo |
+|---|---|
+| docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md | Papel, campos, regras, exemplos, fluxos completos |
+| docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md | Formularios por tipo de item e exemplos de texto livre |
+| docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md | Fluxo de autorizacao, validacao e commit |
