@@ -382,7 +382,7 @@ const COI_DATA = {
       nome: "Renovação de Licença AIOps",
       classificacao: "Operacional",
       prioridade: "P1",
-      status: "Em andamento",
+      status: "Concluído",
       fase: "Execução",
       plataforma: "AIOps / Grafana / Prometheus",
       percentual: 10,
@@ -397,7 +397,7 @@ const COI_DATA = {
       impactoContratual: "Sim",
       fonteInformacao: "Gestão de Contratos",
       observacoesExecutivas: "Licença AIOps em uso no ambiente AURA 156. Renovação necessária para garantir continuidade do monitoramento.",
-      atualizadoEm: "2026-06-15",
+      atualizadoEm: "16/06/2026",
       frente: "CENTRAL DF",
       contrato: "",
       gerenteContrato: "",
@@ -406,16 +406,16 @@ const COI_DATA = {
       planoExcelencia: false,
       beneficioEsperado: "Continuidade do monitoramento AIOps sem interrupção.",
       beneficioRealizado: "",
-      evidencia: "",
+      evidencia: "Chamado 518190 — https://aiops-156-externo.centralitcloud.com.br/",
       riscosCriticos: 1,
       decisoesPendentes: 1,
       solicitante: "Equipe COI",
       dataSolicitacao: "2026-06-01",
       prazoResolucao: "",
-      dataResolucao: "",
+      dataResolucao: "13/06/2026",
       categoriaOperacional: "Licença",
       origem: "Gestão de Contratos",
-      observacoesOperacionais: "Verificar vencimento e acionar processo de renovação junto ao fornecedor AIOps."
+      observacoesOperacionais: "Licença AIOps renovada após atendimento do chamado 518190. A renovação evitou impacto no monitoramento dos serviços, alertas e painéis da plataforma."
     },
 
     {
