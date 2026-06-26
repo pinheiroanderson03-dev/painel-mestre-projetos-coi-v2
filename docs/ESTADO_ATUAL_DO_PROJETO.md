@@ -8,7 +8,7 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
-Atualizado em: 2026-06-16 · Responsavel pela atualizacao: Fase 5C.1 — Agente Curador de Demandas e Projetos
+Atualizado em: 2026-06-23 · Responsavel pela atualizacao: Fase 5C.3 — Protocolo de Validacao Obrigatoria
 
 ---
 
@@ -51,15 +51,18 @@ Atualizado em: 2026-06-16 · Responsavel pela atualizacao: Fase 5C.1 — Agente 
 | Fase 5B.2 | v1.4.1 | Exibicao Executiva das Demandas Operacionais no Portfolio — resumo executivo, 4 filtros, tabela 11 colunas, 11 novos asserts (66 total) — Concluida |
 | Fase 5B.2.1 | v1.4.1 | Hotfix Renderizacao Abas Portfolio — portfolio.html truncado corrigido; null-check selProj; nav filtrada; Secao 9 validar-funcional.js (13 asserts, 79 total) — Concluida |
 | Fase 5B.3 | v1.4.1 | Ficha Operacional Condicional e Conclusao de Demandas — eOperacional(), renderFichaOperacional(), concluirDemanda(), 13 campos op, Secao 10 validar-funcional.js (14 asserts, 93 total) — Concluida |
+| Fase 5C.2 | v1.4.1 |
+| Fase 5C.3 | v1.4.1 | Protocolo de Validacao Obrigatoria — docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md criado; AGENTS.md secao 14 — Concluida |
+ Execucao Assistida do Curador — COI-009 AIOps Concluido — 5 campos atualizados via curador, chamado 518190 — Concluida |
 | Fase 5C.1 | v1.4.1 | Agente Curador de Demandas e Projetos — 3 novos docs (AGENTE_CURADOR, MODELO_ENTRADA, PROTOCOLO_ATUALIZACAO); AGENTS.md secao 13 — Concluida |
 
 ---
 
 ## Fase em Execucao
 
-Fase 5C.1 concluida em 2026-06-16. Agente COI-CURADOR-DEMANDAS-PROJETOS estruturado: 3 novos documentos criados (AGENTE_CURADOR, MODELO_ENTRADA, PROTOCOLO_ATUALIZACAO); AGENTS.md atualizado com secao 13.
-Aguardando commit e aprovacao do Anderson para fechar 5C.1.
-Proxima fase: Fase 5B.4 ou uso do agente curador para atualizar COI-009 (exemplo obrigatorio da fase).
+Fase 5C.3 concluida em 2026-06-23. Protocolo de Validacao Obrigatoria (PVO) institucionalizado: docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md criado; AGENTS.md secao 14 adicionada.
+Aguardando commit e aprovacao do Anderson.
+Proxima fase: Fase 5B.4 — Indicadores Operacionais no Dashboard.
 
 ---
 
@@ -76,12 +79,11 @@ Proxima fase: Fase 5B.4 ou uso do agente curador para atualizar COI-009 (exemplo
 
 ## Proxima Acao Prevista
 
-Fase 5C.1 concluida em 2026-06-16.
-3 novos documentos criados: docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md, docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md, docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md.
-AGENTS.md: secao 13 adicionada com papel, modos e limites do COI-CURADOR.
-Validador: 93 PASS, 0 FAIL (sem alteracao em scripts/validar-funcional.js).
+Fase 5C.3 concluida em 2026-06-23.
+docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md criado; AGENTS.md secao 14 adicionada.
+Validador: 93 PASS, 0 FAIL.
 Aguardando commit e aprovacao do Anderson.
-Proxima acao sugerida: usar COI-CURADOR para aplicar exemplo obrigatorio (atualizar COI-009 — chamado 518190, licenca AIOps concluida) ou iniciar Fase 5B.4.
+Proxima acao sugerida: Fase 5B.4 — Indicadores Operacionais no Dashboard.
 
 ---
 
@@ -89,7 +91,7 @@ Proxima acao sugerida: usar COI-CURADOR para aplicar exemplo obrigatorio (atuali
 
 | Arquivo | Estado |
 |---|---|
-| `dados/projetos.js` | meta.versao "1.4.1"; 13 registros (COI-001 a COI-013); novos tipoItem: Demanda, Incidente, Licenca/Contrato, Atividade Operacional, Entrega Contratual |
+| `dados/projetos.js` | meta.versao "1.4.1"; 13 registros (COI-001 a COI-013); COI-009 Concluido (chamado 518190, Fase 5C.2) |
 | `index.html` | v1.4.1; seletor de competencia; fallback robusto; clearEl; filtro P0 ativo |
 | `assets/style.css` | v1.4.1; namespace .em-*; .em-select com variaveis corretas |
 | `portfolio.html` | Fase 5B.2.1 — CORRIGIDO (truncamento): fechamento JS/HTML restaurado, null-check selProj, nav filtrada. Contem tambem: resumo executivo, 4 filtros, tabela 11 colunas, getItensOperacionais(), renderResumoExecutivo() |

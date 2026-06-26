@@ -357,3 +357,29 @@ Projetos estrategicos (COI-001 a COI-008) so sao atualizados com escopo explicit
 | docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md | Papel, campos, regras, exemplos, fluxos completos |
 | docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md | Formularios por tipo de item e exemplos de texto livre |
 | docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md | Fluxo de autorizacao, validacao e commit |
+
+---
+
+## 14. Protocolo de Validação Obrigatória — PVO (Fase 5C.3)
+
+Toda alteração no repositório exige aprovação sequencial de três camadas antes de qualquer commit, push, merge ou tag.
+
+### Fluxo
+
+```
+Anderson (escopo) → ChatGPT (validação de escopo) → Claude (execução + validação técnica)
+→ ChatGPT (validação final: Funcional / Estrutural / Governança / git diff --check)
+→ Anderson (aprovação) → commit → push → merge → tag
+```
+
+### Bloqueio triplo obrigatório
+
+| Camada | Critério |
+|---|---|
+| Claude | node --check PASS · validar-funcional.js 0 FAIL · git diff --check PASS · diff --name-only sem arquivos proibidos |
+| ChatGPT | Funcional OK · Estrutural OK · Governança OK · git diff --check PASS |
+| Anderson | Autorização explícita: "pode commitar", "confirma" ou equivalente |
+
+### Documento de referência
+
+`docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md` — fluxo completo, validações por camada, bloqueios, histórico de aprovações.

@@ -245,6 +245,29 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
+### ✅ v1.4.1 — Fase 5C.3: Protocolo de Validação Obrigatória (concluida — 2026-06-23)
+
+**Objetivo:** Institucionalizar o PVO — fluxo obrigatório Anderson→ChatGPT→Claude→ChatGPT→Anderson para toda alteração.
+
+| Arquivo | Status | Detalhe |
+|---|---|---|
+| `docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md` | CRIADO | Fluxo completo, validações, bloqueio triplo, histórico |
+| `AGENTS.md` | ALTERADO | Seção 14 adicionada |
+
+---
+
+### ✅ v1.4.1 — Fase 5C.2: Execução Assistida do Curador — COI-009 AIOps (concluida — 2026-06-16)
+
+**Objetivo:** Primeira execução real do COI-CURADOR-DEMANDAS-PROJETOS: conclusão da renovação da licença AIOps no registro COI-009.
+
+| Arquivo | Status | Detalhe |
+|---|---|---|
+| `dados/projetos.js` | ALTERADO | COI-009: status Concluído, dataResolucao, atualizadoEm, observacoesOperacionais, evidencia atualizados |
+
+**Validações:** 93 PASS / 0 FAIL
+
+---
+
 ### ✅ v1.4.1 — Fase 5C.1: Agente Curador de Demandas e Projetos (concluida — 2026-06-16)
 
 **Objetivo:** Criar a estrutura de governanca do agente COI-CURADOR-DEMANDAS-PROJETOS para receber texto livre e gerar atualizacoes estruturadas em dados/projetos.js.

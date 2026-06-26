@@ -4,6 +4,34 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Protocolo de Validação Obrigatória (Fase 5C.3)
+**Data:** 2026-06-23
+
+### O que mudou para o usuário
+
+O projeto passa a ter um protocolo formal de validação antes de qualquer publicação. Toda fase exige aprovação de Claude, ChatGPT e Anderson — nenhuma publicação ocorre sem os três.
+
+### Detalhes técnicos
+
+- `docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md` — criado: fluxo completo, validações obrigatórias por camada, bloqueio triplo, histórico
+- `AGENTS.md` — Seção 14 adicionada: resumo do PVO
+
+---
+
+## v1.4.1 — Execução Assistida do Curador: COI-009 AIOps Concluído (Fase 5C.2)
+**Data:** 2026-06-16
+
+### O que mudou para o usuário
+
+O registro COI-009 — Renovação de Licença AIOps foi atualizado para refletir a conclusão do chamado 518190. O painel agora exibe o item como Concluído, com data de resolução e evidência do chamado registradas.
+
+### Detalhes técnicos
+
+- `dados/projetos.js` — COI-009: 5 campos atualizados via COI-CURADOR-DEMANDAS-PROJETOS (primeira execução assistida)
+- Validações: 93 PASS / 0 FAIL
+
+---
+
 ## v1.4.1 — Agente Curador de Demandas e Projetos (Fase 5C.1)
 **Data:** 2026-06-16
 

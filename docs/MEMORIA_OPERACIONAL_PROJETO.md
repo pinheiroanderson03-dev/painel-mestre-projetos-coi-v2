@@ -50,6 +50,8 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 5B.2 | Concluida | Exibicao Executiva das Demandas Operacionais no Portfolio â€” resumo executivo, 4 filtros, tabela 11 colunas, 11 novos asserts (66 total) |
 | Fase 5B.2.1 | Concluida | Hotfix Renderizacao Abas Portfolio â€” portfolio.html truncado corrigido; null-check selProj; nav filtrada; Secao 9 validar-funcional.js (13 asserts, 79 total) |
 | Fase 5B.3 | Concluida | Ficha Operacional Condicional e Conclusao de Demandas â€” eOperacional(), renderFichaOperacional(), concluirDemanda(); 13 campos op; Secao 10 validar-funcional.js (14 asserts, 93 total) |
+| Fase 5C.2 | Concluida | Execucao Assistida do Curador — COI-009 AIOps Concluido (chamado 518190); 5 campos atualizados via COI-CURADOR |
+| Fase 5C.3 | Concluida | Protocolo de Validacao Obrigatoria — docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md criado; AGENTS.md secao 14 |
 | Fase 5C.1 | Concluida | Agente Curador de Demandas e Projetos — 3 docs criados (AGENTE_CURADOR, MODELO_ENTRADA, PROTOCOLO_ATUALIZACAO); AGENTS.md secao 13; modos previa/assistido/publicacao |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
 | Fase 4C | Planejada | Edicao orientada pelo GitHub â€” sem implementacao |

@@ -4,6 +4,45 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.4.1 — Fase 5C.3: Protocolo de Validação Obrigatória (2026-06-23)
+
+**Branch:** `fase-5c-2-atualizacao-coi-009-aiops`
+
+**Objetivo:** Institucionalizar o fluxo de validação obrigatória (PVO) para todas as alterações futuras do Painel Mestre COI.
+
+**Arquivo criado:**
+- `docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md` — fluxo Anderson→ChatGPT→Claude→ChatGPT→Anderson, validações por camada, bloqueio triplo, histórico de aprovações
+
+**Arquivos alterados:**
+- `AGENTS.md` — Seção 14: PVO resumido com fluxo, bloqueio triplo e referência ao documento
+
+**Validações:** git diff --check PASS · node scripts/validar-funcional.js 93 PASS / 0 FAIL
+
+---
+
+## v1.4.1 — Fase 5C.2: Execução Assistida do Curador — Atualização COI-009 AIOps (2026-06-16)
+
+**Branch:** `fase-5c-2-atualizacao-coi-009-aiops`
+
+**Objetivo:** Primeira execução assistida do COI-CURADOR-DEMANDAS-PROJETOS: atualização do registro COI-009 com conclusão da renovação da licença AIOps.
+
+**Arquivo alterado:**
+- `dados/projetos.js` — COI-009: status Concluído, dataResolucao 13/06/2026, atualizadoEm 16/06/2026, observacoesOperacionais e evidencia atualizados com chamado 518190.
+
+**Campos atualizados em COI-009:**
+
+| Campo | Antes | Depois |
+|---|---|---|
+| `status` | Em andamento | Concluído |
+| `dataResolucao` | (vazio) | 13/06/2026 |
+| `atualizadoEm` | 2026-06-15 | 16/06/2026 |
+| `observacoesOperacionais` | Verificar vencimento... | Licença AIOps renovada após chamado 518190... |
+| `evidencia` | (vazio) | Chamado 518190 — https://aiops-156-externo.centralitcloud.com.br/ |
+
+**Validações:** node --check PASS · validar-funcional.js 93 PASS / 0 FAIL · git diff --check PASS
+
+---
+
 ## v1.4.1 — Fase 5C.1: Agente Curador de Demandas e Projetos (2026-06-16)
 
 **Branch:** `fase-`
