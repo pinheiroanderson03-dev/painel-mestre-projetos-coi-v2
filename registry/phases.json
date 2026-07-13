@@ -1,0 +1,326 @@
+{
+  "schema": "1.0",
+  "descricao": "Registro de todas as fases do projeto COI",
+  "ultimaAtualizacao": "2026-07-07",
+  "fases": [
+    {
+      "id": "FASE-1",
+      "nome": "Fase 1",
+      "descricao": "Geracao inicial do painel (Excel, HTML, fichas)",
+      "versao": "v1.0.0",
+      "status": "Concluida",
+      "dependencias": [],
+      "arquivos": [
+        "index.html",
+        "portfolio.html",
+        "projetos/ficha_COI*.html",
+        "coi_base_dados.xlsx"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-01-01"
+    },
+    {
+      "id": "FASE-2",
+      "nome": "Fase 2",
+      "descricao": "Refatoracao: CSS externo, dados dinamicos, XSS fix, hash routing",
+      "versao": "v1.2.0",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-1"
+      ],
+      "arquivos": [
+        "assets/style.css",
+        "projetos/ficha.html",
+        "dados/projetos.js"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-01-01"
+    },
+    {
+      "id": "FASE-3",
+      "nome": "Fase 3",
+      "descricao": "Chart.js local/offline",
+      "versao": "v1.3.0",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-2"
+      ],
+      "arquivos": [
+        "assets/js/chart.umd.min.js",
+        "index.html"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-01-01"
+    },
+    {
+      "id": "FASE-4A",
+      "nome": "Fase 4A",
+      "descricao": "11 novos campos em dados/projetos.js + execucaoMensal",
+      "versao": "v1.4.1",
+      "status": "Parcialmente concluida",
+      "dependencias": [
+        "FASE-3"
+      ],
+      "arquivos": [
+        "dados/projetos.js",
+        "index.html",
+        "assets/style.css"
+      ],
+      "validacoes": [
+        "node --check dados/projetos.js"
+      ],
+      "ultimaAtualizacao": "2026-03-01"
+    },
+    {
+      "id": "FASE-4D",
+      "nome": "Fase 4D",
+      "descricao": "Delegacao operacional, plano de rollback, matriz de contingencia",
+      "versao": "v1.4.2",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-4A"
+      ],
+      "arquivos": [
+        "docs/PLANO_ROLLBACK_SEGURO.md",
+        "docs/MATRIZ_CONTINGENCIA.md",
+        "AGENTS.md",
+        "CLAUDE.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-03-15"
+    },
+    {
+      "id": "FASE-5A",
+      "nome": "Fase 5A",
+      "descricao": "Diagnostico tecnico e melhorias UI/UX",
+      "versao": "v1.4.3",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-4D"
+      ],
+      "arquivos": [
+        "index.html",
+        "portfolio.html",
+        "assets/style.css"
+      ],
+      "validacoes": [
+        "node scripts/validar-funcional.js"
+      ],
+      "ultimaAtualizacao": "2026-04-01"
+    },
+    {
+      "id": "FASE-5B1",
+      "nome": "Fase 5B.1",
+      "descricao": "Modelagem operacional — registros operacionais em dados/projetos.js",
+      "versao": "v1.5.0",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-5A"
+      ],
+      "arquivos": [
+        "dados/projetos.js",
+        "scripts/validar-funcional.js"
+      ],
+      "validacoes": [
+        "S06 ok"
+      ],
+      "ultimaAtualizacao": "2026-04-15"
+    },
+    {
+      "id": "FASE-5B2",
+      "nome": "Fase 5B.2 / 5B.2.1",
+      "descricao": "Aba Demandas executiva no portfolio + hotfix renderizacao",
+      "versao": "v1.5.1",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-5B1"
+      ],
+      "arquivos": [
+        "portfolio.html",
+        "assets/style.css"
+      ],
+      "validacoes": [
+        "S07 ok",
+        "S09 ok"
+      ],
+      "ultimaAtualizacao": "2026-05-01"
+    },
+    {
+      "id": "FASE-5B3",
+      "nome": "Fase 5B.3",
+      "descricao": "Ficha operacional condicional e conclusao de demandas",
+      "versao": "v1.5.2",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-5B2"
+      ],
+      "arquivos": [
+        "projetos/ficha.html",
+        "assets/style.css"
+      ],
+      "validacoes": [
+        "S10 ok"
+      ],
+      "ultimaAtualizacao": "2026-05-15"
+    },
+    {
+      "id": "FASE-5B4",
+      "nome": "Fase 5B.4",
+      "descricao": "Indicadores operacionais no painel",
+      "versao": "v1.5.3",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-5B3"
+      ],
+      "arquivos": [
+        "index.html",
+        "assets/style.css",
+        "scripts/validar-funcional.js"
+      ],
+      "validacoes": [
+        "S11 ok — 24 PASS"
+      ],
+      "ultimaAtualizacao": "2026-06-01"
+    },
+    {
+      "id": "FASE-5C1",
+      "nome": "Fase 5C.1",
+      "descricao": "Agente Curador de Demandas e Projetos",
+      "versao": "v1.5.4",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-5B4"
+      ],
+      "arquivos": [
+        "docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md",
+        "docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md",
+        "docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-06-10"
+    },
+    {
+      "id": "FASE-5T",
+      "nome": "Fase 5T.2 / 5T.3",
+      "descricao": "11 Skills operacionais (COI-MESTRE e pipeline de 10 skills)",
+      "versao": "v1.5.5",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-5C1"
+      ],
+      "arquivos": [
+        ".claude/skills/*.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-06-12"
+    },
+    {
+      "id": "FASE-61",
+      "nome": "Fase 6.1 / 6.1-RF",
+      "descricao": "COI Analista Inteligente — primeiro modulo do Intelligence Engine",
+      "versao": "v1.5.6",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-5T"
+      ],
+      "arquivos": [
+        "docs/ARQUITETURA_COI_INTELLIGENCE.md",
+        "docs/AGENTE_COI_ANALISTA.md",
+        "docs/MODELO_RECOMENDACOES_IA.md",
+        "docs/ROADMAP_COI_IA.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-06-20"
+    },
+    {
+      "id": "FASE-62",
+      "nome": "Fase 6.2 / 6.2.1",
+      "descricao": "COI Curador Inteligente — 12 regras, score 0-100, config centralizada",
+      "versao": "v1.6.1",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-61"
+      ],
+      "arquivos": [
+        "scripts/coi-curador-inteligente.js",
+        "config/regras-curador.js"
+      ],
+      "validacoes": [
+        "S12 ok — 42 PASS"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "FASE-63",
+      "nome": "Fase 6.3",
+      "descricao": "COI Auditor Inteligente — auditoria operacional consolidada",
+      "versao": "v1.7.0",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-62"
+      ],
+      "arquivos": [
+        "scripts/coi-auditor-inteligente.js"
+      ],
+      "validacoes": [
+        "S13 ok — 42 PASS"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "FASE-R11",
+      "nome": "Fase R1.1",
+      "descricao": "COI Runtime — infraestrutura de contexto minimo (.claude/RUNTIME.md, STATUS, INDEX, registry)",
+      "versao": "v1.7.1",
+      "status": "Concluida",
+      "dependencias": [
+        "FASE-63"
+      ],
+      "arquivos": [
+        ".claude/RUNTIME.md",
+        "STATUS.md",
+        "INDEX.md",
+        "registry/*.json",
+        "registry/README.md"
+      ],
+      "validacoes": [
+        "JSON valido",
+        "git diff --check CLEAN",
+        "293 PASS"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "FASE-64",
+      "nome": "Fase 6.4",
+      "descricao": "COI Daily — relatorio diario automatizado",
+      "versao": "-",
+      "status": "Planejada",
+      "dependencias": [
+        "FASE-63"
+      ],
+      "arquivos": [],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "FASE-R12",
+      "nome": "Fase R1.2",
+      "descricao": "Simplificacao de CHANGELOG, ROADMAP, AGENTS, CLAUDE.md e arquivamento de docs legados",
+      "versao": "-",
+      "status": "Planejada",
+      "dependencias": [
+        "FASE-R11"
+      ],
+      "arquivos": [
+        "CHANGELOG.md",
+        "ROADMAP_COI.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "docs/arquivo/"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "1.0",
+  "gerado_em": "2026-07-07",
+  "fase": "R1.1",
+  "projeto": {
+    "nome": "Painel Mestre COI",
+    "descricao": "Comunicacao Omnichannel Inteligente",
+    "cliente": "GDF",
+    "proprietaria": "Central IT"
+  },
+  "estado": {
+    "versao": "v1.7.0",
+    "branch": "fase-5c-2-atualizacao-coi-009-aiops",
+    "ultimo_commit": "3a71c5e",
+    "ultimo_commit_msg": "feat(5C.2-5C.3): atualizar COI-009 e institucionalizar PVO",
+    "fase_atual": "R1.1 concluida",
+    "proxima_fase": "6.4 (COI Daily) ou R1.2 (simplificacao docs)"
+  },
+  "validacao": {
+    "comando": "node scripts/validar-funcional.js",
+    "resultado": "293 PASS / 0 FAIL",
+    "secoes": 13,
+    "ultimo_run": "2026-07-07"
+  },
+  "dados": {
+    "arquivo": "dados/projetos.js",
+    "versao_interna": "v1.4.1",
+    "total_projetos": 13,
+    "por_status": {
+      "Em andamento": 7,
+      "Homologacao": 1,
+      "Planejamento": 1,
+      "Concluido": 4
+    }
+  },
+  "commits_pendentes": {
+    "status": true,
+    "fases": [
+      "5B.4",
+      "5B.5",
+      "6.1",
+      "6.1-RF",
+      "6.2",
+      "6.2.1",
+      "6.3",
+      "R1.1"
+    ],
+    "arquivos_modificados": 47,
+    "arquivos_novos_nao_rastreados": 8,
+    "acao_necessaria": "git add + commit (autorizacao Anderson)",
+    "nao_executar_sem_autorizacao": [
+      "git add",
+      "git commit",
+      "git push",
+      "git merge",
+      "git tag",
+      "git reset",
+      "git restore",
+      "git clean"
+    ]
+  },
+  "proibicoes": {
+    "branch_protegida": "publicacao-demandas-central-df",
+    "arquivos_protegidos": [
+      "dados/projetos.js",
+      ".claude/skills/*"
+    ],
+    "comandos_bloqueados": [
+      "git add",
+      "git commit",
+      "git push",
+      "git merge",
+      "git tag",
+      "git reset",
+      "git restore",
+      "git clean",
+      "exclusao de branch",
+      "rollback"
+    ]
+  },
+  "padroes_tecnicos": {
+    "js_style": "ES5 (var, use strict, sem arrow functions)",
+    "ps1_encoding": "ASCII puro (caracteres <= 127, sem acentos)",
+    "file_write_grandes": "python3 com encoding=utf-8 e newline=\\n",
+    "mock_localStorage": "new Function('localStorage', src + '; return COI_DATA;')(mockObj)"
+  },
+  "erros_criticos_ativos": [
+    {
+      "id": "E-006A",
+      "descricao": "PS1 rejeita caracteres acentuados",
+      "regra": "Sempre usar ASCII puro em scripts PowerShell"
+    },
+    {
+      "id": "E-007",
+      "descricao": "Unicode em comentarios JS causa truncamento pelo Write tool",
+      "regra": "Usar python3 para escrever arquivos extensos"
+    }
+  ],
+  "arquivos_entrada": {
+    "operacional": ".claude/RUNTIME.md",
+    "fluxo": ".claude/skills/COI-MESTRE.md",
+    "estado": "STATUS.md",
+    "indice": "INDEX.md",
+    "instrucoes": "CLAUDE.md"
+  }
+}

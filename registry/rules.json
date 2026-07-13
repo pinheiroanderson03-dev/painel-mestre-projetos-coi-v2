@@ -1,0 +1,209 @@
+{
+  "schema": "1.0",
+  "descricao": "Registro das 12 regras operacionais ativas (AGENTS.md secoes 1-12)",
+  "fonte": "AGENTS.md",
+  "ultimaAtualizacao": "2026-07-07",
+  "regras": [
+    {
+      "id": "RULE-01",
+      "nome": "Separacao de Ambientes",
+      "descricao": "Sandbox Linux (Claude) e maquina Windows (Anderson) sao ambientes distintos. Caminhos e execucoes nao sao intercambiaveis.",
+      "versao": "4D.4",
+      "status": "ativa",
+      "aplicacao": "Nunca assumir que arquivo criado no sandbox existe na maquina do Anderson",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#1"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-02",
+      "nome": "Regra de Escopo",
+      "descricao": "Antes de qualquer alteracao, declarar explicitamente os arquivos que SERAO e NAO SERAO tocados. Se necessario alterar arquivo fora do escopo: parar, comunicar, aguardar autorizacao.",
+      "versao": "4D.4",
+      "status": "ativa",
+      "aplicacao": "Toda tarefa tecnica",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#2"
+      ],
+      "validacoes": [
+        "declaracao de escopo antes de agir"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-03",
+      "nome": "Regra de Dados",
+      "descricao": "Nunca preencher indicadores mensais com dados genericos. Buscar fonte real antes de preencher qualquer campo quantitativo ou historico.",
+      "versao": "4A",
+      "status": "ativa",
+      "aplicacao": "Qualquer alteracao em dados/projetos.js",
+      "dependencias": [
+        "RULE-02"
+      ],
+      "arquivos": [
+        "AGENTS.md#3",
+        "docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md"
+      ],
+      "validacoes": [
+        "confirmar fonte dos dados antes de escrever"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-04",
+      "nome": "Regra de Validacao",
+      "descricao": "Apos qualquer alteracao tecnica, executar: node --check, git diff --check, node scripts/validar-funcional.js. Nunca entregar com erro conhecido.",
+      "versao": "4D.2",
+      "status": "ativa",
+      "aplicacao": "Toda alteracao tecnica (JS, HTML, CSS)",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#4"
+      ],
+      "validacoes": [
+        "node --check",
+        "git diff --check",
+        "node scripts/validar-funcional.js"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-05",
+      "nome": "Regra de Commit",
+      "descricao": "Nunca recomendar commit antes da validacao completa. Formato obrigatorio: tipo(escopo): descricao. Nunca executar git add/commit sem autorizacao Anderson.",
+      "versao": "4D.4",
+      "status": "ativa",
+      "aplicacao": "Toda fase com entrega",
+      "dependencias": [
+        "RULE-04"
+      ],
+      "arquivos": [
+        "AGENTS.md#5"
+      ],
+      "validacoes": [
+        "RULE-04 completa antes",
+        "formato mensagem validado"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-06",
+      "nome": "Regra de Push e Publicacao",
+      "descricao": "Nunca recomendar git push sem confirmacao Anderson. Nunca executar push para publicacao-demandas-central-df.",
+      "versao": "4D.4",
+      "status": "ativa",
+      "aplicacao": "Sempre",
+      "dependencias": [
+        "RULE-05"
+      ],
+      "arquivos": [
+        "AGENTS.md#6"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-07",
+      "nome": "Regra de Rollback",
+      "descricao": "Claude pode sugerir rollback e preparar comandos, mas nunca executar. Rollback exige autorizacao explicita de Anderson.",
+      "versao": "4D.5",
+      "status": "ativa",
+      "aplicacao": "Situacoes de falha ou regressao",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#7",
+        "docs/PLANO_ROLLBACK_SEGURO.md"
+      ],
+      "validacoes": [
+        "autorizacao Anderson antes de qualquer rollback"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-08",
+      "nome": "Regra contra Erros no PowerShell",
+      "descricao": "Scripts PS1 devem usar ASCII puro (sem acentos). Sempre apresentar comandos PS1 dentro de bloco de codigo. Erros CRLF sao comportamento normal, nao erro real.",
+      "versao": "4D.2",
+      "status": "ativa",
+      "aplicacao": "Todo arquivo .ps1",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#8",
+        "docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md#E-006A"
+      ],
+      "validacoes": [
+        "grep de acentos no arquivo PS1 deve retornar vazio"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-09",
+      "nome": "Papeis dos Agentes",
+      "descricao": "Anderson: aprovacao. Claude: execucao. ChatGPT: validacao critica. Nenhum papel substitui o outro.",
+      "versao": "4D.4",
+      "status": "ativa",
+      "aplicacao": "Toda decisao critica",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#9",
+        "registry/agents.json"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-10",
+      "nome": "Modos de Execucao",
+      "descricao": "Rapido: documentacao e texto. Seguro: HTML/CSS/JS. Critico: merge, producao, dados/projetos.js, rollback.",
+      "versao": "4D.4",
+      "status": "ativa",
+      "aplicacao": "Classificacao antes de qualquer tarefa tecnica (COI-ARQUITETO)",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#10",
+        ".claude/skills/COI-ARQUITETO.md"
+      ],
+      "validacoes": [
+        "modo classificado e declarado antes de agir"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-11",
+      "nome": "Modelo de Delegacao Operacional",
+      "descricao": "Define comandos autonomos (git status, diff, log, node --check, python3) e comandos bloqueados (git add/commit/push/merge/tag/reset/restore/clean). Ver registry/commands.json.",
+      "versao": "4D.4.2",
+      "status": "ativa",
+      "aplicacao": "Toda sessao",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#11",
+        "registry/commands.json"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "RULE-12",
+      "nome": "Skills Operacionais",
+      "descricao": "11 skills no pipeline COI-MESTRE. Toda tarefa tecnica passa pelo fluxo completo. Excecao: perguntas factuais sem entregavel tecnico.",
+      "versao": "5T.3",
+      "status": "ativa",
+      "aplicacao": "Toda tarefa tecnica",
+      "dependencias": [],
+      "arquivos": [
+        "AGENTS.md#12",
+        ".claude/skills/COI-MESTRE.md",
+        "registry/agents.json"
+      ],
+      "validacoes": [
+        "fluxo COI-MESTRE invocado antes de implementar"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    }
+  ]
+}

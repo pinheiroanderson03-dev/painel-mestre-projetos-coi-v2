@@ -111,6 +111,41 @@ if (typeof Chart === 'undefined') {
     </div>
   </div>
 
+  <!-- INDICADORES DE DEMANDAS OPERACIONAIS (Fase 5B.4) -->
+  <div class="section-title">Indicadores de Demandas Operacionais</div>
+  <div class="cards-grid" id="op-demandas-cards">
+    <div class="card laranja">
+      <div class="card-icon">📋</div>
+      <div class="card-value" id="op-total">—</div>
+      <div class="card-label">Total de Demandas</div>
+      <div class="card-sub">itens operacionais</div>
+    </div>
+    <div class="card azul">
+      <div class="card-icon">⚙️</div>
+      <div class="card-value" id="op-andamento">—</div>
+      <div class="card-label">Em Andamento</div>
+      <div class="card-sub">demandas ativas</div>
+    </div>
+    <div class="card verde">
+      <div class="card-icon">✅</div>
+      <div class="card-value" id="op-concluidas">—</div>
+      <div class="card-label">Concluídas</div>
+      <div class="card-sub">encerradas com sucesso</div>
+    </div>
+    <div class="card vermelho">
+      <div class="card-icon">⛔</div>
+      <div class="card-value" id="op-criticas">—</div>
+      <div class="card-label">Críticas (P0)</div>
+      <div class="card-sub">prioridade máxima</div>
+    </div>
+    <div class="card vermelho">
+      <div class="card-icon">🕐</div>
+      <div class="card-value" id="op-atrasadas">—</div>
+      <div class="card-label">Atrasadas</div>
+      <div class="card-sub">prazo vencido</div>
+    </div>
+  </div>
+
   <!-- GRÁFICOS -->
   <div class="section-title">Distribuição do Portfólio</div>
   <div class="charts-grid">
@@ -158,6 +193,10 @@ if (typeof Chart === 'undefined') {
       <tbody id="tbody-portfolio"></tbody>
     </table>
   </div>
+
+  <!-- INDICADORES ANALÍTICOS (Fase 5B.4) -->
+  <div class="section-title">Indicadores Analíticos</div>
+  <div id="op-analiticos"></div>
 
   <!-- EXECUÇÃO MENSAL E PLANO DE EXCELÊNCIA -->
   <div class="section-title" id="em-section-title">Execução Mensal e Plano de Excelência</div>
@@ -506,6 +545,160 @@ function renderEmConteudo(container, emData) {
   container.appendChild(tGrid);
 }
 buildExecucaoMensal();
+
+
+// ─── Indicadores Operacionais (Fase 5B.4) ─────────────────────────────────────
+function buildIndicadoresOperacionais() {
+  var psOp = ps.filter(function(p){ return p.tipoItem && p.tipoItem !== 'Projeto'; });
+  var hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+
+  // --- Demandas (cards já no HTML) ---
+  document.getElementById('op-total').textContent      = psOp.length;
+  document.getElementById('op-andamento').textContent  = psOp.filter(function(p){ return p.status === 'Em andamento'; }).length;
+  document.getElementById('op-concluidas').textContent = psOp.filter(function(p){ return p.status === 'Concluido' || p.status === 'Concluído'; }).length;
+  document.getElementById('op-criticas').textContent   = psOp.filter(function(p){ return p.prioridade === 'P0'; }).length;
+  document.getElementById('op-atrasadas').textContent  = psOp.filter(function(p) {
+    if (p.status === 'Concluído' || p.status === 'Concluido') return false;
+    if (!p.prazoResolucao) return false;
+    var d = new Date(p.prazoResolucao);
+    return !isNaN(d.getTime()) && d < hoje;
+  }).length;
+
+  // --- Projetos ---
+  var projBloqueados = psProj.filter(function(p){ return p.semaforo === '🔴'; }).length;
+
+  // --- Percentual (todos os itens) ---
+  var percAcima80  = ps.filter(function(p){ return (p.percentual || 0) >= 80; }).length;
+  var percMedio    = ps.filter(function(p){ return (p.percentual || 0) >= 30 && (p.percentual || 0) < 80; }).length;
+  var percAbaixo30 = ps.filter(function(p){ return (p.percentual || 0) < 30; }).length;
+
+  // --- Prioridade (todos os itens) ---
+  var priorAlta  = ps.filter(function(p){ return p.prioridade === 'P0' || p.prioridade === 'P1'; }).length;
+  var priorMedia = ps.filter(function(p){ return p.prioridade === 'P2'; }).length;
+  var priorBaixa = ps.filter(function(p){ return p.prioridade === 'P3'; }).length;
+
+  // --- Semaforo (projetos estrategicos) ---
+  var semVerde    = psProj.filter(function(p){ return p.semaforo === '🟢'; }).length;
+  var semAmarelo  = psProj.filter(function(p){ return p.semaforo === '🟡'; }).length;
+  var semVermelho = psProj.filter(function(p){ return p.semaforo === '🔴'; }).length;
+
+  // --- Clientes (por orgao em itens operacionais) ---
+  var clienteMap = {};
+  psOp.forEach(function(p) {
+    var c = p.orgao || 'Não informado';
+    clienteMap[c] = (clienteMap[c] || 0) + 1;
+  });
+
+  // --- Responsaveis (todos os itens) ---
+  var respMap = {};
+  ps.forEach(function(p) {
+    var r = p.responsavel || 'Não informado';
+    respMap[r] = (respMap[r] || 0) + 1;
+  });
+
+  // --- Renderizar secao analitica ---
+  var container = document.getElementById('op-analiticos');
+  clearEl(container);
+
+  function makeOpGroup(titulo, items) {
+    var grp = document.createElement('div');
+    grp.className = 'op-group';
+    var h3 = document.createElement('h3');
+    h3.className = 'op-group-title';
+    h3.textContent = titulo;
+    grp.appendChild(h3);
+    var grid = document.createElement('div');
+    grid.className = 'op-mini-cards';
+    items.forEach(function(item) {
+      var card = document.createElement('div');
+      card.className = 'op-mini-card' + (item.cls ? ' op-' + item.cls : '');
+      var val = document.createElement('div');
+      val.className = 'op-mini-value';
+      val.textContent = item.value;
+      var lbl = document.createElement('div');
+      lbl.className = 'op-mini-label';
+      lbl.textContent = item.label;
+      card.append(val, lbl);
+      grid.appendChild(card);
+    });
+    grp.appendChild(grid);
+    return grp;
+  }
+
+  function makeDistMap(titulo, map) {
+    var grp = document.createElement('div');
+    grp.className = 'op-group';
+    var h3 = document.createElement('h3');
+    h3.className = 'op-group-title';
+    h3.textContent = titulo;
+    grp.appendChild(h3);
+    var grid = document.createElement('div');
+    grid.className = 'op-dist-grid';
+    var entries = Object.entries(map).sort(function(a, b){ return b[1] - a[1]; });
+    if (entries.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'op-dist-empty';
+      empty.textContent = 'Nenhum dado disponivel.';
+      grid.appendChild(empty);
+    } else {
+      var maxVal = entries[0][1];
+      entries.forEach(function(entry) {
+        var row = document.createElement('div');
+        row.className = 'op-dist-row';
+        var lbl = document.createElement('span');
+        lbl.className = 'op-dist-label';
+        lbl.textContent = entry[0];
+        var bar = document.createElement('div');
+        bar.className = 'op-dist-bar-wrap';
+        var fill = document.createElement('div');
+        fill.className = 'op-dist-bar-fill';
+        fill.style.width = Math.round((entry[1] / maxVal) * 100) + '%';
+        bar.appendChild(fill);
+        var cnt = document.createElement('span');
+        cnt.className = 'op-dist-count';
+        cnt.textContent = entry[1];
+        row.append(lbl, bar, cnt);
+        grid.appendChild(row);
+      });
+    }
+    grp.appendChild(grid);
+    return grp;
+  }
+
+  var outerGrid = document.createElement('div');
+  outerGrid.className = 'op-outer-grid';
+
+  outerGrid.appendChild(makeOpGroup('Projetos Estrategicos', [
+    { label: 'Total', value: psProj.length, cls: '' },
+    { label: 'Ativos', value: psProj.filter(function(p){ return p.status === 'Em andamento'; }).length, cls: 'azul' },
+    { label: 'Concluidos', value: psProj.filter(function(p){ return p.status === 'Concluído'; }).length, cls: 'verde' },
+    { label: 'Bloqueados', value: projBloqueados, cls: projBloqueados > 0 ? 'vermelho' : '' }
+  ]));
+
+  outerGrid.appendChild(makeOpGroup('Percentual de Conclusao', [
+    { label: 'Media geral', value: evolMedia + '%', cls: '' },
+    { label: 'Acima de 80%', value: percAcima80, cls: 'verde' },
+    { label: 'Entre 30-80%', value: percMedio, cls: 'amarelo' },
+    { label: 'Abaixo de 30%', value: percAbaixo30, cls: 'vermelho' }
+  ]));
+
+  outerGrid.appendChild(makeOpGroup('Prioridade (Todos os Itens)', [
+    { label: 'Alta (P0+P1)', value: priorAlta, cls: 'vermelho' },
+    { label: 'Media (P2)', value: priorMedia, cls: 'amarelo' },
+    { label: 'Baixa (P3)', value: priorBaixa, cls: 'azul' }
+  ]));
+
+  outerGrid.appendChild(makeOpGroup('Semaforo dos Projetos', [
+    { label: 'Verde', value: semVerde, cls: 'verde' },
+    { label: 'Amarelo', value: semAmarelo, cls: 'amarelo' },
+    { label: 'Vermelho', value: semVermelho, cls: semVermelho > 0 ? 'vermelho' : '' }
+  ]));
+
+  container.appendChild(outerGrid);
+  container.appendChild(makeDistMap('Distribuicao por Cliente', clienteMap));
+  container.appendChild(makeDistMap('Distribuicao por Responsavel', respMap));
+}
+buildIndicadoresOperacionais();
 
 // ─── Alertas dinâmicos ───────────────────────────────────────────────
 function buildAlertas() {

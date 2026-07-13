@@ -245,6 +245,21 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
+### ✅ v1.4.1 — Fase 5C.4: Consolidacao de Conhecimento e Memoria Operacional (concluida — 2026-06-26)
+
+**Objetivo:** Auditar e consolidar todo o conhecimento adquirido nas Fases 5B e 5C.
+
+| Entregavel | Status |
+|---|---|
+| E-009/E-010 registrados em REGISTRO_DE_ERROS_E_APRENDIZADOS.md | FEITO |
+| A-010/A-011 registrados | FEITO |
+| PROTOCOLO_VALIDACAO_OBRIGATORIA.md atualizado (validar-docs.ps1) | FEITO |
+| MEMORIA_OPERACIONAL_PROJETO.md com COI-CURADOR e regras 11/12 | FEITO |
+| ESTADO_ATUAL_DO_PROJETO.md corrigido e atualizado | FEITO |
+| AGENTS.md com Secao 15: alerta sandbox | FEITO |
+
+---
+
 ### ✅ v1.4.1 — Fase 5C.3: Protocolo de Validação Obrigatória (concluida — 2026-06-23)
 
 **Objetivo:** Institucionalizar o PVO — fluxo obrigatório Anderson→ChatGPT→Claude→ChatGPT→Anderson para toda alteração.
@@ -283,15 +298,78 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ---
 
-### 🔄 v1.5 — Fase 5B.4: Indicadores Operacionais no Dashboard (proxima)
+### ✅ v1.5.0 — Fase 6.1: COI Analista — Base da COI Intelligence (concluida — 2026-06-26)
 
-**Objetivo:** Adicionar cards executivos no dashboard (index.html) para Incidentes, Licencas e Atividades Operacionais — complementando os cards de Projetos Estrategicos ja existentes.
-Escopo a definir com Anderson antes de iniciar.
+**Objetivo:** Criar a base documental e arquitetural da camada de inteligencia do Painel Mestre COI.
+
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `docs/ARQUITETURA_COI_INTELLIGENCE.md` | CRIADO | 5 camadas: Dados, Analise, Recomendacao, Apresentacao, Governanca |
+| `docs/AGENTE_COI_ANALISTA.md` | CRIADO | 9 responsabilidades, fluxo, entradas, saidas, limites |
+| `docs/MODELO_RECOMENDACOES_IA.md` | CRIADO | Modelo 8 campos; 7 tipos; 6 status; 4 exemplos com dados reais |
+| `docs/ROADMAP_COI_IA.md` | CRIADO | 6 fases da COI Intelligence; cronograma; dependencias; indicadores |
+| `AGENTS.md` | ALTERADO | Secao 16 adicionada — COI Intelligence |
+
+**Arquivos funcionais preservados:** dados/projetos.js, index.html, portfolio.html, ficha.html, style.css, scripts/*, .claude/skills/*
+
+**Validacoes:** sem alteracao em arquivos funcionais; node --check PASS; git diff --check PASS
 
 ---
 
-### 🔄 v1.5 — Fase 4B: Edição de Fichas e Exportação de Dados (planejada)
+### ✅ v1.5.0 — Fase 6.1-RF: COI Intelligence Engine — Revisao Final (concluida — 2026-06-26)
 
-**Objetivo:** Expandir o modo de edição das fichas e permitir exportação de dados dos projetos.
+**Objetivo:** Consolidar o conceito de COI Intelligence Engine; reposicionar COI Analista como modulo do Engine; registrar fluxo oficial de 7 etapas e 6 niveis de maturidade; criar INDICADORES_INTELIGENCIA.md.
 
-| Funcionalida
+| Entregavel | Status | Descricao |
+|---|---|---|
+| `docs/ARQUITETURA_COI_INTELLIGENCE.md` | ATUALIZADO | Renomeado para Engine; 7 etapas do fluxo oficial; 6 niveis de maturidade; tabela de modulos; diagramas revisados |
+| `docs/AGENTE_COI_ANALISTA.md` | ATUALIZADO | Identidade: Modulo do COI Intelligence Engine; missao vinculada ao fluxo de 7 etapas |
+| `docs/MODELO_RECOMENDACOES_IA.md` | ATUALIZADO | Titulo e objetivo referenciam COI Intelligence Engine; modelo como padrao compartilhado |
+| `docs/ROADMAP_COI_IA.md` | ATUALIZADO | Titulo Engine; tabela de 6 niveis; Fase 6.1 marcada como concluida; cronograma revisado |
+| `docs/INDICADORES_INTELIGENCIA.md` | CRIADO | 4 grupos: maturidade, desempenho, adocao, saude dos dados; consolidado padrao de sessao |
+| `AGENTS.md` | ATUALIZADO | Secao 16: COI Intelligence Engine; fluxo do Engine; niveis de maturidade; referencia a INDICADORES |
+
+**Arquivos funcionais preservados:** dados/projetos.js, index.html, portfolio.html, ficha.html, style.css, scripts/*, .claude/skills/*
+
+---
+
+✅ v1.6.0 — Fase 6.2: COI Curador Inteligente (concluida — 2026-07-07)
+
+**Objetivo:** Primeiro modulo funcional do COI Intelligence Engine — validacao automatica de qualidade dos dados do portfolio.
+
+**Entregaveis:**
+- `scripts/coi-curador-inteligente.js`: 12 regras de validacao, score 0-100, diagnostico completo
+- Secao 12 em `validar-funcional.js`: 25 novos asserts (230 total / 0 FAIL)
+- Secao 17 em `AGENTS.md`: documentacao do modulo
+
+**Resultado do portfolio (primeira execucao):**
+- Score medio: 50/100 — classificacao: Critico
+- 27 erros criticos | 64 alertas | 12 itens com erros | 1 item sem violacoes
+
+---
+
+### Fase 6.3 — COI Auditor Inteligente ✅ CONCLUÍDA (2026-07-07)
+- [x] `scripts/coi-auditor-inteligente.js` — segundo módulo do COI Intelligence Engine
+- [x] Interface padrão: `execute()`, `score()`, `recommendations()`, `export(formato)`
+- [x] Consome JSON do COI Curador via `child_process.spawnSync`
+- [x] Saídas: `--resumo`, `--json`, `--md`
+- [x] Classificações: Saúde (Excelente/Boa/Atencao/Critica), Criticidade (Baixa/Media/Alta/Critica)
+- [x] 5 dimensões de auditoria: conformidade, completude, pontualidade, rastreabilidade, governança
+- [x] Seção 13 em `validar-funcional.js` — 294 PASS / 0 FAIL
+- [x] Governança completa: AGENTS, CHANGELOG, RELEASE_NOTES, ROADMAP, ESTADO_ATUAL, MEMORIA
+
+### 🔄 Fase 6.4 — COI Daily (planejada)
+
+**Objetivo:** Relatorio diario automatizado do estado operacional do portfolio.
+
+---
+
+### 🔄 Fase 6.4 — COI Weekly (planejada)
+
+**Objetivo:** Relatorio semanal com evolucao do portfolio.
+
+---
+
+### 🔄 v1.5 — Fase 5B.4: Indicadores Operacionais no Dashboard (proxima)
+
+**Objetivo:** Adicionar cards executivos no dashboard (index.html) para Incidentes, Licencas e Atividades Operacionais — complementando os cards de Pr

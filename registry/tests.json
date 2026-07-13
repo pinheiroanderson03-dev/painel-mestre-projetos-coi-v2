@@ -1,0 +1,283 @@
+{
+  "schema": "1.0",
+  "descricao": "Registro da suite de testes funcionais do projeto",
+  "arquivo": "scripts/validar-funcional.js",
+  "comando": "node scripts/validar-funcional.js",
+  "ultimaAtualizacao": "2026-07-07",
+  "resultado_atual": {
+    "total_pass": 293,
+    "total_fail": 0,
+    "total_secoes": 13,
+    "exit_code_esperado": 0
+  },
+  "secoes": [
+    {
+      "id": "S01",
+      "nome": "Arquivos Principais",
+      "descricao": "Verifica existencia e acessibilidade dos arquivos fundamentais do projeto",
+      "versao": "5A.2",
+      "status": "ativo",
+      "asserts_runtime": 38,
+      "arquivos_verificados": [
+        "index.html",
+        "portfolio.html",
+        "projetos/ficha.html",
+        "dados/projetos.js",
+        "assets/style.css",
+        "assets/js/chart.umd.min.js",
+        "scripts/coi-curador-inteligente.js",
+        "scripts/coi-auditor-inteligente.js",
+        "config/regras-curador.js"
+      ],
+      "dependencias": [],
+      "arquivos": [
+        "scripts/validar-funcional.js"
+      ],
+      "validacoes": [
+        "todos os arquivos listados devem existir"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S02",
+      "nome": "Sintaxe de dados/projetos.js",
+      "descricao": "Valida que dados/projetos.js e sintaticamente valido como JS e JSON-safe",
+      "versao": "4A",
+      "status": "ativo",
+      "asserts_runtime": 2,
+      "dependencias": [
+        "S01"
+      ],
+      "arquivos": [
+        "dados/projetos.js"
+      ],
+      "validacoes": [
+        "node --check dados/projetos.js"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S03",
+      "nome": "Conteudo de dados/projetos.js",
+      "descricao": "Valida estrutura interna: meta.versao, total de projetos, campos obrigatorios",
+      "versao": "4A",
+      "status": "ativo",
+      "asserts_runtime": 14,
+      "dependencias": [
+        "S02"
+      ],
+      "arquivos": [
+        "dados/projetos.js"
+      ],
+      "validacoes": [
+        "meta.versao presente",
+        "13 projetos",
+        "campos id/titulo/status em todos"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S04",
+      "nome": "Melhorias das Fases 5A.2 / 5A.3",
+      "descricao": "Valida melhorias implementadas (CSS variables, clearEl, Chart.js, execucoesMensais)",
+      "versao": "5A.2",
+      "status": "ativo",
+      "asserts_runtime": 13,
+      "dependencias": [
+        "S01"
+      ],
+      "arquivos": [
+        "assets/style.css",
+        "index.html",
+        "projetos/ficha.html"
+      ],
+      "validacoes": [
+        "--color-primary em style.css",
+        "clearEl em ficha.html"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S05",
+      "nome": "Padroes Proibidos",
+      "descricao": "Verifica ausencia de padroes inseguros: innerHTML =, idSlug, var direto sem strict",
+      "versao": "5A",
+      "status": "ativo",
+      "asserts_runtime": 7,
+      "dependencias": [
+        "S01"
+      ],
+      "arquivos": [
+        "index.html",
+        "portfolio.html",
+        "projetos/ficha.html"
+      ],
+      "validacoes": [
+        "ausencia de innerHTML = '",
+        "ausencia de idSlug"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S06",
+      "nome": "Fase 5B.1 — Modelagem Operacional",
+      "descricao": "Valida campos operacionais em dados/projetos.js (tipoItem, demandas, indicadores)",
+      "versao": "5B.1",
+      "status": "ativo",
+      "asserts_runtime": 24,
+      "dependencias": [
+        "S03"
+      ],
+      "arquivos": [
+        "dados/projetos.js"
+      ],
+      "validacoes": [
+        "tipoItem presente",
+        "demandas array",
+        "indicadores object"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S07",
+      "nome": "Fase 5B.2 — Aba Demandas Operacionais",
+      "descricao": "Valida implementacao da aba Demandas executiva no portfolio",
+      "versao": "5B.2",
+      "status": "ativo",
+      "asserts_runtime": 22,
+      "dependencias": [
+        "S01"
+      ],
+      "arquivos": [
+        "portfolio.html"
+      ],
+      "validacoes": [
+        "aba demandas presente",
+        "tabela de demandas renderizavel"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S08",
+      "nome": "Integridade Basica de Navegacao",
+      "descricao": "Valida links de navegacao entre paginas e consistencia de hrefs",
+      "versao": "5A",
+      "status": "ativo",
+      "asserts_runtime": 8,
+      "dependencias": [
+        "S01"
+      ],
+      "arquivos": [
+        "index.html",
+        "portfolio.html"
+      ],
+      "validacoes": [
+        "links de nav presentes",
+        "portfolio.html referenciado"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S09",
+      "nome": "Fase 5B.2.1 — Hotfix Renderizacao Abas Portfolio",
+      "descricao": "Valida correcao do bug de renderizacao das abas no portfolio",
+      "versao": "5B.2.1",
+      "status": "ativo",
+      "asserts_runtime": 16,
+      "dependencias": [
+        "S07"
+      ],
+      "arquivos": [
+        "portfolio.html",
+        "assets/style.css"
+      ],
+      "validacoes": [
+        "abas renderizam corretamente"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S10",
+      "nome": "Fase 5B.3 — Ficha Operacional",
+      "descricao": "Valida ficha operacional condicional e fluxo de conclusao de demandas",
+      "versao": "5B.3",
+      "status": "ativo",
+      "asserts_runtime": 30,
+      "dependencias": [
+        "S01"
+      ],
+      "arquivos": [
+        "projetos/ficha.html",
+        "assets/style.css"
+      ],
+      "validacoes": [
+        "tipoItem operacional detectado",
+        "botao conclusao presente"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S11",
+      "nome": "Fase 5B.4 — Indicadores Operacionais",
+      "descricao": "Valida indicadores operacionais no dashboard principal",
+      "versao": "5B.4",
+      "status": "ativo",
+      "asserts_runtime": 24,
+      "dependencias": [
+        "S01"
+      ],
+      "arquivos": [
+        "index.html",
+        "assets/style.css"
+      ],
+      "validacoes": [
+        "cards de indicadores presentes",
+        "dados operacionais renderizados"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S12",
+      "nome": "COI Curador Inteligente (Fase 6.2 / 6.2.1)",
+      "descricao": "Valida estrutura e funcionamento do COI Curador: config, 12 regras, score, --json",
+      "versao": "6.2.1",
+      "status": "ativo",
+      "asserts_runtime": 42,
+      "dependencias": [
+        "S01"
+      ],
+      "arquivos": [
+        "scripts/coi-curador-inteligente.js",
+        "config/regras-curador.js"
+      ],
+      "validacoes": [
+        "12 regras R01-R12 em config",
+        "REGRAS_CURADOR exportado",
+        "funcao gerarJSON presente",
+        "--json flag suportado"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "S13",
+      "nome": "COI Auditor Inteligente (Fase 6.3)",
+      "descricao": "Valida estrutura e funcionamento do COI Auditor: interface padrao, 3 saidas, 5 dimensoes",
+      "versao": "6.3",
+      "status": "ativo",
+      "asserts_runtime": 42,
+      "dependencias": [
+        "S12"
+      ],
+      "arquivos": [
+        "scripts/coi-auditor-inteligente.js"
+      ],
+      "validacoes": [
+        "execute/score/recommendations/export presentes",
+        "--resumo --json --md suportados",
+        "5 dimensoes de auditoria",
+        "classificacoes saude e criticidade"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    }
+  ]
+}

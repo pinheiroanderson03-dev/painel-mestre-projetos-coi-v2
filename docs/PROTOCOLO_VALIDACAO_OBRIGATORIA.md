@@ -96,12 +96,14 @@ node scripts/validar-funcional.js
 ```powershell
 .\scripts\validar-projeto.ps1
 .\scripts\validar-dados.ps1
+.\scripts\validar-docs.ps1
 ```
 
-| Validação | Critério de aprovação |
-|---|---|
-| `validar-projeto.ps1` | Sem erros reportados |
-| `validar-dados.ps1` | Sem erros reportados (executar após qualquer alteração em dados/projetos.js) |
+| Validação | Critério de aprovação | Quando executar |
+|---|---|---|
+| `validar-projeto.ps1` | Sem erros reportados | Antes de qualquer commit |
+| `validar-dados.ps1` | Sem erros reportados | Após alteração em dados/projetos.js |
+| `validar-docs.ps1` | Sem erros reportados | Após alteração em qualquer .md |
 
 ---
 
@@ -136,6 +138,9 @@ Se qualquer dimensão retornar FAIL: Claude corrige → re-executa validações 
 - [ ] `git diff --check` — PASS
 - [ ] `node --check dados/projetos.js` — PASS (se dados/projetos.js foi alterado)
 - [ ] `node scripts/validar-funcional.js` — 0 FAIL
+- [ ] `.\scriptsalidar-projeto.ps1` — sem erros
+- [ ] `.\scriptsalidar-dados.ps1` — sem erros (se dados/projetos.js foi alterado)
+- [ ] `.\scriptsalidar-docs.ps1` — sem erros (se qualquer .md foi alterado)
 - [ ] ChatGPT — aprovação nas 4 dimensões
 - [ ] Anderson — autorização explícita ("pode commitar", "confirma", "go" ou equivalente)
 
@@ -221,4 +226,4 @@ Registrar aqui as aprovações de cada fase para rastreabilidade.
 ---
 
 *Criado na Fase 5C.3 — 2026-06-23*
-*Última atualização: Fase 5C.3*
+*Última atualização: Fase 5C.4 — 2026-06-26*

@@ -49,14 +49,31 @@ Leitura obrigatoria antes de iniciar qualquer fase ou alteracao.
 | Fase 5B.1.1 | Concluida | Consolidacao de Memoria e Aprendizado â€” E-008, A-008/A-009, PA-011 a PA-013, AP-011, DAR-011 registrados |
 | Fase 5B.2 | Concluida | Exibicao Executiva das Demandas Operacionais no Portfolio â€” resumo executivo, 4 filtros, tabela 11 colunas, 11 novos asserts (66 total) |
 | Fase 5B.2.1 | Concluida | Hotfix Renderizacao Abas Portfolio â€” portfolio.html truncado corrigido; null-check selProj; nav filtrada; Secao 9 validar-funcional.js (13 asserts, 79 total) |
-| Fase 5B.3 | Concluida | Ficha Operacional Condicional e Conclusao de Demandas â€” eOperacional(), renderFichaOperacional(), concluirDemanda(); 13 campos op; Secao 10 validar-funcional.js (14 asserts, 93 total) |
+| Fase 5B.3 | Concluida | Ficha Operacional Condicional
+| Fase 5B.4 | Concluida | Indicadores Operacionais no Dashboard — buildIndicadoresOperacionais(); 7 grupos; 117 asserts | e Conclusao de Demandas â€” eOperacional(), renderFichaOperacional(), concluirDemanda(); 13 campos op; Secao 10 validar-funcional.js (14 asserts, 93 total) |
 | Fase 5C.2 | Concluida | Execucao Assistida do Curador — COI-009 AIOps Concluido (chamado 518190); 5 campos atualizados via COI-CURADOR |
 | Fase 5C.3 | Concluida | Protocolo de Validacao Obrigatoria — docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md criado; AGENTS.md secao 14 |
+| Fase 5C.4 | Concluida | Consolidacao de Conhecimento — E-009/E-010 registrados, A-010/A-011 registrados, PVO atualizado com validar-docs.ps1, COI-CURADOR documentado na modelagem |
 | Fase 5C.1 | Concluida | Agente Curador de Demandas e Projetos — 3 docs criados (AGENTE_CURADOR, MODELO_ENTRADA, PROTOCOLO_ATUALIZACAO); AGENTS.md secao 13; modos previa/assistido/publicacao |
+| Fase 5B.5 | Concluida | Padronizacao COI 2.0 — renderFichaPadrao() 9 secoes em ficha.html; COI-013 OuvSUAS atualizado; namespace .fp-* |
+| Fase 6.1 | Concluida | COI Analista — 4 docs criados (ARQUITETURA_COI_INTELLIGENCE, AGENTE_COI_ANALISTA, MODELO_RECOMENDACOES_IA, ROADMAP_COI_IA); AGENTS.md secao 16; fase exclusivamente documental |
+| Fase 6.1-RF | Concluida | COI Intelligence Engine — Revisao Final: fluxo 7 etapas, 6 niveis de maturidade, COI Analista como modulo do Engine; INDICADORES_INTELIGENCIA.md criado; 4 docs atualizados; AGENTS.md secao 16 revisada |
+| Fase 6.2 | Concluida | COI Curador Inteligente — primeiro modulo funcional do COI Intelligence Engine; scripts/coi-curador-inteligente.js; 12 regras R01-R12; score 0-100; 230 asserts (12 secoes) / 0 FAIL |
+| Fase 6.2.1 | Concluida | Refinamento COI Curador Inteligente — config/regras-curador.js (12 regras); motor refatorado; --json; 294 asserts / 0 FAIL |
 | Fase 4B | Planejada | Edicao de fichas e exportacao de dados |
 | Fase 4C | Planejada | Edicao orientada pelo GitHub â€” sem implementacao |
 
 Branch de publicacao protegida: `publicacao-demandas-central-df` â€” NUNCA TOCAR.
+
+
+### Fase 6.3 — COI Auditor Inteligente (2026-07-07)
+- **Arquivo criado:** `scripts/coi-auditor-inteligente.js` (510 linhas)
+- **Arquivos alterados:** `scripts/validar-funcional.js` (Seção 13, +45 assertions), AGENTS.md (Seção 18), CHANGELOG.md (v1.7.0), RELEASE_NOTES.md (v1.7.0), ROADMAP_COI.md (Fase 6.3 concluída), docs/ESTADO_ATUAL_DO_PROJETO.md (v1.7.0), docs/MEMORIA_OPERACIONAL_PROJETO.md
+- **Resultado:** 294 PASS / 0 FAIL / 13 seções
+- **Padrão estabelecido:** Interface COI Intelligence Engine (`execute`, `score`, `recommendations`, `export`) para todos os módulos futuros
+- **Pipeline:** Curador (--json) → Auditor (child_process.spawnSync) → [futuros módulos]
+- **Aguardando:** commit + push + aprovação Anderson
+
 
 ### Modelagem Operacional (apos Fase 5B.1)
 
@@ -68,11 +85,17 @@ O painel passou a representar dois grupos de itens em `COI_DATA.projetos[]`:
 **Itens Operacionais** (campo `tipoItem` explicito):
 - `'Demanda'` â€” COI-010 (Recarga Gupshup)
 - `'Incidente'` â€” COI-011 (Incidente Nuvidio)
-- `'Licenca/Contrato'` â€” COI-009 (Licenca AIOps)
+- `'Licenca/Contrato'` â€” COI-009 (Licenca AIOps â€” Concluido, chamado 518190)
 - `'Atividade Operacional'` â€” COI-012 (Monitoramento AIOps AURA 156)
 - `'Entrega Contratual'` â€” COI-013 (MDS Formulario Ouvidoria)
 
-Campos adicionais em registros operacionais: `solicitante`, `dataSolicitacao`, `prazoResolucao`, `dataResolucao`, `categoriaOperacional`, `origem`, `observacoesOperacionais`.
+Campos adicionais em registros operacionais: `solicitante`, `dataSolicitacao`, `prazoResolucao`, `dataResolucao`, `categoriaOperacional`, `origem`, `observacoesOperacionais`, `evidencia`.
+
+**Curador Operacional (Fase 5C):**
+A atualizacao de registros operacionais e feita via COI-CURADOR-DEMANDAS-PROJETOS. O curador interpreta texto livre ou formulario, gera previa JSON para aprovacao de Anderson, e aciona o COI-EXECUTOR para aplicar apos confirmacao. Nunca altera `dados/projetos.js` diretamente sem previa aprovada.
+- Documentacao: `docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md`
+- Formularios: `docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md`
+- Protocolo: `docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md`
 
 ---
 
@@ -101,7 +124,7 @@ Campos adicionais em registros operacionais: `solicitante`, `dataSolicitacao`, `
 | `.\scripts\validar-projeto.ps1` | Validacao geral antes de qualquer commit ou push | Windows / PowerShell |
 | `node scripts/validar-funcional.js` | Apos alterar HTML, CSS ou JS funcional | Qualquer SO (Node.js) |
 
-O script `validar-funcional.js` foi criado na Fase 5T.1, expandido nas Fases 5B.1, 5B.2, 5B.2.1 e 5B.3. Executa 93 asserts em 10 secoes: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3, padroes proibidos, modelagem operacional (Secao 6 â€” 14 asserts), exibicao executiva demandas (Secao 7 â€” 11 asserts), integridade de navegacao (Secao 8), hotfix renderizacao portfolio (Secao 9 â€” 13 asserts), ficha operacional e conclusao de demandas (Secao 10 â€” 14 asserts). Retorna exit code 0 (sem erros) ou 1 (ha erros).
+O script `validar-funcional.js` foi criado na Fase 5T.1, expandido nas Fases 5B.1, 5B.2, 5B.2.1, 5B.3, 6.2 e 6.2.1. Executa 294 asserts em 12 secoes: arquivos, sintaxe, conteudo de dados/projetos.js, melhorias das fases 5A.2/5A.3, padroes proibidos, modelagem operacional (Secao 6 â€” 14 asserts), exibicao executiva demandas (Secao 7 â€” 11 asserts), integridade de navegacao (Secao 8), hotfix renderizacao portfolio (Secao 9 â€” 13 asserts), ficha operacional e conclusao de demandas (Secao 10 â€” 14 asserts). Retorna exit code 0 (sem erros) ou 1 (ha erros).
 
 Executar sempre a partir da raiz do projeto.
 
@@ -117,13 +140,7 @@ Executar sempre a partir da raiz do projeto.
 6. Sempre rodar os scripts de validacao antes do commit.
 7. Se precisar sair do escopo autorizado, parar e pedir autorizacao.
 8. Aviso LF/CRLF do git nao e erro â€” e comportamento normal do Windows.
+11. Commits via sandbox Linux requerem workaround GIT_INDEX_FILE (ver E-009/A-010). Nunca usar git add/commit direto do sandbox.
+12. Apos qualquer commit via workaround, verificar e corrigir .git/HEAD via Python se necessario (ver E-010).
 9. Preferir commits atomicos por melhoria individual â€” nunca acumular mais de uma fase sem commit (Fase 5T.1).
-10. ESTADO_ATUAL, CHANGELOG, ROADMAP e MEMORIA devem ser atualizados ANTES do commit de fechamento de fase (Fase 5T.1).
-
----
-
-## Estrutura de Arquivos Relevantes
-
-```
-raiz/
-  index.html                  dashboa
+10. ESTADO_ATUAL, CHANGELOG, ROADMAP e MEMORIA devem ser atualizados ANTES do commit de fe

@@ -376,10 +376,239 @@ Anderson (escopo) → ChatGPT (validação de escopo) → Claude (execução + v
 
 | Camada | Critério |
 |---|---|
-| Claude | node --check PASS · validar-funcional.js 0 FAIL · git diff --check PASS · diff --name-only sem arquivos proibidos |
-| ChatGPT | Funcional OK · Estrutural OK · Governança OK · git diff --check PASS |
-| Anderson | Autorização explícita: "pode commitar", "confirma" ou equivalente |
+| Claude | node --check PASS · validar-funcional.js 0 FAIL · git diff --check
 
-### Documento de referência
+---
 
-`docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md` — fluxo completo, validações por camada, bloqueios, histórico de aprovações.
+## 15. Alerta de Commit via Sandbox Linux (Fase 5C.4)
+
+### Problema estrutural
+
+Commits executados diretamente do sandbox Linux (bash) em repositorios montados via NTFS/SMB falham com erro `index.lock` irremovivel (E-009). O arquivo `.git/index.lock` e visivel para o git Windows mas invisivel ao VFS Linux. `rm -f`, `os.remove()` e quaisquer alternativas retornam erro ou `FileNotFoundError`.
+
+### Workaround obrigatorio (A-010)
+
+```bash
+cp "$REPO/.git/index" /tmp/coi-index-XXX
+TREE=$(GIT_DIR="$REPO/.git" GIT_INDEX_FILE=/tmp/coi-index-XXX git write-tree)
+PARENT=$(git -C "$REPO" rev-parse HEAD)
+COMMIT=$(GIT_DIR="$REPO/.git" git commit-tree "$TREE" -p "$PARENT" -m "<mensagem>")
+GIT_DIR="$REPO/.git" git update-ref HEAD "$COMMIT"
+```
+
+Apos o commit, corrigir `.git/HEAD` obrigatoriamente (E-010):
+
+```python
+with open('.git/HEAD', 'w') as f:
+    f.write('ref: refs/heads/<branch-atual>\n')
+```
+
+### Alternativa recomendada
+
+Sempre que possivel, pedir ao Anderson que execute os comandos git diretamente no Windows (PowerShell). Evita o workaround inteiro.
+
+---
+
+## 16. COI Intelligence Engine -- Motor de Analise e Recomendacoes (Fase 6.1-RF)
+
+### Visao Geral
+
+O **COI Intelligence Engine** e o motor de inteligencia do Painel Mestre COI, responsavel por transformar dados operacionais de `dados/projetos.js` em conhecimento acionavel: analises, classificacoes, priorizacoes, recomendacoes e aprendizados. O Engine opera em 7 etapas sequenciais: Dados -> Analise -> Classificacao -> Priorizacao -> Recomendacao -> Acao -> Aprendizado.
+
+Arquitetura completa: `docs/ARQUITETURA_COI_INTELLIGENCE.md`
+
+### Modulo COI Analista
+
+O COI Analista e o primeiro modulo ativo do COI Intelligence Engine (Fase 6.1). Como modulo do Engine, ele executa as etapas 2 a 5 do fluxo oficial (Analise, Classificacao, Priorizacao, Recomendacao). Niveis de maturidade ativos: 1, 2 e 3. E ativado quando Anderson solicita analise de portfolio, diagnostico de projetos, resumo executivo, identificacao de riscos ou geracao de relatorios periodicos.
+
+Especificacao completa: `docs/AGENTE_COI_ANALISTA.md`
+
+### Posicao no fluxo do Engine
+
+```
+dados/projetos.js (unica fonte)
+  -> COI-MEMORIA -> COI-FORENSE -> COI-ARQUITETO
+  -> COI Intelligence Engine
+       [COI Analista] -> COI-QA -> COI-RELEASE-MANAGER
+  -> Anderson (aprovacao) -> COI-EXECUTOR (acao)
+  -> COI-GOVERNANCA (aprendizado)
+```
+
+### Modelo de Recomendacoes
+
+Toda saida do Engine segue o Modelo de Recomendacoes IA de 8 campos:
+tipo, item_relacionado, prioridade, motivo, evidencia, acao_sugerida, impacto_esperado, status_recomendacao.
+O modelo e compartilhado por todos os modulos do Engine.
+
+Modelo completo: `docs/MODELO_RECOMENDACOES_IA.md`
+
+### Niveis de Maturidade
+
+Nivel 1: Resumos automaticos | Nivel 2: Identificacao de riscos | Nivel 3: Recomendacoes (ativos na Fase 6.1)
+Nivel 4: Recomendacoes inteligentes (Fase 6.3) | Nivel 5: Predicao (Fase 6.5) | Nivel 6: Agente autonomo (Fase 6.6)
+
+### Indicadores do Engine
+
+Documentacao completa: `docs/INDICADORES_INTELIGENCIA.md`
+
+### Restricoes da Fase 6.1
+
+- COI Analista nao altera `dados/projetos.js` -- apenas le
+- Nenhuma logica IA implementada em JavaScript nesta fase
+- Nenhuma alteracao no layout do painel (index.html, portfolio.html, ficha.html, style.css)
+- Fonte exclusiva: `dados/projetos.js` -- sem base paralela
+
+### Roadmap COI Intelligence Engine
+
+Fases: 6.1 COI Analista (concluida) -> 6.2 COI Daily -> 6.3 COI Weekly -> 6.4 COI Monthly -> 6.5 Intelligence no Painel -> 6.6 Automacao.
+
+Roadmap completo: `docs/ROADMAP_COI_IA.md`
+
+---
+
+### 17. COI Curador Inteligente (Fase 6.2)
+
+**Arquivo:** `scripts/coi-curador-inteligente.js`
+**Fase:** 6.2 — Validacao de Qualidade de Dados
+**Modulo:** COI Intelligence Engine — Primeiro modulo funcional do Engine
+**Uso:** `node scripts/coi-curador-inteligente.js [--resumo] [--item COI-XXX]`
+**Exit code:** 0 = portfolio aceitavel | 1 = itens criticos detectados
+
+**Responsabilidade:**
+Analisar todos os itens de `dados/projetos.js` e produzir, para cada um, um diagnostico de qualidade automatico com 12 regras de validacao, score (0-100), erros, alertas, recomendacoes, nivel de criticidade e situacao geral.
+
+**12 Regras de validacao:**
+
+| Codigo | Tipo | Regra |
+|---|---|---|
+| R01 | ERRO (-12) | Responsavel ausente ou nao definido |
+| R02 | ALERTA (-5) | Orgao ou cliente nao informado |
+| R03 | ERRO (-12) | Objetivo do item nao documentado |
+| R04 | ALERTA (-5) | Situacao atual nao documentada |
+| R05 | ALERTA (-5) | Historico operacional vazio ou ausente |
+| R06 | ALERTA (-5) | Proximas acoes nao definidas (exceto concluidos) |
+| R07 | ALERTA (-5) | Riscos nao registrados para itens P0/P1 com risco critico |
+| R08 | ERRO (-12) | Item concluido sem data de conclusao registrada |
+| R09 | ERRO/ALERTA | Percentual incompativel com status |
+| R10 | ERRO (-12) | Prazo vencido para item em andamento |
+| R11 | ALERTA (-5) | Item sem atualizacao ha mais de 30 dias |
+| R12 | ERRO/ALERTA | Evidencia ausente para Incidente, P0 ou P1 |
+
+**Classificacao de score:**
+
+| Faixa | Nivel |
+|---|---|
+| 95-100 | Excelente |
+| 80-94 | Bom |
+| 60-79 | Atencao |
+| 0-59 | Critico |
+
+**Regras de seguranca:**
+- Fonte exclusiva: `dados/projetos.js`
+- Nao cria base de dados paralela
+- Nao altera nenhum arquivo
+- Nao executa git add, commit, push, merge, tag
+
+---
+
+## 17. COI Curador Inteligente (Fase 6.2 / 6.2.1)
+
+**Arquivo:** `scripts/coi-curador-inteligente.js`
+**Config:** `config/regras-curador.js`
+**Fase:** 6.2 / 6.2.1
+**Status:** Operacional
+
+Motor de curadoria com 12 regras configuráveis (R01-R12), sistema de pesos por regra, score 0-100 e saída estruturada JSON.
+
+**Saídas:** `--resumo`, `--item <n>`, `--json`
+**JSON:** `{ resumo, indicadores, itens, erros, alertas, recomendacoes }`
+
+---
+
+## 18. COI Auditor Inteligente (Fase 6.3)
+
+**Arquivo:** `scripts/coi-auditor-inteligente.js`
+**Fase:** 6.3
+**Status:** Operacional
+
+Segundo módulo do COI Intelligence Engine. Consome a saída JSON do COI Curador Inteligente via `child_process.spawnSync` e produz auditoria operacional executiva consolidada.
+
+**Interface padrão (COI Intelligence Engine):**
+- `MODULO.execute()` — executa análise completa e retorna resultado consolidado
+- `MODULO.score()` — retorna score médio do ambiente (0-100)
+- `MODULO.recommendations()` — retorna array de recomendações priorizadas
+- `MODULO.export(formato)` — exporta em `'text'`, `'json'` ou `'md'`
+
+**Saídas:** `--resumo`, `--json`, `--md`
+
+**JSON Schema:**
+```json
+{
+  "schema": "1.0",
+  "engine": "COI Auditor Inteligente",
+  "resumo": { "data", "versaoDados", "totalItens", "regrasAtivas", "scoreMedia", "saudeGeral", "criticidade" },
+  "indicadores": { "totalErros", "totalAlertas", "itensCriticos", "itensSaudaveis", "taxaConformidade" },
+  "auditoria": { "scoreGeral", "conformidade", "completude", "pontualidade", "rastreabilidade", "governanca" },
+  "tendencias": { "saudeGeral", "criticidade", "regraMoreViolada", "itensCriticosTop3", "quickWins" },
+  "recomendacoes": []
+}
+```
+
+**Classificações:**
+- Saúde Geral: `Excelente` (>=90) / `Boa` (>=70) / `Atencao` (>=50) / `Critica` (<50)
+- Criticidade: `Baixa` / `Media` / `Alta` / `Critica`
+
+**Exit codes:** 0 = saudável / 1 = criticidade Alta ou Crítica
+
+
+## 19. COI Command Language -- CCL (Fase R3)
+
+CCL e o padrao oficial de instrucao para todas as sessoes do projeto COI.
+Toda tarefa tecnica com entregavel deve ser expressa como comando CCL antes da execucao.
+
+### Sintaxe
+
+```
+COI <VERBO> [ALVO] [--modo FAST|SAFE|CRITICAL] [--escopo ESCOPO]
+```
+
+### 12 Verbos Oficiais
+
+| ID      | Verbo       | Alias | Modo Default | Pipeline de Skills Principal                    |
+|---------|-------------|-------|--------------|-------------------------------------------------|
+| CCL-01  | EXEC        | X     | FAST         | MESTRE->MEMORIA->FORENSE->ARQUITETO->LEARNINGS->EXECUTOR |
+| CCL-02  | UPDATE      | U     | FAST         | MESTRE->MEMORIA->EXECUTOR                       |
+| CCL-03  | QA          | Q     | FAST         | TESTES->AUDITOR->QA                             |
+| CCL-04  | REVIEW      | RV    | SAFE         | MESTRE->FORENSE->AUDITOR                        |
+| CCL-05  | DOC         | D     | FAST         | GOVERNANCA                                      |
+| CCL-06  | REL         | RL    | FAST         | GOVERNANCA->RELEASE-MANAGER                     |
+| CCL-07  | STATUS      | ST    | FAST         | MEMORIA (leitura apenas)                        |
+| CCL-08  | RUNTIME     | RT    | FAST         | GOVERNANCA                                      |
+| CCL-09  | REGISTRY    | RG    | FAST         | EXECUTOR (apenas registry/*.json)               |
+| CCL-10  | TEST        | T     | FAST         | TESTES->QA                                      |
+| CCL-11  | RELEASE     | RS    | SAFE         | AUDITOR->QA->GOVERNANCA->RELEASE-MANAGER        |
+| CCL-12  | COMMIT PREP | CP    | FAST         | AUDITOR (lista; sem git add)                    |
+
+### Modos de Execucao
+
+| Modo     | Comportamento                                                             |
+|----------|---------------------------------------------------------------------------|
+| FAST     | Default. Execucao autonoma sem pausas. Usar para docs e arquivos novos.   |
+| SAFE     | Pausa antes de cada arquivo modificado. Usar para JS/HTML/CSS.            |
+| CRITICAL | Pausa + sinaliza ChatGPT review. Obrigatorio para dados/projetos.js.      |
+
+### Regras
+
+1. O prefixo `COI` e obrigatorio em toda instrucao CCL.
+2. `--modo FAST` e implicito quando nenhum modo for especificado.
+3. CCL nao substitui as proibicoes de CLAUDE.md; apenas organiza o fluxo.
+4. COMMIT PREP nao executa git add -- entrega apenas a lista formatada.
+5. UPDATE dados requer `--modo CRITICAL` automaticamente (elevacao de modo).
+
+### Arquivos de referencia
+
+- Gramatica completa: `commands/grammar.md`
+- Mapeamento verbo->skills: `commands/parser.md`
+- Definicao dos 12 comandos: `commands/commands.json`
+- Aliases: `commands/aliases.json`
+- Exemplos reais: `commands/examples.md`

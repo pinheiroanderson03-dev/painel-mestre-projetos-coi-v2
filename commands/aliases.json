@@ -1,0 +1,64 @@
+{
+  "schema": "ccl-aliases-v1",
+  "descricao": "Mapeamento de aliases CCL para verbos completos",
+  "ultimaAtualizacao": "2026-07-13",
+  "modos": {
+    "F": "FAST",
+    "S": "SAFE",
+    "C": "CRITICAL"
+  },
+  "verbos": {
+    "X": "EXEC",
+    "U": "UPDATE",
+    "Q": "QA",
+    "RV": "REVIEW",
+    "D": "DOC",
+    "RL": "REL",
+    "ST": "STATUS",
+    "RT": "RUNTIME",
+    "RG": "REGISTRY",
+    "T": "TEST",
+    "RS": "RELEASE",
+    "CP": "COMMIT PREP"
+  },
+  "exemplosAlias": [
+    {
+      "entrada": "COI X R3 --modo F",
+      "expande": "COI EXEC R3 --modo FAST"
+    },
+    {
+      "entrada": "COI Q",
+      "expande": "COI QA"
+    },
+    {
+      "entrada": "COI ST",
+      "expande": "COI STATUS"
+    },
+    {
+      "entrada": "COI T --secao S13",
+      "expande": "COI TEST --secao S13"
+    },
+    {
+      "entrada": "COI CP --fase R3",
+      "expande": "COI COMMIT PREP --fase R3"
+    },
+    {
+      "entrada": "COI RL v1.8.0",
+      "expande": "COI REL v1.8.0"
+    },
+    {
+      "entrada": "COI RG validate",
+      "expande": "COI REGISTRY validate"
+    },
+    {
+      "entrada": "COI RS v1.8.0 --modo S",
+      "expande": "COI RELEASE v1.8.0 --modo SAFE"
+    }
+  ],
+  "regras": [
+    "Aliases sao case-insensitive para o prefixo COI mas case-sensitive para verbos.",
+    "Modo pode ser expresso como letra unica (F/S/C) ou nome completo (FAST/SAFE/CRITICAL).",
+    "COMMIT PREP nao tem alias de verbo unico -- usar CP.",
+    "Aliases nao alteram o comportamento; apenas expandem para o verbo completo antes do parsing."
+  ]
+}

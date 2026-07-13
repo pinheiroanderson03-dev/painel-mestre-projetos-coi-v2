@@ -1,0 +1,520 @@
+{
+  "schema": "ccl-commands-v1",
+  "versao": "1.0.0",
+  "descricao": "COI Command Language -- definicao oficial dos 12 comandos CCL",
+  "ultimaAtualizacao": "2026-07-13",
+  "modos": {
+    "FAST": {
+      "descricao": "Execucao autonoma sem pausas intermediarias",
+      "alias": "F",
+      "default": true,
+      "restricoes": [
+        "Nao aplicar a dados/projetos.js",
+        "Nao aplicar a publicacao em producao"
+      ]
+    },
+    "SAFE": {
+      "descricao": "Pausa antes de cada arquivo modificado; aguarda confirmacao",
+      "alias": "S",
+      "default": false,
+      "restricoes": []
+    },
+    "CRITICAL": {
+      "descricao": "Pausa + sinaliza para review ChatGPT antes de qualquer alteracao",
+      "alias": "C",
+      "default": false,
+      "restricoes": [
+        "Obrigatorio para dados/projetos.js",
+        "Obrigatorio para publicacao em producao"
+      ]
+    }
+  },
+  "comandos": [
+    {
+      "id": "CCL-01",
+      "verbo": "EXEC",
+      "alias": "X",
+      "objetivo": "Executar uma fase ou conjunto de tarefas do projeto COI",
+      "sintaxe": "COI EXEC [ALVO] [--modo FAST|SAFE|CRITICAL] [--escopo ESCOPO]",
+      "argumentos": {
+        "ALVO": "Identificador de fase (ex: R3, 6.4) ou conjunto de tarefas. Opcional.",
+        "--modo": "FAST (default) | SAFE | CRITICAL",
+        "--escopo": "scripts | docs | governance | registry. Opcional."
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        ".claude/RUNTIME.md",
+        "registry/runtime.json",
+        "registry/rules.json",
+        ".claude/skills/COI-MESTRE.md"
+      ],
+      "saidas": [
+        "Arquivos especificos da fase executada"
+      ],
+      "arquivosConsultados": [
+        ".claude/RUNTIME.md",
+        "STATUS.md",
+        "registry/runtime.json",
+        "registry/phases.json",
+        "registry/rules.json"
+      ],
+      "validacoes": [
+        "node scripts/validar-funcional.js",
+        "git diff --check",
+        "node --check <arquivos JS>"
+      ],
+      "skillsPipeline": [
+        "COI-MESTRE",
+        "COI-MEMORIA",
+        "COI-FORENSE",
+        "COI-ARQUITETO",
+        "COI-LEARNINGS",
+        "COI-EXECUTOR"
+      ],
+      "resultadoEsperado": "Fase executada com 0 erros; relatorio de 6 itens entregue",
+      "exemplos": [
+        "COI EXEC R3 --modo FAST",
+        "COI EXEC 6.4 --modo SAFE",
+        "COI EXEC --escopo docs"
+      ]
+    },
+    {
+      "id": "CCL-02",
+      "verbo": "UPDATE",
+      "alias": "U",
+      "objetivo": "Atualizar dados operacionais ou documentos especificos",
+      "sintaxe": "COI UPDATE <ALVO> [--modo FAST|SAFE|CRITICAL]",
+      "argumentos": {
+        "ALVO": "dados | docs | registry | runtime. Obrigatorio.",
+        "--modo": "FAST (default para docs/registry) | CRITICAL (obrigatorio para dados)"
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        "Arquivo de origem conforme ALVO",
+        "registry/runtime.json"
+      ],
+      "saidas": [
+        "Arquivo atualizado conforme ALVO"
+      ],
+      "arquivosConsultados": [
+        "registry/runtime.json",
+        "registry/documents.json"
+      ],
+      "validacoes": [
+        "git diff --check",
+        "node -e JSON.parse (para .json)",
+        "node scripts/validar-funcional.js"
+      ],
+      "skillsPipeline": [
+        "COI-MESTRE",
+        "COI-MEMORIA",
+        "COI-EXECUTOR"
+      ],
+      "resultadoEsperado": "Arquivo atualizado; sem erros de encoding ou sintaxe",
+      "exemplos": [
+        "COI UPDATE registry --modo FAST",
+        "COI UPDATE dados --modo CRITICAL",
+        "COI UPDATE runtime"
+      ]
+    },
+    {
+      "id": "CCL-03",
+      "verbo": "QA",
+      "alias": "Q",
+      "objetivo": "Executar suite completa de validacoes (testes + auditoria + QA)",
+      "sintaxe": "COI QA [--escopo ESCOPO]",
+      "argumentos": {
+        "--escopo": "all (default) | js | json | git | ps1"
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        "scripts/validar-funcional.js",
+        "registry/tests.json",
+        "Todos os arquivos JS do projeto"
+      ],
+      "saidas": [
+        "Relatorio: PASS/FAIL por secao",
+        "Lista de erros (se houver)"
+      ],
+      "arquivosConsultados": [
+        "registry/tests.json",
+        "registry/commands.json",
+        ".claude/RUNTIME.md"
+      ],
+      "validacoes": [
+        "node scripts/validar-funcional.js -> 293 PASS / 0 FAIL esperado",
+        "git diff --check",
+        "node --check scripts/*.js",
+        "node -e JSON.parse para todos registry/*.json"
+      ],
+      "skillsPipeline": [
+        "COI-TESTES",
+        "COI-AUDITOR",
+        "COI-QA"
+      ],
+      "resultadoEsperado": "293 PASS / 0 FAIL; git diff --check limpo",
+      "exemplos": [
+        "COI QA",
+        "COI QA --escopo json",
+        "COI QA --escopo js"
+      ]
+    },
+    {
+      "id": "CCL-04",
+      "verbo": "REVIEW",
+      "alias": "RV",
+      "objetivo": "Auditar escopo, arquivos tocados e conformidade com protocolo",
+      "sintaxe": "COI REVIEW [ALVO] [--modo SAFE|CRITICAL]",
+      "argumentos": {
+        "ALVO": "Nome de fase, branch ou arquivo especifico. Opcional.",
+        "--modo": "SAFE (default) | CRITICAL"
+      },
+      "modoDefault": "SAFE",
+      "entradas": [
+        "git diff --name-only",
+        "git diff --stat",
+        "registry/rules.json",
+        "AGENTS.md"
+      ],
+      "saidas": [
+        "Relatorio de conformidade",
+        "Lista de desvios (se houver)"
+      ],
+      "arquivosConsultados": [
+        "registry/rules.json",
+        "registry/commands.json",
+        "AGENTS.md",
+        "CLAUDE.md"
+      ],
+      "validacoes": [
+        "git diff --check",
+        "Verificar branch != publicacao-demandas-central-df",
+        "Verificar dados/projetos.js nao modificado (se nao autorizado)"
+      ],
+      "skillsPipeline": [
+        "COI-MESTRE",
+        "COI-FORENSE",
+        "COI-AUDITOR"
+      ],
+      "resultadoEsperado": "Relatorio de conformidade com veredito APROVADO ou PENDENCIAS",
+      "exemplos": [
+        "COI REVIEW",
+        "COI REVIEW R3 --modo SAFE",
+        "COI REVIEW fase-5c-2-atualizacao-coi-009-aiops"
+      ]
+    },
+    {
+      "id": "CCL-05",
+      "verbo": "DOC",
+      "alias": "D",
+      "objetivo": "Atualizar documentacao de governanca do projeto",
+      "sintaxe": "COI DOC [--escopo ESCOPO]",
+      "argumentos": {
+        "--escopo": "governance (default) | agents | runtime | all"
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        "Conteudo da fase recém-concluída",
+        "registry/documents.json",
+        "registry/phases.json"
+      ],
+      "saidas": [
+        "CHANGELOG.md (nova entrada)",
+        "ROADMAP_COI.md (fase atualizada)",
+        "docs/ESTADO_ATUAL_DO_PROJETO.md (nova linha)",
+        "docs/MEMORIA_OPERACIONAL_PROJETO.md (nova linha)"
+      ],
+      "arquivosConsultados": [
+        "registry/documents.json",
+        "registry/phases.json",
+        ".claude/RUNTIME.md"
+      ],
+      "validacoes": [
+        "git diff --check",
+        "Verificar encoding UTF-8 sem BOM"
+      ],
+      "skillsPipeline": [
+        "COI-GOVERNANCA"
+      ],
+      "resultadoEsperado": "5 documentos de governanca atualizados; sem erros de encoding",
+      "exemplos": [
+        "COI DOC",
+        "COI DOC --escopo governance",
+        "COI DOC --escopo agents"
+      ]
+    },
+    {
+      "id": "CCL-06",
+      "verbo": "REL",
+      "alias": "RL",
+      "objetivo": "Gerar ou atualizar CHANGELOG e RELEASE_NOTES para uma versao",
+      "sintaxe": "COI REL <VERSAO> [--modo FAST]",
+      "argumentos": {
+        "VERSAO": "Identificador de versao semantica (ex: v1.8.0). Obrigatorio.",
+        "--modo": "FAST (default)"
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        "CHANGELOG.md (versao atual)",
+        "RELEASE_NOTES.md (versao atual)",
+        "registry/phases.json"
+      ],
+      "saidas": [
+        "CHANGELOG.md (entrada v<VERSAO> prepended)",
+        "RELEASE_NOTES.md (entrada v<VERSAO> prepended)"
+      ],
+      "arquivosConsultados": [
+        "CHANGELOG.md",
+        "RELEASE_NOTES.md",
+        "registry/phases.json",
+        "registry/modules.json"
+      ],
+      "validacoes": [
+        "git diff --check",
+        "Verificar que versao nao existe ainda no arquivo"
+      ],
+      "skillsPipeline": [
+        "COI-GOVERNANCA",
+        "COI-RELEASE-MANAGER"
+      ],
+      "resultadoEsperado": "CHANGELOG e RELEASE_NOTES atualizados com entrada da versao",
+      "exemplos": [
+        "COI REL v1.8.0",
+        "COI REL v1.7.2 --modo FAST"
+      ]
+    },
+    {
+      "id": "CCL-07",
+      "verbo": "STATUS",
+      "alias": "ST",
+      "objetivo": "Exibir estado atual completo do projeto",
+      "sintaxe": "COI STATUS [--formato FORMATO]",
+      "argumentos": {
+        "--formato": "tabela (default) | json | resumo"
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        ".claude/RUNTIME.md",
+        "STATUS.md",
+        "registry/runtime.json"
+      ],
+      "saidas": [
+        "Relatorio de estado (sem modificar arquivos)"
+      ],
+      "arquivosConsultados": [
+        ".claude/RUNTIME.md",
+        "STATUS.md",
+        "registry/runtime.json",
+        "registry/phases.json"
+      ],
+      "validacoes": [
+        "Nenhuma -- comando somente leitura"
+      ],
+      "skillsPipeline": [
+        "COI-MEMORIA"
+      ],
+      "resultadoEsperado": "Tabela com: versao, branch, commit, validador, pendencias, proximos passos",
+      "exemplos": [
+        "COI STATUS",
+        "COI STATUS --formato resumo",
+        "COI STATUS --formato json"
+      ]
+    },
+    {
+      "id": "CCL-08",
+      "verbo": "RUNTIME",
+      "alias": "RT",
+      "objetivo": "Atualizar .claude/RUNTIME.md e STATUS.md com estado pos-fase",
+      "sintaxe": "COI RUNTIME [--versao VERSAO] [--fase FASE]",
+      "argumentos": {
+        "--versao": "Nova versao (ex: v1.8.0). Opcional.",
+        "--fase": "Fase recém-concluída (ex: R3). Opcional."
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        ".claude/RUNTIME.md (versao atual)",
+        "STATUS.md (versao atual)",
+        "registry/runtime.json"
+      ],
+      "saidas": [
+        ".claude/RUNTIME.md (atualizado)",
+        "STATUS.md (atualizado)",
+        "registry/runtime.json (atualizado)"
+      ],
+      "arquivosConsultados": [
+        ".claude/RUNTIME.md",
+        "STATUS.md",
+        "registry/runtime.json",
+        "registry/phases.json"
+      ],
+      "validacoes": [
+        "git diff --check",
+        "Verificar consistencia versao entre os 3 arquivos"
+      ],
+      "skillsPipeline": [
+        "COI-GOVERNANCA"
+      ],
+      "resultadoEsperado": "RUNTIME.md e STATUS.md consistentes com nova versao e fase",
+      "exemplos": [
+        "COI RUNTIME --versao v1.8.0 --fase R3",
+        "COI RUNTIME --fase 6.4"
+      ]
+    },
+    {
+      "id": "CCL-09",
+      "verbo": "REGISTRY",
+      "alias": "RG",
+      "objetivo": "Consultar ou atualizar arquivos registry/ (fonte primaria de consulta)",
+      "sintaxe": "COI REGISTRY <ACAO> [ARQUIVO] [--modo FAST]",
+      "argumentos": {
+        "ACAO": "read | update | validate. Obrigatorio.",
+        "ARQUIVO": "Nome do arquivo registry (ex: runtime, phases, tests). Opcional.",
+        "--modo": "FAST (default)"
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        "registry/<ARQUIVO>.json",
+        "registry/README.md"
+      ],
+      "saidas": [
+        "registry/<ARQUIVO>.json (se ACAO=update)"
+      ],
+      "arquivosConsultados": [
+        "registry/README.md",
+        "registry/runtime.json"
+      ],
+      "validacoes": [
+        "node -e JSON.parse para o arquivo alvo",
+        "git diff --check"
+      ],
+      "skillsPipeline": [
+        "COI-EXECUTOR"
+      ],
+      "resultadoEsperado": "Registry consultado ou atualizado; JSON valido",
+      "exemplos": [
+        "COI REGISTRY validate",
+        "COI REGISTRY update phases",
+        "COI REGISTRY read tests"
+      ]
+    },
+    {
+      "id": "CCL-10",
+      "verbo": "TEST",
+      "alias": "T",
+      "objetivo": "Executar suite de testes validar-funcional.js e reportar resultado",
+      "sintaxe": "COI TEST [--secao SECAO]",
+      "argumentos": {
+        "--secao": "Numero da secao (S01 a S13). Opcional. Default: todas."
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        "scripts/validar-funcional.js",
+        "registry/tests.json"
+      ],
+      "saidas": [
+        "Relatorio: PASS/FAIL por secao e total"
+      ],
+      "arquivosConsultados": [
+        "scripts/validar-funcional.js",
+        "registry/tests.json"
+      ],
+      "validacoes": [
+        "node scripts/validar-funcional.js -> 293 PASS / 0 FAIL"
+      ],
+      "skillsPipeline": [
+        "COI-TESTES",
+        "COI-QA"
+      ],
+      "resultadoEsperado": "293 PASS / 0 FAIL / 13 secoes",
+      "exemplos": [
+        "COI TEST",
+        "COI TEST --secao S13",
+        "COI TEST --secao S01"
+      ]
+    },
+    {
+      "id": "CCL-11",
+      "verbo": "RELEASE",
+      "alias": "RS",
+      "objetivo": "Preparar pacote completo de entrega (9 itens) para uma versao",
+      "sintaxe": "COI RELEASE <VERSAO> [--modo SAFE|CRITICAL]",
+      "argumentos": {
+        "VERSAO": "Versao semantica (ex: v1.8.0). Obrigatorio.",
+        "--modo": "SAFE (default) | CRITICAL"
+      },
+      "modoDefault": "SAFE",
+      "entradas": [
+        "CHANGELOG.md",
+        "RELEASE_NOTES.md",
+        "registry/runtime.json",
+        "registry/phases.json",
+        "registry/tests.json"
+      ],
+      "saidas": [
+        "Relatorio de 9 itens: branch, arquivos criados, alterados, comandos, validacoes, erros, pendencias, proximos passos, recomendacoes"
+      ],
+      "arquivosConsultados": [
+        "CHANGELOG.md",
+        "RELEASE_NOTES.md",
+        "AGENTS.md",
+        "registry/runtime.json",
+        "registry/phases.json",
+        "registry/tests.json"
+      ],
+      "validacoes": [
+        "node scripts/validar-funcional.js -> 293 PASS",
+        "git diff --check",
+        "Verificar 9 itens completos"
+      ],
+      "skillsPipeline": [
+        "COI-AUDITOR",
+        "COI-QA",
+        "COI-GOVERNANCA",
+        "COI-RELEASE-MANAGER"
+      ],
+      "resultadoEsperado": "Pacote de 9 itens completo; pronto para autorizacao de commit",
+      "exemplos": [
+        "COI RELEASE v1.8.0",
+        "COI RELEASE v1.7.2 --modo CRITICAL"
+      ]
+    },
+    {
+      "id": "CCL-12",
+      "verbo": "COMMIT PREP",
+      "alias": "CP",
+      "objetivo": "Gerar lista completa de arquivos para git add sem executar o commit",
+      "sintaxe": "COI COMMIT PREP [--fase FASE]",
+      "argumentos": {
+        "--fase": "Filtrar arquivos por fase especifica. Opcional."
+      },
+      "modoDefault": "FAST",
+      "entradas": [
+        "git diff --name-only",
+        "git status",
+        "registry/phases.json"
+      ],
+      "saidas": [
+        "Lista formatada: git add <arquivo1> <arquivo2> ...",
+        "Mensagem de commit sugerida",
+        "Aviso: aguardar autorizacao Anderson antes de executar"
+      ],
+      "arquivosConsultados": [
+        "registry/runtime.json",
+        "registry/phases.json",
+        ".claude/RUNTIME.md"
+      ],
+      "validacoes": [
+        "Verificar branch != publicacao-demandas-central-df",
+        "Verificar dados/projetos.js -- alertar se modificado sem autorizacao"
+      ],
+      "skillsPipeline": [
+        "COI-AUDITOR"
+      ],
+      "resultadoEsperado": "Lista de arquivos e mensagem de commit; SEM executar git add ou git commit",
+      "exemplos": [
+        "COI COMMIT PREP",
+        "COI COMMIT PREP --fase R3"
+      ]
+    }
+  ]
+}
