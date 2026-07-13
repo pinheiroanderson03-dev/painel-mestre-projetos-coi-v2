@@ -106,4 +106,5 @@ Proxima acao sugerida: Fase 6.4 — COI Daily (relatorio diario automatizado) ou
 | `projetos/ficha.html` | Fase 5B.5 — renderFichaPadrao() com 9 secoes padrao COI 2.0; renderFichaOperacional() preservada; dispatch unificado para todos os projetos |
 | `scripts/coi-curador-inteligente.js` | Fase 6.2 — COI Curador Inteligente; 12 regras R01-R12; score 0-100; exit 0/1 |
 | `config/regras-curador.js` | Fase 6.2.1 — 12 regras centralizadas; id, nome, peso, severidade, obrigatoria, ativa, validar |
-| `scripts/validar-funcional.js` | Fase 6.3 — 294 asserts, 13 secoes (Sec 12: COI Curador, Sec 13: COI Auditor), exit 0/1 |
+| `scripts/validar
+| R4    | COI OS -- Session Template      | v1.9.0  | 2026-07-13 | Concluida | COI_SESSION_TEMPLATE.md (x3), AGENTS.md S20, RUNTIME, STATUS, INDEX, CHANGELOG, RELEASE_NOTES |

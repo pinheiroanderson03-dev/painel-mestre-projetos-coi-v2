@@ -360,16 +360,16 @@ Estrutura inicial estática com dados hardcoded. Geração de HTML por projeto, 
 
 ### 🔄 Fase 6.4 — COI Daily (planejada)
 
-**Objetivo:** Relatorio diario automatizado do estado operacional do portfolio.
+**Objetivo:** Relatorio diario automatizado do estado operacional
+### Fase R4 -- COI OS Session Template (v1.9.0) -- CONCLUIDA 2026-07-13
+
+**Objetivo:** Institucionalizar o COI_SESSION_TEMPLATE.md como padrao oficial de inicializacao de sessoes.
+
+**Entregaveis:**
+- `COI_SESSION_TEMPLATE.md` (3 copias: raiz, docs/, .claude/) com 14 secoes
+- AGENTS.md Secao 20
+- RUNTIME.md v1.9.0, STATUS.md, INDEX.md, CHANGELOG.md, RELEASE_NOTES.md atualizados
+
+**Resultado:** Zero impacto em codigo funcional. 293 PASS / 0 FAIL mantidos.
 
 ---
-
-### 🔄 Fase 6.4 — COI Weekly (planejada)
-
-**Objetivo:** Relatorio semanal com evolucao do portfolio.
-
----
-
-### 🔄 v1.5 — Fase 5B.4: Indicadores Operacionais no Dashboard (proxima)
-
-**Objetivo:** Adicionar cards executivos no dashboard (index.html) para Incidentes, Licencas e Atividades Operacionais — complementando os cards de Pr

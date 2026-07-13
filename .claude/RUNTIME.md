@@ -3,8 +3,8 @@
 # Hierarquia: RUNTIME > rules.json > CLAUDE.md > skills > AGENTS.md
 
 PROJETO    : Painel Mestre COI -- Comunicacao Omnichannel Inteligente -- Central IT
-VERSAO     : v1.8.0
-FASE_ATUAL : R3 concluida (COI Command Language)
+VERSAO     : v1.9.0
+FASE_ATUAL : R4 concluida (COI OS -- Session Template)
 PROXIMA    : 6.4 (COI Daily) ou R1.2 (simplificacao docs)
 BRANCH     : fase-5c-2-atualizacao-coi-009-aiops
 ULTIMO_COMMIT : 3a71c5e feat(5C.2-5C.3)
@@ -12,7 +12,12 @@ ULTIMO_COMMIT : 3a71c5e feat(5C.2-5C.3)
 VALIDADOR  : node scripts/validar-funcional.js -> 293 PASS / 0 FAIL / 13 secoes
 DADOS_JS   : dados/projetos.js v1.4.1 -- 13 projetos
 
-COMMITS_PENDENTES: sim -- fases 5B.4 a R3 -- git add + commit (autorizacao Anderson)
+COMMITS_PENDENTES: sim -- fases 5B.4 a R4 -- git add + commit (autorizacao Anderson)
+
+-- SESSION TEMPLATE (COI OS) --
+TEMPLATE   : COI_SESSION_TEMPLATE.md (raiz / docs/ / .claude/)
+ESTEIRAS   : PLATAFORMA (Runtime/Registry/CCL/OS) | OPERACAO (dados/projetos)
+CHECKPOINT : git branch, git status, git log -3, git tag
 
 -- CCL (COI Command Language) --
 GRAMATICA  : commands/grammar.md
@@ -52,5 +57,6 @@ E-007  : Unicode em JS causa truncamento -> usar python3 para arquivos extensos
 
 ENTRADA_OPERACIONAL : .claude/skills/COI-MESTRE.md
 ENTRADA_CCL         : commands/grammar.md
+SESSION_TEMPLATE    : COI_SESSION_TEMPLATE.md
 INDICE_DOCUMENTOS   : INDEX.md
 STATUS_DETALHADO    : STATUS.md

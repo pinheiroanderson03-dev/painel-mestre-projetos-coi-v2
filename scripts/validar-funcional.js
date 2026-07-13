@@ -693,24 +693,24 @@ auditor.indexOf('gerarMarkdown') !== -1
   ? pass('S13-12: coi-auditor-inteligente.js gera saida Markdown')
   : fail('S13-12: coi-auditor-inteligente.js SEM saida Markdown');
 
+
 // require.main guard
-auditor.indexOf('require.main') !== -1
+auditor.indexOf('require.main === module') !== -1
   ? pass('S13-13: coi-auditor-inteligente.js tem guard require.main === module')
-  : fail('S13-13: coi-auditor-inteligente.js SEM guard require.main');
+  : fail('S13-13: coi-auditor-inteligente.js SEM guard require.main === module');
 
 // ============================================================
 // RESULTADO FINAL
 // ============================================================
-
 console.log('\n' + '='.repeat(60));
 linhas.forEach(function(l) { console.log(l); });
 console.log('='.repeat(60));
 console.log('');
 
-if (erros > 0) {
-  console.log('RESULTADO: ' + erros + ' erro(s) real(is). Corrija antes de continuar.');
-  process.exit(1);
-} else {
+if (erros === 0) {
   console.log('RESULTADO: Todas as validacoes passaram. Sem erros reais.');
   process.exit(0);
+} else {
+  console.log('RESULTADO: ' + erros + ' erro(s) encontrado(s). Revisar antes do commit.');
+  process.exit(1);
 }

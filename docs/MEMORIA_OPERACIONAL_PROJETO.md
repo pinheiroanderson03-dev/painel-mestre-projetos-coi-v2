@@ -142,5 +142,5 @@ Executar sempre a partir da raiz do projeto.
 8. Aviso LF/CRLF do git nao e erro â€” e comportamento normal do Windows.
 11. Commits via sandbox Linux requerem workaround GIT_INDEX_FILE (ver E-009/A-010). Nunca usar git add/commit direto do sandbox.
 12. Apos qualquer commit via workaround, verificar e corrigir .git/HEAD via Python se necessario (ver E-010).
-9. Preferir commits atomicos por melhoria individual â€” nunca acumular mais de uma fase sem commit (Fase 5T.1).
-10. ESTADO_ATUAL, CHANGELOG, ROADMAP e MEMORIA devem ser atualizados ANTES do commit de fe
+9. Preferir commits atomicos por melhoria individual â€” nu
+| R4    | COI OS Session Template | v1.9.0  | 2026-07-13 | Criados: COI_SESSION_TEMPLATE.md (x3). Atualizados: AGENTS.md S20, RUNTIME, STATUS, INDEX, CHANGELOG, RELEASE_NOTES, ROADMAP, ESTADO_ATUAL, MEMORIA |

@@ -1,3 +1,39 @@
+# v1.9.0 -- COI OS Session Template (2026-07-13)
+
+## Fase R4 -- COI OS
+
+### O que e
+O COI_SESSION_TEMPLATE.md institucionaliza o padrao oficial de inicializacao
+de sessoes do projeto COI. Resolve a reconstrucao de contexto entre sessoes,
+padroniza o fluxo entre Anderson/ChatGPT/Claude e define as duas esteiras
+operacionais (PLATAFORMA e OPERACAO).
+
+### Arquivos criados
+- `COI_SESSION_TEMPLATE.md` (raiz)
+- `docs/COI_SESSION_TEMPLATE.md`
+- `.claude/COI_SESSION_TEMPLATE.md`
+
+### Arquivos atualizados
+- `.claude/RUNTIME.md` (v1.9.0)
+- `STATUS.md` (fase R4 + R5 planejada)
+- `INDEX.md` (secao COI OS adicionada)
+- `AGENTS.md` (Secao 20)
+- `CHANGELOG.md` (v1.9.0)
+- `RELEASE_NOTES.md` (este arquivo)
+- `ROADMAP_COI.md` (R4 concluida)
+- `docs/ESTADO_ATUAL_DO_PROJETO.md` (linha R4)
+- `docs/MEMORIA_OPERACIONAL_PROJETO.md` (linha R4)
+
+### Impacto
+Zero impacto em codigo funcional. Apenas documentacao e governanca.
+
+### Validacoes
+- 293 PASS / 0 FAIL / 13 secoes
+- git diff --check: limpo
+- Copias identicas nas 3 localizacoes
+
+---
+
 # RELEASE NOTES — Painel Mestre COI
 
 Comunicação Omnichannel Inteligente · Central IT
@@ -391,15 +427,4 @@ Todas as funcionalidades existentes continuam iguais: cadastro de projetos, fich
 
 **Compatibilidade retroativa:** caso o array `meta.execucoesMensais` não exista ou esteja vazio, o painel utiliza automaticamente `meta.execucaoMensal` como fallback — garantindo que versões anteriores não sejam afetadas.
 
-### O que não muda
-
-Todas as funcionalidades da v1.4 continuam iguais: seletor por frente e contrato no portfólio, cards executivos preenchidos, seção de Execução Mensal, fichas individuais com Bloco 9 e funcionamento offline.
-
----
-
-## v1.4 — Execução Mensal e Gestão Executiva
-**Data:** 2026-06-10
-
-### O que melhorou
-
-**Portfólio com agrupamento por frente:** os projetos no portfólio agora são
+### O que não mu

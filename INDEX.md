@@ -4,10 +4,21 @@
 
 ---
 
+## COI OS -- Session Template (Fase R4)
+
+> Template oficial de inicializacao de sessoes. Ler ao iniciar qualquer sessao.
+
+| Arquivo                         | Localizacao      |
+|---------------------------------|------------------|
+| COI_SESSION_TEMPLATE.md         | Raiz do projeto  |
+| docs/COI_SESSION_TEMPLATE.md    | docs/            |
+| .claude/COI_SESSION_TEMPLATE.md | .claude/         |
+
+---
+
 ## CCL -- COI Command Language (Fase R3)
 
 > Padrao oficial de instrucao para sessoes COI.
-> Toda tarefa tecnica com entregavel deve ser expressa em CCL antes da execucao.
 
 | Arquivo                 | Conteudo                                         |
 |-------------------------|--------------------------------------------------|
@@ -46,6 +57,7 @@
 | 2 | STATUS.md                | Ao iniciar qualquer fase                |
 | 3 | registry/README.md       | Antes de implementar ou consultar       |
 | 4 | commands/grammar.md      | Antes de interpretar instrucao CCL      |
+| 5 | COI_SESSION_TEMPLATE.md  | Ao iniciar nova sessao                  |
 
 ---
 
@@ -53,7 +65,7 @@
 
 | Arquivo                          | Conteudo                                         |
 |----------------------------------|--------------------------------------------------|
-| CHANGELOG.md                     | Historico de versoes (v1.0.0 a v1.8.0)          |
+| CHANGELOG.md                     | Historico de versoes                             |
 | RELEASE_NOTES.md                 | Notas de versao por release                      |
 | ROADMAP_COI.md                   | Planejamento de fases futuras                    |
 | docs/ESTADO_ATUAL_DO_PROJETO.md  | Tabela historica de fases                        |
@@ -66,7 +78,7 @@
 | Arquivo        | Conteudo                                                     |
 |----------------|--------------------------------------------------------------|
 | CLAUDE.md      | Instrucoes de comportamento e regras de seguranca            |
-| AGENTS.md      | 19 secoes de regras operacionais detalhadas                  |
+| AGENTS.md      | 20 secoes de regras operacionais detalhadas                  |
 
 ---
 
@@ -111,25 +123,13 @@
 
 ---
 
-## Documentacao tecnica (docs/)
-
-| Arquivo                         | Conteudo                                         |
-|---------------------------------|--------------------------------------------------|
-| docs/ARQUITETURA_COI_INTELLIGENCE.md | Visao geral da arquitetura do Intelligence Engine |
-| docs/AGENTE_COI_ANALISTA.md     | Documentacao do COI Analista                     |
-| docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md | Documentacao do COI Curador              |
-| docs/API_AUDITOR.md             | Documentacao do COI Auditor (se existir)         |
-| docs/ESTADO_ATUAL_DO_PROJETO.md | Tabela historica de fases                        |
-| docs/MEMORIA_OPERACIONAL_PROJETO.md | Registro operacional detalhado               |
-
----
-
-## Infraestrutura (COI Runtime -- Fases R1/R2/R3)
+## Infraestrutura (COI Runtime -- Fases R1/R2/R3/R4)
 
 | Arquivo              | Finalidade                                        |
 |----------------------|---------------------------------------------------|
-| .claude/RUNTIME.md   | Estado operacional (carregado auto, ~50 linhas)   |
+| .claude/RUNTIME.md   | Estado operacional (carregado auto, ~60 linhas)   |
 | STATUS.md            | Tabelas detalhadas de estado e pendencias         |
 | INDEX.md             | Este arquivo -- mapa completo de documentos       |
 | registry/            | 9 registros JSON -- fonte primaria de consulta    |
 | commands/            | CCL -- 4 docs + 1 JSON de definicao               |
+| COI_SESSION_TEMPLATE.md | Template oficial de sessao (3 copias)         |

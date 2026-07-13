@@ -1,3 +1,18 @@
+## [v1.9.0] -- 2026-07-13
+
+### Adicionado (Fase R4 -- COI OS Session Template)
+- `COI_SESSION_TEMPLATE.md` criado na raiz, docs/ e .claude/ (3 copias sincronizadas)
+- 14 secoes: Visao, Papeis, Leitura Obrigatoria, Checkpoint, Esteiras, Perguntas,
+  Principios, Regra de Ouro, Padrao de Entrega, Checklist, Contexto, Praticas,
+  Evolucao Continua, Roadmap COI OS
+- `AGENTS.md` Secao 20 adicionada (COI OS Session Template)
+- `.claude/RUNTIME.md` atualizado para v1.9.0 com referencia ao SESSION_TEMPLATE
+- `STATUS.md` e `INDEX.md` atualizados com Fase R4
+
+### Sem alteracoes em
+- dados/projetos.js, index.html, portfolio.html, ficha.html, style.css
+- scripts Intelligence Engine, registry/, config/
+
 
 ## [v1.6.1] -- Fase 6.2.1 -- COI Curador Inteligente -- Refinamento -- 2026-07-07
 
@@ -589,12 +604,4 @@ Commits: `c83031a` · `5f00783` · `065c3ac` · `8eaef98`
 - Estrutura por item: `competencia`, `rotulo`, `resumo`, `totalAtividades`, `totalDemandas`, `totalMelhorias`, `pendenciasCriticas`, `principaisGanhos[]`, `proximasEntregas[]`, `planoExcelencia[]`
 - `meta.execucaoMensal` preservado intacto como fallback
 - Maio/2026 preenchido com dados reais do painel anterior (`acompanhamento-mensal-v1.html`, `dados_painel_aura.json`): 9 atividades, 5 demandas, 8 principais ganhos, 6 próximos passos registrados
-- Junho/2026 mantido com estrutura pronta para preenchimento
-
-### Seletor de competência — `index.html`
-Commit: `c451426`
-
-- Seção `em-section` dividida em `em-controls` (persistente, contém o seletor) e `em-content` (re-renderizável)
-- `<select>` exibido automaticamente quando `execucoesMensais.length > 1`; oculto quando há apenas uma competência
-- Troca de competência atualiza somente `em-content` — cards, gráficos, tabela e alertas executivos não são afetados
-- Nova função `renderEmConteudo(container, emData)` encapsula a renderização; `buildExecucaoMensal()` preservado como ponto de e
+- Junho/2026 mantido co

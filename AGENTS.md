@@ -599,16 +599,38 @@ COI <VERBO> [ALVO] [--modo FAST|SAFE|CRITICAL] [--escopo ESCOPO]
 
 ### Regras
 
-1. O prefixo `COI` e obrigatorio em toda instrucao CCL.
-2. `--modo FAST` e implicito quando nenhum modo for especificado.
-3. CCL nao substitui as proibicoes de CLAUDE.md; apenas organiza o fluxo.
-4. COMMIT PREP nao executa git add -- entrega apenas a lista formatada.
-5. UPDATE dados requer `--modo CRITICAL` automaticamente (elevacao de modo).
+## 20. COI OS -- Session Template (Fase R4)
 
-### Arquivos de referencia
+O COI_SESSION_TEMPLATE.md e o documento oficial de inicializacao de sessoes.
+Toda nova sessao do projeto COI deve consultar este documento antes de qualquer execucao.
 
-- Gramatica completa: `commands/grammar.md`
-- Mapeamento verbo->skills: `commands/parser.md`
-- Definicao dos 12 comandos: `commands/commands.json`
-- Aliases: `commands/aliases.json`
-- Exemplos reais: `commands/examples.md`
+### Localizacoes (3 copias sincronizadas)
+
+| Arquivo                         | Finalidade                           |
+|---------------------------------|--------------------------------------|
+| COI_SESSION_TEMPLATE.md         | Fonte principal (raiz do projeto)    |
+| docs/COI_SESSION_TEMPLATE.md    | Copia para documentacao              |
+| .claude/COI_SESSION_TEMPLATE.md | Copia para acesso direto do Claude   |
+
+### Estrutura (14 secoes)
+
+1. Visao do COI -- COI, COI OS, Painel, Engine, Runtime, Registry, CCL, Arquitetura
+2. Papeis -- Anderson (PO), ChatGPT (Arquiteto), Claude (Executor)
+3. Leitura Obrigatoria -- 6 arquivos em ordem de prioridade
+4. Checkpoint Inicial -- git branch/status/log/tag + Runtime + Registry
+5. Esteiras -- PLATAFORMA (OS/infra) vs OPERACAO (dados/projetos)
+6. Perguntas Iniciais -- 4 perguntas obrigatorias no inicio de cada sessao
+7. Principios -- 7 principios antes de qualquer implementacao
+8. Regra de Ouro -- Arquitetura -> Planejamento -> Execucao -> Validacao -> Governanca -> Publicacao
+9. Padrao de Entrega -- 6 itens obrigatorios em toda resposta tecnica
+10. Checklist de Encerramento -- 10 itens antes de solicitar commit
+11. Checkpoint de Contexto -- 6 perguntas internas antes de cada acao
+12. Melhores Praticas -- 10 praticas oficiais do COI OS
+13. Evolucao Continua -- principio: mais simples, rapido, reutilizavel, inteligente, autonomo
+14. Roadmap do COI OS -- COI OS -> Runtime -> Registry -> CCL -> Protocol -> Context/Memory/Knowledge -> Automation -> DX
+
+### Regras
+
+- Atualizar obrigatoriamente ao alterar qualquer componente do COI OS.
+- Sincronizar sempre as 3 copias (raiz, docs/, .claude/).
+- Versionar com data e descricao no historico de versoes interno.
