@@ -1,6 +1,142 @@
+
+## [v1.6.1] -- Fase 6.2.1 -- COI Curador Inteligente -- Refinamento -- 2026-07-07
+
+## [1.7.0] — Fase 6.3 — COI Auditor Inteligente
+
+### Adicionado
+- `scripts/coi-auditor-inteligente.js` (510 linhas): segundo módulo do COI Intelligence Engine
+  - Consome JSON do COI Curador via `child_process.spawnSync`
+  - Interface padrão: `execute()`, `score()`, `recommendations()`, `export(formato)`
+  - Saídas: `--resumo`, `--json`, `--md` (relatório executivo Markdown)
+  - JSON schema v1.0: `{ schema, engine, resumo, indicadores, auditoria, tendencias, recomendacoes }`
+  - Classificação de Saúde Geral: Excelente / Boa / Atencao / Critica
+  - Classificação de Criticidade: Baixa / Media / Alta / Critica
+  - Exit code 1 quando criticidade Alta ou Crítica
+- `scripts/validar-funcional.js`: Seção 13 com 45 assertions para COI Auditor (294 PASS total)
+- Governança: AGENTS.md Seção 18, CHANGELOG v1.7.0, RELEASE_NOTES v1.7.0, ROADMAP Fase 6.3, ESTADO_ATUAL v1.7.0, MEMORIA Fase 6.3
+
+---
+
+
+### Adicionado
+- `config/regras-curador.js`: configuracao centralizada das 12 regras de validacao
+  - id, nome, peso, severidade, obrigatoria, ativa, validar(p, ctx)
+  - Permite desativar/ajustar regras sem alterar o motor
+  - Preparado para adicao de novas regras sem alteracao do motor
+
+### Alterado
+- `scripts/coi-curador-inteligente.js`: refatorado para separacao motor/regras
+  - Carrega regras de config/regras-curador.js via require
+  - Score calculado com peso por regra (nao mais peso fixo global)
+  - Adicionada flag --json: saida estruturada para integracao futura
+  - Saida JSON: resumo, indicadores, itens, erros, alertas, recomendacoes
+- `scripts/validar-funcional.js`: Secao 12 atualizada para Fase 6.2.1
+  - S12-05 a S12-09: verificacoes de config/regras-curador.js
+  - S12-17 a S12-23: verificacoes do motor refatorado e --json
+  - `config/regras-curador.js` adicionado a lista de arquivos obrigatorios
+  - Total validador: 249 PASS / 0 FAIL / 12 secoes
+
+## [v1.6.0] — Fase 6.2 — COI Curador Inteligente — 2026-07-07
+
+### Adicionado
+- `scripts/coi-curador-inteligente.js`: primeiro modulo funcional do COI Intelligence Engine
+  - 12 regras de validacao automatica (R01 a R12)
+  - Score de qualidade por item (0-100) com classificacao Excelente/Bom/Atencao/Critico
+  - Diagnostico automatico: erros, alertas, recomendacoes, criticidade, situacao geral
+  - Mock de localStorage para carregamento seguro em Node.js
+  - Flags: --resumo (consolidado), --item COI-XXX (item especifico)
+  - Exit code 0 = portfolio aceitavel | 1 = itens criticos
+- Secao 12 em `scripts/validar-funcional.js`: 25 novos asserts para o Curador
+  - `scripts/coi-curador-inteligente.js` adicionado a lista de arquivos obrigatorios (Secao 1)
+  - Total validador: 230 PASS / 0 FAIL / 12 secoes
+- Secao 17 em `AGENTS.md`: documentacao completa do COI Curador Inteligente
+
+### Resultado da execucao (portfolio atual)
+- Score medio: 50/100 (Critico — dados insuficientes para analise completa)
+- Excelente: 1 item | Atencao: 3 itens | Critico: 9 itens
+- Total erros: 27 | Total alertas: 64 | Itens sem violacoes: 1
+
+## [v1.5.0] — Fase 6.1-RF — COI Intelligence Engine — Revisao Final — 2026-06-26
+
+### Atualizado (documental — sem alteracao de arquivos funcionais)
+- `docs/ARQUITETURA_COI_INTELLIGENCE.md`: conceito consolidado como COI Intelligence Engine; COI Analista reposicionado como modulo do Engine; fluxo oficial de 7 etapas (Dados > Analise > Classificacao > Priorizacao > Recomendacao > Acao > Aprendizado); 6 niveis de maturidade; tabela de modulos; diagrama de integracao revisado
+- `docs/AGENTE_COI_ANALISTA.md`: identidade atualizada para Modulo do COI Intelligence Engine; missao referencia as 7 etapas do fluxo oficial; historico de versoes: v1.1
+- `docs/MODELO_RECOMENDACOES_IA.md`: titulo e objetivo atualizados para COI Intelligence Engine; modelo declarado como compartilhado por todos os modulos do Engine
+- `docs/ROADMAP_COI_IA.md`: titulo atualizado para ROADMAP COI INTELLIGENCE ENGINE; tabela de 6 niveis de maturidade adicionada; Fase 6.1 marcada como Concluida; cronograma ampliado com coluna de nivel de maturidade
+- `AGENTS.md`: Secao 16 atualizada — COI Intelligence Engine; fluxo do Engine; niveis de maturidade; referencia a INDICADORES_INTELIGENCIA.md
+- `docs/INDICADORES_INTELIGENCIA.md` (NOVO): indicadores de maturidade, desempenho, adocao e saude dos dados; consolidado padrao de sessao de analise; evolucao por fase
+
+### Nao alterado (escopo preservado)
+- `dados/projetos.js`, `index.html`, `portfolio.html`, `projetos/ficha.html`, `assets/style.css`, `scripts/*`, `.claude/skills/*`
+
+---
+
+## [v1.5.0] — Fase 6.1 — COI Analista — 2026-06-26
+
+### Adicionado (documental — sem alteracao de arquivos funcionais)
+- `docs/ARQUITETURA_COI_INTELLIGENCE.md`: arquitetura das 5 camadas da COI Intelligence (Dados, Analise, Recomendacao, Apresentacao, Governanca)
+- `docs/AGENTE_COI_ANALISTA.md`: especificacao completa do COI Analista — 9 responsabilidades, entradas, saidas, fluxo de ativacao, limites e integracao com agentes existentes
+- `docs/MODELO_RECOMENDACOES_IA.md`: modelo padrao de 8 campos para recomendacoes; 7 tipos; 6 status; 4 exemplos completos
+- `docs/ROADMAP_COI_IA.md`: roadmap de 6 fases da COI Intelligence (6.1 a 6.6); cronograma; dependencias criticas; indicadores de sucesso
+- `AGENTS.md`: Secao 16 — COI Intelligence; posicao no fluxo; restricoes da Fase 6.1; referencias
+
+### Nao alterado (escopo preservado)
+- `dados/projetos.js`, `index.html`, `portfolio.html`, `projetos/ficha.html`, `assets/style.css`, `scripts/*`, `.claude/skills/*`
+
+---
+
+## [v1.4.1] — Fase 5B.5 — 2026-06-26
+
+### Adicionado
+- `dados/projetos.js`: COI-013 atualizado — nome "MDS — Sistema de Ouvidoria (OuvSUAS)", percentual 50%, 5 novos campos: `objetivo`, `situacaoAtual`, `historicoOperacional[]`, `proximasAcoes[]`, `riscosRegistrados[]`
+- `projetos/ficha.html`: função `renderFichaPadrao(p)` — 9 seções padrão oficiais (Resumo Executivo, Objetivo, Situação Atual, Histórico, Próximas Ações, Riscos, Dependências, Evidências, Obs. Operacionais)
+- `assets/style.css`: namespace `.fp-*` para cards de resumo executivo
+
+### Padrão
+- Layout de 9 seções aplicado a TODOS os projetos via template universal
+- Fallback "Não informado." para campos ausentes
+- Preservação total de funcionalidades existentes (localStorage, edição, filtros, dashboard)
+
+---
+
+## [v1.4.1] — Fase 5B.4 — 2026-06-26
+
+### Adicionado
+- `index.html`: funcao `buildIndicadoresOperacionais()` — calcula e renderiza 7 grupos de indicadores dinamicamente a partir de `dados/projetos.js`
+- `index.html`: 5 novos cards de demandas operacionais (`#op-total`, `#op-andamento`, `#op-concluidas`, `#op-criticas`, `#op-atrasadas`)
+- `index.html`: secao `#op-analiticos` com grupos: Projetos Estrategicos, Percentual de Conclusao, Prioridade, Semaforo, Distribuicao por Cliente, Distribuicao por Responsavel
+- `assets/style.css`: namespace `.op-*` — mini-cards, grupos analiticos, barras de distribuicao
+- `scripts/validar-funcional.js`: Secao 11 — 24 novos asserts para Fase 5B.4 (total: 117 asserts)
+
+### Regras
+- Todos os valores calculados dinamicamente — zero numeros fixos no HTML para indicadores operacionais
+- Origem exclusiva: `dados/projetos.js` (nao alterado nesta fase)
+
+---
+
 # CHANGELOG — Painel Mestre COI
 
 Comunicação Omnichannel Inteligente · Central IT
+
+---
+
+## v1.4.1 — Fase 5C.4: Consolidacao de Conhecimento e Memoria Operacional (2026-06-26)
+
+**Branch:** `fase-5c-2-atualizacao-coi-009-aiops`
+
+**Objetivo:** Consolidar conhecimento das Fases 5B e 5C para garantir consistencia nas proximas evolucoes.
+
+**Arquivo criado:** nenhum
+
+**Arquivos atualizados:**
+- `docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md` — Secao 4.3: validar-docs.ps1 adicionado; prerequisitos de commit atualizados
+- `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md` — E-009 (index.lock NTFS), E-010 (HEAD truncado), A-010 (GIT_INDEX_FILE), A-011 (Python newline=)
+- `docs/MEMORIA_OPERACIONAL_PROJETO.md` — COI-CURADOR documentado na modelagem; regras 11 e 12; Fase 5C.4
+- `docs/ESTADO_ATUAL_DO_PROJETO.md` — linha 5C.2 corrigida; Fase 5C.4; atualizado em 2026-06-26
+- `AGENTS.md` — Secao 15: alerta de commit via sandbox (E-009/E-010/A-010)
+- `CHANGELOG.md`, `RELEASE_NOTES.md`, `ROADMAP_COI.md` — entradas 5C.4
+
+**Validacoes:** git diff --check PASS · node scripts/validar-funcional.js 93 PASS / 0 FAIL
 
 ---
 
@@ -461,15 +597,4 @@ Commit: `c451426`
 - Seção `em-section` dividida em `em-controls` (persistente, contém o seletor) e `em-content` (re-renderizável)
 - `<select>` exibido automaticamente quando `execucoesMensais.length > 1`; oculto quando há apenas uma competência
 - Troca de competência atualiza somente `em-content` — cards, gráficos, tabela e alertas executivos não são afetados
-- Nova função `renderEmConteudo(container, emData)` encapsula a renderização; `buildExecucaoMensal()` preservado como ponto de entrada
-- Fallback robusto: `execucoesMensais[]` → `execucaoMensal` → `{}`; padrão = último item da lista (Junho/2026)
-- Helper `clearEl()` adicionado ao bloco de helpers; estilo `.em-select` adicionado em `<style>` inline no `<head>`
-
----
-
-## v1.4 — Fase 4A: Execução Mensal e Gestão Executiva (2026-06-10)
-
-### Novos campos por projeto — `dados/projetos.js`
-Commit: `03a54e6 fase-4a: adicionar campos executivos aos projetos`
-
-- 11 novos campos adic
+- Nova função `renderEmConteudo(container, emData)` encapsula a renderização; `buildExecucaoMensal()` preservado como ponto de e

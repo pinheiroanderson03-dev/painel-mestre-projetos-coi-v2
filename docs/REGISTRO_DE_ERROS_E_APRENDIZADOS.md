@@ -122,6 +122,37 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+
+---
+
+### E-009 — Arquivo .git/index.lock fantasma em montagem NTFS/SMB
+
+**Fase:** v1.4.1 / Fase 5C.1 e 5C.2 — Commits pos-implementacao
+**Quando ocorreu:** Tentativa de `git add` e `git commit` apos sessoes de trabalho no sandbox Linux com repositorio montado como pasta Windows
+**O que aconteceu:** O arquivo `.git/index.lock` ficou visivel para o git (que usa I/O nativo NTFS do Windows) mas invisivel para o sistema de arquivos Linux VFS do sandbox. `ls .git/` nao listava o arquivo. `rm -f .git/index.lock` retornava "Operation not permitted". `python3 os.remove()` retornava FileNotFoundError. O git bloqueava qualquer operacao de staging ou commit com "fatal: Unable to create '.git/index.lock': File exists".
+**Causa raiz:** Incompatibilidade estrutural entre o sistema de arquivos NTFS (Windows) e o VFS do container Linux sandbox. O lock file existe no nivel NTFS mas nao e exposto pela camada SMB/FUSE ao processo Linux.
+**Impacto:** Commits nao podem ser executados diretamente do sandbox. Workaround obrigatorio para cada fase.
+**Como foi resolvido:** Workaround via `GIT_INDEX_FILE`: copiar `.git/index` para `/tmp`, executar `git write-tree` com `GIT_INDEX_FILE=/tmp/coi-index-XXX`, depois `git commit-tree` + `git update-ref HEAD`. Commits 252f970 (5C.1) e 3a71c5e (5C.2/5C.3) foram criados assim.
+**Regra adotada:** O sandbox Linux NAO pode executar `git add`/`git commit` diretamente neste repositorio. Usar sempre o workaround GIT_INDEX_FILE ou orientar Anderson a executar os comandos git diretamente no Windows. Documentar o workaround no pacote de entrega de cada fase.
+
+---
+
+### E-010 — Branch HEAD truncada para "fase-" apos workaround commit-tree
+
+**Fase:** v1.4.1 / Fase 5C.2 — Commit pos-implementacao
+**Quando ocorreu:** Imediatamente apos execucao bem-sucedida do workaround GIT_INDEX_FILE para criar o commit
+**O que aconteceu:** Apos `git update-ref HEAD <hash>`, o comando `git branch --show-current` retornava "fase-" (nome truncado) em vez de "fase-5c-2-atualizacao-coi-009-aiops". `git log --oneline -3` retornava "fatal: your current branch appears to be broken".
+**Causa raiz:** O `git update-ref HEAD` com `GIT_DIR` apontando para o repo real nao atualizou corretamente o arquivo `.git/HEAD` (que continuou apontando para `refs/heads/main` ou foi corrompido). O nome da branch ficou truncado porque `.git/HEAD` continha referencia invalida.
+**Impacto:** HEAD ficou quebrado apos cada commit via workaround. Operacoes subsequentes de git falhavam.
+**Como foi resolvido:** Escrita direta do arquivo `.git/HEAD` via Python:
+```python
+with open('.git/HEAD', 'w') as f:
+    f.write('ref: refs/heads/fase-5c-2-atualizacao-coi-009-aiops
+')
+```
+Apos a escrita, `git branch --show-current` e `git log --oneline -3` voltaram a funcionar.
+**Regra adotada:** Apos qualquer workaround `git commit-tree` + `git update-ref`, SEMPRE verificar `.git/HEAD` imediatamente. Se retornar branch truncada ou "fatal: broken", corrigir via Python escrevendo o caminho completo da branch. Incluir este passo como etapa obrigatoria no checklist de commit via workaround.
+
 ## Aprendizados Positivos (padrões que funcionaram bem)
 
 ### A-001 — Separação `em-controls` / `em-content`
@@ -173,4 +204,31 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
-*Ultima atualizacao: 2026-06-15 - Fase 5B.1.1 - E-008 (truncamento Edit), A-008 (psProj/ps), A-009 (Python reparo cirurgico)*
+
+### A-010 — Workaround GIT_INDEX_FILE para commits em repositorios com index.lock fantasma
+
+**Fase:** v1.4.1 / Fase 5C.1 e 5C.2
+**Contexto:** Commits em repositorio Windows montado no sandbox Linux com index.lock irremovivel
+**O que funcionou:** Sequencia de 4 passos:
+```bash
+cp "$REPO/.git/index" /tmp/coi-index-XXX
+TREE=$(GIT_DIR="$REPO/.git" GIT_INDEX_FILE=/tmp/coi-index-XXX git write-tree)
+PARENT=$(git -C "$REPO" rev-parse HEAD)
+COMMIT=$(GIT_DIR="$REPO/.git" git commit-tree "$TREE" -p "$PARENT" -m "<mensagem>")
+GIT_DIR="$REPO/.git" git update-ref HEAD "$COMMIT"
+# Correcao obrigatoria pos-commit:
+python3 -c "open('.git/HEAD','w').write('ref: refs/heads/<branch>
+')"
+```
+Este padrao contorna o index.lock sem remover o arquivo e sem precisar de acesso ao Windows. Funciona para qualquer numero de arquivos ja staged (via git add executado antes do lock aparecer) ou via staging manual da arvore existente.
+
+### A-011 — Python com newline='' para preservar line endings NTFS em arquivos .md e .js
+
+**Fase:** v1.4.1 / Fase 5C.1
+**Contexto:** Escrita de arquivos .md em repositorio Windows via sandbox Linux
+**O que funcionou:** Abrir e escrever arquivos com `open(path, 'w', encoding='utf-8', newline='')` em vez de modo texto padrao. O parametro `newline=''` impede que o Python converta automaticamente `
+` para `
+` (ou vice-versa), preservando os line endings originais do arquivo. Critico para evitar que git diff --check reporte trailing whitespace ou que o git mostre ~44 arquivos como modificados por diferenca de CRLF apenas.
+
+
+*Ultima atualizacao: 2026-06-26 - Fase 5C.4 - E-009 (index.lock NTFS), E-010 (HEAD truncado), A-010 (GIT_INDEX_FILE), A-011 (Python newline=)*

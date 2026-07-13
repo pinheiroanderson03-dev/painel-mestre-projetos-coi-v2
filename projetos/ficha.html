@@ -59,6 +59,9 @@
     <button class="btn-cancel" onclick="cancelarEdicao()">✕ Cancelar</button>
   </div>
 
+  <!-- PADRÃO OFICIAL COI 2.0 (Fase 5B.5) — renderizado pelo JS para todos os projetos -->
+  <div id="fp-padrao"></div>
+
   <!-- BLOCO 1: IDENTIFICAÇÃO -->
   <div class="section-title">1. Identificação do Projeto</div>
   <div class="grid-2">
@@ -636,7 +639,7 @@ function renderCampos(p) {
   set('f-evidencia',  p.evidencia          || '—');
 }
 
-if (projeto) { renderHero(projeto); renderCampos(projeto); }
+// renderHero e renderCampos sao chamados no dispatch principal abaixo (Fase 5B.5)
 
 // --- Modo edição ------------------------------------------------------
 const EDIT_FIELDS = ['f-patr','f-orgao','f-resp','f-fonte','f-obs'];
@@ -1083,11 +1086,239 @@ function concluirDemanda() {
   showToast('Demanda concluída com sucesso! ✅');
 }
 
+
+// ─── Padrão Oficial COI 2.0 — 9 seções (Fase 5B.5) ──────────────────────────
+function renderFichaPadrao(p) {
+  var container = document.getElementById('fp-padrao');
+  if (!container) return;
+  clearEl(container);
+
+  var NI = 'Não informado.';
+
+  // helper: criar bloco de seção
+  function secao(num, titulo) {
+    var wrap = document.createElement('div');
+    var st = document.createElement('div');
+    st.className = 'section-title';
+    st.textContent = num + '. ' + titulo;
+    wrap.appendChild(st);
+    return wrap;
+  }
+
+  // helper: criar campo label + valor dentro de um .block
+  function campo(lbl, val) {
+    var div = document.createElement('div');
+    div.className = 'field';
+    var l = document.createElement('div');
+    l.className = 'field-label';
+    l.textContent = lbl;
+    var v = document.createElement('div');
+    v.className = 'field-val';
+    v.textContent = val || NI;
+    div.append(l, v);
+    return div;
+  }
+
+  // helper: criar tabela simples
+  function tabela(cols, linhas, vazio) {
+    var wrap = document.createElement('div');
+    wrap.className = 'table-wrap';
+    var tbl = document.createElement('table');
+    var thead = document.createElement('thead');
+    var trHead = document.createElement('tr');
+    cols.forEach(function(c) {
+      var th = document.createElement('th');
+      th.textContent = c;
+      trHead.appendChild(th);
+    });
+    thead.appendChild(trHead);
+    tbl.appendChild(thead);
+    var tbody = document.createElement('tbody');
+    if (!linhas || !linhas.length) {
+      var trV = document.createElement('tr');
+      var tdV = document.createElement('td');
+      tdV.colSpan = cols.length;
+      var es = document.createElement('div');
+      es.className = 'empty-state';
+      es.textContent = vazio || NI;
+      tdV.appendChild(es);
+      trV.appendChild(tdV);
+      tbody.appendChild(trV);
+    } else {
+      linhas.forEach(function(linha) {
+        var tr = document.createElement('tr');
+        linha.forEach(function(cel) {
+          var td = document.createElement('td');
+          if (typeof cel === 'object' && cel !== null && cel.badge) {
+            var sp = document.createElement('span');
+            sp.className = 'badge ' + cel.badge;
+            sp.textContent = cel.val;
+            td.appendChild(sp);
+          } else {
+            td.textContent = cel || '—';
+          }
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    }
+    tbl.appendChild(tbody);
+    wrap.appendChild(tbl);
+    return wrap;
+  }
+
+  // ── 1. RESUMO EXECUTIVO ──────────────────────────────────────────────────
+  var s1 = secao(1, 'Resumo Executivo');
+  var resumoGrid = document.createElement('div');
+  resumoGrid.className = 'fp-resumo-grid';
+
+  function miniCard(rotulo, valor, cls) {
+    var c = document.createElement('div');
+    c.className = 'fp-mini-card' + (cls ? ' ' + cls : '');
+    var v = document.createElement('div');
+    v.className = 'fp-mini-valor';
+    v.textContent = valor || NI;
+    var r = document.createElement('div');
+    r.className = 'fp-mini-rotulo';
+    r.textContent = rotulo;
+    c.append(v, r);
+    return c;
+  }
+
+  var semCls = p.semaforo === '🔴' ? 'fp-vermelho' : p.semaforo === '🟡' ? 'fp-amarelo' : 'fp-verde';
+  var priorCls = p.prioridade === 'P0' ? 'fp-vermelho' : p.prioridade === 'P1' ? 'fp-amarelo' : '';
+  resumoGrid.appendChild(miniCard('Status', p.status, 'fp-azul'));
+  resumoGrid.appendChild(miniCard('Progresso', p.percentual + '%', ''));
+  resumoGrid.appendChild(miniCard('Prioridade', p.prioridade, priorCls));
+  resumoGrid.appendChild(miniCard('Semáforo', p.semaforo, semCls));
+  resumoGrid.appendChild(miniCard('Responsável', p.responsavel, ''));
+  resumoGrid.appendChild(miniCard('Início', p.dataInicio, ''));
+  resumoGrid.appendChild(miniCard('Atualizado', p.atualizadoEm, ''));
+  resumoGrid.appendChild(miniCard('Órgão / Cliente', p.orgao, ''));
+  s1.appendChild(resumoGrid);
+  container.appendChild(s1);
+
+  // ── 2. OBJETIVO ──────────────────────────────────────────────────────────
+  var s2 = secao(2, 'Objetivo');
+  var b2 = document.createElement('div');
+  b2.className = 'block';
+  var obj = p.objetivo || p.beneficio || NI;
+  b2.appendChild(campo('Objetivo do Projeto / Entrega', obj));
+  s2.appendChild(b2);
+  container.appendChild(s2);
+
+  // ── 3. SITUAÇÃO ATUAL ────────────────────────────────────────────────────
+  var s3 = secao(3, 'Situação Atual');
+  var b3 = document.createElement('div');
+  b3.className = 'block';
+  var situacao = p.situacaoAtual || p.observacoesExecutivas || p.observacoesOperacionais || NI;
+  b3.appendChild(campo('Situação Atual', situacao));
+  if (p.fase) b3.appendChild(campo('Fase / Etapa', p.fase));
+  s3.appendChild(b3);
+  container.appendChild(s3);
+
+  // ── 4. HISTÓRICO CRONOLÓGICO ─────────────────────────────────────────────
+  var s4 = secao(4, 'Histórico Cronológico');
+  var b4 = document.createElement('div');
+  b4.className = 'block';
+  var hist = p.historicoOperacional;
+  var linhasHist = [];
+  if (hist && hist.length) {
+    hist.forEach(function(h) {
+      linhasHist.push([h.data || '—', h.descricao || '—', h.responsavel || '—', h.evidencia || '—']);
+    });
+  }
+  b4.appendChild(tabela(
+    ['Data', 'Descrição', 'Responsável', 'Evidência'],
+    linhasHist,
+    'Nenhum histórico registrado nos dados do projeto.'
+  ));
+  s4.appendChild(b4);
+  container.appendChild(s4);
+
+  // ── 5. PRÓXIMAS AÇÕES ────────────────────────────────────────────────────
+  var s5 = secao(5, 'Próximas Ações');
+  var b5 = document.createElement('div');
+  b5.className = 'block';
+  var acoes = p.proximasAcoes;
+  var linhasAcoes = [];
+  if (acoes && acoes.length) {
+    acoes.forEach(function(a) {
+      var stCls = a.status === 'Concluído' ? 'badge-verde' :
+                  a.status === 'Em andamento' ? 'badge-azul' :
+                  a.status === 'Atrasado' ? 'badge-vermelho' : 'badge-cinza';
+      linhasAcoes.push([a.acao || '—', a.responsavel || '—', a.dataPrevista || '—',
+        { badge: stCls, val: a.status || '—' }]);
+    });
+  }
+  b5.appendChild(tabela(
+    ['Ação / Marco', 'Responsável', 'Previsão', 'Status'],
+    linhasAcoes,
+    'Nenhuma próxima ação registrada nos dados do projeto.'
+  ));
+  s5.appendChild(b5);
+  container.appendChild(s5);
+
+  // ── 6. RISCOS ────────────────────────────────────────────────────────────
+  var s6 = secao(6, 'Riscos');
+  var b6 = document.createElement('div');
+  b6.className = 'block';
+  var riscs = p.riscosRegistrados;
+  var linhasRiscos = [];
+  if (riscs && riscs.length) {
+    riscs.forEach(function(r) {
+      var nvCls = r.nivel === 'Alto' ? 'badge-vermelho' :
+                  r.nivel === 'Médio' ? 'badge-amarelo' : 'badge-verde';
+      linhasRiscos.push([r.descricao || '—', r.probabilidade || '—',
+        r.impacto || '—', { badge: nvCls, val: r.nivel || '—' },
+        r.status || '—', r.mitigacao || '—']);
+    });
+  }
+  b6.appendChild(tabela(
+    ['Descrição', 'Probabilidade', 'Impacto', 'Nível', 'Status', 'Mitigação'],
+    linhasRiscos,
+    'Nenhum risco registrado nos dados do projeto.'
+  ));
+  s6.appendChild(b6);
+  container.appendChild(s6);
+
+  // ── 7. DEPENDÊNCIAS ──────────────────────────────────────────────────────
+  var s7 = secao(7, 'Dependências');
+  var b7 = document.createElement('div');
+  b7.className = 'block';
+  b7.appendChild(campo('Dependências Identificadas', p.dependencias));
+  s7.appendChild(b7);
+  container.appendChild(s7);
+
+  // ── 8. EVIDÊNCIAS ────────────────────────────────────────────────────────
+  var s8 = secao(8, 'Evidências');
+  var b8 = document.createElement('div');
+  b8.className = 'block';
+  b8.appendChild(campo('Evidência Principal', p.evidencia));
+  b8.appendChild(campo('Benefício Esperado', p.beneficioEsperado));
+  b8.appendChild(campo('Benefício Realizado', p.beneficioRealizado));
+  s8.appendChild(b8);
+  container.appendChild(s8);
+
+  // ── 9. OBSERVAÇÕES OPERACIONAIS ──────────────────────────────────────────
+  var s9 = secao(9, 'Observações Operacionais');
+  var b9 = document.createElement('div');
+  b9.className = 'block';
+  var obs = p.observacoesOperacionais || p.observacoesExecutivas || NI;
+  b9.appendChild(campo('Observações', obs));
+  if (p.fonteInformacao) b9.appendChild(campo('Fonte da Informação', p.fonteInformacao));
+  s9.appendChild(b9);
+  container.appendChild(s9);
+}
+
 // ─── Dispatch: projeto estratégico ou operacional ─────────────────────────
 if (projeto) {
+  renderHero(projeto);
+  renderFichaPadrao(projeto);
   if (eOperacional(projeto)) {
     renderFichaOperacional(projeto);
   } else {
+    renderCampos(projeto);
     carregarAtividades();
     carregarPassos();
     carregarRiscos();

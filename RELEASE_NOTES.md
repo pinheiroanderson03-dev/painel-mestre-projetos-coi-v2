@@ -4,6 +4,110 @@ Comunicação Omnichannel Inteligente · Central IT
 
 ---
 
+## v1.6.1 -- Fase 6.2.1 -- Refinamento COI Curador Inteligente (2026-07-07)
+
+- `config/regras-curador.js` criado: 12 regras centralizadas com id, nome, peso, severidade, obrigatoria, ativa, validar
+- Motor `coi-curador-inteligente.js` refatorado: separa logica de carregamento/execucao das regras
+- Suporte a --json: saida estruturada com resumo, indicadores, itens, erros, alertas, recomendacoes
+- Validador: 249 PASS / 0 FAIL / 12 secoes
+
+## v1.6.0 — Fase 6.2 — COI Curador Inteligente (2026-07-07)
+
+**COI Intelligence Engine — Primeiro modulo funcional**
+
+- Implementado `scripts/coi-curador-inteligente.js`: valida automaticamente a qualidade de todos os itens de `dados/projetos.js` com 12 regras, score 0-100, diagnostico completo e recomendacoes automaticas
+- 230 asserts no validador (12 secoes) — 0 FAIL
+- Resultado do portfolio: score medio 50/100, 27 erros, 64 alertas em 13 itens analisados
+
+## v1.5.0 — Fase 6.1-RF — COI Intelligence Engine (Revisao Final) (2026-06-26)
+
+**Entrega principal:** Consolidacao do conceito COI Intelligence Engine e criacao de INDICADORES_INTELIGENCIA.md.
+
+**O que foi entregue:**
+
+- **ARQUITETURA_COI_INTELLIGENCE.md** (atualizado): Motor renomeado para COI Intelligence Engine; COI Analista reposicionado como modulo do Engine; fluxo oficial de 7 etapas documentado; 6 niveis de maturidade com descricao e fase correspondente; diagrama de modulos do Engine.
+- **AGENTE_COI_ANALISTA.md** (atualizado): Identidade como Modulo do COI Intelligence Engine; missao explicitamente vinculada ao fluxo de 7 etapas.
+- **MODELO_RECOMENDACOES_IA.md** (atualizado): Titulo e objetivo referenciando COI Intelligence Engine; modelo declarado como padrao compartilhado por todos os modulos.
+- **ROADMAP_COI_IA.md** (atualizado): Titulo COI Intelligence Engine; tabela de niveis de maturidade; Fase 6.1 marcada como concluida; cronograma com coluna de nivel de maturidade.
+- **INDICADORES_INTELIGENCIA.md** (NOVO): 4 grupos de indicadores — maturidade, desempenho, adocao, saude dos dados; consolidado padrao de sessao; evolucao por fase.
+- **AGENTS.md** — Secao 16 atualizada para COI Intelligence Engine.
+
+**Fonte de dados:** exclusivamente `dados/projetos.js`. Nenhuma base paralela.
+
+**Arquivos funcionais preservados:** `dados/projetos.js`, `index.html`, `portfolio.html`, `projetos/ficha.html`, `assets/style.css`, todos os scripts e skills.
+
+**Proximo passo:** Fase 6.2 — COI Daily (relatorio diario automatizado).
+
+---
+
+## v1.5.0 — Fase 6.1 — COI Analista (2026-06-26)
+
+**Entrega principal:** Base documental e arquitetural da camada de inteligencia do Painel Mestre COI.
+
+**O que foi entregue:**
+
+- **ARQUITETURA_COI_INTELLIGENCE.md** — Definicao das 5 camadas: Dados, Analise, Recomendacao, Apresentacao e Governanca. Posicionamento de cada agente existente na arquitetura.
+- **AGENTE_COI_ANALISTA.md** — Especificacao completa do COI Analista: 9 responsabilidades (analisar projetos, analisar demandas, identificar riscos, sugerir proximas acoes, gerar resumo executivo, identificar pendencias, apontar inconsistencias, apoiar priorizacao, alimentar COI Daily/Weekly/Monthly), entradas, saidas, limites e fluxo de ativacao.
+- **MODELO_RECOMENDACOES_IA.md** — Modelo padrao de 8 campos para recomendacoes: tipo, item_relacionado, prioridade, motivo, evidencia, acao_sugerida, impacto_esperado, status_recomendacao. 7 tipos de recomendacao, 6 status, 4 exemplos com dados reais do painel.
+- **ROADMAP_COI_IA.md** — Roadmap de 6 fases (6.1 a 6.6) com cronograma, dependencias criticas e indicadores de sucesso.
+
+**Fonte de dados:** exclusivamente `dados/projetos.js`. Nenhuma base paralela.
+
+**Arquivos funcionais preservados:** `dados/projetos.js`, `index.html`, `portfolio.html`, `projetos/ficha.html`, `assets/style.css`, todos os scripts e skills.
+
+**Proximo passo:** Fase 6.2 — COI Daily (relatorio diario automatizado).
+
+---
+
+## v1.4.1 — Fase 5B.5 — Padronização COI 2.0 (2026-06-26)
+
+**Entrega principal:** Padrão oficial de 9 seções aplicado a todas as fichas de projeto.
+
+**COI-013 atualizado:**
+- Nome: "MDS — Sistema de Ouvidoria (OuvSUAS)"
+- Progresso: 50%
+- Histórico cronológico: 4 registros
+- Próximas ações: 4 itens
+- Riscos registrados: 2 itens
+
+**Template universal:** `renderFichaPadrao(p)` em `projetos/ficha.html` exibe as 9 seções para qualquer projeto, com fallback "Não informado." para campos ausentes.
+
+---
+
+## v1.4.1 — Fase 5B.4 — Indicadores Operacionais no Dashboard (2026-06-26)
+
+**Entrega principal:** Indicadores operacionais dinamicos implementados no dashboard (`index.html`).
+
+**O que mudou:**
+- 5 novos cards: Total de Demandas, Em Andamento, Concluidas, Criticas (P0), Atrasadas
+- 7 grupos analiticos na secao `#op-analiticos`: Projetos Estrategicos (total, ativos, concluidos, bloqueados), Percentual de Conclusao (media, >80%, 30-80%, <30%), Prioridade (Alta/Media/Baixa), Semaforo (Verde/Amarelo/Vermelho), Distribuicao por Cliente, Distribuicao por Responsavel
+- CSS: namespace `.op-*` em `assets/style.css`
+- Validador: Secao 11 com 24 asserts — total 117 PASS / 0 FAIL
+
+**Restricoes mantidas:**
+- `dados/projetos.js` nao alterado — leitura apenas
+- Nenhum numero fixo no HTML para indicadores operacionais
+- Sem commit/push/merge/tag sem autorizacao de Anderson
+
+---
+
+## v1.4.1 — Consolidacao de Conhecimento e Memoria Operacional (Fase 5C.4)
+**Data:** 2026-06-26
+
+### O que mudou
+
+Auditoria completa da documentacao das Fases 5B e 5C. Erros estruturais de sandbox documentados; fluxo de validacao complementado; curador operacional integrado a memoria do projeto.
+
+### Detalhes
+
+- `docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md` — validar-docs.ps1 adicionado a Secao 4.3 e aos prerequisitos de commit
+- `docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md` — E-009, E-010, A-010, A-011 registrados
+- `docs/MEMORIA_OPERACIONAL_PROJETO.md` — COI-CURADOR documentado, regras 11/12, Fase 5C.4
+- `docs/ESTADO_ATUAL_DO_PROJETO.md` — linha 5C.2 corrigida, Fase 5C.4 registrada
+- `AGENTS.md` — Secao 15 adicionada
+
+---
+
 ## v1.4.1 — Protocolo de Validação Obrigatória (Fase 5C.3)
 **Data:** 2026-06-23
 
@@ -298,6 +402,4 @@ Todas as funcionalidades da v1.4 continuam iguais: seletor por frente e contrato
 
 ### O que melhorou
 
-**Portfólio com agrupamento por frente:** os projetos no portfólio agora são organizados visualmente por frente de atuação (CENTRAL DF, Central de Atendimento, MDS, COI). Novos filtros permitem localizar projetos por frente, número de contrato ou gerente do contrato — além dos filtros de prioridade, status e busca por nome que já existiam.
-
-**Cards do dashboard preen
+**Portfólio com agrupamento por frente:** os projetos no portfólio agora são

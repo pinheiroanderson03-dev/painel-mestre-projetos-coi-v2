@@ -1,0 +1,299 @@
+{
+  "schema": "1.0",
+  "descricao": "Registro de todos os agentes, skills e papeis operacionais do projeto",
+  "ultimaAtualizacao": "2026-07-07",
+  "agentes": [
+    {
+      "id": "ANDERSON",
+      "nome": "Anderson Pinheiro",
+      "descricao": "Product Owner e aprovador de todas as mudancas criticas",
+      "versao": "N/A",
+      "status": "ativo",
+      "papel": "aprovacao",
+      "responsabilidades": [
+        "autorizar git add/commit/push/merge/tag",
+        "autorizar alteracoes em dados/projetos.js",
+        "aprovar publicacao em producao",
+        "validar PS1 no Windows"
+      ],
+      "dependencias": [],
+      "arquivos": [],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "CLAUDE",
+      "nome": "Claude (Anthropic)",
+      "descricao": "Agente de execucao autonoma do projeto",
+      "versao": "claude-sonnet-4-6",
+      "status": "ativo",
+      "papel": "execucao",
+      "responsabilidades": [
+        "implementar mudancas autorizadas",
+        "executar validacoes",
+        "atualizar governanca",
+        "entregar pacote de 9 itens"
+      ],
+      "dependencias": [
+        "ANDERSON"
+      ],
+      "arquivos": [
+        ".claude/RUNTIME.md",
+        ".claude/skills/COI-MESTRE.md"
+      ],
+      "validacoes": [
+        "node scripts/validar-funcional.js",
+        "git diff --check",
+        "node --check"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "CHATGPT",
+      "nome": "ChatGPT (OpenAI)",
+      "descricao": "Validador critico de decisoes antes de publicacao",
+      "versao": "N/A",
+      "status": "ativo",
+      "papel": "validacao-critica",
+      "responsabilidades": [
+        "revisar decisoes de escopo",
+        "validar raciocinio antes de acoes criticas",
+        "nao executa alteracoes"
+      ],
+      "dependencias": [
+        "ANDERSON",
+        "CLAUDE"
+      ],
+      "arquivos": [
+        "docs/AGENTES_ESPECIALIZADOS_CHATGPT.md",
+        "docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-MESTRE",
+      "nome": "COI-MESTRE",
+      "descricao": "Orquestrador principal — unica porta de entrada para tarefas tecnicas",
+      "versao": "5T.3",
+      "status": "ativo",
+      "papel": "orquestracao",
+      "pipeline": [
+        "COI-MEMORIA",
+        "COI-FORENSE",
+        "COI-ARQUITETO",
+        "COI-LEARNINGS",
+        "COI-EXECUTOR",
+        "COI-TESTES",
+        "COI-AUDITOR",
+        "COI-QA",
+        "COI-GOVERNANCA",
+        "COI-RELEASE-MANAGER"
+      ],
+      "dependencias": [
+        "CLAUDE"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-MESTRE.md"
+      ],
+      "validacoes": [
+        "fluxo completo antes de qualquer implementacao"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-MEMORIA",
+      "nome": "COI-MEMORIA",
+      "descricao": "Carrega estado atual, historico, erros conhecidos e alertas",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "estado",
+      "dependencias": [
+        "SKILL-MESTRE"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-MEMORIA.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-FORENSE",
+      "nome": "COI-FORENSE",
+      "descricao": "Analisa evidencias reais do repositorio; distingue EVIDENCIA de HIPOTESE",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "diagnostico",
+      "dependencias": [
+        "SKILL-MEMORIA"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-FORENSE.md"
+      ],
+      "validacoes": [
+        "git status",
+        "git diff --name-only",
+        "git log --oneline -5"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-ARQUITETO",
+      "nome": "COI-ARQUITETO",
+      "descricao": "Classifica modo (Rapido/Seguro/Critico), mapeia escopo e define plano",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "planejamento",
+      "dependencias": [
+        "SKILL-FORENSE"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-ARQUITETO.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-LEARNINGS",
+      "nome": "COI-LEARNINGS",
+      "descricao": "Consulta erros anteriores e base evolutiva; emite lembretes pre-execucao",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "prevencao",
+      "dependencias": [
+        "SKILL-ARQUITETO"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-LEARNINGS.md",
+        "docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-EXECUTOR",
+      "nome": "COI-EXECUTOR",
+      "descricao": "Implementa alteracoes autorizadas com padroes corretos (ES5, ASCII, python3)",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "implementacao",
+      "dependencias": [
+        "SKILL-LEARNINGS"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-EXECUTOR.md"
+      ],
+      "validacoes": [
+        "node --check <arquivo>"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-TESTES",
+      "nome": "COI-TESTES",
+      "descricao": "Suite de testes pre-QA: T1 (sintaxe) a T6 (integracao); autocorrecao em FAIL",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "testes",
+      "dependencias": [
+        "SKILL-EXECUTOR"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-TESTES.md"
+      ],
+      "validacoes": [
+        "node scripts/validar-funcional.js"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-AUDITOR",
+      "nome": "COI-AUDITOR",
+      "descricao": "Audita escopo, arquivos proibidos e conformidade com protocolo",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "auditoria",
+      "dependencias": [
+        "SKILL-TESTES"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-AUDITOR.md"
+      ],
+      "validacoes": [
+        "verificar arquivos proibidos",
+        "verificar branch protegida"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-QA",
+      "nome": "COI-QA",
+      "descricao": "Validacao final: git diff --check, node validar-funcional.js, PS1",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "qa",
+      "dependencias": [
+        "SKILL-AUDITOR"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-QA.md"
+      ],
+      "validacoes": [
+        "git diff --check",
+        "node scripts/validar-funcional.js",
+        "scripts/*.ps1 (Windows)"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-GOVERNANCA",
+      "nome": "COI-GOVERNANCA",
+      "descricao": "Atualiza 5 documentos de estado ao fechar cada fase",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "governanca",
+      "docs_obrigatorios": [
+        ".claude/RUNTIME.md",
+        "STATUS.md",
+        "AGENTS.md",
+        "CHANGELOG.md",
+        "ROADMAP_COI.md"
+      ],
+      "dependencias": [
+        "SKILL-QA"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-GOVERNANCA.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "SKILL-RELEASE",
+      "nome": "COI-RELEASE-MANAGER",
+      "descricao": "Prepara pacote de entrega de 9 itens para Anderson; nao executa comandos criticos",
+      "versao": "5T.2",
+      "status": "ativo",
+      "papel": "entrega",
+      "entrega_9_itens": [
+        "branch atual",
+        "arquivos criados",
+        "arquivos alterados",
+        "resumo tecnico",
+        "comandos executados",
+        "validacoes",
+        "erros/avisos",
+        "pendencias",
+        "proximos passos"
+      ],
+      "dependencias": [
+        "SKILL-GOVERNANCA"
+      ],
+      "arquivos": [
+        ".claude/skills/COI-RELEASE-MANAGER.md"
+      ],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    }
+  ]
+}

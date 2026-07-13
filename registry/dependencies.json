@@ -1,0 +1,162 @@
+{
+  "schema": "1.0",
+  "descricao": "Registro de todas as dependencias tecnicas do projeto",
+  "ultimaAtualizacao": "2026-07-07",
+  "dependencias": [
+    {
+      "id": "DEP-01",
+      "nome": "Node.js",
+      "descricao": "Runtime JavaScript para scripts de validacao e Intelligence Engine",
+      "versao": "v22.22.3",
+      "status": "ativo",
+      "tipo": "runtime",
+      "uso": [
+        "node --check",
+        "node scripts/validar-funcional.js",
+        "node scripts/coi-curador-inteligente.js",
+        "node scripts/coi-auditor-inteligente.js"
+      ],
+      "instalacao": "pre-instalado no sandbox Linux",
+      "dependencias": [],
+      "arquivos": [
+        "scripts/*.js",
+        "config/regras-curador.js"
+      ],
+      "validacoes": [
+        "node --version -> v22+"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "DEP-02",
+      "nome": "Chart.js",
+      "descricao": "Biblioteca de graficos — uso local/offline, sem CDN",
+      "versao": "v4.4.1",
+      "status": "ativo",
+      "tipo": "biblioteca-js",
+      "arquivo_local": "assets/js/chart.umd.min.js",
+      "uso": [
+        "index.html — graficos do dashboard"
+      ],
+      "proibido": "Nunca alterar assets/js/chart.umd.min.js",
+      "dependencias": [],
+      "arquivos": [
+        "assets/js/chart.umd.min.js",
+        "index.html"
+      ],
+      "validacoes": [
+        "arquivo presente em assets/js/"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "DEP-03",
+      "nome": "Python3",
+      "descricao": "Usado para criacao de arquivos com encoding correto (evita truncamento Unicode)",
+      "versao": "3.x",
+      "status": "ativo",
+      "tipo": "runtime-script",
+      "uso": [
+        "criacao de arquivos JS extensos",
+        "atualizacao de docs de governanca",
+        "registry JSON files"
+      ],
+      "padrao": "open(arquivo, 'w', encoding='utf-8', newline='\\n')",
+      "dependencias": [],
+      "arquivos": [],
+      "validacoes": [
+        "python3 --version"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "DEP-04",
+      "nome": "Git",
+      "descricao": "Controle de versao do projeto",
+      "versao": "2.x",
+      "status": "ativo",
+      "tipo": "vcs",
+      "branch_trabalho": "fase-5c-2-atualizacao-coi-009-aiops",
+      "branch_protegida": "publicacao-demandas-central-df",
+      "ultimo_commit": "3a71c5e",
+      "uso": [
+        "controle de versao",
+        "historico de mudancas",
+        "tags de release"
+      ],
+      "dependencias": [],
+      "arquivos": [
+        ".gitignore"
+      ],
+      "validacoes": [
+        "git status",
+        "git diff --check"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "DEP-05",
+      "nome": "PowerShell",
+      "descricao": "Ambiente de validacao no Windows (maquina Anderson)",
+      "versao": "5.1+",
+      "status": "ativo",
+      "tipo": "runtime-windows",
+      "restricao": "Scripts PS1 devem usar ASCII puro — sem acentos, sem cedilha",
+      "scripts": [
+        "scripts/validar-projeto.ps1",
+        "scripts/validar-dados.ps1",
+        "scripts/validar-docs.ps1",
+        "scripts/status-seguro.ps1"
+      ],
+      "dependencias": [],
+      "arquivos": [
+        "scripts/*.ps1"
+      ],
+      "validacoes": [
+        "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser antes da primeira execucao"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "DEP-06",
+      "nome": "Bash (sandbox Linux)",
+      "descricao": "Shell do ambiente sandbox Claude — isolado da maquina do Anderson",
+      "versao": "Ubuntu 22.04",
+      "status": "ativo",
+      "tipo": "runtime-sandbox",
+      "aviso": "Sandbox e isolado — arquivos criados aqui NAO existem na maquina do Anderson",
+      "uso": [
+        "execucao de node",
+        "execucao de python3",
+        "git read-only (status, diff, log)"
+      ],
+      "dependencias": [],
+      "arquivos": [],
+      "validacoes": [],
+      "ultimaAtualizacao": "2026-07-07"
+    },
+    {
+      "id": "DEP-07",
+      "nome": "child_process (Node.js built-in)",
+      "descricao": "Modulo Node.js para pipeline entre modulos do Intelligence Engine",
+      "versao": "built-in Node.js",
+      "status": "ativo",
+      "tipo": "modulo-node",
+      "uso": [
+        "COI Auditor consome COI Curador via spawnSync(--json)"
+      ],
+      "padrao": "cp.spawnSync(process.execPath, [script, '--json'], {encoding: 'utf8', cwd: ROOT})",
+      "dependencias": [
+        "DEP-01"
+      ],
+      "arquivos": [
+        "scripts/coi-auditor-inteligente.js"
+      ],
+      "validacoes": [
+        "stdout nao vazio",
+        "JSON.parse(stdout) valido"
+      ],
+      "ultimaAtualizacao": "2026-07-07"
+    }
+  ]
+}

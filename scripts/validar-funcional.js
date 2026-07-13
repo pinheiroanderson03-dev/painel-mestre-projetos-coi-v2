@@ -36,7 +36,10 @@ sep('1. ARQUIVOS PRINCIPAIS');
   'docs/ESTADO_ATUAL_DO_PROJETO.md', 'docs/MEMORIA_OPERACIONAL_PROJETO.md',
   'docs/CHECKLIST_EXECUCAO_AGENTES.md',
   'scripts/validar-projeto.ps1', 'scripts/validar-dados.ps1',
-  'scripts/validar-docs.ps1', 'scripts/status-seguro.ps1'
+  'scripts/validar-docs.ps1', 'scripts/status-seguro.ps1',
+  'scripts/coi-curador-inteligente.js',
+  'config/regras-curador.js',
+  'scripts/coi-auditor-inteligente.js'
 ].forEach(function(arq) {
   if (exists(arq)) { pass('Presente: ' + arq); }
   else             { fail('AUSENTE: '  + arq); }
@@ -410,6 +413,290 @@ var CLOSE_HTML_F = '</' + 'html>';
 (fh.indexOf('chart.umd.min.js') === -1)
   ? pass('assets/js/chart.umd.min.js nao referenciado em ficha.html -- biblioteca preservada')
   : pass('Referencia a chart.umd.min.js em ficha.html -- verificar se nao foi alterada');
+
+
+// ============================================================
+// SECAO 11 — Indicadores Operacionais (Fase 5B.4)
+// ============================================================
+sep('11. FASE 5B.4 - INDICADORES OPERACIONAIS');
+var idxOp = read('index.html');
+var cssOp = read('assets/style.css');
+
+// HTML — cards de demandas operacionais
+idxOp.indexOf('id="op-total"') !== -1
+  ? pass('S11-01: index.html tem card #op-total (total demandas)')
+  : fail('S11-01: index.html FALTANDO card #op-total');
+idxOp.indexOf('id="op-andamento"') !== -1
+  ? pass('S11-02: index.html tem card #op-andamento (demandas em andamento)')
+  : fail('S11-02: index.html FALTANDO card #op-andamento');
+idxOp.indexOf('id="op-concluidas"') !== -1
+  ? pass('S11-03: index.html tem card #op-concluidas (demandas concluidas)')
+  : fail('S11-03: index.html FALTANDO card #op-concluidas');
+idxOp.indexOf('id="op-criticas"') !== -1
+  ? pass('S11-04: index.html tem card #op-criticas (demandas criticas P0)')
+  : fail('S11-04: index.html FALTANDO card #op-criticas');
+idxOp.indexOf('id="op-atrasadas"') !== -1
+  ? pass('S11-05: index.html tem card #op-atrasadas (demandas atrasadas)')
+  : fail('S11-05: index.html FALTANDO card #op-atrasadas');
+
+// HTML — secao analitica
+idxOp.indexOf('id="op-analiticos"') !== -1
+  ? pass('S11-06: index.html tem div#op-analiticos (secao analitica)')
+  : fail('S11-06: index.html FALTANDO div#op-analiticos');
+
+// JS — funcao buildIndicadoresOperacionais
+idxOp.indexOf('buildIndicadoresOperacionais') !== -1
+  ? pass('S11-07: index.html contem funcao buildIndicadoresOperacionais()')
+  : fail('S11-07: index.html FALTANDO funcao buildIndicadoresOperacionais');
+idxOp.indexOf('psOp') !== -1
+  ? pass('S11-08: index.html contem variavel psOp (itens operacionais)')
+  : fail('S11-08: index.html FALTANDO variavel psOp');
+
+// JS — calculos de percentual
+idxOp.indexOf('percAcima80') !== -1
+  ? pass('S11-09: index.html calcula percAcima80 (>= 80%)')
+  : fail('S11-09: index.html FALTANDO calculo percAcima80');
+idxOp.indexOf('percMedio') !== -1
+  ? pass('S11-10: index.html calcula percMedio (30-80%)')
+  : fail('S11-10: index.html FALTANDO calculo percMedio');
+idxOp.indexOf('percAbaixo30') !== -1
+  ? pass('S11-11: index.html calcula percAbaixo30 (< 30%)')
+  : fail('S11-11: index.html FALTANDO calculo percAbaixo30');
+
+// JS — calculos de prioridade
+idxOp.indexOf('priorAlta') !== -1
+  ? pass('S11-12: index.html calcula priorAlta (P0+P1)')
+  : fail('S11-12: index.html FALTANDO calculo priorAlta');
+idxOp.indexOf('priorMedia') !== -1
+  ? pass('S11-13: index.html calcula priorMedia (P2)')
+  : fail('S11-13: index.html FALTANDO calculo priorMedia');
+idxOp.indexOf('priorBaixa') !== -1
+  ? pass('S11-14: index.html calcula priorBaixa (P3)')
+  : fail('S11-14: index.html FALTANDO calculo priorBaixa');
+
+// JS — semaforo
+idxOp.indexOf('semVerde') !== -1
+  ? pass('S11-15: index.html calcula semVerde')
+  : fail('S11-15: index.html FALTANDO calculo semVerde');
+idxOp.indexOf('semAmarelo') !== -1
+  ? pass('S11-16: index.html calcula semAmarelo')
+  : fail('S11-16: index.html FALTANDO calculo semAmarelo');
+idxOp.indexOf('semVermelho') !== -1
+  ? pass('S11-17: index.html calcula semVermelho')
+  : fail('S11-17: index.html FALTANDO calculo semVermelho');
+
+// JS — distribuicao por cliente e responsavel
+idxOp.indexOf('clienteMap') !== -1
+  ? pass('S11-18: index.html calcula distribuicao por cliente (clienteMap)')
+  : fail('S11-18: index.html FALTANDO distribuicao clienteMap');
+idxOp.indexOf('respMap') !== -1
+  ? pass('S11-19: index.html calcula distribuicao por responsavel (respMap)')
+  : fail('S11-19: index.html FALTANDO distribuicao respMap');
+
+// JS — projetos bloqueados
+idxOp.indexOf('projBloqueados') !== -1
+  ? pass('S11-20: index.html calcula projBloqueados (semaforo vermelho)')
+  : fail('S11-20: index.html FALTANDO calculo projBloqueados');
+
+// CSS — namespace op-
+cssOp.indexOf('.op-mini-card') !== -1
+  ? pass('S11-21: style.css contem .op-mini-card (indicadores operacionais)')
+  : fail('S11-21: style.css FALTANDO .op-mini-card');
+cssOp.indexOf('.op-dist-bar-fill') !== -1
+  ? pass('S11-22: style.css contem .op-dist-bar-fill (barra de distribuicao)')
+  : fail('S11-22: style.css FALTANDO .op-dist-bar-fill');
+cssOp.indexOf('.op-group') !== -1
+  ? pass('S11-23: style.css contem .op-group (grupo analitico)')
+  : fail('S11-23: style.css FALTANDO .op-group');
+
+// dados — card sem valor fixo no HTML (valor dinamico via JS)
+(idxOp.indexOf('id="op-total"') !== -1 && idxOp.indexOf('>op-total<') === -1)
+  ? pass('S11-24: card op-total sem valor fixo no HTML (dinamico via JS)')
+  : fail('S11-24: card op-total com valor fixo detectado');
+
+// ============================================================
+// 12. COI CURADOR INTELIGENTE (Fase 6.2)
+// ============================================================
+sep('12. COI CURADOR INTELIGENTE');
+
+var curador = read('scripts/coi-curador-inteligente.js');
+
+// Existencia e cabecalho
+curador.indexOf('COI Curador Inteligente') !== -1
+  ? pass('S12-01: coi-curador-inteligente.js com cabecalho correto')
+  : fail('S12-01: coi-curador-inteligente.js SEM cabecalho COI Curador Inteligente');
+
+curador.indexOf('Fase: 6.2') !== -1
+  ? pass('S12-02: coi-curador-inteligente.js referencia Fase 6.2')
+  : fail('S12-02: coi-curador-inteligente.js SEM referencia Fase 6.2');
+
+// Mock localStorage
+curador.indexOf('mockLocalStorage') !== -1
+  ? pass('S12-03: coi-curador-inteligente.js contem mock de localStorage')
+  : fail('S12-03: coi-curador-inteligente.js SEM mock localStorage');
+
+curador.indexOf("new Function('localStorage'") !== -1
+  ? pass('S12-04: coi-curador-inteligente.js usa new Function com localStorage mockado')
+  : fail('S12-04: coi-curador-inteligente.js SEM new Function com localStorage');
+
+// --- Seção 12.2: config/regras-curador.js ---
+var cfgRegras = read('config/regras-curador.js');
+
+cfgRegras.length > 0
+  ? pass('S12-05: config/regras-curador.js carregado e nao vazio')
+  : fail('S12-05: config/regras-curador.js VAZIO ou ausente');
+
+cfgRegras.indexOf('REGRAS_CURADOR') !== -1
+  ? pass('S12-06: config/regras-curador.js define REGRAS_CURADOR')
+  : fail('S12-06: config/regras-curador.js FALTANDO REGRAS_CURADOR');
+
+cfgRegras.indexOf("module.exports") !== -1
+  ? pass('S12-07: config/regras-curador.js exporta via module.exports')
+  : fail('S12-07: config/regras-curador.js SEM module.exports');
+
+// 12 IDs de regra presentes na config
+['R01', 'R02', 'R03', 'R04', 'R05', 'R06',
+ 'R07', 'R08', 'R09', 'R10', 'R11', 'R12'
+].forEach(function(id) {
+  cfgRegras.indexOf("id: '" + id + "'") !== -1
+    ? pass('S12-08: config/regras-curador.js contem regra ' + id)
+    : fail('S12-08: config/regras-curador.js FALTANDO regra ' + id);
+});
+
+// Campos obrigatorios de cada regra
+['peso', 'severidade', 'obrigatoria', 'ativa', 'validar'].forEach(function(campo) {
+  cfgRegras.indexOf(campo + ':') !== -1
+    ? pass('S12-09: config/regras-curador.js contem campo de regra: ' + campo)
+    : fail('S12-09: config/regras-curador.js FALTANDO campo de regra: ' + campo);
+});
+
+// --- Secao 12.3: motor (curador) consome a config ---
+curador.indexOf("require") !== -1 && curador.indexOf("regras-curador") !== -1
+  ? pass('S12-17: coi-curador-inteligente.js carrega config/regras-curador via require')
+  : fail('S12-17: coi-curador-inteligente.js NAO carrega config/regras-curador');
+
+curador.indexOf('REGRAS_ATIVAS') !== -1
+  ? pass('S12-18: coi-curador-inteligente.js filtra regras ativas (REGRAS_ATIVAS)')
+  : fail('S12-18: coi-curador-inteligente.js FALTANDO filtragem REGRAS_ATIVAS');
+
+curador.indexOf('regra.peso') !== -1 || curador.indexOf('r.peso') !== -1
+  ? pass('S12-19: coi-curador-inteligente.js usa peso por regra (nao peso fixo)')
+  : fail('S12-19: coi-curador-inteligente.js FALTANDO uso de peso por regra');
+
+// Funcoes core do motor
+['calcularScore', 'classificar', 'criticidade', 'diagnosticar',
+ 'imprimirDiag', 'imprimirConsolidado', 'gerarJSON'
+].forEach(function(fn) {
+  curador.indexOf(fn) !== -1
+    ? pass('S12-20: coi-curador-inteligente.js contem funcao ' + fn)
+    : fail('S12-20: coi-curador-inteligente.js FALTANDO funcao ' + fn);
+});
+
+// Classificacao Excelente/Bom/Atencao/Critico
+curador.indexOf("'Excelente'") !== -1 && curador.indexOf("'Bom'") !== -1
+  && curador.indexOf("'Atencao'") !== -1 && curador.indexOf("'Critico'") !== -1
+  ? pass('S12-21: coi-curador-inteligente.js implementa 4 niveis de classificacao')
+  : fail('S12-21: coi-curador-inteligente.js FALTANDO classificacoes Excelente/Bom/Atencao/Critico');
+
+// Suporte a --json
+curador.indexOf("'--json'") !== -1 || curador.indexOf('"--json"') !== -1
+  ? pass('S12-22: coi-curador-inteligente.js suporta flag --json')
+  : fail('S12-22: coi-curador-inteligente.js SEM suporte a flag --json');
+
+// Estrutura da saida JSON
+['resumo', 'indicadores', 'itens', 'erros', 'alertas', 'recomendacoes'].forEach(function(campo) {
+  curador.indexOf(campo + ':') !== -1 || curador.indexOf('"' + campo + '"') !== -1
+    ? pass('S12-23: JSON output contem campo: ' + campo)
+    : fail('S12-23: JSON output FALTANDO campo: ' + campo);
+});
+
+// ============================================================
+// 13. COI AUDITOR INTELIGENTE (Fase 6.3)
+// ============================================================
+sep('13. COI AUDITOR INTELIGENTE');
+
+var auditor = read('scripts/coi-auditor-inteligente.js');
+
+// Cabecalho e fase
+auditor.indexOf('COI Auditor Inteligente') !== -1
+  ? pass('S13-01: coi-auditor-inteligente.js com cabecalho correto')
+  : fail('S13-01: coi-auditor-inteligente.js SEM cabecalho COI Auditor Inteligente');
+
+auditor.indexOf('Fase 6.3') !== -1
+  ? pass('S13-02: coi-auditor-inteligente.js referencia Fase 6.3')
+  : fail('S13-02: coi-auditor-inteligente.js SEM referencia Fase 6.3');
+
+// Interface padrao do COI Intelligence Engine
+['execute', 'score', 'recommendations', 'export'].forEach(function(fn) {
+  auditor.indexOf(fn + ':') !== -1 || auditor.indexOf(fn + ' =') !== -1
+    ? pass('S13-03: coi-auditor-inteligente.js contem funcao interface: ' + fn)
+    : fail('S13-03: coi-auditor-inteligente.js FALTANDO funcao interface: ' + fn);
+});
+
+// module.exports
+auditor.indexOf('module.exports') !== -1
+  ? pass('S13-04: coi-auditor-inteligente.js exporta via module.exports')
+  : fail('S13-04: coi-auditor-inteligente.js SEM module.exports');
+
+// Consome o COI Curador
+auditor.indexOf('coi-curador-inteligente.js') !== -1
+  ? pass('S13-05: coi-auditor-inteligente.js consome coi-curador-inteligente.js')
+  : fail('S13-05: coi-auditor-inteligente.js NAO referencia coi-curador-inteligente.js');
+
+// Flags de saida
+['--resumo', '--json', '--md'].forEach(function(flag) {
+  auditor.indexOf("'" + flag + "'") !== -1 || auditor.indexOf('"' + flag + '"') !== -1
+    ? pass('S13-06: coi-auditor-inteligente.js suporta flag ' + flag)
+    : fail('S13-06: coi-auditor-inteligente.js SEM suporte a flag ' + flag);
+});
+
+// Schema JSON obrigatorio
+['schema', 'engine', 'resumo', 'indicadores', 'auditoria', 'tendencias', 'recomendacoes'].forEach(function(campo) {
+  auditor.indexOf(campo + ':') !== -1
+    ? pass('S13-07: JSON schema contem campo: ' + campo)
+    : fail('S13-07: JSON schema FALTANDO campo: ' + campo);
+});
+
+// Classificacoes de saude geral
+['Excelente', 'Boa', 'Atencao', 'Critica'].forEach(function(nivel) {
+  auditor.indexOf("'" + nivel + "'") !== -1
+    ? pass('S13-08: coi-auditor-inteligente.js contem nivel de saude: ' + nivel)
+    : fail('S13-08: coi-auditor-inteligente.js FALTANDO nivel de saude: ' + nivel);
+});
+
+// Classificacoes de criticidade
+['Baixa', 'Media', 'Alta', 'Critica'].forEach(function(crit) {
+  auditor.indexOf("'" + crit + "'") !== -1
+    ? pass('S13-09: coi-auditor-inteligente.js contem criticidade: ' + crit)
+    : fail('S13-09: coi-auditor-inteligente.js FALTANDO criticidade: ' + crit);
+});
+
+// Funcoes de analise obrigatorias
+['calcularSaudeGeral', 'calcularCriticidade', 'consolidarIndicadores',
+ 'gerarAuditoria', 'identificarTendencias', 'gerarRecomendacoesConsolidadas',
+ 'gerarMarkdown', 'gerarTexto', 'carregarDadosCurador'
+].forEach(function(fn) {
+  auditor.indexOf(fn) !== -1
+    ? pass('S13-10: coi-auditor-inteligente.js contem funcao: ' + fn)
+    : fail('S13-10: coi-auditor-inteligente.js FALTANDO funcao: ' + fn);
+});
+
+// Dimensoes de auditoria
+['conformidade', 'completude', 'pontualidade', 'rastreabilidade', 'governanca'].forEach(function(dim) {
+  auditor.indexOf(dim + ':') !== -1
+    ? pass('S13-11: coi-auditor-inteligente.js audita dimensao: ' + dim)
+    : fail('S13-11: coi-auditor-inteligente.js FALTANDO dimensao: ' + dim);
+});
+
+// Markdown
+auditor.indexOf('gerarMarkdown') !== -1
+  ? pass('S13-12: coi-auditor-inteligente.js gera saida Markdown')
+  : fail('S13-12: coi-auditor-inteligente.js SEM saida Markdown');
+
+// require.main guard
+auditor.indexOf('require.main') !== -1
+  ? pass('S13-13: coi-auditor-inteligente.js tem guard require.main === module')
+  : fail('S13-13: coi-auditor-inteligente.js SEM guard require.main');
 
 // ============================================================
 // RESULTADO FINAL

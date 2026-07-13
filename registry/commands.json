@@ -1,0 +1,327 @@
+{
+  "schema": "1.0",
+  "descricao": "Registro de todos os comandos operacionais — autonomos e bloqueados",
+  "ultimaAtualizacao": "2026-07-07",
+  "categorias": {
+    "autonomos": {
+      "descricao": "Claude pode executar sem autorizacao de Anderson",
+      "comandos": [
+        {
+          "id": "CMD-A01",
+          "nome": "git status",
+          "descricao": "Verificar estado do repositorio",
+          "status": "liberado",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A02",
+          "nome": "git diff --name-only",
+          "descricao": "Listar arquivos modificados",
+          "status": "liberado",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A03",
+          "nome": "git diff --stat",
+          "descricao": "Resumo estatistico das modificacoes",
+          "status": "liberado",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A04",
+          "nome": "git diff --check",
+          "descricao": "Verificar trailing whitespace e problemas de formatacao",
+          "status": "liberado",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A05",
+          "nome": "git branch --show-current",
+          "descricao": "Confirmar branch ativa",
+          "status": "liberado",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A06",
+          "nome": "git log --oneline -5",
+          "descricao": "Verificar ultimos 5 commits",
+          "status": "liberado",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A07",
+          "nome": "git add -N",
+          "descricao": "Marcar arquivo para rastreamento sem estagia-lo",
+          "status": "liberado",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A08",
+          "nome": "node --check <arquivo>",
+          "descricao": "Validar sintaxe JS sem executar",
+          "status": "liberado",
+          "dependencias": [
+            "Node.js"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A09",
+          "nome": "node scripts/validar-funcional.js",
+          "descricao": "Executar suite de 293 assertions",
+          "status": "liberado",
+          "dependencias": [
+            "Node.js",
+            "scripts/validar-funcional.js"
+          ],
+          "validacoes": [
+            "exit 0 esperado"
+          ],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A10",
+          "nome": "node -e \"JSON.parse(...)\"",
+          "descricao": "Validar JSON via Node.js",
+          "status": "liberado",
+          "dependencias": [
+            "Node.js"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A11",
+          "nome": "python3 <script>",
+          "descricao": "Executar scripts Python (criacao de arquivos, atualizacao de docs)",
+          "status": "liberado",
+          "dependencias": [
+            "Python3"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A12",
+          "nome": "node scripts/coi-curador-inteligente.js --json",
+          "descricao": "Executar COI Curador em modo JSON",
+          "status": "liberado",
+          "dependencias": [
+            "Node.js",
+            "scripts/coi-curador-inteligente.js"
+          ],
+          "validacoes": [
+            "JSON valido"
+          ],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-A13",
+          "nome": "node scripts/coi-auditor-inteligente.js --resumo",
+          "descricao": "Executar COI Auditor em modo resumo",
+          "status": "liberado",
+          "dependencias": [
+            "Node.js",
+            "scripts/coi-auditor-inteligente.js"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        }
+      ]
+    },
+    "bloqueados": {
+      "descricao": "Exigem autorizacao explicita de Anderson antes de executar",
+      "comandos": [
+        {
+          "id": "CMD-B01",
+          "nome": "git add (definitivo)",
+          "descricao": "Estaciona arquivos para commit — ponto de nao-retorno",
+          "status": "bloqueado",
+          "motivo": "prepara commit permanente",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [
+            "validar-funcional.js PASS",
+            "git diff --check CLEAN"
+          ],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B02",
+          "nome": "git commit",
+          "descricao": "Registro permanente no historico",
+          "status": "bloqueado",
+          "motivo": "historico imutavel apos push",
+          "dependencias": [
+            "ANDERSON",
+            "CMD-B01"
+          ],
+          "validacoes": [
+            "mensagem no formato feat/fix/docs/chore(escopo)"
+          ],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B03",
+          "nome": "git push",
+          "descricao": "Envia para repositorio remoto",
+          "status": "bloqueado",
+          "motivo": "irreversivel sem rewrite de historico",
+          "dependencias": [
+            "ANDERSON",
+            "CMD-B02"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B04",
+          "nome": "git switch main",
+          "descricao": "Muda para branch principal",
+          "status": "bloqueado",
+          "motivo": "risco de alteracao em main",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B05",
+          "nome": "git merge",
+          "descricao": "Integracao entre branches",
+          "status": "bloqueado",
+          "motivo": "risco de conflito e perda de historico",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B06",
+          "nome": "git tag",
+          "descricao": "Cria tag estavel",
+          "status": "bloqueado",
+          "motivo": "tag de release — decisao humana",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B07",
+          "nome": "git reset",
+          "descricao": "Desfaz commits ou alteracoes",
+          "status": "bloqueado",
+          "motivo": "operacao destrutiva",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B08",
+          "nome": "git restore",
+          "descricao": "Descarta alteracoes em arquivo",
+          "status": "bloqueado",
+          "motivo": "perda de trabalho sem backup",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B09",
+          "nome": "git clean",
+          "descricao": "Remove arquivos nao rastreados",
+          "status": "bloqueado",
+          "motivo": "operacao destrutiva irreversivel",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B10",
+          "nome": "exclusao de branch",
+          "descricao": "Remove historico de branch",
+          "status": "bloqueado",
+          "motivo": "perda de historico",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-B11",
+          "nome": "qualquer rollback",
+          "descricao": "Operacao de reversao de estado",
+          "status": "bloqueado",
+          "motivo": "potencialmente destrutivo",
+          "dependencias": [
+            "ANDERSON"
+          ],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        }
+      ]
+    },
+    "proibidos": {
+      "descricao": "Nunca executar em nenhuma circunstancia sem autorizacao especial",
+      "comandos": [
+        {
+          "id": "CMD-P01",
+          "nome": "git push para publicacao-demandas-central-df",
+          "descricao": "Branch do GitHub Pages v1 — nunca tocar",
+          "status": "proibido",
+          "motivo": "branch de producao legacy",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-P02",
+          "nome": "alterar dados/projetos.js sem autorizacao",
+          "descricao": "Fonte de dados primaria — alteracao exige autorizacao explicita",
+          "status": "proibido",
+          "motivo": "dados de producao",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        },
+        {
+          "id": "CMD-P03",
+          "nome": "alterar .claude/skills/*",
+          "descricao": "Skills operacionais — nao alterar conteudo",
+          "status": "proibido",
+          "motivo": "sistema operacional critico",
+          "dependencias": [],
+          "validacoes": [],
+          "ultimaAtualizacao": "2026-07-07"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "schema": "1.0",
+  "gerado_em": "2026-07-07",
+  "descricao": "Registro de todos os modulos do COI Intelligence Engine",
+  "engine": {
+    "nome": "COI Intelligence Engine",
+    "versao": "v1.7.0",
+    "interface_padrao": [
+      "execute()",
+      "score()",
+      "recommendations()",
+      "export(formato)"
+    ],
+    "pipeline": "Curador (--json) -> Auditor (child_process) -> [Daily] -> [Weekly]"
+  },
+  "modulos": [
+    {
+      "id": "COI-ANALISTA",
+      "nome": "COI Analista Inteligente",
+      "fase": "6.1 / 6.1-RF",
+      "status": "Integrado ao Curador",
+      "arquivo": null,
+      "doc": "docs/AGENTE_COI_ANALISTA.md",
+      "funcao": "Analise e recomendacoes de melhoria por projeto",
+      "saidas": [
+        "texto",
+        "json"
+      ],
+      "interface_padrao": false
+    },
+    {
+      "id": "COI-CURADOR",
+      "nome": "COI Curador Inteligente",
+      "fase": "6.2 / 6.2.1",
+      "status": "Operacional",
+      "arquivo": "scripts/coi-curador-inteligente.js",
+      "config": "config/regras-curador.js",
+      "funcao": "Validacao de qualidade dos itens de dados/projetos.js",
+      "regras": 12,
+      "score_range": "0-100",
+      "saidas": [
+        "--resumo",
+        "--item <n>",
+        "--json"
+      ],
+      "json_schema_campos": [
+        "resumo",
+        "indicadores",
+        "itens",
+        "erros",
+        "alertas",
+        "recomendacoes"
+      ],
+      "interface_padrao": true,
+      "exit_codes": {
+        "0": "portfolio aceitavel",
+        "1": "itens criticos detectados"
+      }
+    },
+    {
+      "id": "COI-AUDITOR",
+      "nome": "COI Auditor Inteligente",
+      "fase": "6.3",
+      "status": "Operacional",
+      "arquivo": "scripts/coi-auditor-inteligente.js",
+      "funcao": "Auditoria operacional consolidada do ambiente",
+      "consome": "COI Curador (--json via child_process.spawnSync)",
+      "dimensoes": [
+        "conformidade",
+        "completude",
+        "pontualidade",
+        "rastreabilidade",
+        "governanca"
+      ],
+      "saidas": [
+        "--resumo",
+        "--json",
+        "--md"
+      ],
+      "json_schema_campos": [
+        "schema",
+        "engine",
+        "resumo",
+        "indicadores",
+        "auditoria",
+        "tendencias",
+        "recomendacoes"
+      ],
+      "saude_geral": [
+        "Excelente (>=90)",
+        "Boa (>=70)",
+        "Atencao (>=50)",
+        "Critica (<50)"
+      ],
+      "criticidade": [
+        "Baixa",
+        "Media",
+        "Alta",
+        "Critica"
+      ],
+      "interface_padrao": true,
+      "exit_codes": {
+        "0": "saudavel",
+        "1": "criticidade Alta ou Critica"
+      }
+    },
+    {
+      "id": "COI-DAILY",
+      "nome": "COI Daily",
+      "fase": "6.4",
+      "status": "Planejado",
+      "arquivo": null,
+      "funcao": "Relatorio diario automatizado do ambiente",
+      "consome": "COI Auditor (--json)",
+      "interface_padrao": true
+    },
+    {
+      "id": "COI-WEEKLY",
+      "nome": "COI Weekly",
+      "fase": "6.5",
+      "status": "Planejado",
+      "arquivo": null,
+      "funcao": "Relatorio semanal consolidado",
+      "consome": "COI Daily",
+      "interface_padrao": true
+    }
+  ],
+  "skills_pipeline": {
+    "descricao": "Pipeline operacional de desenvolvimento via COI-MESTRE",
+    "fluxo": [
+      "COI-MEMORIA",
+      "COI-FORENSE",
+      "COI-ARQUITETO",
+      "COI-LEARNINGS",
+      "COI-EXECUTOR",
+      "COI-TESTES",
+      "COI-AUDITOR",
+      "COI-QA",
+      "COI-GOVERNANCA",
+      "COI-RELEASE-MANAGER"
+    ],
+    "entrada": ".claude/skills/COI-MESTRE.md",
+    "saida": "Pacote de entrega 9 itens"
+  },
+  "config_curador": {
+    "arquivo": "config/regras-curador.js",
+    "total_regras_ativas": 12,
+    "regras_erro_peso12": [
+      "R01",
+      "R03",
+      "R08",
+      "R09",
+      "R10",
+      "R12"
+    ],
+    "regras_alerta_peso5": [
+      "R02",
+      "R04",
+      "R05",
+      "R06",
+      "R07",
+      "R11"
+    ]
+  },
+  "validacao": {
+    "arquivo": "scripts/validar-funcional.js",
+    "total_asserts": 293,
+    "total_secoes": 13,
+    "secoes_engine": {
+      "S12": "COI Curador (Fase 6.2/6.2.1)",
+      "S13": "COI Auditor (Fase 6.3)"
+    }
+  }
+}

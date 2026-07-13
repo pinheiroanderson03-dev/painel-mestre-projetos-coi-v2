@@ -543,16 +543,16 @@ const COI_DATA = {
 
     {
       id: "COI-013",
-      nome: "MDS — Sistema Formulário de Ouvidoria",
+      nome: "MDS — Sistema de Ouvidoria (OuvSUAS)",
       classificacao: "Estratégico",
       prioridade: "P1",
       status: "Em andamento",
       fase: "Homologação",
       plataforma: "CITSmartX / MDS / Formulário Web",
-      percentual: 60,
+      percentual: 50,
       semaforo: "🟢",
-      patrocinador: "",
-      responsavel: "",
+      patrocinador: "MDS — Ministério do Desenvolvimento Social",
+      responsavel: "PMO Digital COI",
       orgao: "MDS",
       dataInicio: "2026-05-01",
       prazoPrevisto: "",
@@ -561,7 +561,7 @@ const COI_DATA = {
       impactoContratual: "Sim",
       fonteInformacao: "Reunião",
       observacoesExecutivas: "Sistema apresentado em 29/05/2026. Publicação no CITSmartX MDS em andamento. Documentação e análise de viabilidade em preparação.",
-      atualizadoEm: "2026-06-15",
+      atualizadoEm: "2026-06-26",
       frente: "MDS",
       contrato: "",
       gerenteContrato: "",
@@ -571,7 +571,7 @@ const COI_DATA = {
       beneficioEsperado: "Sistema de ouvidoria digital operacional para o MDS via CITSmartX.",
       beneficioRealizado: "Sistema demonstrado em 29/05/2026 com formulário e funcionalidades validadas.",
       evidencia: "Apresentação 29/05/2026 — Sistema Formulário de Ouvidoria MDS",
-      riscosCriticos: 0,
+      riscosCriticos: 1,
       decisoesPendentes: 1,
       solicitante: "MDS",
       dataSolicitacao: "2026-05-01",
@@ -579,7 +579,25 @@ const COI_DATA = {
       dataResolucao: "",
       categoriaOperacional: "Entrega",
       origem: "Contrato MDS",
-      observacoesOperacionais: "Próximos passos: publicação no CITSmartX MDS, documentação do produto e análise de viabilidade econômica e financeira."
+      observacoesOperacionais: "Sistema em fase de publicação no CITSmartX MDS. Documentação técnica em preparação. Análise de viabilidade econômica e financeira em andamento.",
+      objetivo: "Implementar canal formal de ouvidoria digital para o MDS (Ministério do Desenvolvimento Social), baseado no sistema OuvSUAS, integrado ao CITSmartX para registro, acompanhamento e resolução de manifestações cidadãs via formulário web.",
+      situacaoAtual: "Sistema demonstrado em 29/05/2026 com formulário e funcionalidades validadas pela equipe MDS. Em fase de publicação no CITSmartX MDS. Documentação técnica do produto em preparação. Análise de viabilidade econômica e financeira iniciada. Progresso atual: 50%.",
+      historicoOperacional: [
+        { data: "2026-05-01", descricao: "Início formal do projeto OuvSUAS — levantamento de requisitos com equipe MDS", responsavel: "COI / MDS", evidencia: "" },
+        { data: "2026-05-29", descricao: "Demonstração do Sistema Formulário de Ouvidoria MDS — funcionalidades validadas pela equipe", responsavel: "COI", evidencia: "Apresentação 29/05/2026 — Sistema Formulário de Ouvidoria MDS" },
+        { data: "2026-06-15", descricao: "Início da fase de publicação no CITSmartX MDS e preparação da documentação técnica", responsavel: "COI", evidencia: "" },
+        { data: "2026-06-26", descricao: "Atualização de progresso para 50%. Análise de viabilidade econômica e financeira iniciada", responsavel: "PMO Digital COI", evidencia: "" }
+      ],
+      proximasAcoes: [
+        { acao: "Publicar formulário OuvSUAS no ambiente CITSmartX MDS", responsavel: "COI / MDS", dataPrevista: "", status: "Em andamento" },
+        { acao: "Elaborar documentação técnica do produto", responsavel: "COI", dataPrevista: "", status: "Em andamento" },
+        { acao: "Concluir análise de viabilidade econômica e financeira", responsavel: "COI / MDS", dataPrevista: "", status: "Pendente" },
+        { acao: "Validação final e homologação com equipe MDS", responsavel: "MDS", dataPrevista: "", status: "Pendente" }
+      ],
+      riscosRegistrados: [
+        { descricao: "Atraso na publicação no CITSmartX MDS por dependência de aprovações internas", probabilidade: "Média", impacto: "Alto", nivel: "Alto", status: "Identificado", mitigacao: "Manter comunicação ativa com equipe MDS e monitorar cronograma de aprovações" },
+        { descricao: "Requisitos da análise de viabilidade podem alterar escopo do sistema", probabilidade: "Baixa", impacto: "Médio", nivel: "Médio", status: "Identificado", mitigacao: "Concluir análise antecipadamente para evitar retrabalho" }
+      ]
     }
   ]
 };

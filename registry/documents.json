@@ -1,0 +1,257 @@
+{
+  "schema": "1.0",
+  "gerado_em": "2026-07-07",
+  "descricao": "Registro estruturado de todos os documentos do projeto",
+  "categorias": {
+    "arranque": {
+      "descricao": "Leitura obrigatoria no inicio de cada sessao",
+      "docs": [
+        {
+          "arquivo": ".claude/RUNTIME.md",
+          "linhas": 35,
+          "quando_ler": "sempre (auto)",
+          "substitui": "ESTADO_ATUAL + MEMORIA + parts AGENTS"
+        },
+        {
+          "arquivo": "STATUS.md",
+          "linhas": 55,
+          "quando_ler": "inicio de sessao",
+          "substitui": "ESTADO_ATUAL + MEMORIA"
+        },
+        {
+          "arquivo": "INDEX.md",
+          "linhas": 90,
+          "quando_ler": "orientacao inicial",
+          "substitui": "leitura exploratoria"
+        }
+      ]
+    },
+    "instrucoes": {
+      "descricao": "Regras e instrucoes operacionais ativas",
+      "docs": [
+        {
+          "arquivo": "CLAUDE.md",
+          "linhas": 96,
+          "status": "ativo",
+          "observacao": "candidato a simplificacao em R1.2"
+        },
+        {
+          "arquivo": "AGENTS.md",
+          "linhas": 561,
+          "status": "ativo",
+          "observacao": "secoes 1-12 ativas; 13-18 candidatas a arquivo em R1.2"
+        }
+      ]
+    },
+    "historico": {
+      "descricao": "Registro de versoes e evolucao -- leitura rara",
+      "docs": [
+        {
+          "arquivo": "CHANGELOG.md",
+          "linhas": 599,
+          "status": "ativo_legado",
+          "acao_r12": "manter apenas 3 ultimas versoes"
+        },
+        {
+          "arquivo": "ROADMAP_COI.md",
+          "linhas": 374,
+          "status": "ativo_legado",
+          "acao_r12": "manter apenas fases pendentes"
+        },
+        {
+          "arquivo": "RELEASE_NOTES.md",
+          "linhas": 404,
+          "status": "candidato_arquivo",
+          "acao_r12": "arquivar (duplica CHANGELOG)"
+        }
+      ]
+    },
+    "skills": {
+      "descricao": "Skills operacionais -- ativadas por demanda via COI-MESTRE",
+      "docs": [
+        {
+          "arquivo": ".claude/skills/COI-MESTRE.md",
+          "linhas": 151,
+          "papel": "orquestrador"
+        },
+        {
+          "arquivo": ".claude/skills/COI-MEMORIA.md",
+          "linhas": 64,
+          "papel": "estado e alertas"
+        },
+        {
+          "arquivo": ".claude/skills/COI-FORENSE.md",
+          "linhas": 104,
+          "papel": "evidencias reais"
+        },
+        {
+          "arquivo": ".claude/skills/COI-ARQUITETO.md",
+          "linhas": 89,
+          "papel": "escopo e plano"
+        },
+        {
+          "arquivo": ".claude/skills/COI-LEARNINGS.md",
+          "linhas": 102,
+          "papel": "prevencao de erros"
+        },
+        {
+          "arquivo": ".claude/skills/COI-EXECUTOR.md",
+          "linhas": 80,
+          "papel": "implementacao"
+        },
+        {
+          "arquivo": ".claude/skills/COI-TESTES.md",
+          "linhas": 115,
+          "papel": "suite T1-T6"
+        },
+        {
+          "arquivo": ".claude/skills/COI-AUDITOR.md",
+          "linhas": 110,
+          "papel": "auditoria de escopo"
+        },
+        {
+          "arquivo": ".claude/skills/COI-QA.md",
+          "linhas": 93,
+          "papel": "validacao final"
+        },
+        {
+          "arquivo": ".claude/skills/COI-GOVERNANCA.md",
+          "linhas": 100,
+          "papel": "atualizacao docs estado"
+        },
+        {
+          "arquivo": ".claude/skills/COI-RELEASE-MANAGER.md",
+          "linhas": 107,
+          "papel": "pacote entrega 9 itens"
+        }
+      ]
+    },
+    "tecnica": {
+      "descricao": "Documentacao tecnica de referencia -- consulta passiva",
+      "docs": [
+        {
+          "arquivo": "docs/DECISOES_ARQUITETURAIS_COI.md",
+          "linhas": 159,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/REGISTRO_DE_ERROS_E_APRENDIZADOS.md",
+          "linhas": 234,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/ARQUITETURA_COI_INTELLIGENCE.md",
+          "linhas": 353,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md",
+          "linhas": 318,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/MODELO_ENTRADA_DEMANDAS_PROJETOS.md",
+          "linhas": 196,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/PROTOCOLO_ATUALIZACAO_DADOS_OPERACIONAIS.md",
+          "linhas": 239,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/PLANO_ROLLBACK_SEGURO.md",
+          "linhas": 336,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/MATRIZ_CONTINGENCIA.md",
+          "linhas": 115,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/ROADMAP_COI_IA.md",
+          "linhas": 200,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/INDICADORES_INTELIGENCIA.md",
+          "linhas": 200,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/AGENTE_COI_ANALISTA.md",
+          "linhas": 233,
+          "status": "ativo"
+        },
+        {
+          "arquivo": "docs/MODELO_RECOMENDACOES_IA.md",
+          "linhas": 182,
+          "status": "ativo"
+        }
+      ]
+    },
+    "legado": {
+      "descricao": "Documentos com conteudo coberto por outros mecanismos -- candidatos a arquivo em R1.2+",
+      "docs": [
+        {
+          "arquivo": "docs/ESTADO_ATUAL_DO_PROJETO.md",
+          "linhas": 109,
+          "substituido_por": "STATUS.md"
+        },
+        {
+          "arquivo": "docs/MEMORIA_OPERACIONAL_PROJETO.md",
+          "linhas": 145,
+          "substituido_por": "STATUS.md"
+        },
+        {
+          "arquivo": "docs/PROTOCOLO_OPERACIONAL_AGENTES.md",
+          "linhas": 378,
+          "substituido_por": "skills COI-EXECUTOR/QA/AUDITOR"
+        },
+        {
+          "arquivo": "docs/CHECKLIST_EXECUCAO_AGENTES.md",
+          "linhas": 107,
+          "substituido_por": "COI-RELEASE-MANAGER"
+        },
+        {
+          "arquivo": "docs/PROTOCOLO_VALIDACAO_OBRIGATORIA.md",
+          "linhas": 229,
+          "substituido_por": "skills COI-QA/AUDITOR"
+        },
+        {
+          "arquivo": "docs/BASE_DE_CONHECIMENTO_EVOLUTIVA.md",
+          "linhas": 145,
+          "substituido_por": "COI-LEARNINGS"
+        },
+        {
+          "arquivo": "docs/BASE_INTERACAO_ASSISTIDA_CHATGPT.md",
+          "linhas": 173,
+          "substituido_por": "estatico"
+        },
+        {
+          "arquivo": "docs/AGENTES_ESPECIALIZADOS_CHATGPT.md",
+          "linhas": 205,
+          "substituido_por": "estatico"
+        },
+        {
+          "arquivo": "auditoria_e_roadmap.md",
+          "linhas": 373,
+          "substituido_por": "obsoleto (Fase 1)"
+        },
+        {
+          "arquivo": "manual_governanca.md",
+          "linhas": 240,
+          "substituido_por": "obsoleto (Fase 1)"
+        }
+      ]
+    }
+  },
+  "metricas": {
+    "total_linhas_ativas": 385,
+    "total_linhas_legado": 1777,
+    "total_linhas_historico": 977,
+    "total_linhas_tecnica": 2565,
+    "reducao_contexto_sessao_pct": 88
+  }
+}
