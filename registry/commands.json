@@ -1,7 +1,7 @@
 {
   "schema": "1.0",
   "descricao": "Registro de todos os comandos operacionais — autonomos e bloqueados",
-  "ultimaAtualizacao": "2026-07-07",
+  "ultimaAtualizacao": "2026-07-13",
   "categorias": {
     "autonomos": {
       "descricao": "Claude pode executar sem autorizacao de Anderson",
@@ -322,6 +322,104 @@
           "ultimaAtualizacao": "2026-07-07"
         }
       ]
+    },
+    "ccl": {
+      "descricao": "COI Command Language -- verbos oficiais de instrucao para sessoes COI",
+      "gramatica": "commands/grammar.md",
+      "parser": "commands/parser.md",
+      "exemplos": "commands/examples.md",
+      "modos": [
+        "FAST",
+        "SAFE",
+        "CRITICAL"
+      ],
+      "comandos": [
+        {
+          "id": "CCL-01",
+          "verbo": "EXEC",
+          "alias": "X",
+          "modoDefault": "FAST",
+          "pipeline": "MESTRE->MEMORIA->FORENSE->ARQUITETO->LEARNINGS->EXECUTOR"
+        },
+        {
+          "id": "CCL-02",
+          "verbo": "UPDATE",
+          "alias": "U",
+          "modoDefault": "FAST",
+          "pipeline": "MESTRE->MEMORIA->EXECUTOR"
+        },
+        {
+          "id": "CCL-03",
+          "verbo": "QA",
+          "alias": "Q",
+          "modoDefault": "FAST",
+          "pipeline": "TESTES->AUDITOR->QA"
+        },
+        {
+          "id": "CCL-04",
+          "verbo": "REVIEW",
+          "alias": "RV",
+          "modoDefault": "SAFE",
+          "pipeline": "MESTRE->FORENSE->AUDITOR"
+        },
+        {
+          "id": "CCL-05",
+          "verbo": "DOC",
+          "alias": "D",
+          "modoDefault": "FAST",
+          "pipeline": "GOVERNANCA"
+        },
+        {
+          "id": "CCL-06",
+          "verbo": "REL",
+          "alias": "RL",
+          "modoDefault": "FAST",
+          "pipeline": "GOVERNANCA->RELEASE-MANAGER"
+        },
+        {
+          "id": "CCL-07",
+          "verbo": "STATUS",
+          "alias": "ST",
+          "modoDefault": "FAST",
+          "pipeline": "MEMORIA"
+        },
+        {
+          "id": "CCL-08",
+          "verbo": "RUNTIME",
+          "alias": "RT",
+          "modoDefault": "FAST",
+          "pipeline": "GOVERNANCA"
+        },
+        {
+          "id": "CCL-09",
+          "verbo": "REGISTRY",
+          "alias": "RG",
+          "modoDefault": "FAST",
+          "pipeline": "EXECUTOR"
+        },
+        {
+          "id": "CCL-10",
+          "verbo": "TEST",
+          "alias": "T",
+          "modoDefault": "FAST",
+          "pipeline": "TESTES->QA"
+        },
+        {
+          "id": "CCL-11",
+          "verbo": "RELEASE",
+          "alias": "RS",
+          "modoDefault": "SAFE",
+          "pipeline": "AUDITOR->QA->GOVERNANCA->RELEASE-MANAGER"
+        },
+        {
+          "id": "CCL-12",
+          "verbo": "COMMIT PREP",
+          "alias": "CP",
+          "modoDefault": "FAST",
+          "pipeline": "AUDITOR"
+        }
+      ]
     }
-  }
+  },
+  "referenciaCompleta": "commands/commands.json"
 }

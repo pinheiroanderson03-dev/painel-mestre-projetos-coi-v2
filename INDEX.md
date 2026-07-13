@@ -4,6 +4,21 @@
 
 ---
 
+## CCL -- COI Command Language (Fase R3)
+
+> Padrao oficial de instrucao para sessoes COI.
+> Toda tarefa tecnica com entregavel deve ser expressa em CCL antes da execucao.
+
+| Arquivo                 | Conteudo                                         |
+|-------------------------|--------------------------------------------------|
+| commands/grammar.md     | Sintaxe, verbos, modos (FAST/SAFE/CRITICAL)      |
+| commands/parser.md      | Mapeamento verbo -> pipeline de skills           |
+| commands/commands.json  | 12 comandos oficiais com documentacao completa   |
+| commands/aliases.json   | Aliases X/U/Q/RV/D/RL/ST/RT/RG/T/RS/CP + modos  |
+| commands/examples.md    | Exemplos reais usando o projeto COI              |
+
+---
+
 ## Registry (primeira fonte de consulta)
 
 > Consultar antes de qualquer implementacao ou analise.
@@ -13,8 +28,8 @@
 | registry/README.md         | Guia: quando e como consultar cada registro      |
 | registry/runtime.json      | Estado atual, restricoes, padroes tecnicos       |
 | registry/agents.json       | 14 agentes/skills com papeis e dependencias      |
-| registry/commands.json     | Comandos autonomos vs bloqueados vs proibidos    |
-| registry/phases.json       | Historico de 18 fases (concluidas e planejadas)  |
+| registry/commands.json     | Comandos autonomos vs bloqueados + CCL           |
+| registry/phases.json       | Historico de fases (concluidas e planejadas)     |
 | registry/rules.json        | 12 regras operacionais ativas                    |
 | registry/tests.json        | Suite 293 PASS / 13 secoes com contagens         |
 | registry/dependencies.json | Node.js, Chart.js, Python3, Git, PS1, etc.       |
@@ -30,6 +45,7 @@
 | 1 | .claude/RUNTIME.md       | Sempre (carregado automaticamente)      |
 | 2 | STATUS.md                | Ao iniciar qualquer fase                |
 | 3 | registry/README.md       | Antes de implementar ou consultar       |
+| 4 | commands/grammar.md      | Antes de interpretar instrucao CCL      |
 
 ---
 
@@ -37,7 +53,7 @@
 
 | Arquivo                          | Conteudo                                         |
 |----------------------------------|--------------------------------------------------|
-| CHANGELOG.md                     | Historico de versoes (v1.0.0 a v1.7.0)          |
+| CHANGELOG.md                     | Historico de versoes (v1.0.0 a v1.8.0)          |
 | RELEASE_NOTES.md                 | Notas de versao por release                      |
 | ROADMAP_COI.md                   | Planejamento de fases futuras                    |
 | docs/ESTADO_ATUAL_DO_PROJETO.md  | Tabela historica de fases                        |
@@ -50,7 +66,7 @@
 | Arquivo        | Conteudo                                                     |
 |----------------|--------------------------------------------------------------|
 | CLAUDE.md      | Instrucoes de comportamento e regras de seguranca            |
-| AGENTS.md      | 18 secoes de regras operacionais detalhadas                  |
+| AGENTS.md      | 19 secoes de regras operacionais detalhadas                  |
 
 ---
 
@@ -99,19 +115,21 @@
 
 | Arquivo                         | Conteudo                                         |
 |---------------------------------|--------------------------------------------------|
-| docs/ARQUITETURA.md             | Visao geral da arquitetura do sistema            |
-| docs/API_CURADOR.md             | Documentacao da API do COI Curador               |
-| docs/API_AUDITOR.md             | Documentacao da API do COI Auditor               |
-| docs/PADROES_CODIGO.md          | ES5, PS1 ASCII, python3 utf-8                    |
-| docs/GUIA_VALIDACAO.md          | Como executar e interpretar validacoes           |
+| docs/ARQUITETURA_COI_INTELLIGENCE.md | Visao geral da arquitetura do Intelligence Engine |
+| docs/AGENTE_COI_ANALISTA.md     | Documentacao do COI Analista                     |
+| docs/AGENTE_CURADOR_DEMANDAS_PROJETOS.md | Documentacao do COI Curador              |
+| docs/API_AUDITOR.md             | Documentacao do COI Auditor (se existir)         |
+| docs/ESTADO_ATUAL_DO_PROJETO.md | Tabela historica de fases                        |
+| docs/MEMORIA_OPERACIONAL_PROJETO.md | Registro operacional detalhado               |
 
 ---
 
-## Infraestrutura (COI Runtime -- Fase R1)
+## Infraestrutura (COI Runtime -- Fases R1/R2/R3)
 
 | Arquivo              | Finalidade                                        |
 |----------------------|---------------------------------------------------|
-| .claude/RUNTIME.md   | Estado operacional (30 linhas, carregado auto)    |
+| .claude/RUNTIME.md   | Estado operacional (carregado auto, ~50 linhas)   |
 | STATUS.md            | Tabelas detalhadas de estado e pendencias         |
 | INDEX.md             | Este arquivo -- mapa completo de documentos       |
 | registry/            | 9 registros JSON -- fonte primaria de consulta    |
+| commands/            | CCL -- 4 docs + 1 JSON de definicao               |

@@ -559,3 +559,56 @@ Segundo módulo do COI Intelligence Engine. Consome a saída JSON do COI Curador
 - Criticidade: `Baixa` / `Media` / `Alta` / `Critica`
 
 **Exit codes:** 0 = saudável / 1 = criticidade Alta ou Crítica
+
+
+## 19. COI Command Language -- CCL (Fase R3)
+
+CCL e o padrao oficial de instrucao para todas as sessoes do projeto COI.
+Toda tarefa tecnica com entregavel deve ser expressa como comando CCL antes da execucao.
+
+### Sintaxe
+
+```
+COI <VERBO> [ALVO] [--modo FAST|SAFE|CRITICAL] [--escopo ESCOPO]
+```
+
+### 12 Verbos Oficiais
+
+| ID      | Verbo       | Alias | Modo Default | Pipeline de Skills Principal                    |
+|---------|-------------|-------|--------------|-------------------------------------------------|
+| CCL-01  | EXEC        | X     | FAST         | MESTRE->MEMORIA->FORENSE->ARQUITETO->LEARNINGS->EXECUTOR |
+| CCL-02  | UPDATE      | U     | FAST         | MESTRE->MEMORIA->EXECUTOR                       |
+| CCL-03  | QA          | Q     | FAST         | TESTES->AUDITOR->QA                             |
+| CCL-04  | REVIEW      | RV    | SAFE         | MESTRE->FORENSE->AUDITOR                        |
+| CCL-05  | DOC         | D     | FAST         | GOVERNANCA                                      |
+| CCL-06  | REL         | RL    | FAST         | GOVERNANCA->RELEASE-MANAGER                     |
+| CCL-07  | STATUS      | ST    | FAST         | MEMORIA (leitura apenas)                        |
+| CCL-08  | RUNTIME     | RT    | FAST         | GOVERNANCA                                      |
+| CCL-09  | REGISTRY    | RG    | FAST         | EXECUTOR (apenas registry/*.json)               |
+| CCL-10  | TEST        | T     | FAST         | TESTES->QA                                      |
+| CCL-11  | RELEASE     | RS    | SAFE         | AUDITOR->QA->GOVERNANCA->RELEASE-MANAGER        |
+| CCL-12  | COMMIT PREP | CP    | FAST         | AUDITOR (lista; sem git add)                    |
+
+### Modos de Execucao
+
+| Modo     | Comportamento                                                             |
+|----------|---------------------------------------------------------------------------|
+| FAST     | Default. Execucao autonoma sem pausas. Usar para docs e arquivos novos.   |
+| SAFE     | Pausa antes de cada arquivo modificado. Usar para JS/HTML/CSS.            |
+| CRITICAL | Pausa + sinaliza ChatGPT review. Obrigatorio para dados/projetos.js.      |
+
+### Regras
+
+1. O prefixo `COI` e obrigatorio em toda instrucao CCL.
+2. `--modo FAST` e implicito quando nenhum modo for especificado.
+3. CCL nao substitui as proibicoes de CLAUDE.md; apenas organiza o fluxo.
+4. COMMIT PREP nao executa git add -- entrega apenas a lista formatada.
+5. UPDATE dados requer `--modo CRITICAL` automaticamente (elevacao de modo).
+
+### Arquivos de referencia
+
+- Gramatica completa: `commands/grammar.md`
+- Mapeamento verbo->skills: `commands/parser.md`
+- Definicao dos 12 comandos: `commands/commands.json`
+- Aliases: `commands/aliases.json`
+- Exemplos reais: `commands/examples.md`
