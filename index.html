@@ -198,8 +198,8 @@ if (typeof Chart === 'undefined') {
   <div class="section-title">Indicadores Analíticos</div>
   <div id="op-analiticos"></div>
 
-  <!-- EXECUÇÃO MENSAL E PLANO DE EXCELÊNCIA -->
-  <div class="section-title" id="em-section-title">Execução Mensal e Plano de Excelência</div>
+  <!-- EXECUÇÃO MENSAL E PRÓXIMAS ENTREGAS ESTRATÉGICAS -->
+  <div class="section-title" id="em-section-title">Execução Mensal e Próximas Entregas Estratégicas</div>
   <div class="em-section" id="em-section">
     <div id="em-controls"></div>
     <div id="em-content"></div>
@@ -341,7 +341,7 @@ ps.forEach(p => {
   tbody.appendChild(tr);
 });
 
-// ─── Execução Mensal e Plano de Excelência ───────────────────────────
+// ─── Execução Mensal e Próximas Entregas Estratégicas ────────────────
 // Fase 4A.1: seletor de competência com fallback para execucaoMensal
 function buildExecucaoMensal() {
   var emControls = document.getElementById('em-controls');
@@ -496,13 +496,13 @@ function renderEmConteudo(container, emData) {
   }
   tGrid.appendChild(cEnt);
 
-  // — Plano de Excelência —
+  // — Próximas Entregas Estratégicas —
   var peItems = Array.isArray(emData.planoExcelencia)
     ? emData.planoExcelencia.filter(function(p){ return p.acao; }) : [];
   var cPE = document.createElement('div');
   cPE.className = 'em-table-card';
   var h3PE = document.createElement('h3');
-  h3PE.appendChild(document.createTextNode('⭐ Plano de Excelência '));
+  h3PE.appendChild(document.createTextNode('🎯 Próximas Entregas Estratégicas '));
   var cntPE = document.createElement('span');
   cntPE.className = 'em-count-badge';
   cntPE.textContent = peItems.length;
