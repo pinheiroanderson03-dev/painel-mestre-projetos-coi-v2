@@ -100,27 +100,27 @@ const COI_DATA = {
       {
         competencia: "Junho/2026",
         rotulo: "Junho/2026",
-        resumo: "Em Junho/2026, o COI avançou na frente de contratos com a renovação da licença AIOps (Chamado 518190 concluído em 13/06/2026), evolução do Sistema OuvSUAS MDS para fase de publicação no CITSmartX, ajuste da pesquisa de satisfação do WhatsApp Oficial e reunião de transbordo URA → WhatsApp realizada em 04/06/2026. O Painel Mestre COI avançou como iniciativa estratégica de gestão com melhorias na organização das informações, padronização da governança e ferramentas de análise da qualidade dos dados do portfólio. O portfólio manteve 7 projetos em andamento com pendência crítica na definição da janela de produção do WhatsApp.",
-        totalAtividades: 8,
-        totalDemandas: 2,
-        totalMelhorias: 3,
+        resumo: "Em Junho/2026, o COI registrou avanços em múltiplas frentes de projeto. Na frente WhatsApp/AURA, foram realizadas comparação técnica entre plataformas, evolução da migração operacional, ajustes no Facebook Business Manager, atualização da identidade visual dos canais e recarga de créditos Gupshup (Ticket 518941). A licença AIOps foi renovada (Chamado 518190 — 13/06/2026), o Ponto de Controle do Contrato 156 foi realizado e a publicação do OuvSUAS no CITSmartX MDS foi iniciada em 15/06/2026. No Portal do Cidadão GDF, foram realizadas atividades de organização da automação e preparação da arquitetura para Manus AI. O ChatBot MDS avançou na validação técnica. Registrado incidente operacional de lentidão no CITSmart entre 08h e 10h (Chamados 517681, 517842 e 518394 em acompanhamento, sem causa raiz confirmada no período). O portfólio manteve 7 projetos em andamento, com pendência crítica na definição da janela de produção do WhatsApp Oficial.",
+        totalAtividades: 10,
+        totalDemandas: 4,
+        totalMelhorias: 5,
         pendenciasCriticas: 2,
         principaisGanhos: [
-          "Renovação da licença AIOps concluída em 13/06/2026 — Chamado 518190 atendido, monitoramento AURA garantido",
-          "Pesquisa de satisfação da Migração WhatsApp para AURA ajustada em 03/06/2026",
-          "Reunião de ajuste do transbordo URA → WhatsApp realizada em 04/06/2026",
-          "MDS OuvSUAS: publicação no CITSmartX MDS iniciada em 15/06/2026; documentação técnica em preparação",
-          "Análise de viabilidade econômica e financeira do OuvSUAS iniciada em 26/06/2026",
-          "Painel Mestre COI: melhoria contínua das ferramentas de análise e acompanhamento do portfólio",
-          "Painel Mestre COI: validação da consistência e integridade das informações do portfólio",
-          "Painel Mestre COI: análise de conformidade e indicadores de saúde do portfólio de projetos"
+          "Renovação da licença AIOps concluída em 13/06/2026 — Chamado 518190 atendido, monitoramento contínuo do ambiente AURA garantido",
+          "Plataforma AURA: comparação técnica com Tactium realizada, migração operacional do WhatsApp para AURA em andamento e Portal de Atendimento Humano com melhorias priorizadas (Origem: Microsoft Teams)",
+          "WhatsApp Oficial / Gupshup: recarga de créditos concluída (Ticket 518941), permissões do Facebook Business Manager ajustadas, identidade visual dos canais atualizada e pesquisa de satisfação ajustada em 03/06/2026 (Origem: Microsoft Teams)",
+          "Reunião de ajuste do transbordo URA → WhatsApp realizada em 04/06/2026; correção da geração de protocolos de campanhas no CITSmart concluída (Origem: Microsoft Teams)",
+          "Ponto de Controle do Contrato 156 realizado (Origem: Reunião)",
+          "MDS OuvSUAS: publicação no CITSmartX MDS iniciada em 15/06/2026; análise de viabilidade econômica e financeira iniciada em 26/06/2026; documentação técnica em preparação",
+          "ChatBot MDS: validação técnica em andamento, certificado HTTPS em análise e homologação em continuidade",
+          "Portal do Cidadão GDF — evolução da automação inteligente, fortalecimento da governança do processo de testes, organização da documentação técnica e ampliação da rastreabilidade das validações utilizando Manus AI.",
+          "Painel Mestre COI — evolução da iniciativa estratégica de gestão do contrato, consolidando o acompanhamento dos projetos, a organização das informações executivas e o fortalecimento da governança operacional."
         ],
         proximasEntregas: [
           { data: "2026-07-31", entrega: "Definição e execução da janela de virada WhatsApp para produção", projeto: "WhatsApp Oficial / Gupshup", responsavel: "COI / Gupshup", status: "Atenção" },
           { data: "2026-07-31", entrega: "Publicação do formulário OuvSUAS no ambiente CITSmartX MDS", projeto: "MDS — Sistema de Ouvidoria", responsavel: "COI / MDS", status: "Em andamento" },
           { data: "2026-08-15", entrega: "Documentação técnica e análise de viabilidade OuvSUAS concluídas", projeto: "MDS — Sistema de Ouvidoria", responsavel: "COI", status: "Pendente" },
-          { data: "", entrega: "Alinhamento de escopo e fornecedor IA/NLU para COI-004", projeto: "IA para Telefonia e NLU", responsavel: "COI", status: "Crítico" },
-          { data: "", entrega: "COI Daily — Relatório diário automatizado (Fase 6.4 do Painel)", projeto: "Painel Mestre COI", responsavel: "PMO Digital COI", status: "Planejado" }
+          { data: "", entrega: "Alinhamento de escopo e fornecedor de solução IA para Telefonia e NLU", projeto: "IA para Telefonia e NLU", responsavel: "COI", status: "Crítico" },
         ],
         planoExcelencia: [
           { acao: "Definir janela de virada WhatsApp para produção com Gupshup e Meta", responsavel: "COI / Gupshup", prazo: "2026-07-31", status: "Em andamento", evidencia: "" },
@@ -130,7 +130,10 @@ const COI_DATA = {
         alertasExecutivos: [
           { tipo: "CRÍTICO", descricao: "IA para Telefonia (COI-004) — semáforo vermelho. Fornecedor NLU sem escopo definido. Risco de atraso contratual." },
           { tipo: "ATENÇÃO", descricao: "WhatsApp Oficial (COI-006) — janela de produção ainda não definida. Risco de impacto contratual com GDF." },
-          { tipo: "ATENÇÃO", descricao: "MDS OuvSUAS (COI-013) — publicação CITSmartX depende de aprovação interna MDS. Monitorar cronograma." }
+          { tipo: "ATENÇÃO", descricao: "MDS OuvSUAS (COI-013) — publicação CITSmartX depende de aprovação interna MDS. Monitorar cronograma." },
+          { tipo: "INCIDENTE OPERACIONAL", descricao: "CITSmart — lentidão recorrente identificada no período entre 08h e 10h. Chamados relacionados: 517681, 517842 e 518394. Situação: incidente acompanhado pela equipe técnica. Sem causa raiz confirmada durante o período." },
+          { tipo: "ATENÇÃO", descricao: "Infraestrutura da Filial — aquisição de fibras ópticas e Mini-GBICs aguardando confirmação documental." },
+          { tipo: "OBSERVAÇÃO", descricao: "Segurança — identificada exposição de credencial institucional em canal de comunicação. Recomendado reforço das práticas de segurança da informação." }
         ]
       },
       {
@@ -191,7 +194,7 @@ const COI_DATA = {
       beneficio: "Aumento da eficiência operacional no envio de comunicações massivas e rastreabilidade das campanhas.",
       impactoContratual: "Sim",
       fonteInformacao: "Painel COI / Reuniões operacionais",
-      observacoesExecutivas: "Campanha Ativa de Resgate Qualifica DF concluída em Maio/2026 com relatório enviado (14 a 18/05). Sistema AURA em operação com campanhas ativas. Migração WhatsApp para AURA em fase final de homologação — pesquisa de satisfação ajustada em 03/06/2026. Janela de virada para produção sendo definida com equipe Gupshup. Progresso atual em 35% aguardando integração completa com canal WhatsApp oficial.",
+      observacoesExecutivas: "Campanha Ativa de Resgate Qualifica DF concluída em Maio/2026 com relatório enviado (14 a 18/05). Sistema AURA em operação com campanhas ativas. Migração WhatsApp para AURA em fase final de homologação — pesquisa de satisfação ajustada em 03/06/2026. Em Junho: realizada comparação técnica entre módulo Chat Humano AURA e plataforma Tactium, correção da geração de protocolos de campanhas WhatsApp no CITSmart concluída e avanço nas discussões técnicas de migração da operação WhatsApp para a plataforma AURA (Origem: Microsoft Teams). Janela de virada para produção sendo definida com equipe Gupshup. Progresso atual em 35% aguardando integração completa com canal WhatsApp oficial.",
       atualizadoEm: "2026-07-13",
       frente: "CENTRAL DF",
       contrato: "Central DF",
@@ -205,7 +208,7 @@ const COI_DATA = {
       riscosCriticos: 1,
       decisoesPendentes: 1,
       proximosPasso: "Definir janela de virada para produção da Migração WhatsApp para AURA com Gupshup e Meta.",
-      evolucaoJunhoJulho: "Junho: homologação WhatsApp validada, pesquisa de satisfação ajustada. Julho: aguardando definição da janela de produção."
+      evolucaoJunhoJulho: "Junho: homologação WhatsApp validada, pesquisa de satisfação ajustada (03/06), comparação técnica AURA vs Tactium realizada, correção de protocolos de campanhas no CITSmart concluída, discussões técnicas de migração em andamento (Origem: Microsoft Teams). Julho: aguardando definição da janela de produção."
     },
     {
       id: "COI-002",
@@ -226,7 +229,7 @@ const COI_DATA = {
       beneficio: "Melhora na gestão urbana e transparência de dados de calçadas para o cidadão e gestores.",
       impactoContratual: "Não",
       fonteInformacao: "Painel COI / Reuniões operacionais",
-      observacoesExecutivas: "Projeto iniciado em Maio/2026 com levantamento funcional e estruturação do dashboard de calçadas. Em Junho, desenvolvimento do painel em andamento com foco na integração de dados geoespaciais. Em Julho, evolução das visualizações para gestores com indicadores de cobertura e manutenção. Progresso em 40% conforme cronograma.",
+      observacoesExecutivas: "Projeto iniciado em Maio/2026 com levantamento funcional e estruturação do dashboard de calçadas. Em Junho: organização da automação do Portal do Cidadão, estruturação do processo de testes automatizados, evolução da documentação técnica, preparação da arquitetura para automação inteligente com Manus AI, padronização dos processos de validação, organização da geração automática de evidências e organização da governança técnica do projeto. Em Julho, evolução das visualizações para gestores com indicadores de cobertura e manutenção. Progresso em 40% conforme cronograma.",
       atualizadoEm: "2026-07-13",
       frente: "CENTRAL DF",
       contrato: "Central DF",
@@ -240,7 +243,7 @@ const COI_DATA = {
       riscosCriticos: 0,
       decisoesPendentes: 1,
       proximosPasso: "Integrar dados geoespaciais ao dashboard e validar visualizações com equipe GDF.",
-      evolucaoJunhoJulho: "Junho: desenvolvimento do dashboard em andamento. Julho: evolução das visualizações e integração de dados."
+      evolucaoJunhoJulho: "Junho: organização da automação do portal, estruturação de testes automatizados, documentação técnica evoluída, arquitetura para Manus AI preparada, padronização dos processos de validação e governança técnica organizada. Julho: evolução das visualizações e integração de dados."
     },
     {
       id: "COI-003",
@@ -366,7 +369,7 @@ const COI_DATA = {
       beneficio: "Canal oficial de comunicação digital de alta abrangência com o cidadão, reduzindo custos e aumentando alcance.",
       impactoContratual: "Sim",
       fonteInformacao: "Painel COI / Reuniões operacionais",
-      observacoesExecutivas: "Homologação concluída com testes funcionais e ambiente validados em Maio/2026. Pesquisa de satisfação ajustada em 03/06/2026. Reunião de transbordo URA → WhatsApp realizada em 04/06/2026. Janela de virada para produção ainda não definida — ponto de atenção com impacto contratual. Progresso em 75% aguardando go-live em produção.",
+      observacoesExecutivas: "Homologação concluída com testes funcionais e ambiente validados em Maio/2026. Pesquisa de satisfação ajustada em 03/06/2026. Reunião de transbordo URA → WhatsApp realizada em 04/06/2026. Em Junho: recarga de créditos Gupshup concluída (Ticket 518941), ajustes de permissões no Facebook Business Manager executados, atualização da identidade visual institucional dos canais WhatsApp Oficial em andamento e priorização de melhorias do Portal de Atendimento Humano realizada (Origem: Microsoft Teams). Janela de virada para produção ainda não definida — ponto de atenção com impacto contratual. Progresso em 75% aguardando go-live em produção.",
       atualizadoEm: "2026-07-13",
       frente: "CENTRAL DF",
       contrato: "Central DF",
@@ -376,11 +379,11 @@ const COI_DATA = {
       planoExcelencia: true,
       beneficioEsperado: "Canal WhatsApp oficial ativo para comunicação em massa com cidadãos via AURA/Gupshup.",
       beneficioRealizado: "Homologação concluída. Ambiente de produção preparado. Pesquisa de satisfação ajustada.",
-      evidencia: "Testes funcionais Maio/2026 — Pesquisa satisfação 03/06/2026 — Reunião URA 04/06/2026",
+      evidencia: "Testes funcionais Maio/2026 — Pesquisa satisfação 03/06/2026 — Reunião URA 04/06/2026 — Ticket 518941 (recarga Gupshup Junho/2026)",
       riscosCriticos: 1,
       decisoesPendentes: 1,
       proximosPasso: "Definir e executar janela de virada para produção com Gupshup, Meta e equipe GDF.",
-      evolucaoJunhoJulho: "Junho: pesquisa satisfação ajustada (03/06), transbordo alinhado (04/06). Julho: janela produção pendente — risco contratual."
+      evolucaoJunhoJulho: "Junho: pesquisa satisfação ajustada (03/06), transbordo alinhado (04/06), recarga Gupshup concluída (Ticket 518941), permissões Facebook Business Manager ajustadas, identidade visual WhatsApp em atualização, melhorias Portal Atendimento Humano priorizadas (Origem: Microsoft Teams). Julho: janela produção pendente — risco contratual."
     },
     {
       id: "COI-007",
