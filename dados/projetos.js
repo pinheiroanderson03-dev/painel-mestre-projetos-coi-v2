@@ -33,17 +33,17 @@ const COI_DATA = {
 
     execucaoMensal: {
       competencia: "Julho/2026",
-      resumo: "Em Julho/2026, o COI avança na consolidação do COI OS com a implementação do Runtime, Registry, Command Language e Session Template do Painel Mestre. Na frente de contratos, o WhatsApp Oficial aguarda definição da janela de produção, o Sistema OuvSUAS MDS evolui para publicação no CITSmartX e o monitoramento AIOps opera em regime contínuo pós-renovação de licença. O portfólio conta com 7 projetos em andamento, 4 concluídos e 2 em planejamento/homologação.",
+      resumo: "Durante o mês foi dada continuidade à evolução do Painel Mestre COI como iniciativa estratégica de gestão, com melhorias na organização das informações, padronização da governança e consolidação do acompanhamento dos projetos do contrato. Na frente de contratos, o WhatsApp Oficial aguarda definição da janela de produção, o Sistema OuvSUAS MDS evolui para publicação no CITSmartX e o monitoramento AIOps opera em regime contínuo pós-renovação de licença. O portfólio conta com 7 projetos em andamento, 4 concluídos e 2 em planejamento/homologação.",
       totalAtividades: 7,
       totalDemandas: 3,
       totalMelhorias: 4,
       pendenciasCriticas: 2,
       principaisGanhos: [
-        "COI OS — Runtime v1.7.1 implementado: arquivo .claude/RUNTIME.md reduz contexto de sessão em 88%",
-        "COI OS — Registry completo: 9 arquivos JSON como fonte primária de consulta operacional",
-        "COI OS — COI Command Language (CCL) v1.0 com 12 verbos e 3 modos (FAST/SAFE/CRITICAL)",
-        "COI OS — Session Template institucionalizado em 3 cópias sincronizadas",
-        "Intelligence Engine: COI Analista, Curador e Auditor em produção com suite de 293 testes PASS",
+        "Painel Mestre COI: organização e padronização das informações de gestão do contrato",
+        "Painel Mestre COI: consolidação da governança e rastreabilidade dos projetos e demandas",
+        "Painel Mestre COI: padronização dos processos de atualização e acompanhamento executivo",
+        "Painel Mestre COI: estruturação da documentação de suporte à gestão do contrato",
+        "Painel Mestre COI: melhoria das ferramentas de análise e validação da qualidade das informações",
         "Monitoramento AIOps em regime contínuo com licença renovada (Chamado 518190 — 13/06/2026)",
         "MDS OuvSUAS: evolução para publicação no CITSmartX MDS em andamento"
       ],
@@ -58,7 +58,6 @@ const COI_DATA = {
         { acao: "Definir janela de virada WhatsApp para produção com Gupshup e Meta", responsavel: "COI / Gupshup", prazo: "2026-07-31", status: "Em andamento", evidencia: "" },
         { acao: "Concluir publicação OuvSUAS no CITSmartX MDS", responsavel: "COI / MDS", prazo: "2026-07-31", status: "Em andamento", evidencia: "" },
         { acao: "Alinhar fornecedor IA/NLU para evolução projeto COI-004", responsavel: "COI", prazo: "2026-07-31", status: "Pendente", evidencia: "" },
-        { acao: "Executar commit acumulado fases 5B.4 a R4 no repositório Git", responsavel: "Anderson / COI", prazo: "2026-07-13", status: "Pendente", evidencia: "" }
       ],
       alertasExecutivos: [
         { tipo: "CRÍTICO", descricao: "IA para Telefonia (COI-004) com semáforo vermelho — fornecedor NLU sem definição de escopo" },
@@ -101,7 +100,7 @@ const COI_DATA = {
       {
         competencia: "Junho/2026",
         rotulo: "Junho/2026",
-        resumo: "Em Junho/2026, o COI avançou na frente de contratos com a renovação da licença AIOps (Chamado 518190 concluído em 13/06/2026), evolução do Sistema OuvSUAS MDS para fase de publicação no CITSmartX, ajuste da pesquisa de satisfação do WhatsApp Oficial e reunião de transbordo URA → WhatsApp realizada em 04/06/2026. O Painel Mestre COI evoluiu com a implementação das fases 5B.4 a 6.3 do Intelligence Engine (COI Analista, Curador e Auditor), com suite de 293 testes automatizados. O portfólio manteve 7 projetos em andamento com pendência crítica na definição da janela de produção do WhatsApp.",
+        resumo: "Em Junho/2026, o COI avançou na frente de contratos com a renovação da licença AIOps (Chamado 518190 concluído em 13/06/2026), evolução do Sistema OuvSUAS MDS para fase de publicação no CITSmartX, ajuste da pesquisa de satisfação do WhatsApp Oficial e reunião de transbordo URA → WhatsApp realizada em 04/06/2026. O Painel Mestre COI avançou como iniciativa estratégica de gestão com melhorias na organização das informações, padronização da governança e ferramentas de análise da qualidade dos dados do portfólio. O portfólio manteve 7 projetos em andamento com pendência crítica na definição da janela de produção do WhatsApp.",
         totalAtividades: 8,
         totalDemandas: 2,
         totalMelhorias: 3,
@@ -112,9 +111,9 @@ const COI_DATA = {
           "Reunião de ajuste do transbordo URA → WhatsApp realizada em 04/06/2026",
           "MDS OuvSUAS: publicação no CITSmartX MDS iniciada em 15/06/2026; documentação técnica em preparação",
           "Análise de viabilidade econômica e financeira do OuvSUAS iniciada em 26/06/2026",
-          "Painel Mestre COI — Intelligence Engine: COI Analista (Fase 6.1) e COI Curador (Fase 6.2) implementados",
-          "Suite de validação automatizada: 293 testes PASS / 0 FAIL em 13 seções",
-          "Evolução do COI Auditor Inteligente (Fase 6.3) com análise de conformidade e saúde do portfólio"
+          "Painel Mestre COI: melhoria contínua das ferramentas de análise e acompanhamento do portfólio",
+          "Painel Mestre COI: validação da consistência e integridade das informações do portfólio",
+          "Painel Mestre COI: análise de conformidade e indicadores de saúde do portfólio de projetos"
         ],
         proximasEntregas: [
           { data: "2026-07-31", entrega: "Definição e execução da janela de virada WhatsApp para produção", projeto: "WhatsApp Oficial / Gupshup", responsavel: "COI / Gupshup", status: "Atenção" },
@@ -137,19 +136,19 @@ const COI_DATA = {
       {
         competencia: "Julho/2026",
         rotulo: "Julho/2026",
-        resumo: "Em Julho/2026 (até 13/07), o COI avança na consolidação do COI OS — plataforma de operação do Painel Mestre — com entregas das fases Runtime (R1.1), Registry (R2), Command Language CCL (R3) e Session Template (R4). Na frente de contratos, o WhatsApp Oficial aguarda definição da janela de produção, o Sistema OuvSUAS MDS evolui para publicação no CITSmartX e o monitoramento AIOps opera em regime contínuo. O portfólio conta com 7 projetos em andamento, 4 concluídos e 2 em planejamento/homologação.",
+        resumo: "Durante o mês foi dada continuidade à evolução do Painel Mestre COI como iniciativa estratégica de gestão, com melhorias na organização das informações, padronização da governança e consolidação do acompanhamento dos projetos do contrato. Na frente de contratos, o WhatsApp Oficial aguarda definição da janela de produção, o Sistema OuvSUAS MDS evolui para publicação no CITSmartX e o monitoramento AIOps opera em regime contínuo. O portfólio conta com 7 projetos em andamento, 4 concluídos e 2 em planejamento/homologação.",
         totalAtividades: 7,
         totalDemandas: 3,
         totalMelhorias: 4,
         pendenciasCriticas: 2,
         principaisGanhos: [
-          "COI OS — Runtime v1.7.1: arquivo .claude/RUNTIME.md reduz contexto de sessão em 88% (Fase R1.1)",
-          "COI OS — Registry completo: 9 registros JSON como fonte primária de consulta operacional (Fase R2)",
-          "COI OS — COI Command Language (CCL) v1.0: 12 verbos oficiais, 3 modos de execução (Fase R3)",
-          "COI OS — Session Template: documento oficial de inicialização de sessões em 3 cópias sincronizadas (Fase R4)",
+          "Painel Mestre COI: organização e padronização das informações de gestão do contrato",
+          "Painel Mestre COI: consolidação da governança e rastreabilidade dos projetos e demandas",
+          "Painel Mestre COI: padronização dos processos de atualização e acompanhamento executivo",
+          "Painel Mestre COI: estruturação da documentação de suporte à gestão do contrato",
           "Monitoramento AIOps em regime contínuo pós-renovação de licença (Chamado 518190)",
           "MDS OuvSUAS: publicação no CITSmartX MDS em andamento; documentação técnica em preparação",
-          "Suite de validação do Painel: 293 testes PASS / 0 FAIL em 13 seções"
+          "Painel Mestre COI: validação da consistência e integridade das informações do portfólio"
         ],
         proximasEntregas: [
           { data: "2026-07-31", entrega: "Definição e execução da janela de virada WhatsApp para produção", projeto: "WhatsApp Oficial / Gupshup", responsavel: "COI / Gupshup", status: "Atenção" },
@@ -162,8 +161,7 @@ const COI_DATA = {
           { acao: "Definir janela de virada WhatsApp para produção com Gupshup e Meta", responsavel: "COI / Gupshup", prazo: "2026-07-31", status: "Em andamento", evidencia: "" },
           { acao: "Concluir publicação OuvSUAS no CITSmartX MDS", responsavel: "COI / MDS", prazo: "2026-07-31", status: "Em andamento", evidencia: "" },
           { acao: "Alinhar fornecedor IA/NLU para evolução do COI-004", responsavel: "COI", prazo: "2026-07-31", status: "Pendente", evidencia: "" },
-          { acao: "Executar commit acumulado fases 5B.4 a R4 no repositório Git", responsavel: "Anderson / COI", prazo: "2026-07-13", status: "Pendente", evidencia: "" }
-        ],
+          ],
         alertasExecutivos: [
           { tipo: "CRÍTICO", descricao: "IA para Telefonia (COI-004) com semáforo vermelho — fornecedor NLU sem definição de escopo" },
           { tipo: "ATENÇÃO", descricao: "WhatsApp Oficial (COI-006) — janela de produção pendente de definição; risco de impacto contratual" },
@@ -434,11 +432,11 @@ const COI_DATA = {
       orgao: "Central IT",
       dataInicio: "2026-05-01",
       prazoPrevisto: "2026-12-31",
-      dependencias: "Node.js, Python3, GitHub Pages, Claude AI",
+      dependencias: "GitHub Pages, ferramentas de gestão e acompanhamento de projetos",
       beneficio: "Automação de tarefas repetitivas, liberação de equipe para atividades estratégicas e ganho de eficiência.",
       impactoContratual: "Não",
-      fonteInformacao: "Painel COI / COI OS",
-      observacoesExecutivas: "Inclui o desenvolvimento do Painel Mestre COI com Intelligence Engine — COI Analista (Fase 6.1), COI Curador (Fase 6.2) e COI Auditor (Fase 6.3) em produção. Em Julho: COI OS fases R1.1 (Runtime), R2 (Registry), R3 (Command Language) e R4 (Session Template) implementadas. Suite de 293 testes automatizados com 0 falhas.",
+      fonteInformacao: "Painel Mestre COI",
+      observacoesExecutivas: "O Painel Mestre COI é uma iniciativa estratégica de gestão voltada à consolidação dos projetos, demandas, indicadores, riscos, entregas e informações executivas do COI. A iniciativa fortalece a governança, a rastreabilidade das informações, a padronização dos processos de acompanhamento e a elaboração de relatórios para apoio à tomada de decisão.",
       atualizadoEm: "2026-07-13",
       frente: "COI",
       contrato: "COI",
@@ -446,13 +444,13 @@ const COI_DATA = {
       competencia: "Julho/2026",
       tipoItem: "Projeto",
       planoExcelencia: false,
-      beneficioEsperado: "Painel Mestre COI com IA integrada, Runtime operacional e automação de relatórios e auditorias.",
-      beneficioRealizado: "Intelligence Engine (Analista + Curador + Auditor) em produção. COI OS (Runtime + Registry + CCL + Session Template) implementados. 293 testes PASS.",
-      evidencia: "Painel Mestre COI v1.9.0 — GitHub Pages — Fases 6.1 a R4 concluídas",
+      beneficioEsperado: "Painel Mestre COI consolidado como plataforma de gestão executiva do contrato, com governança, rastreabilidade e relatórios estruturados para apoio à tomada de decisão.",
+      beneficioRealizado: "Painel Mestre COI em operação com governança estruturada, processos de acompanhamento padronizados e informações executivas consolidadas.",
+      evidencia: "Painel Mestre COI — GitHub Pages — iniciativa em operação contínua com melhorias incrementais",
       riscosCriticos: 0,
       decisoesPendentes: 1,
-      proximosPasso: "Implementar COI Daily (Fase 6.4) — relatório diário automatizado do portfólio.",
-      evolucaoJunhoJulho: "Junho: Fases 6.1 a 6.3 (Intelligence Engine). Julho: Fases R1.1 a R4 (COI OS) — v1.9.0."
+      proximosPasso: "Evoluir o Painel Mestre COI com relatório diário automatizado do portfólio de projetos.",
+      evolucaoJunhoJulho: "Junho/Julho 2026: melhoria das ferramentas de análise, padronização da governança e consolidação do acompanhamento executivo do portfólio."
     },
 
     // ================================================================
