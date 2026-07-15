@@ -200,19 +200,25 @@
     </div>
   </div>
 
-  <!-- ABA CRONOGRAMA -->
+  <!-- ABA CRONOGRAMA — Timeline Executiva Inteligente (EPIC 4 / Sprint 7.2) -->
+  <!-- Sprint 7.2: aba antes vazia ("Marcos serão inseridos via base Excel", sem
+       fonte de dados real) transformada em feed cronológico consolidado, reunindo
+       prazos de projetos, Próximas Entregas, Próximas Entregas Estratégicas,
+       marcos de ficha e riscos Alto/Crítico — sem criar nenhum campo novo. -->
   <div class="tab-content" id="tab-cronograma">
     <div class="filters">
-      <input class="filter-input" placeholder="🔍 Buscar marco...">
-      <button class="btn-add">+ Novo Marco</button>
+      <input class="filter-input" id="tl-busca" placeholder="🔍 Buscar por projeto, responsável ou palavra-chave..." oninput="renderTimeline()" style="flex:1;min-width:220px;">
+      <select class="filter-input" id="tl-filtro" onchange="renderTimeline()">
+        <option value="todos">Todos</option>
+        <option value="projetos">Projetos</option>
+        <option value="demandas">Demandas</option>
+        <option value="concluidos">Concluídos</option>
+        <option value="andamento">Em andamento</option>
+        <option value="criticos">Críticos</option>
+        <option value="30dias">Últimos 30 dias</option>
+      </select>
     </div>
-    <div class="table-wrap">
-      <table><thead><tr>
-        <th>ID</th><th>Projeto</th><th>Marco / Entrega</th><th>Responsável</th>
-        <th>Data Prevista</th><th>Data Real</th><th>Status</th><th>% Conc.</th>
-      </tr></thead>
-      <tbody><tr><td colspan="8"><div class="empty-state"><span class="icon">📅</span>Marcos serão inseridos via base Excel (aba Cronograma).</div></td></tr></tbody></table>
-    </div>
+    <div id="tl-container"></div>
   </div>
 
   <!-- ABA PENDÊNCIAS -->
@@ -767,6 +773,268 @@ function renderRiscos() {
   });
 }
 renderRiscos();
+
+// ─── Timeline Executiva Inteligente (EPIC 4 / Sprint 7.2) ─────────────
+// Consolida, em um único feed cronológico, eventos hoje espalhados em fontes
+// distintas: prazos de projetos/demandas, Próximas Entregas e Próximas
+// Entregas Estratégicas (dados/projetos.js meta.execucoesMensais), marcos por
+// projeto (coiCarregarSecaoFicha(id,'passos')) e riscos Alto/Crítico
+// (reaproveita nivelRisco(), já definida acima). Nenhum campo novo foi criado
+// e nenhuma data foi inventada — quando um vínculo projeto/prioridade/
+// progresso não pode ser determinado com confiança, o campo aparece como '—'.
+
+// Heurística leve de vínculo projeto <-> texto livre. proximasEntregas e
+// planoExcelencia referenciam o projeto por texto, não por ID — por isso a
+// correspondência é best-effort (procura nome/ID do projeto dentro do texto).
+function tlMatchProjeto(texto) {
+  if (!texto) return null;
+  var alvo = texto.toLowerCase();
+  return psProj.find(function(p) {
+    return alvo.indexOf(p.nome.toLowerCase()) !== -1 || alvo.indexOf(p.id.toLowerCase()) !== -1;
+  }) || null;
+}
+
+function tlRiscosAltoCritico() {
+  var riscos = (typeof coiCarregarSecaoFicha === 'function') ? coiCarregarSecaoFicha('PORTFOLIO', 'riscos') : [];
+  return riscos.filter(function(r) {
+    var nivel = nivelRisco(r.prob, r.imp).txt;
+    return nivel === 'Alto' || nivel === 'Crítico';
+  });
+}
+
+function tlBuildEventos() {
+  var eventos = [];
+  var emAtual = (COI_DATA.meta && Array.isArray(COI_DATA.meta.execucoesMensais) && COI_DATA.meta.execucoesMensais.length > 0)
+    ? COI_DATA.meta.execucoesMensais[COI_DATA.meta.execucoesMensais.length - 1]
+    : ((COI_DATA.meta && COI_DATA.meta.execucaoMensal) ? COI_DATA.meta.execucaoMensal : {});
+
+  // 1) Marcos de prazo — todos os itens não concluídos (projetos e demandas)
+  COI_DATA.projetos.forEach(function(p) {
+    if (p.status === 'Concluído') return;
+    eventos.push({
+      grupo: (p.tipoItem && p.tipoItem !== 'Projeto') ? 'demanda' : 'projeto',
+      icone: '🚀', tipoLabel: 'Marco de Projeto',
+      titulo: p.nome, projeto: p.nome, data: p.prazoPrevisto || p.prazoResolucao || '',
+      status: p.status, responsavel: p.responsavel || '—',
+      prioridade: p.prioridade || '—', progresso: p.percentual
+    });
+  });
+
+  // 2) Concluídos
+  COI_DATA.projetos.forEach(function(p) {
+    if (p.status !== 'Concluído') return;
+    eventos.push({
+      grupo: 'concluido', icone: '✔', tipoLabel: 'Concluído',
+      titulo: p.nome, projeto: p.nome, data: p.dataResolucao || p.atualizadoEm || '',
+      status: 'Concluído', responsavel: p.responsavel || '—',
+      prioridade: p.prioridade || '—', progresso: 100
+    });
+  });
+
+  // 3) Próximas Entregas
+  (Array.isArray(emAtual.proximasEntregas) ? emAtual.proximasEntregas : []).forEach(function(e) {
+    if (!e.entrega) return;
+    var match = tlMatchProjeto(e.projeto);
+    eventos.push({
+      grupo: 'entrega', icone: '📅', tipoLabel: 'Entrega',
+      titulo: e.entrega, projeto: e.projeto || '—', data: e.data || '',
+      status: e.status || '—', responsavel: e.responsavel || '—',
+      prioridade: match ? match.prioridade : '—',
+      progresso: match ? match.percentual : null
+    });
+  });
+
+  // 4) Próximas Entregas Estratégicas
+  (Array.isArray(emAtual.planoExcelencia) ? emAtual.planoExcelencia : []).forEach(function(item) {
+    if (!item.acao) return;
+    var match = tlMatchProjeto(item.acao);
+    eventos.push({
+      grupo: 'entrega', icone: '🎯', tipoLabel: 'Entrega Estratégica',
+      titulo: item.acao, projeto: match ? match.nome : '—', data: item.prazo || '',
+      status: item.status || '—', responsavel: item.responsavel || '—',
+      prioridade: match ? match.prioridade : '—',
+      progresso: match ? match.percentual : null
+    });
+  });
+
+  // 5) Marcos por projeto (ficha.html — seção "passos"), quando cadastrados
+  psProj.forEach(function(p) {
+    var passos = (typeof coiCarregarSecaoFicha === 'function') ? coiCarregarSecaoFicha(p.id, 'passos') : [];
+    passos.forEach(function(m) {
+      if (!m.desc) return;
+      eventos.push({
+        grupo: 'projeto', icone: '📌', tipoLabel: 'Marco',
+        titulo: m.desc, projeto: p.nome, data: m.data || '',
+        status: m.status || '—', responsavel: m.resp || '—',
+        prioridade: p.prioridade || '—', progresso: p.percentual
+      });
+    });
+  });
+
+  // 6) Riscos Alto/Crítico (prazo de mitigação) — reaproveita nivelRisco()
+  tlRiscosAltoCritico().forEach(function(r) {
+    eventos.push({
+      grupo: 'risco', icone: '⚠', tipoLabel: 'Risco',
+      titulo: r.desc, projeto: r.projeto || '—', data: r.prazo || '',
+      status: r.status || 'Identificado', responsavel: r.resp || '—',
+      prioridade: nivelRisco(r.prob, r.imp).txt, progresso: null
+    });
+  });
+
+  return eventos;
+}
+
+function tlPassaFiltro(ev, filtro) {
+  if (filtro === 'todos') return true;
+  if (filtro === 'projetos') return ev.grupo === 'projeto';
+  if (filtro === 'demandas') return ev.grupo === 'demanda';
+  if (filtro === 'concluidos') return ev.grupo === 'concluido';
+  if (filtro === 'andamento') return ev.status === 'Em andamento';
+  if (filtro === 'criticos') return ev.prioridade === 'P0' || ev.prioridade === 'Crítico' || ev.status === 'Crítico';
+  if (filtro === '30dias') {
+    if (!ev.data) return false;
+    var d = new Date(ev.data);
+    if (isNaN(d.getTime())) return false;
+    var hoje = new Date(); hoje.setHours(0,0,0,0);
+    var menos30 = new Date(hoje.getTime()); menos30.setDate(menos30.getDate() - 30);
+    return d >= menos30 && d <= hoje;
+  }
+  return true;
+}
+
+// priorBadge() (coi-shared.js) só cobre P0-P3; eventos de risco usam nível
+// textual (Crítico/Alto/Médio/Baixo) — mapeamento próprio evita badge errado
+// (ex.: risco "Crítico" cair no "else" azul de priorBadge).
+function tlPrioridadeBadge(pr) {
+  if (pr === 'P0' || pr === 'Crítico') return 'badge-vermelho';
+  if (pr === 'P1' || pr === 'Alto')    return 'badge-amarelo';
+  if (pr === 'P2' || pr === 'Médio')   return 'badge-azul';
+  if (pr === 'P3' || pr === 'Baixo')   return 'badge-cinza';
+  return 'badge-cinza';
+}
+
+function tlCard(ev) {
+  var card = document.createElement('div');
+  card.className = 'tl-event tipo-' + ev.grupo;
+
+  var icon = document.createElement('div');
+  icon.className = 'tl-event-icon';
+  icon.textContent = ev.icone;
+
+  var body = document.createElement('div');
+  body.className = 'tl-event-body';
+  var titulo = document.createElement('div');
+  titulo.className = 'tl-event-title';
+  titulo.textContent = ev.titulo;
+  var meta = document.createElement('div');
+  meta.className = 'tl-event-meta';
+  meta.textContent = ev.tipoLabel + ' · ' + ev.projeto + ' · ' + (ev.data || 'sem data definida') + ' · ' + ev.responsavel;
+  body.append(titulo, meta);
+
+  var side = document.createElement('div');
+  side.className = 'tl-event-side';
+  var badgeStatus = document.createElement('span');
+  badgeStatus.className = 'badge ' + statusBadge(ev.status);
+  badgeStatus.textContent = ev.status;
+  side.appendChild(badgeStatus);
+  if (ev.prioridade && ev.prioridade !== '—') {
+    var badgePrior = document.createElement('span');
+    badgePrior.className = 'badge ' + tlPrioridadeBadge(ev.prioridade);
+    badgePrior.textContent = ev.prioridade;
+    side.appendChild(badgePrior);
+  }
+  if (typeof ev.progresso === 'number' && !isNaN(ev.progresso)) {
+    var fc = percColor(ev.progresso);
+    var prog = document.createElement('div');
+    prog.className = 'tl-event-progress';
+    prog.innerHTML = '<div class="progress-bar"><div class="progress-fill" style="width:' + ev.progresso + '%;background:' + fc + '"></div></div>';
+    side.appendChild(prog);
+  }
+
+  card.append(icon, body, side);
+  return card;
+}
+
+function tlGroupCard(titulo, count, eventos) {
+  var grp = document.createElement('div');
+  grp.className = 'tl-group';
+  var header = document.createElement('div');
+  header.className = 'tl-group-header';
+  var span = document.createElement('span');
+  span.textContent = titulo;
+  var badge = document.createElement('span');
+  badge.className = 'em-count-badge';
+  badge.textContent = count;
+  header.append(span, badge);
+  grp.appendChild(header);
+  var lista = document.createElement('div');
+  lista.className = 'tl-events';
+  if (eventos.length === 0) {
+    var vazio = document.createElement('div');
+    vazio.className = 'empty';
+    vazio.textContent = 'Nenhum evento nesta faixa.';
+    lista.appendChild(vazio);
+  } else {
+    eventos.forEach(function(ev) { lista.appendChild(tlCard(ev)); });
+  }
+  grp.appendChild(lista);
+  return grp;
+}
+
+function renderTimeline() {
+  var container = document.getElementById('tl-container');
+  if (!container) return;
+  clearEl(container);
+
+  var filtro = (document.getElementById('tl-filtro') || {value:'todos'}).value;
+  var busca  = (document.getElementById('tl-busca') || {value:''}).value.toLowerCase().trim();
+
+  var eventos = tlBuildEventos().filter(function(ev) {
+    return tlPassaFiltro(ev, filtro)
+      && (!busca || (ev.titulo + ' ' + ev.projeto + ' ' + ev.responsavel).toLowerCase().indexOf(busca) !== -1);
+  });
+
+  if (eventos.length === 0) {
+    var vazioGeral = document.createElement('div');
+    vazioGeral.className = 'empty-state';
+    var icone = document.createElement('span'); icone.className = 'icon'; icone.textContent = '📅';
+    vazioGeral.appendChild(icone);
+    vazioGeral.appendChild(document.createTextNode('Nenhum evento encontrado com os filtros aplicados.'));
+    container.appendChild(vazioGeral);
+    return;
+  }
+
+  var hoje = new Date(); hoje.setHours(0,0,0,0);
+  var fimSemana = new Date(hoje.getTime()); fimSemana.setDate(fimSemana.getDate() + 7);
+  var fim30     = new Date(hoje.getTime()); fim30.setDate(fim30.getDate() + 30);
+
+  var buckets = { hoje: [], semana: [], dias30: [], concluidos: [], historico: [] };
+  eventos.forEach(function(ev) {
+    if (ev.grupo === 'concluido') { buckets.concluidos.push(ev); return; }
+    var d = ev.data ? new Date(ev.data) : null;
+    if (!d || isNaN(d.getTime())) { buckets.historico.push(ev); return; }
+    if (d.getTime() === hoje.getTime()) buckets.hoje.push(ev);
+    else if (d > hoje && d <= fimSemana) buckets.semana.push(ev);
+    else if (d > fimSemana && d <= fim30) buckets.dias30.push(ev);
+    else if (d < hoje) buckets.historico.push(ev);
+    else buckets.dias30.push(ev);
+  });
+
+  // Cada bucket ordenado por data (mais próxima primeiro); concluídos por data desc.
+  function porData(a, b) { return new Date(a.data || 0) - new Date(b.data || 0); }
+  buckets.hoje.sort(porData);
+  buckets.semana.sort(porData);
+  buckets.dias30.sort(porData);
+  buckets.historico.sort(porData);
+  buckets.concluidos.sort(function(a, b) { return porData(b, a); });
+
+  container.appendChild(tlGroupCard('📍 Hoje', buckets.hoje.length, buckets.hoje));
+  container.appendChild(tlGroupCard('🗓️ Esta Semana', buckets.semana.length, buckets.semana));
+  container.appendChild(tlGroupCard('📆 Próximos 30 Dias', buckets.dias30.length, buckets.dias30));
+  container.appendChild(tlGroupCard('✔ Concluídos', buckets.concluidos.length, buckets.concluidos));
+  container.appendChild(tlGroupCard('🕘 Histórico', buckets.historico.length, buckets.historico));
+}
+renderTimeline();
 
 // ─── Popular select de projetos no modal de risco ────────────────────
 // Fase 5B.2.1: null-check antes de appendChild

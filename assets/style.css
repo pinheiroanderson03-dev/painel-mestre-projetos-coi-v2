@@ -819,6 +819,40 @@ footer { text-align: center; font-size: .73rem; color: #888; padding: 20px; bord
 .cs-headline .card-value { font-size: 2.55rem; }
 .cs-headline .card { border-top-width: 4px; }
 
+/* ─── EPIC 4 / Sprint 7.2 — Timeline Executiva Inteligente (Cronograma) ────
+   Reutiliza .badge, .progress-bar, .em-count-badge e .empty já existentes
+   (Component Review); único conjunto novo é a estrutura de linha do evento. */
+.tl-group { margin-bottom: 24px; }
+.tl-group-header {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .86rem; font-weight: 700; color: var(--azul-escuro);
+  margin-bottom: 10px;
+}
+.tl-events { display: flex; flex-direction: column; gap: 8px; }
+.tl-event {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--branco); border: 1px solid var(--linha-sutil, #EEF1F8);
+  border-left: 4px solid var(--azul-medio);
+  border-radius: var(--radius-sm, 8px);
+  padding: 12px 16px;
+  transition: box-shadow var(--transicao, .2s);
+}
+.tl-event:hover { box-shadow: var(--sombra-sm); }
+.tl-event.tipo-concluido { border-left-color: var(--verde); opacity: .82; }
+.tl-event.tipo-risco     { border-left-color: var(--vermelho); }
+.tl-event.tipo-demanda   { border-left-color: var(--laranja); }
+.tl-event-icon  { font-size: 1.3rem; flex-shrink: 0; width: 30px; text-align: center; }
+.tl-event-body  { flex: 1; min-width: 0; }
+.tl-event-title { font-size: .85rem; font-weight: 700; color: var(--texto); margin-bottom: 2px; }
+.tl-event-meta  { font-size: .74rem; color: var(--texto-muted, #64748B); }
+.tl-event-side  { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.tl-event-progress { width: 70px; }
+
+@media (max-width: 720px) {
+  .tl-event { flex-wrap: wrap; }
+  .tl-event-side { width: 100%; justify-content: flex-start; margin-top: 4px; }
+}
+
 /* ─── EPIC 3 / Sprint 6 — Cockpit Executivo do Portfólio ───────────────────
    Projetos Concluídos: área recolhida por padrão, menor destaque visual,
    funcionando como histórico executivo sem competir com os projetos ativos. */
