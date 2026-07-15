@@ -33,6 +33,18 @@ if (typeof Chart === 'undefined') {
 <nav id="nav-principal">
   <a href="index.html" class="active">Dashboard</a>
   <a href="portfolio.html">Portfólio</a>
+  <div class="nav-dropdown" id="nav-projetos">
+    <button type="button" class="nav-dropdown-toggle" id="nav-projetos-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-projetos-menu">
+      Projetos <span class="nav-caret" aria-hidden="true">▾</span>
+    </button>
+    <div class="nav-dropdown-menu" id="nav-projetos-menu" role="menu" aria-label="Projetos">
+      <div class="nav-dropdown-search-wrap">
+        <input type="text" id="nav-projetos-busca" class="nav-dropdown-search" placeholder="Buscar projeto..." autocomplete="off" aria-label="Buscar projeto">
+      </div>
+      <div class="nav-dropdown-list" id="nav-projetos-list"></div>
+      <a href="portfolio.html" class="nav-dropdown-footer">Ver todos os projetos</a>
+    </div>
+  </div>
 </nav>
 
 <main>
@@ -236,15 +248,109 @@ const ciclo = COI_DATA.meta?.ciclo || now.toLocaleDateString('pt-BR',{month:'lon
 document.getElementById('badge-ciclo').textContent = 'Ciclo: ' + ciclo;
 document.getElementById('footer-ciclo').textContent = ciclo;
 
-// ─── Nav dinâmica ────────────────────────────────────────────────────
-const nav = document.getElementById('nav-principal');
-COI_DATA.projetos.forEach(p => {
-  const a = document.createElement('a');
-  a.href = `projetos/ficha.html#${p.id}`;
-  a.textContent = `${p.id}`;
-  a.title = p.nome;
-  nav.appendChild(a);
-});
+// ─── Nav dinâmica: menu suspenso "Projetos" (Fase 5.2) ────────────────
+// Fonte: COI_DATA.projetos (mesma fonte usada antes) — nenhum link é
+// escrito manualmente no HTML; novos projetos aparecem automaticamente.
+(function initNavProjetos() {
+  var wrap   = document.getElementById('nav-projetos');
+  var toggle = document.getElementById('nav-projetos-toggle');
+  var menu   = document.getElementById('nav-projetos-menu');
+  var list   = document.getElementById('nav-projetos-list');
+  var busca  = document.getElementById('nav-projetos-busca');
+  if (!wrap || !toggle || !menu || !list) return;
+
+  var itens = COI_DATA.projetos.map(function(p) {
+    var a = document.createElement('a');
+    a.href = `projetos/ficha.html#${p.id}`;
+    a.className = 'nav-dropdown-item';
+    a.setAttribute('role', 'menuitem');
+    var code = document.createElement('span');
+    code.className = 'nav-dropdown-code';
+    code.textContent = p.id;
+    var name = document.createElement('span');
+    name.className = 'nav-dropdown-name';
+    name.textContent = p.nome;
+    a.append(code, name);
+    a.dataset.busca = (p.id + ' ' + p.nome).toLowerCase();
+    list.appendChild(a);
+    return a;
+  });
+
+  if (itens.length === 0) {
+    var vazio = document.createElement('div');
+    vazio.className = 'nav-dropdown-empty';
+    vazio.textContent = 'Nenhum projeto cadastrado.';
+    list.appendChild(vazio);
+  }
+
+  function visiveis() {
+    return itens.filter(function(a) { return a.style.display !== 'none'; });
+  }
+  function estaAberto() { return wrap.classList.contains('open'); }
+  function abrir() {
+    wrap.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+  function fechar(devolverFoco) {
+    wrap.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    if (busca) { busca.value = ''; itens.forEach(function(a){ a.style.display = ''; }); }
+    if (devolverFoco) toggle.focus();
+  }
+
+  // Mouse
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (estaAberto()) { fechar(false); } else { abrir(); if (busca) busca.focus(); }
+  });
+
+  // Teclado — abrir a partir do botão
+  toggle.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { fechar(true); return; }
+    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (!estaAberto()) abrir();
+      var alvo = busca || visiveis()[0];
+      if (alvo) alvo.focus();
+    }
+  });
+
+  // Teclado — navegação dentro do menu (setas e Escape)
+  menu.addEventListener('keydown', function(e) {
+    var lista = visiveis();
+    var idx = lista.indexOf(document.activeElement);
+    if (e.key === 'Escape') {
+      e.preventDefault(); fechar(true);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      var prox = lista[idx + 1] || lista[0];
+      if (prox) prox.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (idx <= 0) { if (busca) busca.focus(); }
+      else { lista[idx - 1].focus(); }
+    }
+  });
+
+  // Busca simples, sem dependências externas
+  if (busca) {
+    busca.addEventListener('input', function() {
+      var termo = busca.value.trim().toLowerCase();
+      itens.forEach(function(a) {
+        a.style.display = a.dataset.busca.indexOf(termo) === -1 ? 'none' : '';
+      });
+    });
+  }
+
+  // Fechar ao clicar fora
+  document.addEventListener('click', function(e) {
+    if (estaAberto() && !wrap.contains(e.target)) fechar(false);
+  });
+  // Fechar com Escape em qualquer foco dentro do wrapper
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && estaAberto() && wrap.contains(document.activeElement)) fechar(true);
+  });
+})();
 
 // ─── Calcular cards ──────────────────────────────────────────────────
 // Fase 5B.1: ps = todos os itens; psProj = apenas tipoItem 'Projeto'
