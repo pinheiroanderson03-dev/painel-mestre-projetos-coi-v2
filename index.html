@@ -13,6 +13,8 @@ if (typeof Chart === 'undefined') {
 }
 </script>
 <script src="dados/projetos.js"></script>
+<!-- Sprint 6.1 — Consolidação: helpers e componentes compartilhados com portfolio.html -->
+<script src="assets/js/coi-shared.js"></script>
 </head>
 <body>
 
@@ -58,7 +60,21 @@ if (typeof Chart === 'undefined') {
     <div class="ve-badge" id="badge-ciclo">Carregando...</div>
   </div>
 
+  <!-- CENTRO DE SITUAÇÃO EXECUTIVO (EPIC 4 / Sprint 7.1) -->
+  <!-- Sintese imediata: o que um Diretor precisa ver nos primeiros 30 segundos. -->
+  <div class="section-title" style="margin-top:8px;">🎯 Centro de Situação Executivo</div>
+  <div class="cards-grid cs-headline" id="cs-grid"></div>
+
+  <!-- AÇÕES PRIORITÁRIAS (EPIC 4 / Sprint 7.1) -->
+  <!-- Absorve e substitui a antiga seção "Alertas Executivos" (antes ao final da pagina). -->
+  <!-- Mesmos dados, reorganizados por prioridade de decisao, sem duplicar contagens do Centro de Situação. -->
+  <div class="section-title">🧭 Ações Prioritárias</div>
+  <div class="alertas-grid" id="acoes-grid"></div>
+
   <!-- CARDS PRINCIPAIS -->
+  <!-- Sprint 7.1: reduzido de 10 para 5 cards — Atenção, Críticos, Riscos Altos, Decisões
+       Pendentes e Entregas da Semana foram absorvidos pelo Centro de Situação Executivo,
+       acima, para eliminar duplicação de números (principio "Dados Únicos", EPIC 3). -->
   <div class="section-title">Indicadores Gerais do Portfólio</div>
   <div class="cards-grid">
     <div class="card azul">
@@ -73,18 +89,6 @@ if (typeof Chart === 'undefined') {
       <div class="card-label">Projetos em Andamento</div>
       <div class="card-sub">em execução ativa</div>
     </div>
-    <div class="card amarelo">
-      <div class="card-icon">⚠️</div>
-      <div class="card-value" id="c-atencao">—</div>
-      <div class="card-label">Projetos em Atenção</div>
-      <div class="card-sub">semáforo amarelo</div>
-    </div>
-    <div class="card vermelho">
-      <div class="card-icon">🚨</div>
-      <div class="card-value" id="c-criticos">—</div>
-      <div class="card-label">Projetos Críticos</div>
-      <div class="card-sub">semáforo vermelho</div>
-    </div>
     <div class="card verde">
       <div class="card-icon">✅</div>
       <div class="card-value" id="c-concluidos">—</div>
@@ -96,24 +100,6 @@ if (typeof Chart === 'undefined') {
       <div class="card-value" id="c-demandas">—</div>
       <div class="card-label">Demandas em Aberto</div>
       <div class="card-sub" id="c-demandas-sub">aguardando resolução</div>
-    </div>
-    <div class="card vermelho">
-      <div class="card-icon">⛔</div>
-      <div class="card-value" id="c-riscos">—</div>
-      <div class="card-label">Riscos Altos</div>
-      <div class="card-sub">nível alto ou crítico</div>
-    </div>
-    <div class="card roxo">
-      <div class="card-icon">🔔</div>
-      <div class="card-value" id="c-decisoes">—</div>
-      <div class="card-label">Decisões Pendentes</div>
-      <div class="card-sub">aguardando deliberação</div>
-    </div>
-    <div class="card verde">
-      <div class="card-icon">📅</div>
-      <div class="card-value" id="c-entregas">—</div>
-      <div class="card-label">Entregas da Semana</div>
-      <div class="card-sub">marcos nos próximos 7 dias</div>
     </div>
     <div class="card azul">
       <div class="card-icon">📈</div>
@@ -217,9 +203,9 @@ if (typeof Chart === 'undefined') {
     <div id="em-content"></div>
   </div>
 
-  <!-- ALERTAS EXECUTIVOS (dinâmicos) -->
-  <div class="section-title">Alertas Executivos</div>
-  <div class="alertas-grid" id="alertas-grid"></div>
+  <!-- Sprint 7.1: seção "Alertas Executivos" removida deste ponto — conteúdo
+       incorporado e enriquecido em "Ações Prioritárias", logo abaixo do banner
+       (mesma informação, mais visível, sem duplicação). -->
 
 </main>
 
@@ -229,17 +215,9 @@ if (typeof Chart === 'undefined') {
 
 <script>
 // ─── Helpers ────────────────────────────────────────────────────────
-function semClass(s) { return s==='🔴'?'vermelho':s==='🟡'?'amarelo':'verde'; }
-function priorBadge(p) { return p==='P0'?'badge-vermelho':p==='P1'?'badge-amarelo':'badge-azul'; }
-function statusBadge(s) {
-  return {
-    'Em andamento':'badge-azul','Homologação':'badge-amarelo',
-    'Produção':'badge-verde','Concluído':'badge-verde',
-    'Planejamento':'badge-cinza','Suspenso':'badge-cinza'
-  }[s] || 'badge-cinza';
-}
-function percColor(n) { return n>=70?'#2E7D32':n>=40?'#F9A825':'#C62828'; }
-function clearEl(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+// Sprint 6.1: clearEl/priorBadge/statusBadge/percColor consolidados em
+// assets/js/coi-shared.js (eram duplicados byte-a-byte com portfolio.html).
+// semClass() removida — código morto, nunca era chamada nesta página.
 // ─── Data e ciclo ────────────────────────────────────────────────────
 const now = new Date();
 document.getElementById('data-atual').textContent =
@@ -248,125 +226,25 @@ const ciclo = COI_DATA.meta?.ciclo || now.toLocaleDateString('pt-BR',{month:'lon
 document.getElementById('badge-ciclo').textContent = 'Ciclo: ' + ciclo;
 document.getElementById('footer-ciclo').textContent = ciclo;
 
-// ─── Nav dinâmica: menu suspenso "Projetos" (Fase 5.2) ────────────────
-// Fonte: COI_DATA.projetos (mesma fonte usada antes) — nenhum link é
-// escrito manualmente no HTML; novos projetos aparecem automaticamente.
-(function initNavProjetos() {
-  var wrap   = document.getElementById('nav-projetos');
-  var toggle = document.getElementById('nav-projetos-toggle');
-  var menu   = document.getElementById('nav-projetos-menu');
-  var list   = document.getElementById('nav-projetos-list');
-  var busca  = document.getElementById('nav-projetos-busca');
-  if (!wrap || !toggle || !menu || !list) return;
-
-  var itens = COI_DATA.projetos.map(function(p) {
-    var a = document.createElement('a');
-    a.href = `projetos/ficha.html#${p.id}`;
-    a.className = 'nav-dropdown-item';
-    a.setAttribute('role', 'menuitem');
-    var code = document.createElement('span');
-    code.className = 'nav-dropdown-code';
-    code.textContent = p.id;
-    var name = document.createElement('span');
-    name.className = 'nav-dropdown-name';
-    name.textContent = p.nome;
-    a.append(code, name);
-    a.dataset.busca = (p.id + ' ' + p.nome).toLowerCase();
-    list.appendChild(a);
-    return a;
-  });
-
-  if (itens.length === 0) {
-    var vazio = document.createElement('div');
-    vazio.className = 'nav-dropdown-empty';
-    vazio.textContent = 'Nenhum projeto cadastrado.';
-    list.appendChild(vazio);
-  }
-
-  function visiveis() {
-    return itens.filter(function(a) { return a.style.display !== 'none'; });
-  }
-  function estaAberto() { return wrap.classList.contains('open'); }
-  function abrir() {
-    wrap.classList.add('open');
-    toggle.setAttribute('aria-expanded', 'true');
-  }
-  function fechar(devolverFoco) {
-    wrap.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-    if (busca) { busca.value = ''; itens.forEach(function(a){ a.style.display = ''; }); }
-    if (devolverFoco) toggle.focus();
-  }
-
-  // Mouse
-  toggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    if (estaAberto()) { fechar(false); } else { abrir(); if (busca) busca.focus(); }
-  });
-
-  // Teclado — abrir a partir do botão
-  toggle.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') { fechar(true); return; }
-    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      if (!estaAberto()) abrir();
-      var alvo = busca || visiveis()[0];
-      if (alvo) alvo.focus();
-    }
-  });
-
-  // Teclado — navegação dentro do menu (setas e Escape)
-  menu.addEventListener('keydown', function(e) {
-    var lista = visiveis();
-    var idx = lista.indexOf(document.activeElement);
-    if (e.key === 'Escape') {
-      e.preventDefault(); fechar(true);
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      var prox = lista[idx + 1] || lista[0];
-      if (prox) prox.focus();
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (idx <= 0) { if (busca) busca.focus(); }
-      else { lista[idx - 1].focus(); }
-    }
-  });
-
-  // Busca simples, sem dependências externas
-  if (busca) {
-    busca.addEventListener('input', function() {
-      var termo = busca.value.trim().toLowerCase();
-      itens.forEach(function(a) {
-        a.style.display = a.dataset.busca.indexOf(termo) === -1 ? 'none' : '';
-      });
-    });
-  }
-
-  // Fechar ao clicar fora
-  document.addEventListener('click', function(e) {
-    if (estaAberto() && !wrap.contains(e.target)) fechar(false);
-  });
-  // Fechar com Escape em qualquer foco dentro do wrapper
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && estaAberto() && wrap.contains(document.activeElement)) fechar(true);
-  });
-})();
+// ─── Nav dinâmica: menu suspenso "Projetos" ───────────────────────────
+// Sprint 6.1: implementação consolidada em assets/js/coi-shared.js
+// (coiInitNavDropdown), reutilizada por index.html e portfolio.html.
+coiInitNavDropdown();
 
 // ─── Calcular cards ──────────────────────────────────────────────────
 // Fase 5B.1: ps = todos os itens; psProj = apenas tipoItem 'Projeto'
 const ps     = COI_DATA.projetos;
-const psProj = ps.filter(p => !p.tipoItem || p.tipoItem === 'Projeto');
+const psProj = getProjetosEstrategicos(ps); // Sprint 6.1: helper consolidado em coi-shared.js
 const total     = psProj.length;
 const andamento = psProj.filter(p => p.status === 'Em andamento').length;
-const atencao   = psProj.filter(p => p.semaforo === '🟡').length;
-const criticos  = psProj.filter(p => p.semaforo === '🔴').length;
+// Sprint 7.1: 'atencao'/'criticos' (por semáforo) removidos daqui — os cards
+// que os usavam saíram do Dashboard; Centro de Situação Executivo agora
+// calcula os equivalentes via calcularSaude() (também cobre prazo vencido).
 const concluidos= psProj.filter(p => p.status === 'Concluído').length;
 const evolMedia = psProj.length > 0 ? Math.round(psProj.reduce((acc,p)=>acc+p.percentual,0)/psProj.length) : 0;
 
 document.getElementById('c-total').textContent    = total;
 document.getElementById('c-andamento').textContent= andamento;
-document.getElementById('c-atencao').textContent  = atencao;
-document.getElementById('c-criticos').textContent = criticos;
 document.getElementById('c-concluidos').textContent = concluidos;
 // Fase 5A.2 — B-02: usa execucoesMensais[last] (mesma cadeia de buildExecucaoMensal)
 // Fallback: execucoesMensais[last] → execucaoMensal → {}
@@ -387,10 +265,61 @@ const nEntregas = Array.isArray(em.proximasEntregas)
       return !isNaN(d.getTime()) && d >= _hoje && d <= _em7;
     }).length : 0;
 document.getElementById('c-demandas').textContent = nDemandas;
-document.getElementById('c-riscos').textContent   = totalRiscos;
-document.getElementById('c-decisoes').textContent = totalDecisoes;
-document.getElementById('c-entregas').textContent = nEntregas;
 document.getElementById('c-evolucao').textContent = evolMedia + '%';
+
+// ─── Centro de Situação Executivo (EPIC 4 / Sprint 7.1 — Etapa 3) ─────
+// Sintese executiva: usa exclusivamente campos ja existentes em COI_DATA.projetos
+// via calcularSaude() (assets/js/coi-shared.js, padrao consolidado na Sprint 6.1).
+// "Bloqueados" reaproveita o status 'Suspenso' ja previsto na modelagem de dados —
+// nenhum campo novo foi criado.
+function buildCentroSituacao() {
+  var el = document.getElementById('cs-grid');
+  if (!el) return;
+  clearEl(el);
+
+  var criticosSaude  = psProj.filter(function(p){ return calcularSaude(p).label === 'Crítico'; });
+  var atencaoSaude   = psProj.filter(function(p){ return calcularSaude(p).label === 'Atenção'; });
+  var saudaveisSaude = psProj.filter(function(p){ return calcularSaude(p).label === 'Saudável'; });
+  var bloqueados     = psProj.filter(function(p){ return p.status === 'Suspenso'; });
+  var pendenciasExec = totalRiscos + totalDecisoes;
+
+  [
+    { icon: '🚨', valor: criticosSaude.length,  label: 'Críticos',            cls: 'vermelho', sub: 'semáforo 🔴 ou prazo vencido' },
+    { icon: '⚠️', valor: atencaoSaude.length,   label: 'Em Atenção',          cls: 'amarelo',  sub: 'semáforo 🟡' },
+    { icon: '🟢', valor: saudaveisSaude.length, label: 'Saudáveis',           cls: 'verde',    sub: 'dentro do prazo, sem alerta' },
+    { icon: '⛔', valor: bloqueados.length,     label: 'Bloqueados',          cls: 'roxo',     sub: 'status Suspenso' },
+    { icon: '📅', valor: nEntregas,             label: 'Entregas em 7 Dias',  cls: 'azul',     sub: 'marcos e ações do mês' },
+    { icon: '🔔', valor: pendenciasExec,        label: 'Pendências Executivas', cls: 'laranja', sub: 'riscos críticos + decisões' }
+  ].forEach(function(ind) {
+    var card = document.createElement('div');
+    card.className = 'card ' + ind.cls;
+    var icon = document.createElement('div'); icon.className = 'card-icon'; icon.textContent = ind.icon;
+    var val  = document.createElement('div'); val.className  = 'card-value'; val.textContent = ind.valor;
+    var lbl  = document.createElement('div'); lbl.className  = 'card-label'; lbl.textContent = ind.label;
+    var sub  = document.createElement('div'); sub.className  = 'card-sub';   sub.textContent = ind.sub;
+    card.append(icon, val, lbl, sub);
+    el.appendChild(card);
+  });
+}
+buildCentroSituacao();
+
+// ─── Riscos registrados (Alto/Crítico) — leitura local (Etapa 5) ──────
+// Reaproveita o mesmo mecanismo de coiCarregarSecaoFicha('PORTFOLIO','riscos')
+// usado por portfolio.html (dados/projetos.js). Nao cria fonte de dados nova;
+// depende de riscos ja cadastrados manualmente na aba Riscos do Portfólio —
+// por isso pode aparecer vazio em navegadores/sessões sem cadastro previo.
+function nivelRiscoSimples(prob, imp) {
+  if (prob === 'Alta' && imp === 'Alto') return 'Crítico';
+  if (prob === 'Alta' || imp === 'Alto') return 'Alto';
+  return 'outro';
+}
+function getRiscosAltoCritico() {
+  var riscos = (typeof coiCarregarSecaoFicha === 'function') ? coiCarregarSecaoFicha('PORTFOLIO', 'riscos') : [];
+  return riscos.filter(function(r) {
+    var n = nivelRiscoSimples(r.prob, r.imp);
+    return n === 'Alto' || n === 'Crítico';
+  });
+}
 
 // ─── Tabela de portfólio ─────────────────────────────────────────────
 const tbody = document.getElementById('tbody-portfolio');
@@ -559,9 +488,13 @@ function renderEmConteudo(container, emData) {
   var tGrid = document.createElement('div');
   tGrid.className = 'em-tables-grid';
 
-  // — Próximas Entregas —
+  // — Próximas Entregas — EPIC 3/Sprint 6 Etapa 6: ordenadas por data (mais próxima primeiro)
   var entregas = Array.isArray(emData.proximasEntregas)
-    ? emData.proximasEntregas.filter(function(e){ return e.entrega; }) : [];
+    ? emData.proximasEntregas.filter(function(e){ return e.entrega; }).slice().sort(function(a, b) {
+        if (!a.data) return 1;
+        if (!b.data) return -1;
+        return new Date(a.data) - new Date(b.data);
+      }) : [];
   var cEnt = document.createElement('div');
   cEnt.className = 'em-table-card';
   var h3Ent = document.createElement('h3');
@@ -604,7 +537,11 @@ function renderEmConteudo(container, emData) {
 
   // — Próximas Entregas Estratégicas —
   var peItems = Array.isArray(emData.planoExcelencia)
-    ? emData.planoExcelencia.filter(function(p){ return p.acao; }) : [];
+    ? emData.planoExcelencia.filter(function(p){ return p.acao; }).slice().sort(function(a, b) {
+        if (!a.prazo) return 1;
+        if (!b.prazo) return -1;
+        return new Date(a.prazo) - new Date(b.prazo);
+      }) : [];
   var cPE = document.createElement('div');
   cPE.className = 'em-table-card';
   var h3PE = document.createElement('h3');
@@ -670,9 +607,6 @@ function buildIndicadoresOperacionais() {
     return !isNaN(d.getTime()) && d < hoje;
   }).length;
 
-  // --- Projetos ---
-  var projBloqueados = psProj.filter(function(p){ return p.semaforo === '🔴'; }).length;
-
   // --- Percentual (todos os itens) ---
   var percAcima80  = ps.filter(function(p){ return (p.percentual || 0) >= 80; }).length;
   var percMedio    = ps.filter(function(p){ return (p.percentual || 0) >= 30 && (p.percentual || 0) < 80; }).length;
@@ -682,11 +616,6 @@ function buildIndicadoresOperacionais() {
   var priorAlta  = ps.filter(function(p){ return p.prioridade === 'P0' || p.prioridade === 'P1'; }).length;
   var priorMedia = ps.filter(function(p){ return p.prioridade === 'P2'; }).length;
   var priorBaixa = ps.filter(function(p){ return p.prioridade === 'P3'; }).length;
-
-  // --- Semaforo (projetos estrategicos) ---
-  var semVerde    = psProj.filter(function(p){ return p.semaforo === '🟢'; }).length;
-  var semAmarelo  = psProj.filter(function(p){ return p.semaforo === '🟡'; }).length;
-  var semVermelho = psProj.filter(function(p){ return p.semaforo === '🔴'; }).length;
 
   // --- Clientes (por orgao em itens operacionais) ---
   var clienteMap = {};
@@ -774,13 +703,11 @@ function buildIndicadoresOperacionais() {
   var outerGrid = document.createElement('div');
   outerGrid.className = 'op-outer-grid';
 
-  outerGrid.appendChild(makeOpGroup('Projetos Estrategicos', [
-    { label: 'Total', value: psProj.length, cls: '' },
-    { label: 'Ativos', value: psProj.filter(function(p){ return p.status === 'Em andamento'; }).length, cls: 'azul' },
-    { label: 'Concluidos', value: psProj.filter(function(p){ return p.status === 'Concluído'; }).length, cls: 'verde' },
-    { label: 'Bloqueados', value: projBloqueados, cls: projBloqueados > 0 ? 'vermelho' : '' }
-  ]));
-
+  // Nota (EPIC 3/Sprint 6 — Etapa 8): os grupos "Projetos Estrategicos" e
+  // "Semaforo dos Projetos" foram removidos daqui por duplicarem, com os
+  // mesmos números, os cards do topo do Dashboard (c-total, c-andamento,
+  // c-concluidos) e, desde a Sprint 7.1, o Centro de Situação Executivo —
+  // principio "Dados unicos" / menos poluicao visual.
   outerGrid.appendChild(makeOpGroup('Percentual de Conclusao', [
     { label: 'Media geral', value: evolMedia + '%', cls: '' },
     { label: 'Acima de 80%', value: percAcima80, cls: 'verde' },
@@ -794,31 +721,31 @@ function buildIndicadoresOperacionais() {
     { label: 'Baixa (P3)', value: priorBaixa, cls: 'azul' }
   ]));
 
-  outerGrid.appendChild(makeOpGroup('Semaforo dos Projetos', [
-    { label: 'Verde', value: semVerde, cls: 'verde' },
-    { label: 'Amarelo', value: semAmarelo, cls: 'amarelo' },
-    { label: 'Vermelho', value: semVermelho, cls: semVermelho > 0 ? 'vermelho' : '' }
-  ]));
-
   container.appendChild(outerGrid);
   container.appendChild(makeDistMap('Distribuicao por Cliente', clienteMap));
   container.appendChild(makeDistMap('Distribuicao por Responsavel', respMap));
 }
 buildIndicadoresOperacionais();
 
-// ─── Alertas dinâmicos ───────────────────────────────────────────────
-function buildAlertas() {
-  const grid = document.getElementById('alertas-grid');
-  clearEl(grid); // Fase 5A.2 — B-04: substituído innerHTML='' por clearEl()
+// ─── Ações Prioritárias (EPIC 4 / Sprint 7.1 — Etapas 4 e 5) ──────────
+// Substitui buildAlertas(): mesmos dados de origem (psProj + riscos), reordenados
+// por prioridade de decisão (o que exige ação primeiro) e enriquecidos com
+// Bloqueados (status Suspenso) e Riscos Registrados Alto/Crítico — sem criar
+// campos novos. "Críticos" agora usa calcularSaude() (padrão único da Sprint 6.1),
+// que também captura prazo vencido, não só semáforo vermelho.
+function buildAcoesPrioritarias() {
+  const grid = document.getElementById('acoes-grid');
+  if (!grid) return;
+  clearEl(grid);
 
-  // Fase 5B.1: alertas filtrados para tipoItem === 'Projeto'
-  const criticos_list = psProj.filter(p => p.semaforo === '🔴');
-  const atencao_list  = psProj.filter(p => p.semaforo === '🟡');
-  const ok_list       = psProj.filter(p => p.semaforo === '🟢');
-  // Fase 5A.2 — U-04: excluir Suspenso e Concluído do card P0 Ativos
-  const p0_list       = psProj.filter(p => p.prioridade === 'P0' && p.status !== 'Concluído' && p.status !== 'Suspenso');
+  const criticos_list  = psProj.filter(p => calcularSaude(p).label === 'Crítico');
+  const p0_list        = psProj.filter(p => p.prioridade === 'P0' && p.status !== 'Concluído' && p.status !== 'Suspenso');
+  const bloqueados_list= psProj.filter(p => p.status === 'Suspenso');
+  const riscos_list    = getRiscosAltoCritico();
+  const atencao_list   = psProj.filter(p => calcularSaude(p).label === 'Atenção');
+  const ok_list         = psProj.filter(p => calcularSaude(p).label === 'Saudável');
 
-  function makeCard(cls, titulo, items, dotCls, emptyMsg) {
+  function makeCard(cls, titulo, items, dotCls, emptyMsg, renderItem) {
     const div = document.createElement('div');
     div.className = `alerta-card ${cls}`;
     const h3 = document.createElement('h3');
@@ -830,13 +757,13 @@ function buildAlertas() {
       em.textContent = emptyMsg;
       div.appendChild(em);
     } else {
-      items.forEach(p => {
+      items.forEach(item => {
         const row = document.createElement('div');
         row.className = 'alerta-item';
         const dot = document.createElement('div');
         dot.className = `alerta-dot ${dotCls}`;
         const txt = document.createElement('span');
-        txt.textContent = `${p.id} — ${p.nome}: ${p.observacoesExecutivas || 'Sem observações registradas.'}`;
+        txt.textContent = renderItem(item);
         row.append(dot, txt);
         div.appendChild(row);
       });
@@ -844,14 +771,20 @@ function buildAlertas() {
     return div;
   }
 
+  const projItem = p => `${p.id} — ${p.nome}: ${p.observacoesExecutivas || 'Sem observações registradas.'}`;
+
   grid.append(
-    makeCard('', '🚨 Projetos Críticos (🔴)', criticos_list, 'dot-vermelho', 'Nenhum projeto crítico no momento.'),
-    makeCard('atencao', '⚠️ Projetos em Atenção (🟡)', atencao_list, 'dot-amarelo', 'Nenhum projeto em atenção.'),
-    makeCard('info', '🔵 Projetos P0 Ativos', p0_list, 'dot-azul', 'Nenhum projeto P0 ativo.'),
-    makeCard('sucesso', '✅ Projetos no Prazo (🟢)', ok_list, 'dot-verde', 'Nenhum projeto no prazo.')
+    makeCard('', '🚨 Projetos Críticos', criticos_list, 'dot-vermelho', 'Nenhum projeto crítico no momento.', projItem),
+    makeCard('info', '🔵 Projetos P0 Ativos', p0_list, 'dot-azul', 'Nenhum projeto P0 ativo.', projItem),
+    makeCard('atencao', '⛔ Bloqueados (Suspensos)', bloqueados_list, 'dot-amarelo', 'Nenhum projeto suspenso no momento.', projItem),
+    makeCard('atencao', '⚠️ Riscos Registrados (Alto/Crítico)', riscos_list, 'dot-amarelo',
+      'Nenhum risco Alto/Crítico registrado na aba Riscos do Portfólio.',
+      r => `${r.projeto || 'Sem projeto vinculado'}: ${r.desc}`),
+    makeCard('atencao', '🟡 Projetos em Atenção', atencao_list, 'dot-amarelo', 'Nenhum projeto em atenção.', projItem),
+    makeCard('sucesso', '✅ Projetos no Prazo', ok_list, 'dot-verde', 'Nenhum projeto no prazo.', projItem)
   );
 }
-buildAlertas();
+buildAcoesPrioritarias();
 
 // ─── Gráficos (após Chart.js carregar via defer) ─────────────────────
 window.addEventListener('load', () => {

@@ -13,6 +13,8 @@
 }
 </style>
 <script src="dados/projetos.js"></script>
+<!-- Sprint 6.1 — Consolidação: helpers e componentes compartilhados com index.html -->
+<script src="assets/js/coi-shared.js"></script>
 </head>
 <body>
 
@@ -33,6 +35,18 @@
 <nav id="nav-principal">
   <a href="index.html">Dashboard</a>
   <a href="portfolio.html" class="active">Portfólio</a>
+  <div class="nav-dropdown" id="nav-projetos">
+    <button type="button" class="nav-dropdown-toggle" id="nav-projetos-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-projetos-menu">
+      Projetos <span class="nav-caret" aria-hidden="true">▾</span>
+    </button>
+    <div class="nav-dropdown-menu" id="nav-projetos-menu" role="menu" aria-label="Projetos">
+      <div class="nav-dropdown-search-wrap">
+        <input type="text" id="nav-projetos-busca" class="nav-dropdown-search" placeholder="Buscar projeto..." autocomplete="off" aria-label="Buscar projeto">
+      </div>
+      <div class="nav-dropdown-list" id="nav-projetos-list"></div>
+      <a href="portfolio.html" class="nav-dropdown-footer">Ver todos os projetos</a>
+    </div>
+  </div>
 </nav>
 
 <main>
@@ -52,6 +66,8 @@
 
   <!-- ABA PROJETOS -->
   <div class="tab-content active" id="tab-projetos">
+    <div class="cards-grid" id="proj-indicadores" style="margin-bottom:22px;"></div>
+
     <div class="filters">
       <input class="filter-input" id="busca-proj" placeholder="🔍 Buscar projeto..." oninput="aplicarFiltros()">
       <select class="filter-input" id="filtro-prior" onchange="aplicarFiltros()">
@@ -72,16 +88,31 @@
       <input class="filter-input" id="filtro-gerente" placeholder="🔍 Gerente contrato..." oninput="aplicarFiltros()" style="width:160px">
       <button class="btn-add" onclick="document.getElementById('modal-projeto').classList.add('open')">+ Novo Projeto</button>
     </div>
+
+    <div class="section-title" style="margin-top:8px;">Projetos em Aberto</div>
     <div class="table-wrap">
       <table id="tb-projetos">
         <thead><tr>
           <th>ID</th><th>Nome do Projeto</th><th>Frente</th><th>Classificação</th><th>Prior.</th>
           <th>Status</th><th>Fase</th><th>Plataforma</th><th>% Conc.</th>
-          <th>Semáforo</th><th>Responsável</th><th>Prazo</th><th>Ficha</th>
+          <th>Saúde</th><th>Responsável</th><th>Prazo</th><th>Ficha</th>
         </tr></thead>
         <tbody id="tbody-projetos"></tbody>
       </table>
     </div>
+
+    <details class="proj-concluidos" id="proj-concluidos-wrap">
+      <summary>Projetos Concluídos <span class="em-count-badge" id="proj-concluidos-count">0</span></summary>
+      <div class="table-wrap">
+        <table id="tb-projetos-concluidos">
+          <thead><tr>
+            <th>ID</th><th>Nome do Projeto</th><th>Frente</th><th>Classificação</th><th>Prioridade</th>
+            <th>% Conc.</th><th>Responsável</th><th>Concluído em</th><th>Ficha</th>
+          </tr></thead>
+          <tbody id="tbody-projetos-concluidos"></tbody>
+        </table>
+      </div>
+    </details>
   </div>
 
   <!-- ABA DEMANDAS — Fase 5B.2: exibição executiva com filtros e resumo operacional -->
@@ -322,14 +353,9 @@
 
 <script>
 // ─── Helpers ────────────────────────────────────────────────────────
-function txt(val) { return String(val || '—'); }
-function clearEl(el) { while (el.firstChild) el.removeChild(el.firstChild); } // Fase 5A.2 — B-05
-function priorBadge(p) { return p==='P0'?'badge-vermelho':p==='P1'?'badge-amarelo':'badge-azul'; }
-function statusBadge(s) {
-  return {'Em andamento':'badge-azul','Homologação':'badge-amarelo','Produção':'badge-verde',
-    'Concluído':'badge-verde','Planejamento':'badge-cinza','Suspenso':'badge-cinza'}[s]||'badge-cinza';
-}
-function percColor(n) { return n>=70?'#2E7D32':n>=40?'#F9A825':'#C62828'; }
+// Sprint 6.1: clearEl/priorBadge/statusBadge/percColor/calcularSaude
+// consolidados em assets/js/coi-shared.js (eram duplicados com index.html).
+// txt() removida — código morto, nunca era chamada nesta página.
 function nivelRisco(prob, imp) {
   if (prob==='Alta'  && imp==='Alto')  return {txt:'Crítico', cls:'badge-vermelho'};
   if (prob==='Alta'  || imp==='Alto')  return {txt:'Alto',    cls:'badge-vermelho'};
@@ -350,19 +376,10 @@ function fecharModal(id) { document.getElementById(id).classList.remove('open');
 document.getElementById('data-atual').textContent =
   new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-// ─── Nav dinâmica — apenas projetos estratégicos (Fase 5B.2.1) ───────
-const nav = document.getElementById('nav-principal');
-if (nav) {
-  COI_DATA.projetos
-    .filter(function(p) { return !p.tipoItem || p.tipoItem === 'Projeto'; })
-    .forEach(function(p) {
-      const a = document.createElement('a');
-      a.href = 'projetos/ficha.html#' + p.id;
-      a.textContent = p.id;
-      a.title = p.nome;
-      nav.appendChild(a);
-    });
-}
+// ─── Nav dinâmica: menu suspenso "Projetos" ───────────────────────────
+// Sprint 6.1: implementação consolidada em assets/js/coi-shared.js
+// (coiInitNavDropdown), reutilizada por index.html e portfolio.html.
+coiInitNavDropdown();
 
 // ─── Tabs ────────────────────────────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -409,141 +426,185 @@ function aplicarFiltros() {
 }
 
 // ─── Renderizar tabela de projetos (com agrupamento por frente) ───────
-var FRENTE_ORDER = {'CENTRAL DF':1,'Central de Atendimento':2,'MDS':3,'COI':4};
-var NCOLS_PROJ   = 13;
+var FRENTE_ORDER    = {'CENTRAL DF':1,'Central de Atendimento':2,'MDS':3,'COI':4};
+var NCOLS_PROJ       = 13;
+var NCOLS_PROJ_CONC  = 9;
+// psProj: todos os projetos estratégicos, independente de filtro — usado nos
+// indicadores executivos do topo (EPIC 3 / Sprint 6 — Etapa 3).
+var psProj = getProjetosEstrategicos(COI_DATA.projetos); // Sprint 6.1: helper consolidado em coi-shared.js
+
+function celula(texto) { var td = document.createElement('td'); td.textContent = texto; return td; }
+function celulaBadge(texto, cls, tamanho) {
+  var td = document.createElement('td');
+  var span = document.createElement('span');
+  span.className = 'badge ' + cls;
+  if (tamanho) span.style.fontSize = tamanho;
+  span.textContent = texto;
+  td.appendChild(span);
+  return td;
+}
+function celulaLinkFicha(p, rotulo) {
+  var td = document.createElement('td');
+  var a = document.createElement('a');
+  a.href = 'projetos/ficha.html#' + p.id;
+  a.className = 'proj-link';
+  a.textContent = rotulo || p.id;
+  td.appendChild(a);
+  return td;
+}
+function emptyRow(tb, ncols, icone, msg) {
+  var eRow = document.createElement('tr');
+  var eTd  = document.createElement('td');
+  eTd.colSpan = ncols;
+  var eDiv = document.createElement('div');
+  eDiv.className = 'empty-state';
+  var eIcon = document.createElement('span');
+  eIcon.className = 'icon'; eIcon.textContent = icone;
+  eDiv.appendChild(eIcon);
+  eDiv.appendChild(document.createTextNode(msg));
+  eTd.appendChild(eDiv); eRow.appendChild(eTd); tb.appendChild(eRow);
+}
+
+// Linha da tabela "Projetos em Aberto" — inclui saúde derivada (Etapa 5)
+function linhaProjetoAberto(p) {
+  var fc    = percColor(p.percentual);
+  var saude = calcularSaude(p);
+  var tr = document.createElement('tr');
+  tr.dataset.prior  = p.prioridade;
+  tr.dataset.status = p.status;
+  tr.dataset.frente = p.frente || '';
+
+  var percTd = document.createElement('td');
+  var bar = document.createElement('div');
+  bar.style.cssText = 'display:flex;align-items:center;gap:6px;';
+  bar.innerHTML = '<div class="progress-bar"><div class="progress-fill" style="width:' + p.percentual + '%;background:' + fc + '"></div></div>'
+    + '<span style="font-size:.76rem;font-weight:700;color:' + fc + '">' + p.percentual + '%</span>';
+  percTd.appendChild(bar);
+
+  tr.append(
+    celulaLinkFicha(p),
+    (function(){ var td = celula(p.nome); td.style.maxWidth = '200px'; return td; })(),
+    celulaBadge(p.frente || '—', 'badge-azul', '.65rem'),
+    celulaBadge(p.classificacao, 'badge-cinza', '.68rem'),
+    celulaBadge(p.prioridade, priorBadge(p.prioridade)),
+    celulaBadge(p.status, statusBadge(p.status)),
+    celula(p.fase || '—'),
+    (function(){ var td = celula(p.plataforma || '—'); td.style.maxWidth = '150px'; return td; })(),
+    percTd,
+    celulaBadge(saude.emoji + ' ' + saude.label, saude.cls),
+    celula(p.responsavel || '—'),
+    celula(p.prazoPrevisto || '—'),
+    celulaLinkFicha(p, 'Ver ficha')
+  );
+  return tr;
+}
+
+// Linha da tabela "Projetos Concluídos" — compacta, menor destaque visual
+function linhaProjetoConcluido(p) {
+  var tr = document.createElement('tr');
+  tr.append(
+    celulaLinkFicha(p),
+    (function(){ var td = celula(p.nome); td.style.maxWidth = '220px'; return td; })(),
+    celulaBadge(p.frente || '—', 'badge-azul', '.65rem'),
+    celulaBadge(p.classificacao, 'badge-cinza', '.68rem'),
+    celulaBadge(p.prioridade, priorBadge(p.prioridade)),
+    celula(p.percentual + '%'),
+    celula(p.responsavel || '—'),
+    celula(p.dataResolucao || p.atualizadoEm || '—'),
+    celulaLinkFicha(p, 'Ver ficha')
+  );
+  return tr;
+}
 
 function renderProjetos(lista) {
-  var tb = document.getElementById('tbody-projetos');
-  clearEl(tb); // Fase 5A.2 — B-05: substituído innerHTML='' por clearEl()
+  var tbAberto = document.getElementById('tbody-projetos');
+  var tbConc   = document.getElementById('tbody-projetos-concluidos');
+  var contador = document.getElementById('proj-concluidos-count');
+  clearEl(tbAberto);
+  if (tbConc) clearEl(tbConc);
 
-  var sorted = lista.slice().sort(function(a, b) {
+  var abertos    = lista.filter(function(p) { return p.status !== 'Concluído'; });
+  var concluidos = lista.filter(function(p) { return p.status === 'Concluído'; });
+
+  // ── Projetos em Aberto — mantém agrupamento por frente ──
+  var sorted = abertos.slice().sort(function(a, b) {
     var oa = FRENTE_ORDER[a.frente] || 99;
     var ob = FRENTE_ORDER[b.frente] || 99;
     return oa !== ob ? oa - ob : (a.id < b.id ? -1 : 1);
   });
 
   if (sorted.length === 0) {
-    var eRow = document.createElement('tr');
-    var eTd  = document.createElement('td');
-    eTd.colSpan = NCOLS_PROJ;
-    var eDiv = document.createElement('div');
-    eDiv.className = 'empty-state';
-    var eIcon = document.createElement('span');
-    eIcon.className = 'icon'; eIcon.textContent = '📭';
-    eDiv.appendChild(eIcon);
-    eDiv.appendChild(document.createTextNode('Nenhum projeto encontrado com os filtros aplicados.'));
-    eTd.appendChild(eDiv); eRow.appendChild(eTd); tb.appendChild(eRow);
-    return;
+    emptyRow(tbAberto, NCOLS_PROJ, '📭', 'Nenhum projeto em aberto encontrado com os filtros aplicados.');
+  } else {
+    var currentFrente = null;
+    sorted.forEach(function(p) {
+      var frenteVal = p.frente || '—';
+      if (frenteVal !== currentFrente) {
+        currentFrente = frenteVal;
+        var hRow = document.createElement('tr');
+        hRow.className = 'frente-header';
+        var hTd = document.createElement('td');
+        hTd.colSpan = NCOLS_PROJ;
+        hTd.textContent = '▸ ' + frenteVal;
+        hRow.appendChild(hTd);
+        tbAberto.appendChild(hRow);
+      }
+      tbAberto.appendChild(linhaProjetoAberto(p));
+    });
   }
 
-  var currentFrente = null;
-  sorted.forEach(function(p) {
-    var fc       = percColor(p.percentual);
-    var frenteVal = p.frente || '—';
-
-    // Cabeçalho de grupo por frente
-    if (frenteVal !== currentFrente) {
-      currentFrente = frenteVal;
-      var hRow = document.createElement('tr');
-      hRow.className = 'frente-header';
-      var hTd = document.createElement('td');
-      hTd.colSpan = NCOLS_PROJ;
-      hTd.textContent = '▸ ' + frenteVal;
-      hRow.appendChild(hTd);
-      tb.appendChild(hRow);
+  // ── Projetos Concluídos — lista compacta, sem agrupamento por frente ──
+  if (tbConc) {
+    var concOrdenados = concluidos.slice().sort(function(a, b) { return a.id < b.id ? -1 : 1; });
+    if (concOrdenados.length === 0) {
+      emptyRow(tbConc, NCOLS_PROJ_CONC, '📭', 'Nenhum projeto concluído com os filtros aplicados.');
+    } else {
+      concOrdenados.forEach(function(p) { tbConc.appendChild(linhaProjetoConcluido(p)); });
     }
+  }
+  if (contador) contador.textContent = concluidos.length;
+}
 
-    var tr = document.createElement('tr');
-    tr.dataset.prior  = p.prioridade;
-    tr.dataset.status = p.status;
-    tr.dataset.frente = p.frente || '';
+// ─── Indicadores executivos do topo (EPIC 3 / Sprint 6 — Etapa 3) ────
+// Calculados sobre o portfólio completo (psProj), não sobre a lista filtrada,
+// para que continuem representando a visão executiva geral mesmo com filtros ativos.
+function renderIndicadoresProjetos() {
+  var el = document.getElementById('proj-indicadores');
+  if (!el) return;
+  clearEl(el);
 
-    // ID
-    var linkTd = document.createElement('td');
-    var link = document.createElement('a');
-    link.href = 'projetos/ficha.html#' + p.id;
-    link.className = 'proj-link'; link.textContent = p.id;
-    linkTd.appendChild(link);
+  var ativos      = psProj.filter(function(p){ return p.status !== 'Concluído'; });
+  var concluidos  = psProj.filter(function(p){ return p.status === 'Concluído'; });
+  var criticos    = psProj.filter(function(p){ return calcularSaude(p).label === 'Crítico'; });
+  var atencao     = psProj.filter(function(p){ return calcularSaude(p).label === 'Atenção'; });
+  var hoje = new Date(); hoje.setHours(0,0,0,0);
+  var em7  = new Date(hoje.getTime()); em7.setDate(em7.getDate() + 7); em7.setHours(23,59,59,999);
+  var entregaProxima = psProj.filter(function(p) {
+    if (p.status === 'Concluído' || !p.prazoPrevisto) return false;
+    var d = new Date(p.prazoPrevisto);
+    return !isNaN(d.getTime()) && d >= hoje && d <= em7;
+  });
 
-    // Nome
-    var nomeTd = document.createElement('td');
-    nomeTd.style.maxWidth = '200px';
-    nomeTd.textContent = p.nome;
-
-    // Frente (nova coluna)
-    var frenteTd = document.createElement('td');
-    var fBadge = document.createElement('span');
-    fBadge.className = 'badge badge-azul';
-    fBadge.style.fontSize = '.65rem';
-    fBadge.textContent = p.frente || '—';
-    frenteTd.appendChild(fBadge);
-
-    // Classificação
-    var clBadge = document.createElement('span');
-    clBadge.className = 'badge badge-cinza';
-    clBadge.style.fontSize = '.68rem';
-    clBadge.textContent = p.classificacao;
-    var clTd = document.createElement('td');
-    clTd.appendChild(clBadge);
-
-    // Prioridade
-    var prBadge = document.createElement('span');
-    prBadge.className = 'badge ' + priorBadge(p.prioridade);
-    prBadge.textContent = p.prioridade;
-    var prTd = document.createElement('td');
-    prTd.appendChild(prBadge);
-
-    // Status
-    var stBadge = document.createElement('span');
-    stBadge.className = 'badge ' + statusBadge(p.status);
-    stBadge.textContent = p.status;
-    var stTd = document.createElement('td');
-    stTd.appendChild(stBadge);
-
-    // Fase (corrige ausência pré-existente)
-    var faseTd = document.createElement('td');
-    faseTd.textContent = p.fase || '—';
-
-    // Plataforma (corrige ausência pré-existente)
-    var platTd = document.createElement('td');
-    platTd.style.maxWidth = '150px';
-    platTd.textContent = p.plataforma || '—';
-
-    // % Conclusão
-    var percTd = document.createElement('td');
-    var bar = document.createElement('div');
-    bar.style.cssText = 'display:flex;align-items:center;gap:6px;';
-    bar.innerHTML = '<div class="progress-bar"><div class="progress-fill" style="width:' + p.percentual + '%;background:' + fc + '"></div></div>'
-      + '<span style="font-size:.76rem;font-weight:700;color:' + fc + '">' + p.percentual + '%</span>';
-    percTd.appendChild(bar);
-
-    // Semáforo
-    var semTd = document.createElement('td');
-    semTd.style.fontSize = '1.1rem';
-    semTd.textContent = p.semaforo;
-
-    // Responsável
-    var respTd = document.createElement('td');
-    respTd.textContent = p.responsavel || '—';
-
-    // Prazo
-    var prazoTd = document.createElement('td');
-    prazoTd.textContent = p.prazoPrevisto || '—';
-
-    // Ficha
-    var fichaLink = document.createElement('a');
-    fichaLink.href = 'projetos/ficha.html#' + p.id;
-    fichaLink.className = 'proj-link';
-    fichaLink.textContent = 'Ver ficha';
-    var fichaTd = document.createElement('td');
-    fichaTd.appendChild(fichaLink);
-
-    tr.append(linkTd, nomeTd, frenteTd, clTd, prTd, stTd, faseTd, platTd, percTd, semTd, respTd, prazoTd, fichaTd);
-    tb.appendChild(tr);
+  [
+    { icon: '⚙️', valor: ativos.length,      label: 'Projetos Ativos',        cls: 'azul' },
+    { icon: '✅', valor: concluidos.length,  label: 'Projetos Concluídos',    cls: 'verde' },
+    { icon: '🚨', valor: criticos.length,    label: 'Projetos Críticos',      cls: 'vermelho' },
+    { icon: '⚠️', valor: atencao.length,     label: 'Projetos em Atenção',    cls: 'amarelo' },
+    { icon: '📅', valor: entregaProxima.length, label: 'Entrega nos Próx. 7 Dias', cls: 'laranja' }
+  ].forEach(function(ind) {
+    var card = document.createElement('div');
+    card.className = 'card ' + ind.cls;
+    var icon = document.createElement('div'); icon.className = 'card-icon'; icon.textContent = ind.icon;
+    var val  = document.createElement('div'); val.className  = 'card-value'; val.textContent = ind.valor;
+    var lbl  = document.createElement('div'); lbl.className  = 'card-label'; lbl.textContent = ind.label;
+    card.append(icon, val, lbl);
+    el.appendChild(card);
   });
 }
+renderIndicadoresProjetos();
+
 // Fase 5B.1: renderizar aba Projetos apenas com tipoItem === 'Projeto'
-renderProjetos(COI_DATA.projetos.filter(function(p){ return !p.tipoItem || p.tipoItem === 'Projeto'; }));
+renderProjetos(psProj);
 
 // Fase 5A.2 — I-04: popular filtro de frente dinamicamente a partir dos dados
 (function() {

@@ -125,6 +125,11 @@ nav a:hover, nav a.active { color: #fff; border-bottom-color: #FFC107; }
 }
 .nav-dropdown-search:focus { border-color: var(--azul-medio); }
 
+.nav-dropdown-group {
+  font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--texto-muted, #64748B); padding: 10px 10px 4px;
+}
+.nav-dropdown-group:first-child { padding-top: 4px; }
 .nav-dropdown-list { display: flex; flex-direction: column; gap: 4px; }
 .nav-dropdown-item {
   display: flex; align-items: flex-start; gap: 12px;
@@ -272,13 +277,16 @@ tr:last-child td { border-bottom: none; }
 /* ─── Fase 5B.2 — Resumo Executivo Operacional ─────────────────────── */
 .op-resumo-exec { background: var(--azul-claro, #E3F2FD); border-radius: var(--radius-md, 10px); padding: 16px 20px; margin-bottom: 16px; }
 .op-resumo-exec h3 { font-size: .84rem; font-weight: 700; color: var(--azul-escuro, #1B3A6B); margin-bottom: 12px; }
-.op-mini-cards { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
-.op-mini-card  { background: #fff; border-radius: var(--radius-sm, 6px); padding: 10px 16px; text-align: center; min-width: 90px; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
-.op-mini-value { font-size: 1.5rem; font-weight: 800; color: var(--azul-medio, #1565C0); line-height: 1; }
-.op-mini-value.verde    { color: #2E7D32; }
-.op-mini-value.amarelo  { color: #F9A825; }
-.op-mini-value.vermelho { color: #C62828; }
-.op-mini-label { font-size: .63rem; color: #666; text-transform: uppercase; letter-spacing: .4px; font-weight: 600; margin-top: 3px; }
+/* Sprint 6.1 (Etapa 2): escopadas sob .op-resumo-exec para não colidir com
+   os seletores homônimos de "Indicadores Operacionais" (Fase 5B.4, abaixo),
+   usados em index.html dentro de .op-group. */
+.op-resumo-exec .op-mini-cards { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.op-resumo-exec .op-mini-card  { background: #fff; border-radius: var(--radius-sm, 6px); padding: 10px 16px; text-align: center; min-width: 90px; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
+.op-resumo-exec .op-mini-value { font-size: 1.5rem; font-weight: 800; color: var(--azul-medio, #1565C0); line-height: 1; }
+.op-resumo-exec .op-mini-value.verde    { color: #2E7D32; }
+.op-resumo-exec .op-mini-value.amarelo  { color: #F9A825; }
+.op-resumo-exec .op-mini-value.vermelho { color: #C62828; }
+.op-resumo-exec .op-mini-label { font-size: .63rem; color: #666; text-transform: uppercase; letter-spacing: .4px; font-weight: 600; margin-top: 3px; }
 .op-tipo-badges { display: flex; gap: 6px; flex-wrap: wrap; }
 
 /* ─── PROGRESS BAR ─────────────────────────────────────────────────── */
@@ -804,3 +812,32 @@ footer { text-align: center; font-size: .73rem; color: #888; padding: 20px; bord
   .cards-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
   .card-value { font-size: 1.9rem; }
 }
+
+/* ─── EPIC 4 / Sprint 7.1 — Centro de Situação Executivo (Dashboard) ───────
+   Reutiliza .cards-grid/.card já existentes (Component Review); único ajuste
+   é um destaque tipográfico para a linha de síntese no topo da página. */
+.cs-headline .card-value { font-size: 2.55rem; }
+.cs-headline .card { border-top-width: 4px; }
+
+/* ─── EPIC 3 / Sprint 6 — Cockpit Executivo do Portfólio ───────────────────
+   Projetos Concluídos: área recolhida por padrão, menor destaque visual,
+   funcionando como histórico executivo sem competir com os projetos ativos. */
+.proj-concluidos { margin-top: 26px; }
+.proj-concluidos summary {
+  cursor: pointer; list-style: none; user-select: none;
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px; background: #F4F6FA; border-radius: var(--radius-md);
+  font-size: .85rem; font-weight: 700; color: #5A6B85;
+  border: 1px solid var(--linha-sutil, #EEF1F8);
+}
+.proj-concluidos summary::-webkit-details-marker { display: none; }
+.proj-concluidos summary::before { content: "▸"; display: inline-block; transition: transform .2s; }
+.proj-concluidos[open] summary::before { transform: rotate(90deg); }
+.proj-concluidos[open] summary { border-radius: var(--radius-md) var(--radius-md) 0 0; }
+.proj-concluidos .table-wrap {
+  opacity: .85;
+  border: 1px solid var(--linha-sutil, #EEF1F8); border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 4px 4px 0;
+}
+.proj-concluidos table { font-size: .78rem; }
